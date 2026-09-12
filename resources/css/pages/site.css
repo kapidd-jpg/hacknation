@@ -1,0 +1,144 @@
+/* ============================================================
+   PintarKuy — shared styles for static pages (Tentang / Kelas / Kontak)
+   Loaded by every page via its own @push('styles')
+   ============================================================ */
+
+:root {
+    --navy-950: #00052c;
+    --navy-900: #0b1c30;
+    --navy-800: #111c4e;
+    --navy-600: #515b90;
+    --navy-400: #7b85bd;
+    --navy-300: #b9c3ff;
+    --navy-100: #dee1ff;
+    --navy-50: #eff4ff;
+    --green: #006d30;
+    --green-light: #7efc9a;
+    --green-text: #007433;
+    --ink: #0b1c30;
+    --ink-soft: #45464f;
+    --ink-muted: #767680;
+    --shadow-card: 0 4px 20px -2px rgba(15, 27, 76, 0.08);
+    --radius: 18px;
+}
+
+html { scroll-behavior: smooth; }
+
+/* ---------- Page hero (shared banner header) ---------- */
+.page-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 76px 24px 88px;
+    text-align: center;
+    background: linear-gradient(160deg, #eff4ff 0%, #ffffff 45%, #eff4ff 100%);
+}
+.page-hero::before,
+.page-hero::after {
+    content: '';
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(60px);
+    pointer-events: none;
+}
+.page-hero::before { width: 380px; height: 380px; left: -120px; top: -130px; background: rgba(126, 252, 154, 0.28); }
+.page-hero::after { width: 420px; height: 420px; right: -130px; bottom: -170px; background: rgba(222, 225, 255, 0.6); }
+.page-hero > * { position: relative; z-index: 1; }
+
+.pk-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--navy-900);
+    background: var(--navy-100);
+    padding: 7px 14px;
+    border-radius: 9999px;
+}
+.page-hero-title {
+    font-size: clamp(30px, 5vw, 44px);
+    line-height: 1.12;
+    font-weight: 900;
+    color: var(--navy-900);
+    letter-spacing: -0.02em;
+    margin: 18px auto 14px;
+    max-width: 760px;
+}
+.page-hero-sub {
+    max-width: 640px;
+    margin: 0 auto 26px;
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.75;
+}
+.page-hero-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+
+/* ---------- Buttons ---------- */
+.pk-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 12px 26px;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.pk-btn--dark { background: var(--navy-800); color: #fff; box-shadow: 0 10px 24px -10px rgba(17, 28, 78, 0.5); }
+.pk-btn--dark:hover { background: var(--navy-950); transform: translateY(-1px); }
+.pk-btn--ghost { background: #fff; color: var(--navy-950); border: 1px solid rgba(0, 0, 0, 0.1); }
+.pk-btn--ghost:hover { background: var(--navy-50); }
+
+/* ---------- Generic section ---------- */
+.pk-section { padding: 84px 24px; }
+.pk-section--muted { background: var(--navy-50); }
+.pk-section--white { background: #fff; }
+.pk-container { max-width: 1120px; margin: 0 auto; }
+.pk-section-head { text-align: center; max-width: 640px; margin: 0 auto 48px; }
+.pk-section-head h2 {
+    font-size: clamp(24px, 3.4vw, 30px);
+    font-weight: 900;
+    color: var(--navy-900);
+    letter-spacing: -0.01em;
+    margin: 14px 0 10px;
+}
+.pk-section-head p { color: var(--ink-soft); line-height: 1.7; margin: 0; }
+
+/* ---------- CTA band ---------- */
+.pk-cta {
+    position: relative;
+    overflow: hidden;
+    background: var(--navy-800);
+    border-radius: 28px;
+    padding: 58px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+    color: #fff;
+}
+.pk-cta::before,
+.pk-cta::after {
+    content: '';
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(70px);
+    pointer-events: none;
+}
+.pk-cta::before { width: 300px; height: 300px; right: -100px; bottom: -140px; background: rgba(0, 109, 48, 0.5); }
+.pk-cta::after { width: 260px; height: 260px; left: -100px; top: -150px; background: rgba(255, 255, 255, 0.07); }
+.pk-cta > * { position: relative; z-index: 1; }
+.pk-cta h2 { font-size: clamp(24px, 3.4vw, 32px); font-weight: 900; letter-spacing: -0.01em; margin: 0; }
+.pk-cta p { color: var(--navy-400); line-height: 1.65; max-width: 520px; margin: 0; }
+
+/* ---------- Scroll reveal ---------- */
+.pk-reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.pk-reveal.is-visible { opacity: 1; transform: none; }

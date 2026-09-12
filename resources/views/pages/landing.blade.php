@@ -1,23 +1,23 @@
 @extends('layouts.app')
 
-@section('title', 'StudyServer — Belajar lebih terarah, berkembang lebih cepat')
+@section('title', 'PintarKuy — Belajar lebih terarah, berkembang lebih cepat')
 
 @section('content')
 
 {{-- ============ HEADER ============ --}}
 <header class="bg-navy-800 sticky top-0 z-50 shadow-[0px_4px_20px_-2px_rgba(15,27,76,0.15)]">
-    <div class="max-w-[1280px] mx-auto flex items-center justify-between h-20 px-6 md:px-12">
+    <div class="w-full flex items-center justify-between h-20 px-6 md:px-12">
         <a href="{{ url('/') }}" class="flex items-center gap-3">
-            <span class="flex items-center justify-center size-8 rounded-md bg-white/10">
-                <svg class="size-5 text-brand-greenlight" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.25278V19.25M12 6.25278C10.8321 5.47686 9.24649 5 7.5 5C5.75351 5 4.16789 5.47686 3 6.25278V19.25C4.16789 18.4741 5.75351 18 7.5 18C9.24649 18 10.8321 18.4741 12 19.25M12 6.25278C13.1679 5.47686 14.7535 5 16.5 5C18.2465 5 19.8321 5.47686 21 6.25278V19.25C19.8321 18.4741 18.2465 18 16.5 18C14.7535 18 13.1679 18.4741 12 19.25"/></svg>
+            <span class="flex items-center justify-center size-12 rounded-xl bg-gradient-to-br from-brand-green to-navy-950 shadow-lg ring-1 ring-white/20 shrink-0">
+                <svg class="size-7 text-brand-greenlight" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.25278V19.25M12 6.25278C10.8321 5.47686 9.24649 5 7.5 5C5.75351 5 4.16789 5.47686 3 6.25278V19.25C4.16789 18.4741 5.75351 18 7.5 18C9.24649 18 10.8321 18.4741 12 19.25M12 6.25278C13.1679 5.47686 14.7535 5 16.5 5C18.2465 5 19.8321 5.47686 21 6.25278V19.25C19.8321 18.4741 18.2465 18 16.5 18C14.7535 18 13.1679 18.4741 12 19.25"/></svg>
             </span>
-            <span class="text-white font-bold text-xl tracking-tight">StudyServer</span>
+            <span class="text-white font-bold text-xl tracking-tight">PintarKuy</span>
         </a>
         <nav class="hidden md:flex items-center gap-8">
             <a href="{{ url('/') }}" class="text-white font-bold border-b-2 border-brand-greenlight pb-1.5">Beranda</a>
-            <a href="#" class="text-navy-400 text-sm font-semibold hover:text-white transition">Tentang</a>
-            <a href="#" class="text-navy-400 text-sm font-semibold hover:text-white transition">Kelas</a>
-            <a href="#" class="text-navy-400 text-sm font-semibold hover:text-white transition">Kontak</a>
+            <a href="{{ route('about') }}" class="text-navy-400 text-sm font-semibold hover:text-white transition">Tentang</a>
+            <a href="{{ route('classes') }}" class="text-navy-400 text-sm font-semibold hover:text-white transition">Kelas</a>
+            <a href="{{ route('contact') }}" class="text-navy-400 text-sm font-semibold hover:text-white transition">Kontak</a>
         </nav>
         <div class="flex items-center gap-4">
             <a href="{{ route('login') }}" class="text-white text-sm font-semibold px-3 py-2 hover:text-navy-300 transition">Masuk</a>
@@ -31,7 +31,7 @@
     <div class="absolute -top-32 -left-32 size-96 rounded-full bg-brand-greenlight/20 blur-3xl"></div>
     <div class="absolute top-20 right-0 size-[480px] rounded-full bg-navy-100/30 blur-3xl"></div>
 
-    <div class="relative max-w-[1280px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+    <div class="relative w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         <div class="lg:col-span-7 flex flex-col items-start gap-6">
             <span class="inline-flex items-center gap-2 bg-navy-50 border border-black/10 rounded-full px-4 py-1.5 shadow-sm">
                 <span class="relative flex size-2.5">
@@ -79,7 +79,7 @@
 
             <div class="relative bg-white p-2.5 rounded-3xl shadow-2xl w-full max-w-md">
                 <img src="https://www.figma.com/api/mcp/asset/4cbcc0bf-e804-4e9a-8e8b-fcf8b74e5af0.png"
-                     alt="Siswa StudyServer belajar online dengan laptop"
+                     alt="Siswa PintarKuy belajar online dengan laptop"
                      class="w-full rounded-2xl aspect-[454/339] object-cover">
             </div>
 
@@ -123,7 +123,7 @@
     </div>
 
     {{-- Stats strip --}}
-    <div class="relative max-w-[1152px] mx-auto -mb-8 mt-12">
+    <div class="relative w-full -mb-8 mt-12">
         <div class="bg-white rounded-2xl shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1)] p-8 grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-black/10">
             <div class="flex items-center gap-4 px-4 py-2">
                 <span class="flex items-center justify-center size-12 rounded-2xl bg-navy-100 shrink-0">
@@ -156,12 +156,34 @@
     </div>
 </section>
 
+{{-- ============ TRUSTED BY STRIP ============ --}}
+<section class="bg-white pt-20 pb-10 px-6 md:px-12">
+    <div class="w-full flex flex-col items-center gap-8">
+        <p class="text-ink-muted text-xs font-bold tracking-widest uppercase text-center">Dipercaya universitas & institusi pendidikan di seluruh Indonesia</p>
+        <div class="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 items-center">
+            @foreach ([
+                ['U-27', 'Univ. Negeri 27', 'bg-navy-100'],
+                ['S', 'SMA Juara', 'bg-amber-100'],
+                ['K', 'Kampus Merdeka', 'bg-brand-greenlight/40'],
+                ['P', 'Pesantren Teknologi', 'bg-purple-100'],
+                ['I', 'Institut Inovasi', 'bg-navy-100'],
+                ['C', 'Cendekia Bangsa', 'bg-amber-100'],
+            ] as [$mark, $name, $bg])
+            <div class="flex items-center justify-center gap-2.5 opacity-70 hover:opacity-100 transition">
+                <span class="flex items-center justify-center size-9 rounded-xl {{ $bg }} font-black text-navy-950 text-sm">{{ $mark }}</span>
+                <span class="text-navy-400 font-bold text-sm tracking-tight">{{ $name }}</span>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
 {{-- ============ FEATURE GRID ============ --}}
 <section id="kelas" class="bg-navy-50 pt-24 pb-16 px-6 md:px-12">
-    <div class="max-w-[1280px] mx-auto flex flex-col items-center gap-16">
+    <div class="w-full flex flex-col items-center gap-16">
         <div class="max-w-2xl flex flex-col items-center text-center gap-4">
             <span class="bg-navy-100 text-navy-950 text-[11px] font-bold tracking-widest uppercase px-3.5 py-1 rounded-full">Metodologi Belajar Modern</span>
-            <h2 class="text-3xl md:text-4xl font-extrabold text-navy-900 tracking-tight">Kenapa pilih StudyServer?</h2>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-navy-900 tracking-tight">Kenapa pilih PintarKuy?</h2>
             <p class="text-ink-soft">Kami merancang ekosistem belajar komprehensif yang mengombinasikan keunggulan pedagogi tatap muka dengan fleksibilitas teknologi adaptif.</p>
         </div>
 
@@ -232,9 +254,45 @@
     </div>
 </section>
 
+{{-- ============ HOW IT WORKS ============ --}}
+<section class="relative bg-navy-950 overflow-hidden py-24 px-6 md:px-12">
+    <div class="absolute -top-32 right-0 size-[420px] rounded-full bg-brand-green/20 blur-3xl"></div>
+    <div class="absolute bottom-0 -left-24 size-80 rounded-full bg-navy-800 blur-3xl"></div>
+
+    <div class="relative w-full flex flex-col items-center gap-16">
+        <div class="max-w-2xl flex flex-col items-center text-center gap-4">
+            <span class="bg-white/10 text-brand-greenlight text-[11px] font-bold tracking-widest uppercase px-3.5 py-1 rounded-full backdrop-blur">Mulai Belajar dalam 3 Langkah</span>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight">Gimana cara mulai di PintarKuy?</h2>
+            <p class="text-navy-300">Tidak butuh pengalaman atau persiapan khusus. Cukup daftar dan biarkan sistem adaptif kami menyusun rencana belajarmu.</p>
+        </div>
+
+        <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-6">
+            @foreach ([
+                ['1', 'Daftar & Isi Profil', 'Buat akun gratis dan tentukan jurusan impianmu. Sistem akan menyusun peta kemampuan awal lewat asesmen singkat 10 menit.', 'M02 12 M14 2 H6 a2 2 0 0 0-2 2 v16 a2 2 0 0 0 2 2 h12 a2 2 0 0 0 2-2 V8 z M14 2 v6 h6'],
+                ['2', 'Ikuti Rencana Adaptif', 'Setiap hari dapatkan materi, latihan soal, dan live class yang disesuaikan dengan level serta target skor personalmu.', 'M3 3v1.5M21 3v1.5M20.5 8H3.5M21 5.5h-18a0 0 0 0 0 0v3a0 0 0 0 0 0 0h18a0 0 0 0 0 0 0v-3zM5.5 14l1.5 1.5L9.5 13M5.5 18l1.5 1.5L9.5 17M13 13.5h5M13 17.5h5'],
+                ['3', 'Lolos Kampus Impian', 'Pantau perkembangan lewat analitik real-time, ikuti tryout nasional, dan masuk jajaran dengan skor di atas passing grade.', 'M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z'],
+            ] as [$step, $title, $desc, $icon])
+            <div class="relative bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-7 flex flex-col gap-5 hover:bg-white/10 hover:-translate-y-1 transition duration-300">
+                <div class="flex items-center justify-between">
+                    <span class="flex items-center justify-center size-12 rounded-2xl bg-gradient-to-br from-brand-green to-brand-greentext shadow-lg">
+                        <svg class="size-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="{{ $icon }}"/></svg>
+                    </span>
+                    <span class="text-white/20 font-black text-5xl leading-none">{{ $step }}</span>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-2">{{ $title }}</h3>
+                    <p class="text-navy-300 text-sm leading-relaxed">{{ $desc }}</p>
+                </div>
+                <div class="h-1 w-10 rounded-full bg-brand-greenlight/60"></div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
 {{-- ============ QUIZ TEASER ============ --}}
 <section class="bg-navy-50 py-16 px-6 md:px-12">
-    <div class="max-w-[1280px] mx-auto bg-white border border-black/10 rounded-3xl shadow-xl p-8 md:p-12 flex flex-col lg:flex-row gap-10 items-center">
+    <div class="w-full bg-white border border-black/10 rounded-3xl shadow-xl p-8 md:p-12 flex flex-col lg:flex-row gap-10 items-center">
         <div class="flex-1 flex flex-col gap-5">
             <span class="inline-flex bg-brand-greenlight text-[#00210a] text-[11px] font-bold px-3 py-1 rounded-full w-fit">Simulasi IRT Real-Time</span>
             <h2 class="text-2xl font-extrabold text-navy-950 leading-snug">Uji Kemampuan Sekarang: Soal HOTS TPS Penalaran Umum</h2>
@@ -275,9 +333,136 @@
     </div>
 </section>
 
+{{-- ============ PROGRAMS / PRICING ============ --}}
+<section class="bg-navy-50 py-24 px-6 md:px-12">
+    <div class="w-full flex flex-col items-center gap-14">
+        <div class="max-w-2xl flex flex-col items-center text-center gap-4">
+            <span class="bg-brand-greenlight text-[#00210a] text-[11px] font-bold tracking-widest uppercase px-3.5 py-1 rounded-full">Program & Paket</span>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-navy-900 tracking-tight">Pilih Program Sesuai Target</h2>
+            <p class="text-ink-soft">Semua paket sudah termasuk akses penuh ke bank soal HOTS, live class, dan analitik IRT. Tanpa kontrak, berhenti kapan saja.</p>
+        </div>
+
+        <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+            @php
+                $plans = [
+                    [
+                        'name' => 'Trial Gratis',
+                        'old' => 'Rp 0',
+                        'price' => 'Rp 0',
+                        'per' => '7 hari',
+                        'tag' => null,
+                        'dark' => false,
+                        'feats' => ['3 sesi live class', 'Bank soal terbatas (200 soal)', '1x simulasi IRT', 'Forum diskusi komunitas'],
+                    ],
+                    [
+                        'name' => 'UTBK Pro',
+                        'old' => 'Rp 799.000',
+                        'price' => 'Rp 599.000',
+                        'per' => 'bulan',
+                        'tag' => 'Paling Laris',
+                        'dark' => true,
+                        'feats' => ['Semua fitur Trial', '6.000+ soal HOTS + pembahasan', 'Tryout nasional mingguan', 'Live class tanpa batas', 'Konsultasi private tutor', 'Analitik prediksi skor IRT'],
+                    ],
+                    [
+                        'name' => 'Golden Campus',
+                        'old' => 'Rp 1.499.000',
+                        'price' => 'Rp 1.199.000',
+                        'per' => 'bulan',
+                        'tag' => null,
+                        'dark' => false,
+                        'feats' => ['Semua fitur UTBK Pro', 'Mentor 1-on-1 (4x/bulan)', 'Paket tryout khusus 3 PTN', 'Revisi berkas & beasiswa', 'Grup khusus golden (max 20 siswa)'],
+                    ],
+                ];
+            @endphp
+            @foreach ($plans as $plan)
+                <div class="relative bg-white rounded-3xl p-8 shadow-card flex flex-col justify-between gap-8 {{ $plan['dark'] ? 'bg-navy-800 md:-translate-y-4 ring-4 ring-brand-green/30' : '' }}">
+                    @if ($plan['tag'])
+                        <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brand-green text-white text-[11px] font-bold tracking-wide px-4 py-1.5 rounded-full shadow-lg">{{ $plan['tag'] }}</span>
+                    @endif
+                    <div class="flex flex-col gap-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-bold text-xl {{ $plan['dark'] ? 'text-white' : 'text-navy-900' }}">{{ $plan['name'] }}</h3>
+                            <span class="flex items-center justify-center size-10 rounded-xl {{ $plan['dark'] ? 'bg-white/10' : 'bg-navy-50' }}">
+                                <svg class="size-5 {{ $plan['dark'] ? 'text-brand-greenlight' : 'text-navy-800' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                            </span>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <p class="text-ink-muted text-xs font-semibold line-through">{{ $plan['old'] }}</p>
+                            <div class="flex items-baseline gap-1.5">
+                                <span class="text-4xl font-black tracking-tight {{ $plan['dark'] ? 'text-white' : 'text-navy-950' }}">{{ $plan['price'] }}</span>
+                                <span class="text-ink-muted text-xs font-semibold">/{{ $plan['per'] }}</span>
+                            </div>
+                        </div>
+                        <div class="h-px w-full {{ $plan['dark'] ? 'bg-white/10' : 'bg-navy-100' }}"></div>
+                        <ul class="flex flex-col gap-3">
+                            @foreach ($plan['feats'] as $feat)
+                                <li class="flex items-start gap-2.5 text-sm {{ $plan['dark'] ? 'text-navy-300' : 'text-ink-soft' }}">
+                                    <svg class="size-4 mt-0.5 shrink-0 {{ $plan['dark'] ? 'text-brand-greenlight' : 'text-brand-green' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                    {{ $feat }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <a href="{{ route('register') }}" class="text-center text-sm font-bold rounded-full py-3.5 transition
+                        {{ $plan['dark'] ? 'bg-brand-greenlight text-navy-950 hover:bg-brand-greenlight/90 shadow-lg' : 'bg-navy-800 text-white hover:bg-navy-950' }}">
+                        Mulai Sekarang
+                    </a>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+{{-- ============ TESTIMONIALS ============ --}}
+<section class="bg-white py-24 px-6 md:px-12">
+    <div class="w-full flex flex-col items-center gap-14">
+        <div class="max-w-2xl flex flex-col items-center text-center gap-4">
+            <span class="bg-navy-100 text-navy-950 text-[11px] font-bold tracking-widest uppercase px-3.5 py-1 rounded-full">Cerita Mereka</span>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-navy-900 tracking-tight">Lolos PTN Bersama PintarKuy</h2>
+            <p class="text-ink-soft">Ribuan alumni sudah membuktikan. Ini sebagian dari cerita mereka — kamu berikutnya.</p>
+        </div>
+
+        <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-6">
+            @foreach ([
+                ['Nav', 'Nabila Zahra', 'FK UI 2025', 'Skor gadja dari 480 ke 705 dalam 6 bulan. Live class-nya paling nge-zoom jelasin konsep — beda banget sama sekadar nonton video. Emak sampe nangis pas pengumuman.', 'bg-navy-900'],
+                ['R', 'Rangga Prasetyo', 'STEI ITB 2025', 'Fitur analitik IRT-nya gila sih. Tiap minggu aku tau persis lemah di mana dan langsung direkomendasiin materi yang harus diulang.', 'bg-brand-green'],
+                ['S', 'Salsabila Putri', 'FEB UGM 2025', 'Tryout mingguannya bikin mental juara. Jaringan internet lemot di kampung juga tetap lancar karena video-nya compact. Recommended 100%.', 'bg-navy-800'],
+            ] as [$initial, $name, $role, $quote, $bg])
+            <div class="bg-navy-50 rounded-2xl p-7 flex flex-col gap-5 hover:-translate-y-1 transition duration-300">
+                <div class="flex items-center justify-between">
+                    <div class="flex gap-1">
+                        @for ($i = 0; $i < 5; $i++)
+                            <svg class="size-4 text-amber-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        @endfor
+                    </div>
+                    <span class="text-ink-muted text-[11px] font-bold">Alumni 2025</span>
+                </div>
+                <p class="text-navy-900 text-sm leading-relaxed">"{{ $quote }}"</p>
+                <div class="flex items-center gap-3 pt-1">
+                    <span class="flex items-center justify-center size-10 rounded-full {{ $bg }} text-white font-bold text-sm shrink-0">{{ $initial }}</span>
+                    <div>
+                        <p class="text-navy-950 font-bold text-sm">{{ $name }}</p>
+                        <p class="text-ink-soft text-xs font-semibold">{{ $role }}</p>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+
+        <div class="flex items-center gap-3 pt-2">
+            <div class="flex -space-x-2">
+                @for ($i = 0; $i < 6; $i++)
+                    <span class="size-7 rounded-full border-2 border-white {{ $i % 2 ? 'bg-brand-green' : 'bg-navy-800' }}"></span>
+                @endfor
+            </div>
+            <p class="text-xs text-ink-soft"><span class="font-bold text-navy-900">10.000+</span> siswa telah bergabung, dan masih bertambah tiap hari</p>
+        </div>
+    </div>
+</section>
+
 {{-- ============ CTA BANNER ============ --}}
 <section class="bg-navy-50 py-24 px-6 md:px-12">
-    <div class="relative max-w-[1280px] mx-auto bg-navy-800 rounded-3xl shadow-2xl overflow-hidden p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8">
+    <div class="relative w-full bg-navy-800 rounded-3xl shadow-2xl overflow-hidden p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8">
         <div class="absolute -bottom-24 -right-24 size-80 rounded-full bg-brand-green/30 blur-3xl"></div>
         <div class="absolute -top-20 -left-20 size-72 rounded-full bg-navy-100/20 blur-3xl"></div>
 
@@ -292,16 +477,49 @@
     </div>
 </section>
 
+{{-- ============ FAQ ============ --}}
+<section class="bg-navy-50 py-24 px-6 md:px-12">
+    <div class="w-full max-w-3xl mx-auto flex flex-col items-center gap-12">
+        <div class="flex flex-col items-center text-center gap-4">
+            <span class="bg-navy-100 text-navy-950 text-[11px] font-bold tracking-widest uppercase px-3.5 py-1 rounded-full">Bantuan</span>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-navy-900 tracking-tight">Pertanyaan yang Sering Ditanya</h2>
+        </div>
+
+        <div class="w-full flex flex-col gap-3">
+            @foreach ([
+                ['Apakah ada masa trial benar-benar gratis?', 'Ya, 100% gratis tanpa kartu kredit. Kamu mendapat akses penuh selama 7 hari termasuk 1x simulasi IRT dan 3 sesi live class. Setelah trial berakhir, kamu bisa memilih paket atau berhenti tanpa biaya.', true],
+                ['Apakah pintarkuy cocok buat siswa SMA biasa?', 'Tentu. Sistem adaptif kami menyesuaikan level kesulitan soal dengan kemampuan awalmu. Tidak masalah mau rantau kelas 10, 11, atau 12 — rencana belajar dibuat khusus untukmu.', false],
+                ['Bagaimana cara konsultasi dengan tutor?', 'Melalui fitur Tanya Tutor di aplikasi, kamu bisa mengirim foto soal kapan saja. Balasan rata-rata datang di bawah 30 menit di jam aktif, dan untuk paket Golden tersedia sesi konsultasi 1-on-1 via video call.', false],
+                ['Soal dan materi memakai kurikulum yang mana?', 'Semua materi disusun mengikuti standar BPPP SNBT terbaru plus kurikulum merdeka untuk pendampingan sekolah. Bank soal diperbarui setiap bulan menyusul perubahan pola ujian.', false],
+                ['Bisakah berhenti kapan saja?', 'Bisa. Tidak ada ikatan kontrak. Kamu hanya membayar untuk periode yang berjalan, dan bisa berhenti kapan pun dari halaman pengaturan akun.', false],
+            ] as [$q, $a, $open])
+            <details class="group bg-white rounded-2xl shadow-card overflow-hidden" {{ $open ? 'open' : '' }}>
+                <summary class="flex items-center justify-between gap-4 p-6 cursor-pointer list-none select-none">
+                    <span class="text-navy-950 font-bold text-base leading-snug">{{ $q }}</span>
+                    <span class="flex items-center justify-center size-7 rounded-full bg-navy-50 shrink-0 transition rotate-0 group-open:rotate-45 group-open:bg-brand-greenlight">
+                        <svg class="size-3.5 text-navy-950" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                    </span>
+                </summary>
+                <div class="px-6 pb-6 -mt-1">
+                    <div class="h-px w-full bg-navy-100 mb-4"></div>
+                    <p class="text-ink-soft text-sm leading-relaxed">{{ $a }}</p>
+                </div>
+            </details>
+            @endforeach
+        </div>
+    </div>
+</section>
+
 {{-- ============ FOOTER ============ --}}
 <footer class="bg-navy-800">
-    <div class="max-w-[1280px] mx-auto px-6 md:px-12 pt-16 pb-12 flex flex-col gap-12">
+    <div class="w-full px-6 md:px-12 pt-16 pb-12 flex flex-col gap-12">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
             <div class="flex flex-col gap-4">
                 <div class="flex items-center gap-3">
-                    <span class="flex items-center justify-center size-8 rounded-md bg-white/10">
-                        <svg class="size-5 text-brand-greenlight" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.25278V19.25M12 6.25278C10.8321 5.47686 9.24649 5 7.5 5C5.75351 5 4.16789 5.47686 3 6.25278V19.25C4.16789 18.4741 5.75351 18 7.5 18C9.24649 18 10.8321 18.4741 12 19.25M12 6.25278C13.1679 5.47686 14.7535 5 16.5 5C18.2465 5 19.8321 5.47686 21 6.25278V19.25C19.8321 18.4741 18.2465 18 16.5 18C14.7535 18 13.1679 18.4741 12 19.25"/></svg>
+                    <span class="flex items-center justify-center size-12 rounded-xl bg-gradient-to-br from-brand-green to-navy-950 shadow-lg ring-1 ring-white/20 shrink-0">
+                        <svg class="size-7 text-brand-greenlight" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.25278V19.25M12 6.25278C10.8321 5.47686 9.24649 5 7.5 5C5.75351 5 4.16789 5.47686 3 6.25278V19.25C4.16789 18.4741 5.75351 18 7.5 18C9.24649 18 10.8321 18.4741 12 19.25M12 6.25278C13.1679 5.47686 14.7535 5 16.5 5C18.2465 5 19.8321 5.47686 21 6.25278V19.25C19.8321 18.4741 18.2465 18 16.5 18C14.7535 18 13.1679 18.4741 12 19.25"/></svg>
                     </span>
-                    <span class="text-white font-bold text-xl">StudyServer</span>
+                    <span class="text-white font-bold text-xl">PintarKuy</span>
                 </div>
                 <p class="text-navy-400 text-xs leading-relaxed">Platform bimbingan belajar digital terdepan untuk persiapan UTBK-SNBT dan ujian sekolah dengan teknologi adaptif berstandar nasional.</p>
             </div>
@@ -321,7 +539,7 @@
             </div>
             <div class="flex flex-col gap-3">
                 <h4 class="text-white text-sm font-semibold tracking-widest uppercase">Hubungi Kami</h4>
-                <p class="text-navy-400 text-xs leading-relaxed">Jakarta Selatan, DKI Jakarta<br>support@studyserver.id<br>+62 (021) 8899-2345</p>
+                <p class="text-navy-400 text-xs leading-relaxed">Jakarta Selatan, DKI Jakarta<br>support@PintarKuy.id<br>+62 (021) 8899-2345</p>
                 <div class="flex gap-3 pt-1">
                     @for ($i = 0; $i < 3; $i++)
                         <span class="flex items-center justify-center size-9 rounded-full bg-navy-950"></span>
@@ -330,7 +548,7 @@
             </div>
         </div>
         <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p class="text-navy-400 text-xs">© {{ date('Y') }} PT StudyServer Edukasi Indonesia. Hak Cipta Dilindungi.</p>
+            <p class="text-navy-400 text-xs">© {{ date('Y') }} PT PintarKuy Edukasi Indonesia. Hak Cipta Dilindungi.</p>
             <div class="flex gap-6">
                 <a href="#" class="text-navy-400 text-xs hover:text-white transition">Kebijakan Privasi</a>
                 <a href="#" class="text-navy-400 text-xs hover:text-white transition">Syarat & Ketentuan</a>

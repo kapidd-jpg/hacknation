@@ -1,1 +1,1 @@
-import './bootstrap';
+// PintarKuy — front-end scripts

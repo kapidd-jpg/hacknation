@@ -1,0 +1,30 @@
+/* ============================================================
+   PintarKuy — Dashboard: Laporan
+   ============================================================ */
+
+.lap-stat { display: flex; flex-direction: column; gap: 8px; }
+.lap-stat-label { font-size: 12px; font-weight: 600; color: var(--ink-soft); }
+.lap-stat-value { font-size: 26px; font-weight: 900; color: var(--navy-900); line-height: 1; }
+.lap-stat-delta { font-size: 11px; font-weight: 800; align-self: flex-start; padding: 4px 10px; border-radius: 9999px; }
+.lap-delta--up { color: var(--green-text); background: rgba(126, 252, 154, 0.4); }
+.lap-delta--down { color: #b91c1c; background: rgba(220, 38, 38, 0.1); }
+
+.lap-chart { display: flex; align-items: flex-end; gap: 14px; height: 220px; padding-top: 12px; }
+.lap-bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end; }
+.lap-bar-track { width: 100%; max-width: 44px; height: 100%; display: flex; align-items: flex-end; background: var(--navy-50); border-radius: 10px; overflow: hidden; }
+.lap-bar {
+    width: 100%;
+    height: 0;
+    border-radius: 10px;
+    background: linear-gradient(180deg, var(--green-light) 0%, var(--green) 100%);
+    transition: height 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.lap-bar-col:nth-child(even) .lap-bar { background: linear-gradient(180deg, #b9c3ff 0%, var(--navy-800) 100%); }
+.lap-bar-value { font-size: 11px; font-weight: 900; color: var(--navy-900); }
+.lap-bar-label { font-size: 11px; font-weight: 700; color: var(--ink-muted); }
+
+.lap-materi { display: flex; flex-direction: column; gap: 14px; }
+.lap-materi-row { display: flex; flex-direction: column; gap: 6px; }
+.lap-materi-head { display: flex; justify-content: space-between; font-size: 12.5px; }
+.lap-materi-head b { color: var(--navy-900); }
+.lap-materi-head span { color: var(--ink-soft); font-weight: 700; }

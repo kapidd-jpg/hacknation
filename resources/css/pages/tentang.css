@@ -1,0 +1,101 @@
+/* ============================================================
+   PintarKuy — Halaman Tentang
+   ============================================================ */
+
+/* ---------- Misi / Visi / Nilai ---------- */
+.tentang-story-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+@media (min-width: 768px) {
+    .tentang-story-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.tentang-story-card {
+    background: #fff;
+    border: 1px solid rgba(15, 27, 76, 0.08);
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.tentang-story-card:hover { transform: translateY(-4px); box-shadow: 0 16px 34px -12px rgba(15, 27, 76, 0.16); }
+.tentang-story-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tentang-story-icon svg { width: 24px; height: 24px; }
+.tentang-story-icon--green { background: rgba(126, 252, 154, 0.35); color: var(--green-text); }
+.tentang-story-icon--navy { background: var(--navy-100); color: var(--navy-800); }
+.tentang-story-icon--amber { background: #fef3c7; color: #92400e; }
+.tentang-story-icon--purple { background: #ede9fe; color: #6d28d9; }
+.tentang-story-card h3 { font-size: 20px; font-weight: 900; color: var(--navy-900); margin: 18px 0 10px; }
+.tentang-story-card p { color: var(--ink-soft); font-size: 14px; line-height: 1.7; margin: 0; }
+
+/* ---------- Stats band ---------- */
+.tentang-stats {
+    background: var(--navy-950);
+    border-radius: 28px;
+    padding: 48px 32px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    text-align: center;
+    margin-top: 64px;
+}
+@media (min-width: 768px) {
+    .tentang-stats { grid-template-columns: repeat(4, 1fr); }
+}
+.tentang-stat-value {
+    display: block;
+    font-size: clamp(28px, 4.5vw, 40px);
+    font-weight: 900;
+    color: #fff;
+    font-variant-numeric: tabular-nums;
+}
+.tentang-stat p { color: var(--navy-300); font-size: 13px; font-weight: 600; margin: 6px 0 0; }
+
+/* ---------- Timeline ---------- */
+.tentang-timeline {
+    position: relative;
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    max-width: 720px;
+}
+.tentang-timeline::before {
+    content: '';
+    position: absolute;
+    left: 18px;
+    top: 4px;
+    bottom: 4px;
+    width: 2px;
+    background: linear-gradient(var(--green-light), var(--navy-100));
+}
+.tentang-milestone { position: relative; padding: 0 0 34px 58px; }
+.tentang-milestone:last-child { padding-bottom: 0; }
+.tentang-milestone::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 2px;
+    width: 24px;
+    height: 24px;
+    border-radius: 9999px;
+    background: #fff;
+    border: 6px solid var(--green);
+    box-shadow: 0 0 0 4px rgba(0, 109, 48, 0.12);
+}
+.tentang-milestone-year {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: var(--green);
+    text-transform: uppercase;
+}
+.tentang-milestone h3 { font-size: 19px; font-weight: 800; color: var(--navy-900); margin: 6px 0 8px; }
+.tentang-milestone p { font-size: 14px; color: var(--ink-soft); line-height: 1.65; margin: 0; }

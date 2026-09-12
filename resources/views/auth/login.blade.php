@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Masuk — StudyServer')
+@section('title', 'Masuk — PintarKuy')
 
 @section('content')
 <div class="min-h-screen flex flex-col lg:flex-row">
@@ -11,11 +11,11 @@
         <div class="absolute bottom-10 right-0 size-[448px] rounded-full bg-purple-400/10 blur-3xl"></div>
 
         <div class="relative flex items-center gap-3">
-            <span class="flex items-center justify-center size-11 rounded-xl bg-white shadow-lg shrink-0">
-                <svg class="size-5 text-navy-800" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.25278V19.25M12 6.25278C10.8321 5.47686 9.24649 5 7.5 5C5.75351 5 4.16789 5.47686 3 6.25278V19.25C4.16789 18.4741 5.75351 18 7.5 18C9.24649 18 10.8321 18.4741 12 19.25M12 6.25278C13.1679 5.47686 14.7535 5 16.5 5C18.2465 5 19.8321 5.47686 21 6.25278V19.25C19.8321 18.4741 18.2465 18 16.5 18C14.7535 18 13.1679 18.4741 12 19.25"/></svg>
+            <span class="flex items-center justify-center size-12 rounded-xl bg-gradient-to-br from-brand-green to-navy-950 shadow-lg ring-1 ring-white/20 shrink-0">
+                <svg class="size-7 text-brand-greenlight" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.25278V19.25M12 6.25278C10.8321 5.47686 9.24649 5 7.5 5C5.75351 5 4.16789 5.47686 3 6.25278V19.25C4.16789 18.4741 5.75351 18 7.5 18C9.24649 18 10.8321 18.4741 12 19.25M12 6.25278C13.1679 5.47686 14.7535 5 16.5 5C18.2465 5 19.8321 5.47686 21 6.25278V19.25C19.8321 18.4741 18.2465 18 16.5 18C14.7535 18 13.1679 18.4741 12 19.25"/></svg>
             </span>
             <div>
-                <p class="text-white font-semibold text-lg leading-tight">StudyServer</p>
+                <p class="text-white font-semibold text-lg leading-tight">PintarKuy</p>
                 <p class="text-navy-300 text-[11px] font-bold tracking-widest uppercase">Adaptive Bimbel Ecosystem</p>
             </div>
         </div>
@@ -26,7 +26,7 @@
                 <span class="text-brand-greenlight text-xs font-semibold tracking-wide">Platform Bimbingan UTBK & Belajar #1</span>
             </span>
             <h1 class="text-white text-4xl font-extrabold leading-tight tracking-tight">Selamat datang kembali.</h1>
-            <p class="text-navy-300/90 leading-relaxed">Lanjutkan langkah belajarmu hari ini untuk mencapai masa depan dan meraih kampus impian bersama StudyServer.</p>
+            <p class="text-navy-300/90 leading-relaxed">Lanjutkan langkah belajarmu hari ini untuk mencapai masa depan dan meraih kampus impian bersama PintarKuy.</p>
 
             <div class="relative rounded-2xl overflow-hidden shadow-2xl mt-2" style="background:linear-gradient(34deg, rgba(0,5,44,0.6) 0%, rgba(0,5,44,0) 100%); padding:22px 6px 6px;">
                 <div class="relative aspect-video bg-navy-950 rounded-xl overflow-hidden">
@@ -61,7 +61,7 @@
         <div class="w-full max-w-md">
             <span class="inline-block bg-navy-100 text-navy-950 text-[11px] font-bold tracking-widest uppercase px-2.5 py-1 rounded">Portal Masuk Siswa</span>
             <h2 class="text-navy-950 text-2xl font-bold mt-2">Masuk</h2>
-            <p class="text-ink-soft text-sm mt-1 mb-6">Silakan masukkan detail akun StudyServer kamu.</p>
+            <p class="text-ink-soft text-sm mt-1 mb-6">Silakan masukkan detail akun PintarKuy kamu.</p>
 
             @if ($errors->any())
                 <div class="mb-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3">
@@ -132,7 +132,7 @@
             </p>
 
             <p class="text-center text-ink-muted text-xs leading-relaxed mt-6">
-                Dengan masuk, kamu menyetujui <a href="#" class="underline">Ketentuan Layanan</a> & <a href="#" class="underline">Kebijakan Privasi</a> StudyServer.
+                Dengan masuk, kamu menyetujui <a href="#" class="underline">Ketentuan Layanan</a> & <a href="#" class="underline">Kebijakan Privasi</a> PintarKuy.
             </p>
         </div>
     </div>

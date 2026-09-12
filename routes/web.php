@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| StudyServer — routes for the 3 pages built from Figma
+| PintarKuy — routes for the 3 pages built from Figma
 |--------------------------------------------------------------------------
 | Drop this into your existing routes/web.php (or merge with what's
 | already there). Controllers are left out on purpose — these are plain
@@ -31,5 +31,15 @@ Route::get('/daftar', function () {
 })->name('register');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashboard.index');
 })->name('dashboard');
+
+Route::view('/dashboard/kelas', 'dashboard.kelas')->name('dashboard.kelas');
+Route::view('/dashboard/katalog', 'dashboard.katalog')->name('dashboard.katalog');
+Route::view('/dashboard/nilai', 'dashboard.nilai')->name('dashboard.nilai');
+Route::view('/dashboard/laporan', 'dashboard.laporan')->name('dashboard.laporan');
+Route::view('/dashboard/pengaturan', 'dashboard.pengaturan')->name('dashboard.pengaturan');
+
+Route::view('/tentang', 'pages.tentang')->name('about');
+Route::view('/kelas', 'pages.kelas')->name('classes');
+Route::view('/kontak', 'pages.kontak')->name('contact');
