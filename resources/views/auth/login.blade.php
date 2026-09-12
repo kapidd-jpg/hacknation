@@ -1,0 +1,140 @@
+@extends('layouts.app')
+
+@section('title', 'Masuk — StudyServer')
+
+@section('content')
+<div class="min-h-screen flex flex-col lg:flex-row">
+
+    {{-- ============ LEFT: BRAND PANEL ============ --}}
+    <div class="relative lg:flex-1 bg-navy-800 overflow-hidden p-10 md:p-16 flex flex-col justify-between">
+        <div class="absolute -top-32 -left-32 size-96 rounded-full bg-brand-green/15 blur-3xl"></div>
+        <div class="absolute bottom-10 right-0 size-[448px] rounded-full bg-purple-400/10 blur-3xl"></div>
+
+        <div class="relative flex items-center gap-3">
+            <span class="flex items-center justify-center size-11 rounded-xl bg-white shadow-lg shrink-0">
+                <svg class="size-5 text-navy-800" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.25278V19.25M12 6.25278C10.8321 5.47686 9.24649 5 7.5 5C5.75351 5 4.16789 5.47686 3 6.25278V19.25C4.16789 18.4741 5.75351 18 7.5 18C9.24649 18 10.8321 18.4741 12 19.25M12 6.25278C13.1679 5.47686 14.7535 5 16.5 5C18.2465 5 19.8321 5.47686 21 6.25278V19.25C19.8321 18.4741 18.2465 18 16.5 18C14.7535 18 13.1679 18.4741 12 19.25"/></svg>
+            </span>
+            <div>
+                <p class="text-white font-semibold text-lg leading-tight">StudyServer</p>
+                <p class="text-navy-300 text-[11px] font-bold tracking-widest uppercase">Adaptive Bimbel Ecosystem</p>
+            </div>
+        </div>
+
+        <div class="relative flex flex-col gap-4 max-w-xl py-16">
+            <span class="inline-flex items-center gap-2 bg-white/10 backdrop-blur rounded-full px-3.5 py-1.5 w-fit shadow-sm">
+                <span class="size-2.5 rounded-full bg-brand-greenlight"></span>
+                <span class="text-brand-greenlight text-xs font-semibold tracking-wide">Platform Bimbingan UTBK & Belajar #1</span>
+            </span>
+            <h1 class="text-white text-4xl font-extrabold leading-tight tracking-tight">Selamat datang kembali.</h1>
+            <p class="text-navy-300/90 leading-relaxed">Lanjutkan langkah belajarmu hari ini untuk mencapai masa depan dan meraih kampus impian bersama StudyServer.</p>
+
+            <div class="relative rounded-2xl overflow-hidden shadow-2xl mt-2" style="background:linear-gradient(34deg, rgba(0,5,44,0.6) 0%, rgba(0,5,44,0) 100%); padding:22px 6px 6px;">
+                <div class="relative aspect-video bg-navy-950 rounded-xl overflow-hidden">
+                    <img src="https://www.figma.com/api/mcp/asset/d250731a-01e9-4f84-b341-1109ec7594f9.png"
+                         alt="Meja belajar dengan laptop menampilkan analitik kurikulum"
+                         class="absolute inset-0 w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-navy-800/60 to-transparent"></div>
+                    <div class="absolute left-4 right-4 bottom-4 bg-navy-800/85 backdrop-blur rounded-xl p-3 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="flex items-center justify-center size-8 rounded-lg bg-brand-greenlight/20">
+                                <svg class="size-3.5 text-brand-greenlight" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                            </span>
+                            <div>
+                                <p class="text-white text-[11px] font-bold">Target SNBT 2025</p>
+                                <p class="text-navy-300 text-xs">Simulasi Tryout Nasional ke-4</p>
+                            </div>
+                        </div>
+                        <span class="bg-brand-green/30 text-brand-greenlight text-xs font-semibold px-2.5 py-1 rounded-full">+18.4% Skor</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="relative flex items-center gap-2">
+            <span class="h-0.5 w-4 bg-brand-greenlight"></span>
+            <p class="text-navy-300/70 text-xs italic">Belajar lebih terarah. Berkembang lebih cepat. — Solusi Bimbel Adaptif Masa Depan</p>
+        </div>
+    </div>
+
+    {{-- ============ RIGHT: AUTH FORM ============ --}}
+    <div class="lg:flex-1 bg-navy-50 flex items-center justify-center px-6 md:px-24 py-12">
+        <div class="w-full max-w-md">
+            <span class="inline-block bg-navy-100 text-navy-950 text-[11px] font-bold tracking-widest uppercase px-2.5 py-1 rounded">Portal Masuk Siswa</span>
+            <h2 class="text-navy-950 text-2xl font-bold mt-2">Masuk</h2>
+            <p class="text-ink-soft text-sm mt-1 mb-6">Silakan masukkan detail akun StudyServer kamu.</p>
+
+            @if ($errors->any())
+                <div class="mb-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3">
+                    {{ $errors->first() }}
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('login.attempt') }}" class="flex flex-col gap-5">
+                @csrf
+
+                <div>
+                    <label for="email" class="text-navy-900 text-sm font-semibold">Email atau Username</label>
+                    <div class="relative mt-2">
+                        <svg class="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-ink-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        <input id="email" name="email" type="text" required autofocus
+                               placeholder="nama@email.com atau username"
+                               class="w-full bg-white rounded-xl shadow-sm pl-12 pr-4 py-4 text-sm text-navy-900 placeholder:text-ink-muted focus:outline-none focus:ring-2 focus:ring-navy-800">
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between">
+                        <label for="password" class="text-navy-900 text-sm font-semibold">Password</label>
+                        <a href="#" class="text-navy-600 text-[11px] font-bold">Lupa password?</a>
+                    </div>
+                    <div class="relative mt-2">
+                        <svg class="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-ink-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                        <input id="password" name="password" type="password" required
+                               placeholder="••••••••••••"
+                               class="w-full bg-white rounded-xl shadow-sm pl-12 pr-12 py-4 text-sm text-navy-900 placeholder:text-ink-muted focus:outline-none focus:ring-2 focus:ring-navy-800">
+                        <button type="button" onclick="const i=document.getElementById('password'); i.type = i.type==='password' ? 'text' : 'password';"
+                                class="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-ink-muted hover:bg-navy-50">
+                            <svg class="size-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <label class="flex items-center gap-3 cursor-pointer">
+                    <input type="checkbox" name="remember" class="size-4 rounded-[3px] border-ink-muted text-navy-800 focus:ring-navy-800">
+                    <span class="text-ink-soft text-sm">Ingat saya di perangkat ini</span>
+                </label>
+
+                <button type="submit" class="w-full bg-navy-800 text-white font-semibold text-sm rounded-xl px-6 py-3.5 shadow-md hover:bg-navy-950 transition flex items-center justify-center gap-2">
+                    Masuk
+                    <svg class="size-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </button>
+            </form>
+
+            <div class="relative flex items-center justify-center my-7">
+                <span class="absolute inset-0 flex items-center"><span class="w-full border-t border-navy-100"></span></span>
+                <span class="relative bg-navy-50 px-4 text-ink-soft text-xs font-semibold tracking-widest uppercase">Atau</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <button type="button" class="bg-white shadow-sm rounded-xl py-3 flex items-center justify-center gap-2.5 hover:bg-navy-50 transition">
+                    <svg class="size-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z"/><path fill="#FBBC05" d="M5.27 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62H1.29A11.96 11.96 0 000 12c0 1.93.46 3.76 1.29 5.38l3.98-3.09z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z"/></svg>
+                    <span class="text-navy-900 text-sm font-semibold">Google</span>
+                </button>
+                <button type="button" class="bg-white shadow-sm rounded-xl py-3 flex items-center justify-center gap-2.5 hover:bg-navy-50 transition">
+                    <svg class="size-4" viewBox="0 0 24 24"><rect width="11" height="11" x="1" y="1" fill="#f25022"/><rect width="11" height="11" x="12" y="1" fill="#7fba00"/><rect width="11" height="11" x="1" y="12" fill="#00a4ef"/><rect width="11" height="11" x="12" y="12" fill="#ffb900"/></svg>
+                    <span class="text-navy-900 text-sm font-semibold">Microsoft</span>
+                </button>
+            </div>
+
+            <p class="text-center text-sm text-ink-soft mt-6">
+                Belum punya akun?
+                <a href="{{ route('register') }}" class="text-navy-950 font-semibold">Daftar</a>
+            </p>
+
+            <p class="text-center text-ink-muted text-xs leading-relaxed mt-6">
+                Dengan masuk, kamu menyetujui <a href="#" class="underline">Ketentuan Layanan</a> & <a href="#" class="underline">Kebijakan Privasi</a> StudyServer.
+            </p>
+        </div>
+    </div>
+</div>
+@endsection
