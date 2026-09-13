@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layout.dashboard')
 
 @section('title', 'Nilai — PintarKuy')
 
@@ -10,8 +10,8 @@
                 <p class="dash-head-sub">Rekap nilai tugas, ujian, dan predikat setiap mata pelajaran.</p>
             </div>
             <div class="dash-filter" id="semesterFilter">
-                <button type="button" data-sem="ganjil">Ganjil 2024/2025</button>
-                <button type="button" data-sem="genap" class="active">Genap 2024/2025</button>
+                <button type="button" data-sem="ganjil" class="active">Ganjil 2026/2027</button>
+                <button type="button" data-sem="genap">Genap 2025/2026</button>
             </div>
         </div>
 
@@ -39,7 +39,7 @@
         </div>
 
         <div class="dash-card dash-reveal">
-            <p class="dash-card-title"><span class="dash-dot"></span>Rekap Nilai <span class="dash-pill" id="semesterLabel">Semester Genap 2024/2025</span></p>
+            <p class="dash-card-title"><span class="dash-dot"></span>Rekap Nilai <span class="dash-pill" id="semesterLabel">Semester Ganjil 2026/2027</span></p>
             <div class="nilai-table-wrap">
                 <table class="nilai-table">
                     <thead>

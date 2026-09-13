@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layout.app')
 
 @section('title', 'Program Kelas — PintarKuy')
 
 @section('content')
-@include('partials.header')
+@include('komponen.header')
 
 <div class="page-hero">
     <span class="pk-eyebrow">Katalog Kelas</span>
@@ -35,14 +35,14 @@
     </div>
 </section>
 
-@include('partials.footer')
+@include('komponen.footer')
 @endsection
 
 @push('styles')
-    @vite(['resources/css/pages/site.css', 'resources/css/pages/kelas.css'])
+    @vite(['resources/css/halaman/site.css', 'resources/css/halaman/kelas.css'])
 @endpush
 
 @push('scripts')
     <script>window.pintarKuyRegisterUrl = window.pintarKuyRegisterUrl || @json(route('register'));</script>
-    @vite(['resources/js/pages/kelas.js'])
+    @vite(['resources/js/halaman/kelas.js'])
 @endpush

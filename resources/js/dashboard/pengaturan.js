@@ -1,24 +1,7 @@
-// PintarKuy — Dashboard: Pengaturan (tabs + toggles + toast)
+// PintarKuy — Dashboard: Pengaturan (tabs + toggles + profil tersimpan)
 document.addEventListener('DOMContentLoaded', () => {
-    const tabs = document.querySelectorAll('#settingTabs button');
-    const panes = document.querySelectorAll('.setting-pane');
-
-    tabs.forEach((btn) => {
-        btn.addEventListener('click', () => {
-            tabs.forEach((b) => b.classList.remove('active'));
-            btn.classList.add('active');
-            panes.forEach((p) => p.classList.remove('active'));
-            document.getElementById('pane-' + btn.dataset.tab).classList.add('active');
-        });
-    });
-
-    // toggle switches
-    document.querySelectorAll('.toggle').forEach((t) => {
-        t.addEventListener('click', () => {
-            t.classList.toggle('on');
-            t.setAttribute('aria-pressed', t.classList.contains('on') ? 'true' : 'false');
-        });
-    });
+    const auth = window.pintarKuyAuth;
+    const DEFAULT_PHOTO = 'https://www.figma.com/api/mcp/asset/4b9001eb-320b-418b-b43a-9ddbb0503794.png';
 
     // toast
     const toast = document.getElementById('settingToast');
@@ -29,10 +12,136 @@ document.addEventListener('DOMContentLoaded', () => {
         window.setTimeout(() => toast.classList.remove('show'), 2600);
     };
 
-    document.querySelectorAll('.setting-save, [data-msg]').forEach((btn) => {
-        if (!btn.hasAttribute('data-msg')) return;
-        btn.addEventListener('click', () => showToast(btn.dataset.msg));
+    // tabs
+    const tabs = document.querySelectorAll('#settingTabs button');
+    const panes = document.querySelectorAll('.setting-pane');
+    tabs.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            tabs.forEach((b) => b.classList.remove('active'));
+            btn.classList.add('active');
+            panes.forEach((p) => p.classList.remove('active'));
+            document.getElementById('pane-' + btn.dataset.tab).classList.add('active');
+        });
     });
+
+    // field profil
+    const nama = document.getElementById('sNama');
+    const email = document.getElementById('sEmail');
+    const sekolah = document.getElementById('sSekolah');
+    const kelasJurusan = document.getElementById('sKelas');
+    const bio = document.getElementById('sBio');
+    const fotoEl = document.querySelector('#pane-profil .setting-avatar img');
+    const fotoBtn = document.getElementById('sFotoBtn');
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/png,image/jpeg,image/webp';
+    fileInput.hidden = true;
+    document.body.appendChild(fileInput);
+
+    // muat data tersimpan
+    const user = auth.user() || {};
+    if (nama && user.name) nama.value = user.name;
+    if (email && user.email) email.value = user.email;
+    if (sekolah && user.sekolah) sekolah.value = user.sekolah;
+    if (kelasJurusan && user.kelas_jurusan) kelasJurusan.value = user.kelas_jurusan;
+    if (bio && user.bio) bio.value = user.bio;
+    if (fotoEl) fotoEl.setAttribute('src', user.photo || DEFAULT_PHOTO);
+
+    // toggle switches — balikin state tersimpan
+    const prefs = window.pintarKuyPrefs || {};
+    document.querySelectorAll('.toggle').forEach((t) => {
+        const key = t.parentElement.querySelector('b') ? t.parentElement.querySelector('b').textContent.trim() : '';
+        if (prefs[key] !== undefined) {
+            t.classList.toggle('on', !!prefs[key]);
+            t.setAttribute('aria-pressed', prefs[key] ? 'true' : 'false');
+        }
+        t.addEventListener('click', () => {
+            t.classList.toggle('on');
+            t.setAttribute('aria-pressed', t.classList.contains('on') ? 'true' : 'false');
+        });
+    });
+
+    // ganti foto
+    if (fotoBtn) fotoBtn.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', () => {
+        const f = fileInput.files && fileInput.files[0];
+        if (!f) return;
+        if (f.size > 2 * 1024 * 1024) {
+            showToast('Ukuran foto maksimal 2 MB.');
+            fileInput.value = '';
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = () => {
+            if (fotoEl) fotoEl.setAttribute('src', String(reader.result));
+            showToast('Foto terpilih. Klik "Simpan Perubahan" untuk menyimpan.');
+        };
+        reader.readAsDataURL(f);
+    });
+
+    // simpan perubahan
+    document.querySelectorAll('.setting-save').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const pane = btn.closest('.setting-pane');
+            if (pane && pane.id === 'pane-profil') {
+                const profil = {
+                    name: nama ? nama.value.trim() : '',
+                    email: email ? email.value.trim() : '',
+                    sekolah: sekolah ? sekolah.value.trim() : '',
+                    kelas_jurusan: kelasJurusan ? kelasJurusan.value.trim() : '',
+                    bio: bio ? bio.value.trim() : '',
+                    photo: fotoEl ? fotoEl.getAttribute('src') || DEFAULT_PHOTO : DEFAULT_PHOTO,
+                };
+
+                auth.login({ ...profil });
+                document.querySelectorAll('[data-user-name]').forEach((el) => {
+                    const u = auth.user();
+                    if (el && u && u.name) el.textContent = u.name;
+                });
+
+                const url = window.pintarKuyPengaturanUrl || '';
+                if (url) {
+                    fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': window.pintarKuyCsrf || '',
+                        },
+                        body: JSON.stringify(profil),
+                    })
+                        .then((r) => r.json().catch(() => ({})))
+                        .then((res) => {
+                            if (res && res.ok === true) {
+                                document.querySelectorAll('[data-user-photo]').forEach((el) => {
+                                    if (el && profil.photo) el.setAttribute('src', profil.photo);
+                                });
+                                showToast(res.message || 'Profil berhasil disimpan.');
+                            } else {
+                                showToast((res && res.message) || 'Gagal menyimpan profil. Periksa kembali isianmu.');
+                            }
+                        })
+                        .catch(() => showToast('Gagal menyimpan profil. Periksa koneksimu.'));
+                } else {
+                    showToast(btn.dataset.msg || 'Profil berhasil disimpan.');
+                }
+                return;
+            }
+            showToast(btn.dataset.msg || 'Perubahan berhasil disimpan.');
+        });
+    });
+
+    // preferensi: simpan default ke localStorage agar nunggangi server
+    const persistPrefs = () => {
+        const p = { ...(window.pintarKuyPrefs || {}) };
+        document.querySelectorAll('.toggle').forEach((t) => {
+            const key = t.parentElement.querySelector('b') ? t.parentElement.querySelector('b').textContent.trim() : '';
+            if (key) p[key] = t.classList.contains('on');
+        });
+        window.pintarKuyPrefs = p;
+        try { localStorage.setItem('pintarKuyPrefs', JSON.stringify(p)); } catch (e) {}
+    };
+    document.querySelectorAll('.toggle').forEach((t) => t.addEventListener('click', persistPrefs));
 
     document.querySelectorAll('.dash-reveal').forEach((el) => el.classList.add('is-visible'));
 });

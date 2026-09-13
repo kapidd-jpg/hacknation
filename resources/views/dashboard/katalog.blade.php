@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layout.dashboard')
 
 @section('title', 'Katalog — PintarKuy')
 
@@ -9,9 +9,7 @@
                 <h1>Katalog Kelas</h1>
                 <p class="dash-head-sub">Temukan kelas baru sesuai target belajarmu. Kelas yang kamu daftar akan muncul di "Kelas Saya".</p>
             </div>
-            <div class="dash-head-actions">
-                <span class="dash-pill dash-pill--green">Diskon 20% Periode Semester Baru</span>
-            </div>
+            <div class="dash-head-actions" id="katalogPaketBadge"></div>
         </div>
 
         <div class="dash-card dash-reveal" style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;">
@@ -38,6 +36,14 @@
 @endpush
 
 @push('scripts')
-    <script>window.pintarKuyKelasUrl = window.pintarKuyKelasUrl || @json(route('dashboard.kelas'));</script>
+    <script>
+        window.pintarKuyKatalog = @json($katalog);
+        window.pintarKuyTerdaftarIds = @json($terdaftarIds);
+        window.pintarKuyDaftarUrl = @json(route('dashboard.katalog.daftar'));
+        window.pintarKuyUpgradeUrl = @json(route('dashboard.paket.upgrade'));
+        window.pintarKuyPaket = @json(auth()->user()->paket);
+        window.pintarKuyKelasUrl = window.pintarKuyKelasUrl || @json(route('dashboard.kelas'));
+        window.pintarKuyPaketUrl = window.pintarKuyPaketUrl || @json(route('home') . '#program');
+    </script>
     @vite(['resources/js/dashboard/katalog.js'])
 @endpush

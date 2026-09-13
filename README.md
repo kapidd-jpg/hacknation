@@ -1,66 +1,185 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# PintarKuy
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Bimbel adaptif UTBK-SNBT** — platform belajar interaktif dengan tutor lulusan PTN terbaik,
+ribuan latihan soal adaptif, dan simulasi tryout berstandar resmi.
 
-## About Laravel
+Dibangun dengan **Laravel 10 + MySQL + Tailwind (via Vite)** untuk hackathon
+"Tour 2 — #Nation Hackathon" (periode 10–18 September 2026).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Fitur Utama
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 👨‍🎓 Role Siswa
+- Registrasi & login (session-based, SPA-style flows tetap dipertahankan)
+- **Katalog kelas** — lihat daftar kelas aktif dari database, pencarian & filter kategori
+- **Daftar kelas** — enroll ke kelas dengan cek kuota per paket (`users.paket`)
+  serta cegah pendaftaran ganda
+- **Kelas saya** — daftar kelas terdaftar dengan progres modul
+- **Materi** — modul & silabus yang ditarik dari database per kelas
+- **Pengaturan profil** — ubah nama, email, foto (upload via file → dataURL), sekolah,
+  kelas/jurusan, bio, serta preferensi notifikasi yang tersimpan di localStorage
 
-## Learning Laravel
+### 👩‍🏫 Role Guru & Admin
+> Akses berlapis role via middleware `role:guru,admin` (siswa yang mencoba membuka
+> halaman guru akan mendapat **403 Forbidden**). **Paket** & **hapus akun siswa**
+> hanya bisa diakses role **admin** (`role:admin`).
+- **Dashboard statistik** — jumlah kelas, materi, paket, siswa, dan pendaftaran
+- **Kelola Kelas** — CRUD lengkap (tambah/edit/hapus/aktif-nonaktif)
+- **Kelola Materi** — CRUD + filter per kelas
+- **Kelola Paket** *(admin)* — CRUD (harga, kuota, daftar fitur)
+- **Daftar Siswa** — lihat profil + kelas yang diikuti (semua role); hapus akun siswa *(admin)*
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 🔑 Akun Demo
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+| Role  | Email          | Password  | Profil                                  |
+|-------|----------------|-----------|-----------------------------------------|
+| Siswa | `siswa@demo.id` | `password` | Brian Pratama — SMA 1 Jakarta, Kelas 12 IPA, paket `utbk-pro` (sudah ikut 3 kelas) |
+| Guru  | `guru@demo.id`  | `password` | Rina Kumala, M.Si. — pengelola konten   |
+| Admin | `admin@demo.id` | `password` | Operator PintarKuy — paket & akun siswa |
 
-## Laravel Sponsors
+> Kredensial demo tertera langsung di halaman **Masuk** (satu form — role diarahkan otomatis dari email).
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 👨‍🏫 Buat Akun Guru (operator)
 
-### Premium Partners
+Public sign-up hanya untuk **siswa** (anti spam akun guru). Akun guru dibuat manual oleh operator:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+```bash
+php artisan akun:guru --nama="Nama Guru" --email="guru@baru.id"
+```
 
-## Contributing
+Atau interaktif (password otomatis digenerate & tampil sekali):
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+php artisan akun:guru
+```
 
-## Code of Conduct
+> Akun guru akan menuju **Dashboard Guru** saat login dan bisa mengelola kelas/materi.
+> Tambahkan flag `--admin` untuk akun **admin** (bisa mengelola paket & menghapus akun siswa):
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+php artisan akun:guru --admin --nama="Operator" --email="admin@baru.id"
+```
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## ⚙️ Instalasi Lokal
 
-## License
+Persyaratan: PHP 8.1+, Composer, Node.js, MySQL.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+# 1. Dependency
+composer install
+npm install
+
+# 2. Environment
+cp .env.example .env        # Windows: copy .env.example .env
+php artisan key:generate
+
+# 3. Konfigurasi database di .env
+#   DB_DATABASE=pintarkuy
+#   DB_USERNAME=root
+#   DB_PASSWORD=
+
+# 4. Buat database
+mysql -u root -e "CREATE DATABASE pintarkuy CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+
+# 5. Migrasi + seed demo
+php artisan migrate:fresh --seed
+
+# 6. Kompilasi aset
+npm run build               # atau npm run dev (vite dev server)
+
+# 7. Jalankan
+php artisan serve           # http://127.0.0.1:8000
+```
+
+Setelah `migrate:fresh --seed`, akses demo dengan akun pada tabel di atas.
+
+---
+
+## 🗄️ Struktur Database
+
+- **users** — `role` (siswa/guru/admin), `foto` (text/dataURL), `sekolah`, `kelas_jurusan`, `bio`, `paket` (default `utbk-pro`)
+- **kelas** — nama, slug (unik), kategori, ikon, deskripsi, jumlah modul, durasi, harga, `aktif`, warna
+- **materi** — `kelas_id` (FK), judul, tutor, pertemuan, durasi, bab, urutan
+- **paket** — `key` (unik), nama, tag, harga, kuota, `fitur` (JSON), `aktif`
+- **pendaftaran** — `user_id` + `kelas_id` **(unik)** — mencegah pendaftaran ganda
+
+Seeder `DemoSeeder` mengisi: 3 user demo, 10 kelas, 30 materi, 3 paket, 3 pendaftaran.
+
+---
+
+## 🔧 Backend: Handover Tim
+
+### ✅ Sudah Dikerjakan
+
+| # | Item | Detail |
+|---|------|--------|
+| 1 | Autentikasi DB (login/register) | Session-based; email + password |
+| 2 | 3 role aktif | `siswa` · `guru` · `admin` (kolom `role` string) |
+| 3 | Middleware `role:` | Variadic — `role:guru,admin`, `role:admin` |
+| 4 | CRUD Kelas (guru & admin) | Tambah / edit / hapus / toggle aktif |
+| 5 | CRUD Materi (guru & admin) | Filter per kelas, CRUD penuh |
+| 6 | Kelola Paket (admin-only) | CRUD paket; kuota disimpan di DB |
+| 7 | Kelola Siswa (admin-only) | Lihat profil + kelas; hapus akun siswa (admin) |
+| 8 | Enroll + kuota dari DB | `Paket::where('key')->value('kuota')` — tidak hardcode |
+| 9 | Upgrade paket endpoint | `POST /dashboard/paket/upgrade` |
+| 10 | Profil siswa (foto) | Validasi `max:3MB` + regex `data:image/(png\|jpeg\|webp\|gif);base64,` atau URL — **SVG diblokir** |
+| 11 | `php artisan akun:guru --admin` | Flag `--admin` untuk role admin |
+| 12 | Throttle login | `throttle:5,1` pada POST `/masuk` & `/daftar` |
+| 13 | XSS hardening (katalog JS) | `esc()` helper; interpolasi HTML/JSON menggunakan `@json()` |
+| 14 | Foto kolom → TEXT | Migration via raw `ALTER TABLE` (tanpa doctrine/dbal) |
+
+### ⬜ BELUM / Menunggu Tim Lain
+
+| # | Item | Catatan |
+|---|------|---------|
+| 1 | Nilai & laporan | Halaman statis placeholder — belum ada tabel `nilai` |
+| 2 | `/kelas` (publik) | Rute statis — data hardcode, belum dari DB |
+| 3 | Email verify / lupa password | Belum diimplementasi |
+| 4 | Audit log | Belum ada logging aksi penting |
+| 5 | Ownership multi-guru | Kelas bisa diedit guru mana saja (belum di-scope per guru) |
+| 6 | Aset eksternal (Figma) | Ikon & gambar dari CDN / asset publik |
+| 7 | Counter `kelas.siswa` | Jumlah siswa per kelas dihitung manual dari `pendaftaran` |
+| 8 | Race condition TOCTOU | Enroll + kuota belum pakai database lock/transaction |
+| 9 | Password di console | `akun:guru` output password plaintext ke terminal |
+| 10 | Config deploy | `APP_DEBUG=false`, secure cookie, CORS production |
+
+---
+
+## 🛠️ Alat AI yang Digunakan (per §5.2)
+
+Pengembangan dibantu oleh asisten AI kode (`opencode`):
+- **opencode** — scaffolding backend (controller, middleware, migrasi, model, routes),
+  perbaikan bug UI (pengaturan profil, foto, katalog), dan penulisan seeder demo.
+- **Claude / AI chat model** — asisten penulisan & evaluasi kode front-end.
+- **GitHub Copilot** *(jika digunakan tim)* — autocomplete saat menulis komponen UI.
+- Framework & library utama: **Laravel 10**, **MySQL 8**, **Tailwind CSS**, **Vite**, **Alpine.js (vanilla JS lokal)**.
+
+---
+
+## 🔒 Privasi (per §8.1)
+
+- Data demo **bukan data pribadi nyata** — semua profil contoh digenerate untuk keperluan demo.
+- Foto profil disimpan sebagai data tersemat (dataURL) di server demo; pada produksi
+  disarankan penyimpanan file + enkripsi & kebijakan privasi terpisah.
+- Preferensi UI (toggle notifikasi, dsb.) disimpan di `localStorage` perangkat pengguna.
+
+---
+
+## 📁 Struktur Proyek (ringkas)
+
+```
+app/Http/Controllers/
+├── DashboardController.php      # halaman siswa + enroll + update profil
+├── Guru/                        # Dashboard, Kelas, Materi, Paket, Siswa (CRUD)
+├── Auth/                        # Login, Register, Logout
+resources/views/
+├── halaman/                     # landing, tentang, kelas, kontak
+├── dashboard/                   # katalog, kelas, materi, nilai, laporan, pengaturan
+├── guru/                        # dashboard + CRUD kelas/materi/paket/siswa
+database/migrations + seeders/   # skema database & DemoSeeder
+```

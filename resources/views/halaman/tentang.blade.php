@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layout.app')
 
 @section('title', 'Tentang Kami — PintarKuy')
 
 @section('content')
-@include('partials.header')
+@include('komponen.header')
 
 <div class="page-hero">
     <span class="pk-eyebrow">Tentang Kami</span>
@@ -87,6 +87,7 @@
                     ['year' => '2023', 'title' => 'Fitur Live Tutoring & Tanya Tutor 24/7', 'desc' => 'Peluncuran live class interaktif dan fitur unggulan Tanya Tutor yang menjawab pertanyaan dalam hitungan menit.'],
                     ['year' => '2024', 'title' => '1.200+ Siswa & Penghargaan Startup Pendidikan', 'desc' => 'Meraih penghargaan Startup Pendidikan Terbaik dari Kemendikbudristek. Jumlah siswa aktif menembus 1.200+.'],
                     ['year' => '2025', 'title' => 'Target Nasional & Aliansi Kampus', 'desc' => 'Bekerja sama dengan beberapa kampus negeri untuk program beasiswa siswa berprestasi. Menuju 10.000 siswa aktif.'],
+                    ['year' => '2026', 'title' => 'UTBK 2026 & Program Kampus Impian', 'desc' => 'Tingkat SNBT 2026 keluar membanggakan — ratusan siswa diterima di kampus impian. Live tutoring adaptif dan Tanya Tutor AI resmi diluncurkan.'],
                 ];
             @endphp
             @foreach ($milestones as $m)
@@ -105,22 +106,22 @@
     <div class="pk-container">
         <div class="pk-cta pk-reveal">
             <h2>Siap Bergabung Bersama Ribuan Siswa Lain?</h2>
-            <p>Coba gratis selama 7 hari tanpa komitmen. Kamu akan langsung merasakan bedanya belajar dengan sistem adaptif yang benar-benar memahami kebutuhanmu.</p>
+            <p>Mulai langsung dari paket yang paling sesuai targetmu. Belajar dengan sistem adaptif yang benar-benar memahami kemampuanmu, tanpa kontrak dan bisa berhenti kapan saja.</p>
             <div class="page-hero-actions" style="margin-top:12px;">
-                <a href="{{ route('register') }}" class="pk-btn" style="background:#fff;color:var(--navy-950);box-shadow:0 10px 24px -10px rgba(0,0,0,0.5);">Mulai Trial Gratis</a>
+                <a href="{{ route('register') }}" class="pk-btn" style="background:#fff;color:var(--navy-950);box-shadow:0 10px 24px -10px rgba(0,0,0,0.5);">Mulai Sekarang</a>
                 <a href="{{ route('contact') }}" class="pk-btn pk-btn--ghost" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.2);">Tanya Kami</a>
             </div>
         </div>
     </div>
 </section>
 
-@include('partials.footer')
+@include('komponen.footer')
 @endsection
 
 @push('styles')
-    @vite(['resources/css/pages/site.css', 'resources/css/pages/tentang.css'])
+    @vite(['resources/css/halaman/site.css', 'resources/css/halaman/tentang.css'])
 @endpush
 
 @push('scripts')
-    @vite(['resources/js/pages/tentang.js'])
+    @vite(['resources/js/halaman/tentang.js'])
 @endpush

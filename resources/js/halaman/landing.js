@@ -1,0 +1,152 @@
+// PintarKuy — Halaman Landing (scroll halus + reveal + quiz teaser 5 soal × 20 poin)
+document.addEventListener('DOMContentLoaded', () => {
+
+    // ---------- baseline smooth scroll ----------
+
+    // ---------- upgrade paket dari dashboard (skip login) ----------
+    // Jika pengunjung datang dari tombol "Upgrade Paket" di dashboard,
+    // klik paket di harga langsung diterapkan ke localStorage & kembali ke dashboard.
+    const ctas = document.querySelectorAll('[data-paket]');
+    if (ctas.length) {
+        const TIER = ['starter', 'utbk-pro', 'golden'];
+        const LABELS = { starter: 'Starter', 'utbk-pro': 'UTBK Pro', golden: 'Golden Campus' };
+        const loggedIn = !!(window.pintarKuyAuth && window.pintarKuyAuth.isLoggedIn());
+        const notice = (message) => {
+            const t = document.createElement('div');
+            t.setAttribute('role', 'status');
+            t.textContent = message;
+            t.style.cssText = 'position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:1000;background:#0a1235;color:#fff;font-size:13px;font-weight:700;padding:13px 20px;border-radius:14px;box-shadow:0 20px 45px -12px rgba(2,6,30,.55);max-width:min(480px,90vw);text-align:center;';
+            document.body.appendChild(t);
+            window.setTimeout(() => { t.style.transition = 'opacity .3s ease'; t.style.opacity = '0'; window.setTimeout(() => t.remove(), 350); }, 3200);
+        };
+        let upgrading = false;
+        let ganti = false;
+        try { upgrading = sessionStorage.getItem('pintarKuyUpgrade') === '1'; ganti = sessionStorage.getItem('pintarKuyGanti') === '1'; } catch (e) {}
+        ctas.forEach((btn) => btn.addEventListener('click', (e) => {
+            const paket = btn.dataset.paket;
+            if (!TIER.includes(paket)) return;
+            if (!upgrading && !ganti && !loggedIn) return;
+            e.preventDefault();
+            let current = 'utbk-pro';
+            try { current = localStorage.getItem('pintarKuyPaket') || 'utbk-pro'; } catch (err) {}
+            if (upgrading && TIER.indexOf(paket) < TIER.indexOf(current)) {
+                notice('Paket kamu saat ini ' + LABELS[current] + ' (lebih tinggi). Pilih level yang sama atau di atasnya untuk melanjutkan upgrade.');
+                return;
+            }
+            try {
+                localStorage.setItem('pintarKuyPaket', paket);
+                localStorage.setItem('pintarKuyUpgradeBaru', '1');
+                sessionStorage.removeItem('pintarKuyUpgrade');
+                sessionStorage.removeItem('pintarKuyGanti');
+            } catch (err) {}
+            window.location.href = window.pintarKuyDashUrl || '/';
+        }));
+    }
+
+    // ---------- smooth scroll untuk semua link anchor ----------
+    document.querySelectorAll('a[href^="#"]').forEach((a) => {
+        a.addEventListener('click', (e) => {
+            const href = a.getAttribute('href');
+            if (!href || href === '#') return;
+            const target = document.querySelector(href);
+            if (!target) return;
+            e.preventDefault();
+            const header = document.querySelector('header');
+            const offset = header ? header.offsetHeight : 0;
+            const top = target.getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({ top, behavior: 'smooth' });
+        });
+    });
+
+    // ---------- scroll reveal ----------
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    io.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        revealEls.forEach((el) => io.observe(el));
+    } else {
+        revealEls.forEach((el) => el.classList.add('is-visible'));
+    }
+
+    // ---------- quiz teaser ----------
+    const questions = Array.from(document.querySelectorAll('.quiz-question'));
+    const checkBtn = document.getElementById('quizCheck');
+    if (!questions.length || !checkBtn) return;
+
+    const nextBtn = document.getElementById('quizNext');
+    const feedback = document.getElementById('quizFeedback');
+    const result = document.getElementById('quizResult');
+    const scoreEl = document.getElementById('quizScore');
+    const scoreMsg = document.getElementById('quizScoreMessage');
+
+    let index = 0;
+    let score = 0;
+
+    const setFeedback = (message, ok) => {
+        feedback.textContent = message;
+        feedback.classList.remove('hidden');
+        feedback.classList.toggle('text-brand-green', ok);
+        feedback.classList.toggle('text-red-600', !ok);
+    };
+
+    const raceMessage = (pts) => {
+        if (pts === 100) return 'Sempurna! Kamu menjawab semua soal dengan benar. Siap lanjut ke uji penuh?';
+        if (pts >= 60) return 'Keren! Kemampuan penalaranmu sudah solid. Tingkatkan lagi dengan tryout penuh interaktif.';
+        return 'Sedikit lagi! Kokohkan dasar penalaranmu lewat simulasi IRT lengkap bersama tutor master.';
+    };
+
+    checkBtn.addEventListener('click', () => {
+        const current = questions[index];
+        const correct = current.dataset.correct;
+        const chosen = current.querySelector('input[type="radio"]:checked');
+
+        if (!chosen) {
+            setFeedback('Pilih salah satu jawaban dulu, lalu periksa kembali.', false);
+            return;
+        }
+
+        const chosenLabel = chosen.closest('.quiz-option');
+        current.querySelectorAll('input[type="radio"]').forEach((o) => { o.disabled = true; });
+
+        if (chosen.value === correct) {
+            chosenLabel.classList.add('border-brand-green', 'bg-brand-greenlight/30');
+            score += 20;
+            setFeedback('Benar! +20 poin untuk jawaban ini.', true);
+        } else {
+            chosenLabel.classList.add('border-red-400', 'bg-red-50');
+            setFeedback('Belum tepat. Jawaban yang benar adalah ' + correct + '.', false);
+        }
+
+        const correctLabel = current.querySelector('input[value="' + correct + '"]').closest('.quiz-option');
+        if (correctLabel !== chosenLabel) {
+            correctLabel.classList.add('border-brand-green', 'bg-brand-greenlight/30');
+        }
+
+        checkBtn.classList.add('hidden');
+        if (index < questions.length - 1) {
+            nextBtn.classList.remove('hidden');
+        } else {
+            result.classList.remove('hidden');
+            scoreEl.textContent = score;
+            scoreMsg.textContent = raceMessage(score);
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        index += 1;
+        questions[index - 1].classList.add('hidden');
+        questions[index].classList.remove('hidden');
+
+        feedback.textContent = '';
+        feedback.classList.add('hidden');
+
+        nextBtn.classList.add('hidden');
+        checkBtn.classList.remove('hidden');
+    });
+});

@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layout.dashboard')
 
 @section('title', 'Pengaturan — PintarKuy')
 
@@ -21,39 +21,39 @@
         <div class="dash-card setting-pane active" id="pane-profil">
             <div class="setting-row">
                 <div class="setting-avatar">
-                    <img src="https://www.figma.com/api/mcp/asset/4b9001eb-320b-418b-b43a-9ddbb0503794.png" alt="Foto profil">
+                    <img id="sFoto" src="{{ auth()->user()->foto ?? 'https://www.figma.com/api/mcp/asset/4b9001eb-320b-418b-b43a-9ddbb0503794.png' }}" alt="Foto profil">
                     <div>
                         <b style="font-size:15px;color:var(--navy-900);">Foto Profil</b>
                         <p class="setting-hint" style="margin:4px 0 10px;">JPG atau PNG, maks 2 MB.</p>
-                        <button type="button" class="dash-btn dash-btn--ghost" style="padding:9px 18px;">Ganti Foto</button>
+                        <button type="button" id="sFotoBtn" class="dash-btn dash-btn--ghost" style="padding:9px 18px;">Ganti Foto</button>
                     </div>
                 </div>
 
                 <div class="dash-grid dash-grid--2" style="grid-template-columns:1fr 1fr;">
                     <div class="setting-field">
                         <label for="sNama">Nama Lengkap</label>
-                        <input id="sNama" type="text" value="Brian Pratama">
+                        <input id="sNama" type="text" value="{{ auth()->user()->name }}">
                     </div>
                     <div class="setting-field">
                         <label for="sEmail">Email</label>
-                        <input id="sEmail" type="email" value="brian.pratama@mail.com">
+                        <input id="sEmail" type="email" value="{{ auth()->user()->email }}">
                     </div>
                 </div>
 
                 <div class="dash-grid dash-grid--2" style="grid-template-columns:1fr 1fr;">
                     <div class="setting-field">
                         <label for="sSekolah">Sekolah</label>
-                        <input id="sSekolah" type="text" value="SMA Negeri 1 Jakarta">
+                        <input id="sSekolah" type="text" value="{{ auth()->user()->sekolah }}">
                     </div>
                     <div class="setting-field">
                         <label for="sKelas">Kelas & Jurusan</label>
-                        <input id="sKelas" type="text" value="Kelas 12 · IPA">
+                        <input id="sKelas" type="text" value="{{ auth()->user()->kelas_jurusan }}">
                     </div>
                 </div>
 
                 <div class="setting-field">
                     <label for="sBio">Bio</label>
-                    <textarea id="sBio">Pejuang UTBK 2025. Target: FK UI.</textarea>
+                    <textarea id="sBio">{{ auth()->user()->bio }}</textarea>
                     <span class="setting-hint">Tampil di profil komunitas forum diskusi.</span>
                 </div>
             </div>
@@ -133,15 +133,6 @@
                 </div>
             </div>
         </div>
-
-        {{-- Keluar box --}}
-        <div class="keluar-box dash-reveal">
-            <div>
-                <b>Keluar dari semua perangkat</b>
-                <p>Mencabut sesi aktif di perangkat lain. Login ulang diperlukan di perangkat tersebut.</p>
-            </div>
-            <button type="button" class="dash-btn dash-btn--danger" data-msg="Semua sesi perangkat lain telah dicabut.">Logout Semua Perangkat</button>
-        </div>
     </div>
 
     <div id="settingToast" class="setting-toast" role="status">
@@ -155,5 +146,9 @@
 @endpush
 
 @push('scripts')
+    <script>
+        window.pintarKuyPengaturanUrl = @json(route('dashboard.pengaturan.update'));
+        window.pintarKuyCsrf = @json(csrf_token());
+    </script>
     @vite(['resources/js/dashboard/pengaturan.js'])
 @endpush

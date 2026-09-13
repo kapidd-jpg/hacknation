@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const semesters = {
         ganjil: {
-            label: 'Semester Ganjil 2024/2025',
+            label: 'Semester Ganjil 2026/2027',
             rows: [
                 { subj: 'Matematika', cat: 'Wajib', ico: 'Mt', bg: 'rgba(126,252,154,0.35)', color: '#007433', tugas: 88, uts: 84, uas: 86, avg: 86.0, grade: 'B' },
                 { subj: 'Fisika', cat: 'Saintek', ico: 'Fi', bg: 'rgba(237,233,254,1)', color: '#6d28d9', tugas: 90, uts: 81, uas: 84, avg: 85.0, grade: 'B' },
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
         },
         genap: {
-            label: 'Semester Genap 2024/2025',
+            label: 'Semester Genap 2025/2026',
             rows: [
                 { subj: 'Matematika', cat: 'Wajib', ico: 'Mt', bg: 'rgba(126,252,154,0.35)', color: '#007433', tugas: 95, uts: 90, uas: 92, avg: 92.3, grade: 'A' },
                 { subj: 'Fisika', cat: 'Saintek', ico: 'Fi', bg: 'rgba(237,233,254,1)', color: '#6d28d9', tugas: 91, uts: 86, uas: 88, avg: 88.3, grade: 'A' },

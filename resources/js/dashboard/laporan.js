@@ -1,12 +1,12 @@
 // PintarKuy — Dashboard: Laporan (bar chart + rentang waktu + rekomendasi)
 document.addEventListener('DOMContentLoaded', () => {
     const months = [
-        { label: 'Jan', val: 628 },
-        { label: 'Feb', val: 641 },
-        { label: 'Mar', val: 652 },
-        { label: 'Apr', val: 669 },
-        { label: 'Mei', val: 688 },
-        { label: 'Jun', val: 712 },
+        { label: 'Mar', val: 638 },
+        { label: 'Apr', val: 652 },
+        { label: 'Mei', val: 668 },
+        { label: 'Jun', val: 685 },
+        { label: 'Jul', val: 698 },
+        { label: 'Agu', val: 712 },
     ];
 
     const materi = [
@@ -23,6 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const statDelta = document.getElementById('statDelta');
     const statAkurasi = document.getElementById('statAkurasi');
 
+    // tinggi bar dalam % (dari 20 s/d 100), kampe relatif ke rentang skor 600-712
+    const hOf = (val) => Math.max(22, Math.min(100, ((val - 600) / 112) * 100 + 20));
+
     const renderMateri = (limit) => {
         const list = materi.slice(0, limit);
         materiBox.innerHTML = list.map((m) => `
@@ -33,21 +36,28 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderChart = (range) => {
-        const data = months.slice(-range);
+        const startIdx = months.length - range;
+        const data = months.slice(startIdx);
         rangeLabel.textContent = range + (range === 1 ? ' Bulan' : ' Bulan Terakhir');
-        statDelta.textContent = '+' + (data[data.length - 1].val - (months[months.length - data.length - 1] ? months[months.length - data.length - 1].val : 0));
-        statAkurasi.textContent = Math.round(62 + data[data.length - 1].val / 26) + '%';
 
-        chart.innerHTML = data.map((m) => `
-            <div class="lap-bar-col">
+        const startVal = data[0].val;
+        const endVal = data[data.length - 1].val;
+        statDelta.textContent = (endVal >= startVal ? '+' : '') + (endVal - startVal);
+        statAkurasi.textContent = Math.round(62 + endVal / 26) + '%';
+
+        chart.innerHTML = data.map((m, i) => `
+            <div class="lap-bar-col ${i === data.length - 1 ? 'is-current' : ''}">
                 <span class="lap-bar-value">${m.val}</span>
-                <div class="lap-bar-track"><div class="lap-bar" data-h="${(m.val - 600) / 112 * 100 + 20}"></div></div>
+                <div class="lap-bar-area"><div class="lap-bar" data-h="${hOf(m.val)}"></div></div>
                 <span class="lap-bar-label">${m.label}</span>
             </div>`).join('');
 
         requestAnimationFrame(() => {
-            chart.querySelectorAll('.lap-bar').forEach((bar) => {
-                bar.style.height = bar.dataset.h + '%';
+            chart.querySelectorAll('.lap-bar-col').forEach((col) => {
+                const bar = col.querySelector('.lap-bar');
+                const area = col.querySelector('.lap-bar-area');
+                const px = (parseFloat(bar.dataset.h) / 100) * area.getBoundingClientRect().height;
+                bar.style.height = px + 'px';
             });
         });
     };

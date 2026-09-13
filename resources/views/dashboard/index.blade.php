@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layout.dashboard')
 
 @section('title', 'Dashboard Siswa — PintarKuy')
 
@@ -27,7 +27,7 @@
                 <span class="flex items-center gap-1.5 bg-navy-100 text-ink-soft text-[11px] font-bold px-3 py-1 rounded-full">
                     <span class="size-1.5 rounded-full bg-brand-green"></span> Akun Siswa Aktif
                 </span>
-                <span class="text-ink-muted text-[11px] font-bold">ID: SS-2025-0842</span>
+                <span class="text-ink-muted text-[11px] font-bold">ID: SS-2026-0842</span>
             </div>
             <h1 class="text-navy-950 text-2xl font-extrabold flex items-center gap-2">Selamat datang kembali, Brian! 👋</h1>
             <p class="text-ink-soft text-sm">
@@ -42,7 +42,7 @@
                 </span>
                 <div>
                     <p class="text-ink-muted text-[10px] font-semibold tracking-wide uppercase leading-none">Target Utama</p>
-                    <p class="text-navy-950 text-xs font-bold leading-tight">UTBK SNBT 2025</p>
+                    <p class="text-navy-950 text-xs font-bold leading-tight">UTBK SNBT 2026</p>
                 </div>
             </div>
             <div class="bg-navy-100 rounded-full shadow-sm px-4 py-2.5 flex items-center gap-2.5">
@@ -120,14 +120,14 @@
             </div>
 
             <div class="flex items-center justify-between pt-6">
-                <button class="bg-navy-800 text-white text-sm font-semibold px-6 py-3 rounded-full shadow-sm hover:bg-navy-950 transition flex items-center gap-2">
+                <a href="{{ route('dashboard.materi') }}" class="bg-navy-800 text-white text-sm font-semibold px-6 py-3 rounded-full shadow-sm hover:bg-navy-950 transition flex items-center gap-2">
                     Lanjutkan Belajar
                     <svg class="size-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                </button>
-                <button class="bg-navy-100 text-navy-950 text-sm font-semibold px-5 py-3 rounded-full hover:bg-navy-100/70 transition flex items-center gap-2">
+                </a>
+                <a href="{{ route('dashboard.materi') }}" class="bg-navy-100 text-navy-950 text-sm font-semibold px-5 py-3 rounded-full hover:bg-navy-100/70 transition flex items-center gap-2">
                     <svg class="size-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7"/></svg>
                     Lihat Silabus Lengkap
-                </button>
+                </a>
             </div>
         </div>
 
@@ -184,6 +184,8 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             @foreach ($classes as $class)
+                {{-- pastikan kelas utilitas warna dinamis ikut ter-compile Tailwind --}}
+                <span class="hidden text-brand-green bg-brand-green text-purple-700 bg-purple-700 text-navy-950 bg-navy-950 text-navy-800 bg-navy-800"></span>
                 <div class="bg-white rounded-xl shadow-[0px_4px_20px_-2px_rgba(15,27,76,0.05)] p-5 flex flex-col justify-between">
                     <div class="flex flex-col gap-0.5">
                         <div class="flex items-start justify-between">
@@ -211,3 +213,7 @@
         </div>
     </div>
 @endsection
+
+@push('styles')
+    @vite(['resources/css/dashboard/site.css'])
+@endpush

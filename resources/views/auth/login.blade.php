@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layout.app')
 
 @section('title', 'Masuk — PintarKuy')
 
@@ -10,17 +10,21 @@
         <div class="absolute -top-32 -left-32 size-96 rounded-full bg-brand-green/15 blur-3xl"></div>
         <div class="absolute bottom-10 right-0 size-[448px] rounded-full bg-purple-400/10 blur-3xl"></div>
 
-        <div class="relative flex items-center gap-3">
-            <span class="flex items-center justify-center size-12 rounded-xl bg-gradient-to-br from-brand-green to-navy-950 shadow-lg ring-1 ring-white/20 shrink-0">
-                <svg class="size-7 text-brand-greenlight" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.25278V19.25M12 6.25278C10.8321 5.47686 9.24649 5 7.5 5C5.75351 5 4.16789 5.47686 3 6.25278V19.25C4.16789 18.4741 5.75351 18 7.5 18C9.24649 18 10.8321 18.4741 12 19.25M12 6.25278C13.1679 5.47686 14.7535 5 16.5 5C18.2465 5 19.8321 5.47686 21 6.25278V19.25C19.8321 18.4741 18.2465 18 16.5 18C14.7535 18 13.1679 18.4741 12 19.25"/></svg>
-            </span>
-            <div>
-                <p class="text-white font-semibold text-lg leading-tight">PintarKuy</p>
-                <p class="text-navy-300 text-[11px] font-bold tracking-widest uppercase">Adaptive Bimbel Ecosystem</p>
+        <div class="relative flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <img src="{{ asset('assets/images/logopintar.png') }}" alt="PintarKuy" class="h-11 w-auto shrink-0">
+                <div>
+                    <p class="text-white font-semibold text-lg leading-tight">PintarKuy</p>
+                    <p class="text-navy-300 text-[11px] font-bold tracking-widest uppercase">Adaptive Bimbel Ecosystem</p>
+                </div>
             </div>
+            <a href="{{ route('home') }}" class="inline-flex items-center gap-1.5 text-navy-300 text-xs font-bold hover:text-white transition shrink-0">
+                <svg class="size-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                Kembali ke Beranda
+            </a>
         </div>
 
-        <div class="relative flex flex-col gap-4 max-w-xl py-16">
+        <div class="relative flex flex-col gap-4 max-w-xl py-10">
             <span class="inline-flex items-center gap-2 bg-white/10 backdrop-blur rounded-full px-3.5 py-1.5 w-fit shadow-sm">
                 <span class="size-2.5 rounded-full bg-brand-greenlight"></span>
                 <span class="text-brand-greenlight text-xs font-semibold tracking-wide">Platform Bimbingan UTBK & Belajar #1</span>
@@ -40,7 +44,7 @@
                                 <svg class="size-3.5 text-brand-greenlight" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
                             </span>
                             <div>
-                                <p class="text-white text-[11px] font-bold">Target SNBT 2025</p>
+                                <p class="text-white text-[11px] font-bold">Target SNBT 2026</p>
                                 <p class="text-navy-300 text-xs">Simulasi Tryout Nasional ke-4</p>
                             </div>
                         </div>
@@ -59,9 +63,11 @@
     {{-- ============ RIGHT: AUTH FORM ============ --}}
     <div class="lg:flex-1 bg-navy-50 flex items-center justify-center px-6 md:px-24 py-12">
         <div class="w-full max-w-md">
-            <span class="inline-block bg-navy-100 text-navy-950 text-[11px] font-bold tracking-widest uppercase px-2.5 py-1 rounded">Portal Masuk Siswa</span>
+            <span class="inline-block bg-navy-100 text-navy-950 text-[11px] font-bold tracking-widest uppercase px-2.5 py-1 rounded">Portal Masuk</span>
             <h2 class="text-navy-950 text-2xl font-bold mt-2">Masuk</h2>
             <p class="text-ink-soft text-sm mt-1 mb-6">Silakan masukkan detail akun PintarKuy kamu.</p>
+
+            <p class="text-[11px] text-ink-muted font-semibold mb-5" id="demoHint">Demo: <b>siswa@demo.id</b>, <b>guru@demo.id</b>, atau <b>admin@demo.id</b> / <b>password</b></p>
 
             @if ($errors->any())
                 <div class="mb-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3">
@@ -69,14 +75,14 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ route('login.attempt') }}" class="flex flex-col gap-5">
+            <form method="POST" action="{{ route('login.attempt') }}" id="loginForm" class="flex flex-col gap-5">
                 @csrf
 
                 <div>
                     <label for="email" class="text-navy-900 text-sm font-semibold">Email atau Username</label>
                     <div class="relative mt-2">
                         <svg class="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-ink-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                        <input id="email" name="email" type="text" required autofocus
+                        <input id="email" name="email" type="text" required autofocus value="{{ old('email') }}"
                                placeholder="nama@email.com atau username"
                                class="w-full bg-white rounded-xl shadow-sm pl-12 pr-4 py-4 text-sm text-navy-900 placeholder:text-ink-muted focus:outline-none focus:ring-2 focus:ring-navy-800">
                     </div>
@@ -100,7 +106,7 @@
                 </div>
 
                 <label class="flex items-center gap-3 cursor-pointer">
-                    <input type="checkbox" name="remember" class="size-4 rounded-[3px] border-ink-muted text-navy-800 focus:ring-navy-800">
+                    <input type="checkbox" name="remember" @checked(old('remember')) class="size-4 rounded-[3px] border-ink-muted text-navy-800 focus:ring-navy-800">
                     <span class="text-ink-soft text-sm">Ingat saya di perangkat ini</span>
                 </label>
 

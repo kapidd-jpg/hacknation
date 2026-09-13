@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layout.app')
 
 @section('title', 'Hubungi Kami — PintarKuy')
 
 @section('content')
-@include('partials.header')
+@include('komponen.header')
 
 <div class="page-hero">
     <span class="pk-eyebrow">Kontak</span>
@@ -138,13 +138,13 @@
     </div>
 </section>
 
-@include('partials.footer')
+@include('komponen.footer')
 @endsection
 
 @push('styles')
-    @vite(['resources/css/pages/site.css', 'resources/css/pages/kontak.css'])
+    @vite(['resources/css/halaman/site.css', 'resources/css/halaman/kontak.css'])
 @endpush
 
 @push('scripts')
-    @vite(['resources/js/pages/kontak.js'])
+    @vite(['resources/js/halaman/kontak.js'])
 @endpush
