@@ -76,9 +76,9 @@
             </div>
 
 <div class="reveal flex items-center gap-3 pt-2" style="animation-delay:0.45s">
-                <div class="flex -space-x-2">
+                <div class="flex -space-x-1">
                     @for ($i = 0; $i < 5; $i++)
-                        <span class="size-6 rounded-full bg-navy-100 border-2 border-white"></span>
+                        <svg class="size-5 text-amber-500 drop-shadow-sm" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                     @endfor
                 </div>
                 <p class="text-xs text-ink-soft">
@@ -534,7 +534,9 @@
         <div class="reveal flex items-center gap-3 pt-2">
             <div class="flex -space-x-2">
                 @for ($i = 0; $i < 6; $i++)
-                    <span class="size-7 rounded-full border-2 border-white {{ $i % 2 ? 'bg-brand-green' : 'bg-navy-800' }}"></span>
+                    <span class="flex items-center justify-center size-7 rounded-full border-2 border-white {{ $i % 2 ? 'bg-brand-green' : 'bg-navy-800' }} text-white">
+                        <svg class="size-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5Zm0 2a7 7 0 0 0-7 7v1h14v-1a7 7 0 0 0-7-7Z"/></svg>
+                    </span>
                 @endfor
             </div>
             <p class="text-xs text-ink-soft"><span class="font-bold text-navy-900">10.000+</span> siswa telah bergabung, dan masih bertambah tiap hari</p>
@@ -621,9 +623,15 @@
                 <h4 class="text-white text-sm font-semibold tracking-widest uppercase">Hubungi Kami</h4>
                 <p class="text-navy-400 text-xs leading-relaxed">Jakarta Selatan, DKI Jakarta<br>support@PintarKuy.id<br>+62 (021) 8899-2345</p>
                 <div class="flex gap-3 pt-1">
-                    @for ($i = 0; $i < 3; $i++)
-                        <span class="flex items-center justify-center size-9 rounded-full bg-navy-950"></span>
-                    @endfor
+                    <span class="flex items-center justify-center size-9 rounded-full bg-navy-950 text-brand-greenlight ring-1 ring-white/10 hover:bg-navy-900 transition">
+                        <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                    </span>
+                    <span class="flex items-center justify-center size-9 rounded-full bg-navy-950 text-brand-greenlight ring-1 ring-white/10 hover:bg-navy-900 transition">
+                        <svg class="size-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+                    </span>
+                    <span class="flex items-center justify-center size-9 rounded-full bg-navy-950 text-brand-greenlight ring-1 ring-white/10 hover:bg-navy-900 transition">
+                        <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+                    </span>
                 </div>
             </div>
         </div>
