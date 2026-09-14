@@ -35,6 +35,6 @@ class SiswaController extends Controller
         $nama = $siswa->name;
         $siswa->delete();
 
-        return redirect()->route('guru.siswa.index')->with('status', 'Akun siswa "' . $nama . '" berhasil dihapus.');
+        return redirect()->route('guru.siswa')->with('status', 'Akun siswa "' . $nama . '" berhasil dihapus.');
     }
 }

@@ -62,7 +62,7 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('DB_MYSQL_SSL', false)
                     ? database_path('certs/ap-southeast-1-bundle.pem')
                     : env('MYSQL_ATTR_SSL_CA'),
-                PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => env('DB_MYSQL_SSL', false) ? false : null,
+                PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => env('DB_MYSQL_SSL', false) ? true : null,
             ], function ($value) {
                 return $value !== null && $value !== '';
             }) : [],

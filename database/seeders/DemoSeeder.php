@@ -20,8 +20,7 @@ class DemoSeeder extends Seeder
             ['email' => 'siswa@demo.id'],
             [
                 'name' => 'Brian Pratama',
-                'password' => bcrypt('password'),
-                'role' => 'siswa',
+                'password' => 'password',
                 'foto' => self::FOTO_DEFAULT,
                 'sekolah' => 'SMA Negeri 1 Jakarta',
                 'kelas_jurusan' => 'Kelas 12 · IPA',
@@ -29,13 +28,14 @@ class DemoSeeder extends Seeder
                 'paket' => 'utbk-pro',
             ]
         );
+        $siswa->role = 'siswa';
+        $siswa->save();
 
-        User::query()->firstOrCreate(
+        $guru = User::query()->firstOrCreate(
             ['email' => 'guru@demo.id'],
             [
                 'name' => 'Rina Kumala, M.Si.',
-                'password' => bcrypt('password'),
-                'role' => 'guru',
+                'password' => 'password',
                 'foto' => self::FOTO_DEFAULT,
                 'sekolah' => 'Tim Tutor PintarKuy',
                 'kelas_jurusan' => null,
@@ -43,13 +43,14 @@ class DemoSeeder extends Seeder
                 'paket' => null,
             ]
         );
+        $guru->role = 'guru';
+        $guru->save();
 
-        User::query()->firstOrCreate(
+        $admin = User::query()->firstOrCreate(
             ['email' => 'admin@demo.id'],
             [
                 'name' => 'Operator PintarKuy',
-                'password' => bcrypt('password'),
-                'role' => 'admin',
+                'password' => 'password',
                 'foto' => self::FOTO_DEFAULT,
                 'sekolah' => 'Tim Operasional PintarKuy',
                 'kelas_jurusan' => null,
@@ -57,6 +58,8 @@ class DemoSeeder extends Seeder
                 'paket' => null,
             ]
         );
+        $admin->role = 'admin';
+        $admin->save();
 
         $kelasRows = [
             ['slug' => 'tps', 'name' => 'TPS Penalaran Umum', 'cat' => 'UTBK-SNBT', 'ico' => 'PU', 'meta' => 'Kelas 12 · Persiapan UTBK', 'desc' => 'Logika, analisis, dan penalaran kuantitatif berpola SNBT.', 'modul' => 32, 'durasi' => '12 Minggu', 'siswa' => 284, 'price' => 'Rp 599K', 'old' => 'Rp 799K', 'bg' => 'rgba(126,252,154,0.35)', 'color' => '#007433'],

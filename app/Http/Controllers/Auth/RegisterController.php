@@ -23,10 +23,10 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
-        $user = User::create(array_merge($data, [
-            'role' => 'siswa',
-            'paket' => 'utbk-pro',
-        ]));
+        $user = User::create($data);
+        $user->role = 'siswa';
+        $user->paket = 'utbk-pro';
+        $user->save();
 
         event(new Registered($user));
 

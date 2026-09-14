@@ -159,7 +159,7 @@ class DashboardController extends Controller
                 'name' => $k->name,
                 'fokus' => $meta['fokus'],
                 'judul' => $judulMateri ? $judulMateri->judul : 'Pembahasan Materi Inti ' . $k->name,
-                'tutor' => $materi->first()->tutor ?? 'Tim Tutor Master PTN',
+                'tutor' => $materi->first()?->tutor ?? 'Tim Tutor Master PTN',
                 'pertemuan' => $meta['pertemuan'],
                 'pct' => $meta['pct'],
                 'modul_total' => $k->modul,
