@@ -46,7 +46,7 @@
                             <span class="kelas-icon" style="background:{{ $k->bg ?? 'rgba(126,252,154,0.35)' }};color:{{ $k->color ?? '#007433' }}">{{ substr($k->ico ?? 'KL', 0, 2) }}</span>
                             <div class="flex-1 min-w-0">
                                 <p class="guru-row-title">{{ $k->name }}</p>
-                                <p class="guru-row-sub">{{ $k->cat }} • {{ $k->modul }} modul • Rp {{ $k->price }}</p>
+                                <p class="guru-row-sub">{{ $k->cat }} • {{ $k->modul }} modul • {{ $k->price ? 'Rp ' . number_format($k->price, 0, ',', '.') : 'Gratis' }}</p>
                             </div>
                             <a href="{{ route('guru.kelas.edit', $k->id) }}" class="dash-btn dash-btn--ghost dash-btn--sm">Edit</a>
                         </div>

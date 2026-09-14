@@ -14,7 +14,7 @@ class SiswaController extends Controller
         $query = User::query()->where('role', 'siswa')->with('kelasTerdaftar');
 
         if ($request->filled('cari')) {
-            $q = $request->string('cari')->trim();
+            $q = addcslashes($request->string('cari')->trim()->toString(), '\\%_');
             $query->where(function ($w) use ($q) {
                 $w->where('name', 'like', "%{$q}%")
                     ->orWhere('email', 'like', "%{$q}%")

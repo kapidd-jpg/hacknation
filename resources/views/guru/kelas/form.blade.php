@@ -72,12 +72,12 @@
 
             <div class="dash-grid dash-grid--2">>
                 <div class="setting-field">
-                    <label for="price">Harga</label>
-                    <input id="price" name="price" type="text" value="{{ old('price', $kelas?->price) }}" placeholder="Rp 399K">
+                    <label for="price">Harga (Rupiah)</label>
+                    <input id="price" name="price" type="number" min="0" step="1000" value="{{ old('price', $kelas?->price) }}" placeholder="399000">
                 </div>
                 <div class="setting-field">
-                    <label for="old">Harga Coret (Old)</label>
-                    <input id="old" name="old" type="text" value="{{ old('old', $kelas?->old) }}" placeholder="Rp 499K">
+                    <label for="old">Harga Coret (Rupiah)</label>
+                    <input id="old" name="old" type="number" min="0" step="1000" value="{{ old('old', $kelas?->old) }}" placeholder="499000">
                 </div>
             </div>
 

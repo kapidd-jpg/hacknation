@@ -1,32 +1,13 @@
 // PintarKuy — Dashboard: Nilai (render tabel per semester + summary)
 document.addEventListener('DOMContentLoaded', () => {
-    const semesters = {
-        ganjil: {
-            label: 'Semester Ganjil 2026/2027',
-            rows: [
-                { subj: 'Matematika', cat: 'Wajib', ico: 'Mt', bg: 'rgba(126,252,154,0.35)', color: '#007433', tugas: 88, uts: 84, uas: 86, avg: 86.0, grade: 'B' },
-                { subj: 'Fisika', cat: 'Saintek', ico: 'Fi', bg: 'rgba(237,233,254,1)', color: '#6d28d9', tugas: 90, uts: 81, uas: 84, avg: 85.0, grade: 'B' },
-                { subj: 'Bahasa Inggris', cat: 'Literasi', ico: 'En', bg: 'rgba(222,225,255,1)', color: '#111c4e', tugas: 92, uts: 88, uas: 90, avg: 90.0, grade: 'A' },
-                { subj: 'Kimia', cat: 'Saintek', ico: 'Ki', bg: 'rgba(126,252,154,0.35)', color: '#007433', tugas: 84, uts: 79, uas: 83, avg: 82.0, grade: 'B' },
-                { subj: 'TPS Penalaran', cat: 'UTBK', ico: 'TP', bg: 'rgba(237,233,254,1)', color: '#6d28d9', tugas: 86, uts: 83, uas: 85, avg: 84.7, grade: 'B' },
-            ],
-        },
-        genap: {
-            label: 'Semester Genap 2025/2026',
-            rows: [
-                { subj: 'Matematika', cat: 'Wajib', ico: 'Mt', bg: 'rgba(126,252,154,0.35)', color: '#007433', tugas: 95, uts: 90, uas: 92, avg: 92.3, grade: 'A' },
-                { subj: 'Fisika', cat: 'Saintek', ico: 'Fi', bg: 'rgba(237,233,254,1)', color: '#6d28d9', tugas: 91, uts: 86, uas: 88, avg: 88.3, grade: 'A' },
-                { subj: 'Bahasa Inggris', cat: 'Literasi', ico: 'En', bg: 'rgba(222,225,255,1)', color: '#111c4e', tugas: 93, uts: 91, uas: 94, avg: 92.7, grade: 'A' },
-                { subj: 'Kimia', cat: 'Saintek', ico: 'Ki', bg: 'rgba(126,252,154,0.35)', color: '#007433', tugas: 87, uts: 82, uas: 85, avg: 84.7, grade: 'B' },
-                { subj: 'TPS Penalaran', cat: 'UTBK', ico: 'TP', bg: 'rgba(237,233,254,1)', color: '#6d28d9', tugas: 90, uts: 87, uas: 91, avg: 89.3, grade: 'A' },
-                { subj: 'Pemrograman', cat: 'Ekstra', ico: 'Py', bg: 'rgba(254,243,199,1)', color: '#92400e', tugas: 97, uts: 93, uas: 95, avg: 95.0, grade: 'A' },
-            ],
-        },
+    const semesterDefaults = {
+        ganjil: { label: 'Semester Ganjil 2026/2027', rows: [] },
+        genap: { label: 'Semester Genap 2025/2026', rows: [] },
     };
+    const semesters = window.pintarKuyNilai || semesterDefaults;
 
     const tbody = document.getElementById('nilaiRows');
     const label = document.getElementById('semesterLabel');
-    document.getElementById('sumAvg');
     const sumAvg = document.getElementById('sumAvg');
     const sumAvgBadge = document.getElementById('sumAvgBadge');
     const sumMax = document.getElementById('sumMax');
@@ -36,10 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const gradeClass = (g) => ({ A: 'nilai-badge--A', B: 'nilai-badge--B', C: 'nilai-badge--C' }[g] || 'nilai-badge--B');
 
     const render = (key) => {
-        const sem = semesters[key];
+        const sem = semesters[key] || { label: 'Semester', rows: [] };
+        const rows = Array.isArray(sem.rows) ? sem.rows : [];
         label.textContent = sem.label;
 
-        tbody.innerHTML = sem.rows.map((r) => `
+        tbody.innerHTML = rows.map((r) => `
             <tr>
                 <td>
                     <div class="nilai-subj">
@@ -54,17 +36,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td><span class="nilai-badge ${gradeClass(r.grade)}">${r.grade}</span></td>
             </tr>`).join('');
 
-        const avgs = sem.rows.map((r) => r.avg);
+        if (rows.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" class="guru-empty">Belum ada nilai pada semester ini.</td></tr>';
+            sumAvg.textContent = '—';
+            sumAvgBadge.textContent = '—';
+            sumMax.textContent = '—';
+            sumMaxSubj.textContent = '—';
+            sumPred.textContent = '—';
+            return;
+        }
+
+        const avgs = rows.map((r) => r.avg);
         const total = avgs.reduce((a, b) => a + b, 0) / avgs.length;
         const best = Math.max(...avgs);
-        const bestRow = sem.rows.find((r) => r.avg === best);
+        const bestRow = rows.find((r) => r.avg === best);
 
         sumAvg.textContent = total.toFixed(1);
         const letter = total >= 88 ? 'A' : total >= 75 ? 'B' : 'C';
         sumPred.textContent = letter;
         sumAvgBadge.textContent = letter === 'A' ? 'Kategori A' : 'Kategori B';
         sumMax.textContent = best.toFixed(1);
-        sumMaxSubj.textContent = bestRow.subj;
+        sumMaxSubj.textContent = bestRow?.subj ?? '—';
     };
 
     document.querySelectorAll('#semesterFilter button').forEach((btn) => {
@@ -75,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    render('genap');
+    render('ganjil');
 
     document.querySelectorAll('.dash-reveal').forEach((el) => el.classList.add('is-visible'));
 });

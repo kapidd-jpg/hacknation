@@ -8,15 +8,15 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->longText('foto')->nullable()->change();
+        Schema::table('kelas', function (Blueprint $table) {
+            $table->dropColumn('siswa');
         });
     }
 
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->text('foto')->nullable()->change();
+        Schema::table('kelas', function (Blueprint $table) {
+            $table->unsignedInteger('siswa')->default(0);
         });
     }
 };

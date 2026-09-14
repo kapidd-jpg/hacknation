@@ -13,6 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
         return d.innerHTML;
     };
 
+    const fmtRp = (n) => {
+        const v = Number(n);
+        if (!Number.isFinite(v) || v <= 0) return '';
+        return 'Rp ' + v.toLocaleString('id-ID');
+    };
+
     const data = window.pintarKuyKatalog || [];
     let terdaftarIds = Array.isArray(window.pintarKuyTerdaftarIds)
         ? window.pintarKuyTerdaftarIds.map(String)
@@ -74,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <div class="katalog-hr"></div>
             <div class="katalog-foot">
-                <p class="katalog-price"><small>${esc(item.old)}</small> ${esc(item.price)}/bln</p>
+                <p class="katalog-price">${fmtRp(item.old) ? `<small>${esc(fmtRp(item.old))}</small> ` : ''}${esc(fmtRp(item.price) || 'Gratis')}/bln</p>
                 <button type="button" class="katalog-add" data-id="${esc(item.id)}" data-name="${esc(item.name)}">+ Daftar</button>
             </div>
         </article>`;
@@ -128,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span class="katalog-stat">${esc(item.siswa)} Siswa</span>
                 </div>
                 <div class="katalog-hr"></div>
-                <p class="katalog-price katalog-modal-price"><small>${esc(item.old)}</small> ${esc(item.price)}/bln</p>
+                <p class="katalog-price katalog-modal-price">${fmtRp(item.old) ? `<small>${esc(fmtRp(item.old))}</small> ` : ''}${esc(fmtRp(item.price) || 'Gratis')}/bln</p>
             </div>
             <div class="katalog-modal-foot">
                 <button type="button" class="katalog-btn katalog-btn--ghost" data-act="cancel">Batal</button>

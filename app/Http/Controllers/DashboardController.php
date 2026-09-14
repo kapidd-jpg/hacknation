@@ -7,8 +7,10 @@ use App\Models\Nilai;
 use App\Models\Paket;
 use App\Models\Pendaftaran;
 use App\Support\UserFoto;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class DashboardController extends Controller
@@ -41,13 +43,31 @@ class DashboardController extends Controller
             return redirect()->route('guru.dashboard');
         }
 
-        $kelas = Kelas::query()->where('aktif', true)->orderBy('cat')->orderBy('id')->get();
+        $kelas = Kelas::query()
+            ->where('aktif', true)
+            ->withCount('pendaftaran')
+            ->orderBy('cat')
+            ->orderBy('id')
+            ->get();
 
         return view('dashboard.katalog', [
             'kelas' => $kelas,
-            'katalog' => $kelas->map(fn ($k) => collect($k->getAttributes())
-                ->only(['id', 'slug', 'cat', 'ico', 'name', 'meta', 'desc', 'modul', 'durasi', 'siswa', 'price', 'old', 'bg', 'color'])
-                ->all()),
+            'katalog' => $kelas->map(fn ($k) => [
+                'id' => $k->id,
+                'slug' => $k->slug,
+                'cat' => $k->cat,
+                'ico' => $k->ico,
+                'name' => $k->name,
+                'meta' => $k->meta,
+                'desc' => $k->desc,
+                'modul' => $k->modul,
+                'durasi' => $k->durasi,
+                'siswa' => $k->pendaftaran_count,
+                'price' => $k->price,
+                'old' => $k->old,
+                'bg' => $k->bg,
+                'color' => $k->color,
+            ])->all(),
             'terdaftarIds' => Auth::user()->pendaftaran()->pluck('kelas_id')->map(fn ($v) => (string) $v)->all(),
         ]);
     }
@@ -65,20 +85,39 @@ class DashboardController extends Controller
 
         $kelas = Kelas::query()->where('aktif', true)->findOrFail($request->input('kelas_id'));
 
-        $daftar = Pendaftaran::query()->where('user_id', $user->id)->get();
-        if ($daftar->contains(fn ($p) => (int) $p->kelas_id === (int) $kelas->id)) {
+        try {
+            $hasil = DB::transaction(function () use ($user, $kelas) {
+                if (Pendaftaran::query()
+                    ->where('user_id', $user->id)
+                    ->where('kelas_id', $kelas->id)
+                    ->exists()) {
+                    return 'duplicate';
+                }
+
+                $terdaftar = Pendaftaran::query()->where('user_id', $user->id)->count();
+                $kuota = Paket::query()->where('key', $user->paket)->value('kuota');
+                if ($kuota !== null && $terdaftar >= $kuota) {
+                    return 'quota';
+                }
+
+                Pendaftaran::query()->create([
+                    'user_id' => $user->id,
+                    'kelas_id' => $kelas->id,
+                ]);
+
+                return 'ok';
+            });
+        } catch (QueryException $e) {
             return $this->respondDaftar($request, false, 'Kamu sudah terdaftar di kelas ini.');
         }
 
-        $kuota = Paket::query()->where('key', $user->paket)->value('kuota');
-        if ($kuota !== null && $daftar->count() >= $kuota) {
-            return $this->respondDaftar($request, false, 'Kuota kelas paket kamu sudah penuh. Upgrade paket untuk menambah kelas.');
+        if ($hasil === 'duplicate') {
+            return $this->respondDaftar($request, false, 'Kamu sudah terdaftar di kelas ini.');
         }
 
-        Pendaftaran::query()->create([
-            'user_id' => $user->id,
-            'kelas_id' => $kelas->id,
-        ]);
+        if ($hasil === 'quota') {
+            return $this->respondDaftar($request, false, 'Kuota kelas paket kamu sudah penuh. Upgrade paket untuk menambah kelas.');
+        }
 
         return $this->respondDaftar($request, true, 'Berhasil daftar kelas ' . $kelas->name . '!', true);
     }
@@ -97,6 +136,18 @@ class DashboardController extends Controller
         $paket = Paket::query()->where('key', $data['paket'])->where('aktif', true)->first();
         if (! $paket) {
             return $this->respondDaftar($request, false, 'Paket tidak tersedia.');
+        }
+
+        $level = ['starter' => 1, 'utbk-pro' => 2, 'golden' => 3];
+        $saatIni = $level[$user->paket] ?? 1;
+        $tujuan = $level[$data['paket']] ?? 1;
+
+        if ($tujuan === $saatIni) {
+            return $this->respondDaftar($request, false, 'Kamu sudah memakai paket ' . $paket->nama . '.');
+        }
+
+        if ($tujuan < $saatIni) {
+            return $this->respondDaftar($request, false, 'Paket yang dipilih lebih rendah dari paket kamu saat ini.');
         }
 
         $user->paket = $paket->key;
@@ -179,7 +230,36 @@ class DashboardController extends Controller
             return redirect()->route('guru.dashboard');
         }
 
-        return view('dashboard.nilai');
+        $semesters = [
+            'ganjil' => ['label' => 'Semester Ganjil 2026/2027', 'rows' => []],
+            'genap' => ['label' => 'Semester Genap 2025/2026', 'rows' => []],
+        ];
+
+        $kelasById = Kelas::query()
+            ->whereIn('id', Auth::user()->pendaftaran()->pluck('kelas_id'))
+            ->get()
+            ->keyBy('id');
+
+        foreach (Nilai::query()->where('user_id', Auth::user()->id)->orderBy('tanggal')->get() as $n) {
+            $k = $kelasById->get($n->kelas_id);
+            $avg = (float) $n->skor;
+            $key = $n->tanggal->month >= 7 ? 'ganjil' : 'genap';
+
+            $semesters[$key]['rows'][] = [
+                'subj' => $k?->name ?? 'Tryout #' . $n->id,
+                'cat' => $k?->cat ?? 'Tryout',
+                'ico' => substr($k?->ico ?? 'TO', 0, 2),
+                'bg' => $k?->bg ?? 'rgba(126,252,154,0.35)',
+                'color' => $k?->color ?? '#007433',
+                'tugas' => $n->skor,
+                'uts' => $n->skor,
+                'uas' => $n->skor,
+                'avg' => round($avg, 1),
+                'grade' => $avg >= 88 ? 'A' : ($avg >= 75 ? 'B' : 'C'),
+            ];
+        }
+
+        return view('dashboard.nilai', ['semesters' => $semesters]);
     }
 
     public function laporan()

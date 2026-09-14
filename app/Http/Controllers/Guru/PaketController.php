@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
 use App\Models\Paket;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PaketController extends Controller
@@ -41,6 +42,10 @@ class PaketController extends Controller
 
     public function destroy(Paket $paket)
     {
+        if (User::query()->where('paket', $paket->key)->exists()) {
+            return redirect()->route('guru.paket.index')->with('status', 'Paket tidak bisa dihapus karena masih dipakai oleh siswa.');
+        }
+
         $paket->delete();
 
         return redirect()->route('guru.paket.index')->with('status', 'Paket berhasil dihapus.');
@@ -55,6 +60,7 @@ class PaketController extends Controller
             'harga' => ['required', 'integer', 'min:0'],
             'harga_lama' => ['nullable', 'integer', 'min:0'],
             'kuota' => ['nullable', 'integer', 'min:1'],
+            'fitur' => ['nullable', 'string', 'max:5000'],
         ];
 
         $data = $request->validate($rules);

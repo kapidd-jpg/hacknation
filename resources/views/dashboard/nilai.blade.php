@@ -69,5 +69,6 @@
 @endpush
 
 @push('scripts')
+    <script>window.pintarKuyNilai = @json($semesters);</script>
     @vite(['resources/js/dashboard/nilai.js'])
 @endpush

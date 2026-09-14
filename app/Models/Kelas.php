@@ -18,12 +18,18 @@ class Kelas extends Model
         'desc',
         'modul',
         'durasi',
-        'siswa',
         'price',
         'old',
         'bg',
         'color',
         'aktif',
+    ];
+
+    protected $casts = [
+        'price' => 'integer',
+        'old' => 'integer',
+        'modul' => 'integer',
+        'aktif' => 'boolean',
     ];
 
     public function materi()
