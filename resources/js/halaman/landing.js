@@ -1,7 +1,36 @@
 // PintarKuy — Halaman Landing (scroll halus + reveal + quiz teaser 5 soal × 20 poin)
 document.addEventListener('DOMContentLoaded', () => {
 
-    // ---------- baseline smooth scroll ----------
+    // ---------- selalu kembali ke atas saat halaman di-refresh ----------
+    if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+
+    // ---------- smooth scroll manual (anti bentrok dengan prefers-reduced-motion) ----------
+    const rootEl = document.documentElement;
+    const easeInOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
+    function smoothScrollTo(targetY, duration = 700) {
+        const startY = window.pageYOffset;
+        const delta = targetY - startY;
+        if (Math.abs(delta) < 2) return;
+
+        const prevBehavior = rootEl.style.scrollBehavior;
+        rootEl.style.scrollBehavior = 'auto';
+        const start = performance.now();
+
+        const step = (now) => {
+            const progress = Math.min((now - start) / duration, 1);
+            window.scrollTo(0, startY + delta * easeInOutCubic(progress));
+            if (progress < 1) {
+                requestAnimationFrame(step);
+            } else {
+                rootEl.style.scrollBehavior = prevBehavior;
+            }
+        };
+        requestAnimationFrame(step);
+    }
 
     // ---------- upgrade paket dari dashboard (skip login) ----------
     // Jika pengunjung datang dari tombol "Upgrade Paket" di dashboard,
@@ -54,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const header = document.querySelector('header');
             const offset = header ? header.offsetHeight : 0;
             const top = target.getBoundingClientRect().top + window.scrollY - offset;
-            window.scrollTo({ top, behavior: 'smooth' });
+            smoothScrollTo(top);
         });
     });
 
