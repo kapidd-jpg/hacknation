@@ -18,12 +18,19 @@ class Paket extends Model
         'harga',
         'harga_lama',
         'kuota',
+        'kategori',
         'fitur',
         'aktif',
     ];
 
     protected $casts = [
+        'kategori' => 'array',
         'fitur' => 'array',
         'aktif' => 'boolean',
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_paket')->withTimestamps();
+    }
 }

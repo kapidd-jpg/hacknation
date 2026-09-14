@@ -16,14 +16,14 @@
     font-weight: 700;
     color: var(--ink-soft);
     background: #fff;
-    border: 1px solid rgba(15, 27, 76, 0.12);
+    border: 1px solid rgba(30, 58, 186, 0.12);
     padding: 10px 22px;
     border-radius: 9999px;
     cursor: pointer;
     transition: all 0.2s ease;
 }
 .kelas-filter button:hover { border-color: var(--navy-800); color: var(--navy-950); }
-.kelas-filter button.active { background: var(--navy-800); color: #fff; border-color: var(--navy-800); box-shadow: 0 10px 20px -10px rgba(17, 28, 78, 0.5); }
+.kelas-filter button.active { background: var(--navy-800); color: #fff; border-color: var(--navy-800); box-shadow: 0 10px 20px -10px rgba(30, 58, 186, 0.5); }
 
 /* ---------- Class cards grid ---------- */
 .kelas-grid {
@@ -50,7 +50,7 @@
     from { opacity: 0; transform: scale(0.96) translateY(10px); }
     to { opacity: 1; transform: none; }
 }
-.kelas-card:hover { transform: translateY(-4px); box-shadow: 0 16px 34px -12px rgba(15, 27, 76, 0.18); }
+.kelas-card:hover { transform: translateY(-4px); box-shadow: 0 16px 34px -12px rgba(30, 58, 186, 0.18); }
 .kelas-card-top { display: flex; align-items: flex-start; justify-content: space-between; }
 .kelas-ico {
     width: 48px;

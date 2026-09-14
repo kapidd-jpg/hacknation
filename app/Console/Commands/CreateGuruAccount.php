@@ -48,7 +48,6 @@ class CreateGuruAccount extends Command
             'email' => $email,
             'password' => $password,
             'role' => $role,
-            'paket' => null,
         ]);
 
         $this->components->info('Akun ' . $role . ' berhasil dibuat.');

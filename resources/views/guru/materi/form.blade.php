@@ -64,6 +64,25 @@
                 </div>
             </div>
 
+            <div class="setting-field">
+                <label for="tipe">Tipe Konten</label>
+                <select id="tipe" name="tipe" class="guru-select">
+                    <option value="video" @selected(old('tipe', $materi?->tipe ?? 'video') === 'video')>Video Pembelajaran</option>
+                    <option value="teks" @selected(old('tipe', $materi?->tipe) === 'teks')>Ringkasan Teks</option>
+                    <option value="video_teks" @selected(old('tipe', $materi?->tipe) === 'video_teks')>Video + Ringkasan</option>
+                </select>
+            </div>
+
+            <div class="setting-field">
+                <label for="video_url">URL Video (YouTube)</label>
+                <input id="video_url" name="video_url" type="text" value="{{ old('video_url', $materi?->video_url) }}" placeholder="https://www.youtube.com/watch?v=..." >
+            </div>
+
+            <div class="setting-field">
+                <label for="konten">Ringkasan Teks (opsional)</label>
+                <textarea id="konten" name="konten" rows="5" placeholder="Tulis ringkasan materi dalam beberapa paragraf...">{{ old('konten', $materi?->konten) }}</textarea>
+            </div>
+
             <div class="dash-head-actions" style="justify-content:flex-end;">
                 <a href="{{ route('guru.materi.index') }}" class="dash-btn dash-btn--ghost">Batal</a>
                 <button type="submit" class="dash-btn dash-btn--primary">{{ $materi ? 'Simpan Perubahan' : 'Simpan Materi' }}</button>

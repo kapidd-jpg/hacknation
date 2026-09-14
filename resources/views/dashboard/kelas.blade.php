@@ -4,12 +4,12 @@
 
 @php
     $kelasAll = $kelasAll ?? [
-        ['slug' => 'matematika', 'name' => 'Matematika', 'tag' => 'WAJIB', 'desc' => 'Kelas 12 SMA • Persiapan UTBK', 'ico' => 'Mt', 'bg' => 'rgba(126,252,154,0.35)', 'color' => '#007433', 'pct' => 82, 'prog' => '18/22 Modul', 'note' => 'Live: Besok, 16:00 WIB', 'cat' => 'WAJIB', 'pertemuan' => '32 Pertemuan'],
-        ['slug' => 'fisika', 'name' => 'Fisika', 'tag' => 'SAINTEK', 'desc' => 'Mekanika & Termodinamika', 'ico' => 'Fi', 'bg' => 'rgba(237,233,254,1)', 'color' => '#6d28d9', 'pct' => 65, 'prog' => '13/20 Modul', 'note' => 'Live: Kamis, 19:30 WIB', 'cat' => 'SAINTEK', 'pertemuan' => '20 Pertemuan'],
-        ['slug' => 'bahasa', 'name' => 'Bahasa Inggris', 'tag' => 'LITERASI', 'desc' => 'Reading Comprehension & HOTS', 'ico' => 'En', 'bg' => 'rgba(222,225,255,1)', 'color' => '#111c4e', 'pct' => 90, 'prog' => '27/30 Modul', 'note' => 'Latihan Soal Tersedia', 'cat' => 'LITERASI', 'pertemuan' => '30 Pertemuan'],
+        ['slug' => 'matematika', 'name' => 'Matematika', 'tag' => 'WAJIB', 'desc' => 'Kelas 12 SMA • Persiapan UTBK', 'ico' => 'Mt', 'bg' => 'rgba(94,234,212,0.35)', 'color' => '#0F766E', 'pct' => 82, 'prog' => '18/22 Modul', 'note' => 'Live: Besok, 16:00 WIB', 'cat' => 'WAJIB', 'pertemuan' => '32 Pertemuan'],
+        ['slug' => 'fisika', 'name' => 'Fisika', 'tag' => 'SAINTEK', 'desc' => 'Mekanika & Termodinamika', 'ico' => 'Fi', 'bg' => 'rgba(223,228,251,1)', 'color' => '#1E3ABA', 'pct' => 65, 'prog' => '13/20 Modul', 'note' => 'Live: Kamis, 19:30 WIB', 'cat' => 'SAINTEK', 'pertemuan' => '20 Pertemuan'],
+        ['slug' => 'bahasa', 'name' => 'Bahasa Inggris', 'tag' => 'LITERASI', 'desc' => 'Reading Comprehension & HOTS', 'ico' => 'En', 'bg' => 'rgba(223,228,251,1)', 'color' => '#1E3ABA', 'pct' => 90, 'prog' => '27/30 Modul', 'note' => 'Latihan Soal Tersedia', 'cat' => 'LITERASI', 'pertemuan' => '30 Pertemuan'],
         ['slug' => 'pemrograman', 'name' => 'Pemrograman', 'tag' => 'EKSTRA', 'desc' => 'Dasar Logika & Python untuk Sains', 'ico' => 'Py', 'bg' => 'rgba(254,243,199,1)', 'color' => '#92400e', 'pct' => 45, 'prog' => '9/20 Modul', 'note' => 'Tugas Coding Aktif (H-2)', 'cat' => 'EKSTRA', 'pertemuan' => '20 Pertemuan'],
-        ['slug' => 'kimia', 'name' => 'Kimia', 'tag' => 'SAINTEK', 'desc' => 'Stoikiometri & Larutan', 'ico' => 'Ki', 'bg' => 'rgba(126,252,154,0.35)', 'color' => '#007433', 'pct' => 58, 'prog' => '14/24 Modul', 'note' => 'Live: Sabtu, 09:00 WIB', 'cat' => 'SAINTEK', 'pertemuan' => '24 Pertemuan'],
-        ['slug' => 'tps', 'name' => 'TPS Penalaran', 'tag' => 'UTBK', 'desc' => 'Logika & Penalaran Kuantitatif', 'ico' => 'TP', 'bg' => 'rgba(237,233,254,1)', 'color' => '#6d28d9', 'pct' => 71, 'prog' => '17/24 Modul', 'note' => 'Latihan Soal Tersedia', 'cat' => 'UTBK', 'pertemuan' => '24 Pertemuan'],
+        ['slug' => 'kimia', 'name' => 'Kimia', 'tag' => 'SAINTEK', 'desc' => 'Stoikiometri & Larutan', 'ico' => 'Ki', 'bg' => 'rgba(94,234,212,0.35)', 'color' => '#0F766E', 'pct' => 58, 'prog' => '14/24 Modul', 'note' => 'Live: Sabtu, 09:00 WIB', 'cat' => 'SAINTEK', 'pertemuan' => '24 Pertemuan'],
+        ['slug' => 'tps', 'name' => 'TPS Penalaran', 'tag' => 'UTBK', 'desc' => 'Logika & Penalaran Kuantitatif', 'ico' => 'TP', 'bg' => 'rgba(223,228,251,1)', 'color' => '#1E3ABA', 'pct' => 71, 'prog' => '17/24 Modul', 'note' => 'Latihan Soal Tersedia', 'cat' => 'UTBK', 'pertemuan' => '24 Pertemuan'],
     ];
 @endphp
 

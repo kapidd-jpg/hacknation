@@ -15,7 +15,7 @@
 }
 .nilai-sum-label { font-size: 12px; font-weight: 600; color: var(--ink-soft); }
 .nilai-sum-value { font-size: 28px; font-weight: 900; color: var(--navy-900); line-height: 1; }
-.nilai-sum-note { font-size: 11px; font-weight: 700; color: var(--green); background: rgba(126, 252, 154, 0.4); align-self: flex-start; padding: 4px 10px; border-radius: 9999px; }
+.nilai-sum-note { font-size: 11px; font-weight: 700; color: var(--green); background: rgba(94, 234, 212, 0.4); align-self: flex-start; padding: 4px 10px; border-radius: 9999px; }
 
 .nilai-table-wrap { overflow-x: auto; }
 .nilai-table { width: 100%; border-collapse: collapse; min-width: 640px; }
@@ -40,7 +40,7 @@
 .nilai-subj small { font-size: 11px; color: var(--ink-soft); font-weight: 600; }
 .nilai-avg { font-weight: 900; color: var(--navy-950); }
 .nilai-badge { display: inline-block; font-size: 11px; font-weight: 800; padding: 4px 11px; border-radius: 9999px; }
-.nilai-badge--A { background: rgba(126, 252, 154, 0.4); color: var(--green-text); }
+.nilai-badge--A { background: rgba(94, 234, 212, 0.4); color: var(--green-text); }
 .nilai-badge--B { background: var(--navy-100); color: var(--navy-800); }
 .nilai-badge--C { background: #fef3c7; color: #92400e; }
 

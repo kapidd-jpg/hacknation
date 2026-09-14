@@ -43,7 +43,7 @@
                 <div class="flex flex-col">
                     @forelse ($kelasTerbaru as $k)
                         <div class="guru-row">
-                            <span class="kelas-icon" style="background:{{ $k->bg ?? 'rgba(126,252,154,0.35)' }};color:{{ $k->color ?? '#007433' }}">{{ substr($k->ico ?? 'KL', 0, 2) }}</span>
+                            <span class="kelas-icon" style="background:{{ $k->bg ?? 'rgba(94,234,212,0.35)' }};color:{{ $k->color ?? '#0F766E' }}">{{ substr($k->ico ?? 'KL', 0, 2) }}</span>
                             <div class="flex-1 min-w-0">
                                 <p class="guru-row-title">{{ $k->name }}</p>
                                 <p class="guru-row-sub">{{ $k->cat }} • {{ $k->modul }} modul • Rp {{ $k->price }}</p>

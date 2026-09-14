@@ -54,11 +54,14 @@ class PaketController extends Controller
             'tag' => ['nullable', 'string', 'max:255'],
             'harga' => ['required', 'integer', 'min:0'],
             'harga_lama' => ['nullable', 'integer', 'min:0'],
-            'kuota' => ['nullable', 'integer', 'min:1'],
+            'kategori' => ['required', 'array', 'min:1'],
+            'kategori.*' => ['required', 'string', 'in:UTBK-SNBT,SMA,Bahasa,Ekstra'],
         ];
 
         $data = $request->validate($rules);
         $data['fitur'] = array_values(array_filter(array_map('trim', explode("\n", (string) $request->input('fitur', '')))));
+        $data['kategori'] = array_values(array_unique(array_map('trim', (array) $request->input('kategori', []))));
+        $data['kuota'] = null;
         $data['aktif'] = $request->boolean('aktif');
 
         return $data;

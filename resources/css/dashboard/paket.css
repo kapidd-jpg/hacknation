@@ -1,0 +1,21 @@
+/* PintarKuy — Paket (pilih / checkout / sukses) */
+
+.paket-metode { position: relative; }
+.paket-metode:has(input:checked) {
+    border-color: var(--navy-800);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(30, 58, 186, 0.08);
+}
+.paket-metode:has(input:checked) .paket-dot {
+    border-color: var(--navy-800);
+    background: var(--navy-800);
+    box-shadow: inset 0 0 0 3px #fff;
+}
+.paket-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 9999px;
+    border: 2px solid var(--navy-300);
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
