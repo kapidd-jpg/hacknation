@@ -4,17 +4,17 @@
 
 @php
     $stats = [
-        ['label' => 'Kelas Aktif', 'value' => '6 Kelas', 'note' => '2 kelas live minggu ini', 'bg' => 'bg-brand-greenlight/40'],
-        ['label' => 'Rata-rata Nilai', 'value' => '88.5', 'badge' => '+4.2%', 'note' => 'Kategori Sangat Baik (A)', 'bg' => 'bg-purple-100'],
-        ['label' => 'Tugas Selesai', 'value' => '24', 'suffix' => '/ 28', 'note' => '85.7% tingkat penyelesaian', 'bg' => 'bg-navy-100'],
-        ['label' => 'Kehadiran Presensi', 'value' => '96%', 'note' => '16 dari 17 sesi dihadiri', 'bg' => 'bg-navy-100'],
+        ['label' => 'Kelas Aktif', 'value' => '6 Kelas', 'note' => '2 kelas live minggu ini', 'bg' => 'bg-brand-greenlight/40', 'color' => 'text-brand-green', 'icon' => 'M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25'],
+        ['label' => 'Rata-rata Nilai', 'value' => '88.5', 'badge' => '+4.2%', 'note' => 'Kategori Sangat Baik (A)', 'bg' => 'bg-purple-100', 'color' => 'text-purple-700', 'icon' => 'M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z'],
+        ['label' => 'Tugas Selesai', 'value' => '24', 'suffix' => '/ 28', 'note' => '85.7% tingkat penyelesaian', 'bg' => 'bg-navy-100', 'color' => 'text-navy-800', 'icon' => 'M9 12.75 11.25 15 15 7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'],
+        ['label' => 'Kehadiran Presensi', 'value' => '96%', 'note' => '16 dari 17 sesi dihadiri', 'bg' => 'bg-navy-100', 'color' => 'text-navy-800', 'icon' => 'M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5'],
     ];
 
     $classes = [
-        ['name' => 'Matematika', 'tag' => 'WAJIB', 'desc' => 'Kelas 12 SMA • Persiapan UTBK', 'pct' => 82, 'progressText' => '18/22 Modul', 'note' => 'Live: Besok, 16:00 WIB', 'color' => 'brand-green', 'iconBg' => 'bg-brand-greenlight/40'],
-        ['name' => 'Fisika', 'tag' => 'SAINTEK', 'desc' => 'Mekanika & Termodinamika', 'pct' => 65, 'progressText' => '13/20 Modul', 'note' => 'Live: Kamis, 19:30 WIB', 'color' => 'purple-700', 'iconBg' => 'bg-purple-100'],
-        ['name' => 'Bahasa Inggris', 'tag' => 'LITERASI', 'desc' => 'Reading Comprehension & HOTS', 'pct' => 90, 'progressText' => '27/30 Modul', 'note' => 'Latihan Soal Tersedia', 'color' => 'navy-950', 'iconBg' => 'bg-navy-100'],
-        ['name' => 'Pemrograman', 'tag' => 'EKSTRA', 'desc' => 'Dasar Logika & Python untuk Sains', 'pct' => 45, 'progressText' => '9/20 Modul', 'note' => 'Tugas Coding Aktif (H-2)', 'color' => 'navy-800', 'iconBg' => 'bg-navy-100'],
+        ['name' => 'Matematika', 'tag' => 'WAJIB', 'desc' => 'Kelas 12 SMA • Persiapan UTBK', 'pct' => 82, 'progressText' => '18/22 Modul', 'note' => 'Live: Besok, 16:00 WIB', 'color' => 'brand-green', 'iconBg' => 'bg-brand-greenlight/40', 'icon' => 'M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5-3.9 19.5m-2.1-19.5-3.9 19.5'],
+        ['name' => 'Fisika', 'tag' => 'SAINTEK', 'desc' => 'Mekanika & Termodinamika', 'pct' => 65, 'progressText' => '13/20 Modul', 'note' => 'Live: Kamis, 19:30 WIB', 'color' => 'purple-700', 'iconBg' => 'bg-purple-100', 'icon' => 'M5.25 2.25h13.5M12 2.25v4.5m-7.5 0h15v8.25a3 3 0 0 1-3 3H7.5a3 3 0 0 1-3-3V6.75zm15 4.5H4.5'],
+        ['name' => 'Bahasa Inggris', 'tag' => 'LITERASI', 'desc' => 'Reading Comprehension & HOTS', 'pct' => 90, 'progressText' => '27/30 Modul', 'note' => 'Latihan Soal Tersedia', 'color' => 'navy-950', 'iconBg' => 'bg-navy-100', 'icon' => 'M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.49 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802'],
+        ['name' => 'Pemrograman', 'tag' => 'EKSTRA', 'desc' => 'Dasar Logika & Python untuk Sains', 'pct' => 45, 'progressText' => '9/20 Modul', 'note' => 'Tugas Coding Aktif (H-2)', 'color' => 'navy-800', 'iconBg' => 'bg-navy-100', 'icon' => 'M4.5 6.75l1.5 1.5-1.5 1.5m3-4.5 3 9m4.5-4.5-1.5 1.5 1.5 1.5M20.25 7.5h-15'],
     ];
 @endphp
 
@@ -29,7 +29,7 @@
                 </span>
                 <span class="text-ink-muted text-[11px] font-bold">ID: SS-2026-0842</span>
             </div>
-            <h1 class="text-navy-950 text-2xl font-extrabold flex items-center gap-2">Selamat datang kembali, Brian! 👋</h1>
+            <h1 class="text-navy-950 text-2xl font-extrabold flex items-center gap-2">Selamat datang kembali, {{ auth()->user()->name }}! 👋</h1>
             <p class="text-ink-soft text-sm">
                 Lanjutkan progres belajarmu hari ini. Kamu memiliki <span class="text-navy-950">2 modul</span> yang siap diselesaikan dan
                 <span class="text-red-700">1 tugas</span> mendekati tenggat waktu pengumpulan.
@@ -70,7 +70,9 @@
                             @isset($stat['badge'])<span class="ml-1 align-middle bg-brand-greenlight/40 text-brand-green text-[11px] font-semibold px-1.5 py-0.5 rounded">{{ $stat['badge'] }}</span>@endisset
                         </p>
                     </div>
-                    <span class="flex items-center justify-center size-11 rounded-xl {{ $stat['bg'] }} shrink-0"></span>
+                    <span class="flex items-center justify-center size-11 rounded-xl {{ $stat['bg'] }} shrink-0">
+                        <svg class="size-5 {{ $stat['color'] }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="{{ $stat['icon'] }}"/></svg>
+                    </span>
                 </div>
                 <div class="bg-navy-50 rounded-lg px-2.5 py-2 mt-4">
                     <p class="text-ink-soft text-[11px] font-bold">{{ $stat['note'] }}</p>
@@ -189,7 +191,9 @@
                 <div class="bg-white rounded-xl shadow-[0px_4px_20px_-2px_rgba(15,27,76,0.05)] p-5 flex flex-col justify-between">
                     <div class="flex flex-col gap-0.5">
                         <div class="flex items-start justify-between">
-                            <span class="flex items-center justify-center size-10 rounded-lg {{ $class['iconBg'] }}"></span>
+                            <span class="flex items-center justify-center size-10 rounded-lg {{ $class['iconBg'] }}">
+                                <svg class="size-5 text-{{ $class['color'] }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="{{ $class['icon'] }}"/></svg>
+                            </span>
                             <span class="bg-navy-50 text-ink-muted text-[11px] font-semibold px-2 py-0.5 rounded">{{ $class['tag'] }}</span>
                         </div>
                         <h3 class="text-navy-950 font-bold text-lg mt-2.5">{{ $class['name'] }}</h3>

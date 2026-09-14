@@ -19,18 +19,18 @@
         <div class="dash-grid dash-grid--4 dash-reveal">
             <div class="lap-stat dash-card" style="gap:14px;">
                 <span class="lap-stat-label">Skor Prediksi Terkini</span>
-                <span class="lap-stat-value" id="statSkor">712</span>
-                <span class="lap-stat-delta lap-delta--up">▲ +18.4 pts</span>
+                <span class="lap-stat-value" id="statSkor">{{ $laporan['skor'] ?? '—' }}</span>
+                <span class="lap-stat-delta" id="statDeltaSkor">{{ is_null($laporan['delta']) ? 'Belum ada data' : (($laporan['delta'] >= 0 ? '▲ +' : '▼ ') . $laporan['delta'] . ' pts') }}</span>
             </div>
             <div class="lap-stat dash-card" style="gap:14px;">
                 <span class="lap-stat-label">Perkembangan</span>
-                <span class="lap-stat-value" id="statDelta">+28</span>
-                <span class="lap-stat-delta lap-delta--up">Sejak 6 bulan lalu</span>
+                <span class="lap-stat-value" id="statDelta">—</span>
+                <span class="lap-stat-delta" id="statDeltaSub">Sejak 6 bulan lalu</span>
             </div>
             <div class="lap-stat dash-card" style="gap:14px;">
                 <span class="lap-stat-label">Tingkat Akurasi Soal</span>
-                <span class="lap-stat-value" id="statAkurasi">87%</span>
-                <span class="lap-stat-delta lap-delta--up">HOTS: 81%</span>
+                <span class="lap-stat-value" id="statAkurasi">{{ $laporan['akurasi'] ?? '—' }}%</span>
+                <span class="lap-stat-delta" id="statAkurasiSub">Rata-rata 6 bulan</span>
             </div>
             <div class="lap-stat dash-card" style="gap:14px;">
                 <span class="lap-stat-label">Peringkat Nasional</span>
@@ -58,5 +58,8 @@
 @endpush
 
 @push('scripts')
+    <script>
+        window.pintarKuyLaporan = @json($laporan);
+    </script>
     @vite(['resources/js/dashboard/laporan.js'])
 @endpush

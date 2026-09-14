@@ -101,6 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const url = window.pintarKuyPengaturanUrl || '';
                 if (url) {
+                    const payload = { ...profil, foto: profil.photo };
                     fetch(url, {
                         method: 'POST',
                         headers: {
@@ -108,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             'Accept': 'application/json',
                             'X-CSRF-TOKEN': window.pintarKuyCsrf || '',
                         },
-                        body: JSON.stringify(profil),
+                        body: JSON.stringify(payload),
                     })
                         .then((r) => r.json().catch(() => ({})))
                         .then((res) => {

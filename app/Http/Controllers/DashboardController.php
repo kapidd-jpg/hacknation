@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelas;
+use App\Models\Nilai;
 use App\Models\Paket;
 use App\Models\Pendaftaran;
 use Illuminate\Http\Request;
@@ -184,7 +185,44 @@ class DashboardController extends Controller
             return redirect()->route('guru.dashboard');
         }
 
-        return view('dashboard.laporan');
+        $user = Auth::user();
+
+        $rows = Nilai::query()
+            ->where('user_id', $user->id)
+            ->orderBy('tanggal')
+            ->get();
+
+        $bulan = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+
+        $months = $rows->map(fn (Nilai $n) => [
+            'label' => $bulan[(int) $n->tanggal->format('n') - 1] ?? $n->tanggal->format('M'),
+            'val' => $n->skor,
+            'akurasi' => $n->akurasi,
+        ])->values()->all();
+
+        $materi = [];
+        foreach ($user->kelasTerdaftar()->get() as $k) {
+            $meta = self::META_KELAS[$k->slug] ?? ['pct' => 60];
+            $judul = $k->materi()->orderBy('urutan')->skip(1)->first();
+            $materi[] = [
+                'name' => $judul?->judul ?? $k->name,
+                'pct' => $meta['pct'],
+            ];
+        }
+        usort($materi, fn ($a, $b) => $a['pct'] <=> $b['pct']);
+        $materi = array_slice($materi, 0, 5);
+
+        $terkini = $rows->last();
+
+        return view('dashboard.laporan', [
+            'laporan' => [
+                'months' => $months,
+                'materi' => array_values($materi),
+                'skor' => $terkini?->skor,
+                'akurasi' => $terkini?->akurasi,
+                'delta' => $rows->count() >= 2 ? $terkini->skor - $rows->first()->skor : null,
+            ],
+        ]);
     }
 
     public function pengaturan()

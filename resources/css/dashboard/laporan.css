@@ -68,3 +68,16 @@
 .lap-materi-head { display: flex; justify-content: space-between; font-size: 12.5px; }
 .lap-materi-head b { color: var(--navy-900); }
 .lap-materi-head span { color: var(--ink-soft); font-weight: 700; }
+
+.lap-empty {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-muted);
+    padding: 24px;
+}

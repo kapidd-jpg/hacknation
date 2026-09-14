@@ -239,7 +239,7 @@
                     </div>
                 </div>
                 <div class="border-t border-navy-50 mt-6 pt-6 flex items-center justify-between">
-                    <a href="#uji-kemampuan" class="text-xs font-semibold text-navy-950 flex items-center gap-1 hover:text-brand-green transition">Coba simulasi multi-device
+                    <a href="#uji-kemampuan" class="text-xs font-semibold text-navy-950 flex items-center gap-1 hover:text-brand-green transition">Coba simulasi IRT
                         <svg class="size-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                     </a>
                 </div>

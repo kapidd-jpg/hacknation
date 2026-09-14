@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Kelas;
 use App\Models\Materi;
+use App\Models\Nilai;
 use App\Models\Paket;
 use App\Models\Pendaftaran;
 use App\Models\User;
@@ -123,6 +124,27 @@ class DemoSeeder extends Seeder
                     'kelas_id' => $kelas->id,
                 ]);
             }
+        }
+
+        $tryout = [
+            ['slug' => 'tps', 'skor' => 638, 'akurasi' => 81, 'tanggal' => '2026-03-18'],
+            ['slug' => 'tps', 'skor' => 652, 'akurasi' => 82, 'tanggal' => '2026-04-22'],
+            ['slug' => 'matematika', 'skor' => 668, 'akurasi' => 84, 'tanggal' => '2026-05-21'],
+            ['slug' => 'matematika', 'skor' => 685, 'akurasi' => 85, 'tanggal' => '2026-06-19'],
+            ['slug' => 'fisika', 'skor' => 698, 'akurasi' => 86, 'tanggal' => '2026-07-23'],
+            ['slug' => 'fisika', 'skor' => 712, 'akurasi' => 87, 'tanggal' => '2026-08-20'],
+        ];
+
+        Nilai::query()->where('user_id', $siswa->id)->delete();
+        foreach ($tryout as $row) {
+            $kelas = Kelas::query()->where('slug', $row['slug'])->first();
+            Nilai::query()->create([
+                'user_id' => $siswa->id,
+                'kelas_id' => $kelas?->id,
+                'skor' => $row['skor'],
+                'akurasi' => $row['akurasi'],
+                'tanggal' => $row['tanggal'],
+            ]);
         }
     }
 }
