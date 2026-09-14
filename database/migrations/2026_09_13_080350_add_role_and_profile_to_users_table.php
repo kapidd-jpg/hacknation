@@ -9,19 +9,31 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('role')->default('siswa')->after('password');
-            $table->string('foto')->nullable()->after('role');
-            $table->string('sekolah')->nullable()->after('foto');
-            $table->string('kelas_jurusan')->nullable()->after('sekolah');
-            $table->text('bio')->nullable()->after('kelas_jurusan');
-            $table->string('paket')->default('utbk-pro')->nullable()->after('bio');
+            $table->string('role')->default('siswa');
+        });
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('foto')->nullable();
+        });
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('sekolah')->nullable();
+        });
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('kelas_jurusan')->nullable();
+        });
+        Schema::table('users', function (Blueprint $table) {
+            $table->text('bio')->nullable();
+        });
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('paket')->nullable()->default('utbk-pro');
         });
     }
 
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['role', 'foto', 'sekolah', 'kelas_jurusan', 'bio', 'paket']);
-        });
+        foreach (['role', 'foto', 'sekolah', 'kelas_jurusan', 'bio', 'paket'] as $column) {
+            Schema::table('users', function (Blueprint $table) use ($column) {
+                $table->dropColumn($column);
+            });
+        }
     }
 };
