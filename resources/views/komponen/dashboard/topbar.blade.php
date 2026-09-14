@@ -25,7 +25,7 @@
         <span class="hidden md:block h-6 w-px bg-navy-100"></span>
         <div class="flex items-center gap-2">
             <div class="relative">
-                <img src="{{ auth()->user()->foto ?? 'https://www.figma.com/api/mcp/asset/4b9001eb-320b-418b-b43a-9ddbb0503794.png' }}" alt="Foto profil" data-user-photo
+                <img src="{{ \App\Support\UserFoto::src(auth()->user()->foto) }}" alt="Foto profil" data-user-photo
                      class="size-8 rounded-full object-cover ring-2 ring-navy-800/20">
                 <span class="absolute -bottom-0.5 -right-0.5 size-2.5 rounded-full bg-brand-green ring-2 ring-white"></span>
             </div>

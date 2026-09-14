@@ -44,6 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/nilai', [DashboardController::class, 'nilai'])->name('dashboard.nilai');
     Route::get('/dashboard/laporan', [DashboardController::class, 'laporan'])->name('dashboard.laporan');
     Route::get('/dashboard/pengaturan', [DashboardController::class, 'pengaturan'])->name('dashboard.pengaturan');
+    Route::get('/akun/foto', [DashboardController::class, 'foto'])->name('user.foto');
     Route::post('/dashboard/pengaturan', [DashboardController::class, 'pengaturanUpdate'])->name('dashboard.pengaturan.update');
     Route::post('/dashboard/paket/upgrade', [DashboardController::class, 'paketUpgrade'])->name('dashboard.paket.upgrade');
 });

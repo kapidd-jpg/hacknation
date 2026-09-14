@@ -21,7 +21,7 @@
         <div class="dash-card setting-pane active" id="pane-profil">
             <div class="setting-row">
                 <div class="setting-avatar">
-                    <img id="sFoto" src="{{ auth()->user()->foto ?? 'https://www.figma.com/api/mcp/asset/4b9001eb-320b-418b-b43a-9ddbb0503794.png' }}" alt="Foto profil">
+                    <img id="sFoto" src="{{ \App\Support\UserFoto::src(auth()->user()->foto) }}" alt="Foto profil">
                     <div>
                         <b style="font-size:15px;color:var(--navy-900);">Foto Profil</b>
                         <p class="setting-hint" style="margin:4px 0 10px;">JPG atau PNG, maks 2 MB.</p>

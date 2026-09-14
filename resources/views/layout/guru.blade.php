@@ -80,10 +80,13 @@
 <script>
     (function () {
         try {
-            @php $pkUserCtx = auth()->user() ? auth()->user()->only(['name','email','foto','role']) : null; @endphp
+            @php
+                $pkUserCtx = auth()->user() ? auth()->user()->only(['name','email','role']) : null;
+                $pkUserFoto = auth()->user()?->foto ? route('user.foto') : null;
+            @endphp
             const u = @json($pkUserCtx);
             if (u && window.pintarKuyAuth) {
-                window.pintarKuyAuth.login({ name: u.name, email: u.email, photo: u.foto, role: u.role });
+                window.pintarKuyAuth.login({ name: u.name, email: u.email, photo: @json($pkUserFoto), role: u.role });
             }
         } catch (_) {}
         const wrap = document.getElementById('guruWrap');

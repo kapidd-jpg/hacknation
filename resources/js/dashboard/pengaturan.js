@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fileInput.accept = 'image/png,image/jpeg,image/webp';
     fileInput.hidden = true;
     document.body.appendChild(fileInput);
+    let pickedFoto = '';
 
     // muat data tersimpan
     const user = auth.user() || {};
@@ -45,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (sekolah && user.sekolah) sekolah.value = user.sekolah;
     if (kelasJurusan && user.kelas_jurusan) kelasJurusan.value = user.kelas_jurusan;
     if (bio && user.bio) bio.value = user.bio;
-    if (fotoEl) fotoEl.setAttribute('src', user.photo || DEFAULT_PHOTO);
 
     // toggle switches — balikin state tersimpan
     const prefs = window.pintarKuyPrefs || {};
@@ -73,8 +73,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const reader = new FileReader();
         reader.onload = () => {
-            if (fotoEl) fotoEl.setAttribute('src', String(reader.result));
-            showToast('Foto terpilih. Klik "Simpan Perubahan" untuk menyimpan.');
+            const img = new Image();
+            img.onload = () => {
+                const MAX = 512;
+                const scale = Math.min(MAX / img.width, MAX / img.height, 1);
+                const canvas = document.createElement('canvas');
+                canvas.width = Math.max(1, Math.round(img.width * scale));
+                canvas.height = Math.max(1, Math.round(img.height * scale));
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = '#fff';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                pickedFoto = canvas.toDataURL('image/jpeg', 0.85);
+                if (fotoEl) fotoEl.setAttribute('src', pickedFoto);
+                showToast('Foto terpilih. Klik "Simpan Perubahan" untuk menyimpan.');
+            };
+            img.onerror = () => {
+                showToast('File foto tidak valid. Pilih file gambar lain.');
+                fileInput.value = '';
+            };
+            img.src = String(reader.result);
         };
         reader.readAsDataURL(f);
     });
@@ -90,10 +108,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     sekolah: sekolah ? sekolah.value.trim() : '',
                     kelas_jurusan: kelasJurusan ? kelasJurusan.value.trim() : '',
                     bio: bio ? bio.value.trim() : '',
-                    photo: fotoEl ? fotoEl.getAttribute('src') || DEFAULT_PHOTO : DEFAULT_PHOTO,
                 };
-
-                auth.login({ ...profil });
+                const photoValue = pickedFoto || (fotoEl ? fotoEl.getAttribute('src') || DEFAULT_PHOTO : DEFAULT_PHOTO);
+                auth.login({ ...profil, photo: photoValue });
                 document.querySelectorAll('[data-user-name]').forEach((el) => {
                     const u = auth.user();
                     if (el && u && u.name) el.textContent = u.name;
@@ -101,7 +118,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const url = window.pintarKuyPengaturanUrl || '';
                 if (url) {
-                    const payload = { ...profil, foto: profil.photo };
+                    const payload = { ...profil };
+                    if (pickedFoto) payload.foto = pickedFoto;
                     fetch(url, {
                         method: 'POST',
                         headers: {
@@ -115,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         .then((res) => {
                             if (res && res.ok === true) {
                                 document.querySelectorAll('[data-user-photo]').forEach((el) => {
-                                    if (el && profil.photo) el.setAttribute('src', profil.photo);
+                                    if (el && photoValue) el.setAttribute('src', photoValue);
                                 });
                                 showToast(res.message || 'Profil berhasil disimpan.');
                             } else {

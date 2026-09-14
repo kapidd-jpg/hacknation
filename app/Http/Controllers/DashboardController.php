@@ -6,6 +6,7 @@ use App\Models\Kelas;
 use App\Models\Nilai;
 use App\Models\Paket;
 use App\Models\Pendaftaran;
+use App\Support\UserFoto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -225,6 +226,41 @@ class DashboardController extends Controller
         ]);
     }
 
+    public function foto()
+    {
+        $foto = Auth::user()?->foto ?? null;
+
+        if (blank($foto)) {
+            abort(404);
+        }
+
+        if (str_starts_with($foto, 'http://') || str_starts_with($foto, 'https://')) {
+            return redirect($foto);
+        }
+
+        if (! preg_match('/^data:image\/(png|jpeg|webp|gif);base64,(.+)$/s', $foto, $m)) {
+            abort(422, 'Format foto tidak valid.');
+        }
+
+        $bytes = base64_decode($m[2], true);
+        if ($bytes === false || $bytes === '') {
+            abort(404);
+        }
+
+        $mimeTypes = [
+            'png' => 'image/png',
+            'jpeg' => 'image/jpeg',
+            'webp' => 'image/webp',
+            'gif' => 'image/gif',
+        ];
+
+        return response($bytes, 200, [
+            'Content-Type' => $mimeTypes[$m[1]] ?? 'image/jpeg',
+            'Cache-Control' => 'private, no-store, must-revalidate',
+            'X-Content-Type-Options' => 'nosniff',
+        ]);
+    }
+
     public function pengaturan()
     {
         if (Auth::user()->isStaff()) {
@@ -256,6 +292,10 @@ class DashboardController extends Controller
                 }
             }],
         ]);
+
+        if (! blank($data['foto'] ?? null) && str_starts_with($data['foto'], 'data:')) {
+            $data['foto'] = UserFoto::compress($data['foto']);
+        }
 
         $user->update($data);
 

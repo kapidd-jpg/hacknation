@@ -25,7 +25,7 @@
             $dashHomeUrl = Auth::check()
                 ? (Auth::user()->isGuru() ? route('guru.dashboard') : route('dashboard'))
                 : route('login');
-            $userFoto = Auth::check() ? (Auth::user()->foto ?? 'https://www.figma.com/api/mcp/asset/4b9001eb-320b-418b-b43a-9ddbb0503794.png') : '';
+            $userFoto = Auth::check() ? \App\Support\UserFoto::src(Auth::user()->foto) : '';
         @endphp
         <div class="flex items-center gap-4" id="landingAuth">
             @auth

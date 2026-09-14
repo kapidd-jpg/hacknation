@@ -87,13 +87,16 @@
     (function () {
         // sinkron akun (dari DB) ke localStorage supaya JS lama tetap kompatibel
         try {
-            @php $pkUserCtx = auth()->user() ? auth()->user()->only(['name','email','foto','sekolah','kelas_jurusan','bio','role','paket']) : null; @endphp
+            @php
+                $pkUserCtx = auth()->user() ? auth()->user()->only(['name','email','sekolah','kelas_jurusan','bio','role','paket']) : null;
+                $pkUserFoto = auth()->user()?->foto ? route('user.foto') : null;
+            @endphp
             const u = @json($pkUserCtx);
             if (u && window.pintarKuyAuth) {
                 window.pintarKuyAuth.login({
                     name: u.name,
                     email: u.email,
-                    photo: u.foto,
+                    photo: @json($pkUserFoto),
                     sekolah: u.sekolah,
                     kelas_jurusan: u.kelas_jurusan,
                     bio: u.bio,
