@@ -43,12 +43,10 @@ class CreateGuruAccount extends Command
 
         $role = $this->option('admin') ? 'admin' : 'guru';
 
-        $user = User::create([
-            'name' => $nama,
-            'email' => $email,
-            'password' => $password,
-            'paket' => null,
-        ]);
+        $user = new User();
+        $user->name = $nama;
+        $user->email = $email;
+        $user->password = $password;
         $user->role = $role;
         $user->save();
 

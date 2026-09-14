@@ -9,6 +9,7 @@ use App\Models\Pendaftaran;
 use App\Support\UserFoto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class DashboardController extends Controller
 {
@@ -98,7 +99,8 @@ class DashboardController extends Controller
             return $this->respondDaftar($request, false, 'Paket tidak tersedia.');
         }
 
-        $user->update(['paket' => $paket->key]);
+        $user->paket = $paket->key;
+        $user->save();
 
         return $this->respondDaftar($request, true, 'Paket kamu diupgrade ke ' . $paket->nama . '!');
     }
@@ -226,6 +228,8 @@ class DashboardController extends Controller
         ]);
     }
 
+    const FOTO_WHITELIST_HOSTS = ['www.figma.com'];
+
     public function foto()
     {
         $foto = Auth::user()?->foto ?? null;
@@ -235,6 +239,14 @@ class DashboardController extends Controller
         }
 
         if (str_starts_with($foto, 'http://') || str_starts_with($foto, 'https://')) {
+            $host = strtolower((string) parse_url($foto, PHP_URL_HOST));
+            $dipilih = in_array($host, self::FOTO_WHITELIST_HOSTS, true)
+                || str_ends_with($host, '.figma.com');
+
+            if (! $dipilih) {
+                abort(422, 'Sumber foto tidak diizinkan.');
+            }
+
             return redirect($foto);
         }
 
@@ -304,5 +316,38 @@ class DashboardController extends Controller
         }
 
         return back()->with('status', 'Profil berhasil disimpan.');
+    }
+
+    public function pengaturanKeamanan(Request $request)
+    {
+        $user = Auth::user();
+        if ($user->isStaff()) {
+            return response()->json(['ok' => false, 'message' => 'Pengaturan keamanan hanya untuk akun siswa.'], 403);
+        }
+
+        $data = $request->validate([
+            'password_lama' => ['nullable', 'string'],
+            'password_baru' => ['required_with:password_lama', 'nullable', 'string', 'min:8'],
+            'password_baru_confirmation' => ['required_with:password_lama', 'same:password_baru'],
+            'two_factor' => ['nullable', 'boolean'],
+        ]);
+
+        if (! blank($data['password_lama'] ?? null)) {
+            if (! Hash::check($data['password_lama'], $user->password)) {
+                return response()->json(['ok' => false, 'message' => 'Password lama salah.'], 422);
+            }
+
+            $user->password = $data['password_baru'];
+        }
+
+        if (array_key_exists('two_factor', $data)) {
+            $user->two_factor_enabled = $data['two_factor'];
+        }
+
+        if ($user->isDirty()) {
+            $user->save();
+        }
+
+        return response()->json(['ok' => true, 'message' => 'Pengaturan keamanan berhasil disimpan.']);
     }
 }

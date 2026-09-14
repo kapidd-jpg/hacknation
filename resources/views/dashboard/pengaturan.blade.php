@@ -85,7 +85,7 @@
                         <b>Autentikasi Dua Lapis (2FA)</b>
                         <p>Amankan akun dengan kode OTP setiap masuk dari perangkat baru.</p>
                     </div>
-                    <button type="button" class="toggle" aria-pressed="false"></button>
+                    <button type="button" id="sTwoFa" class="toggle {{ auth()->user()->two_factor_enabled ? 'on' : '' }}" aria-pressed="{{ auth()->user()->two_factor_enabled ? 'true' : 'false' }}"></button>
                 </div>
                 <div class="toggle-row">
                     <div>
@@ -148,6 +148,7 @@
 @push('scripts')
     <script>
         window.pintarKuyPengaturanUrl = @json(route('dashboard.pengaturan.update'));
+        window.pintarKuyKeamananUrl = @json(route('dashboard.pengaturan.keamanan'));
         window.pintarKuyCsrf = @json(csrf_token());
     </script>
     @vite(['resources/js/dashboard/pengaturan.js'])

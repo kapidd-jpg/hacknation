@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KontakController;
 use App\Http\Controllers\Guru\DashboardController as GuruDashboardController;
 use App\Http\Controllers\Guru\KelasController as GuruKelasController;
 use App\Http\Controllers\Guru\MateriController as GuruMateriController;
@@ -34,6 +35,10 @@ Route::middleware('guest')->group(function () {
 
 Route::post('/logout', LogoutController::class)->name('logout');
 
+Route::post('/kontak', [KontakController::class, 'store'])
+    ->middleware('throttle:5,1')
+    ->name('contact.send');
+
 // ---------- Dashboard Siswa (perlu login) ----------
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -46,6 +51,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/pengaturan', [DashboardController::class, 'pengaturan'])->name('dashboard.pengaturan');
     Route::get('/akun/foto', [DashboardController::class, 'foto'])->name('user.foto');
     Route::post('/dashboard/pengaturan', [DashboardController::class, 'pengaturanUpdate'])->name('dashboard.pengaturan.update');
+    Route::post('/dashboard/pengaturan/keamanan', [DashboardController::class, 'pengaturanKeamanan'])->name('dashboard.pengaturan.keamanan');
     Route::post('/dashboard/paket/upgrade', [DashboardController::class, 'paketUpgrade'])->name('dashboard.paket.upgrade');
 });
 

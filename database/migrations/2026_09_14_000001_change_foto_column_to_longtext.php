@@ -12,6 +12,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        DB::statement('ALTER TABLE users MODIFY COLUMN foto VARCHAR(255) NULL');
+        DB::statement('ALTER TABLE users MODIFY COLUMN foto TEXT NULL');
     }
 };

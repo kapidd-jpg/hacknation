@@ -16,48 +16,52 @@ class DemoSeeder extends Seeder
 
     public function run(): void
     {
-        $siswa = User::query()->firstOrCreate(
-            ['email' => 'siswa@demo.id'],
-            [
-                'name' => 'Brian Pratama',
-                'password' => 'password',
-                'foto' => self::FOTO_DEFAULT,
-                'sekolah' => 'SMA Negeri 1 Jakarta',
-                'kelas_jurusan' => 'Kelas 12 · IPA',
-                'bio' => 'Pejuang UTBK 2026. Target: FK UI.',
-                'paket' => 'utbk-pro',
-            ]
-        );
+        if (app()->isProduction()) {
+            $this->command?->warn('DemoSeeder dilewati: aplikasi sedang berjalan di production.');
+
+            return;
+        }
+
+        $siswa = User::query()->where('email', 'siswa@demo.id')->first();
+        if ($siswa === null) {
+            $siswa = new User();
+            $siswa->email = 'siswa@demo.id';
+            $siswa->name = 'Brian Pratama';
+            $siswa->foto = self::FOTO_DEFAULT;
+            $siswa->sekolah = 'SMA Negeri 1 Jakarta';
+            $siswa->kelas_jurusan = 'Kelas 12 · IPA';
+            $siswa->bio = 'Pejuang UTBK 2026. Target: FK UI.';
+        }
+        $siswa->password = 'password';
+        $siswa->paket = 'utbk-pro';
         $siswa->role = 'siswa';
         $siswa->save();
 
-        $guru = User::query()->firstOrCreate(
-            ['email' => 'guru@demo.id'],
-            [
-                'name' => 'Rina Kumala, M.Si.',
-                'password' => 'password',
-                'foto' => self::FOTO_DEFAULT,
-                'sekolah' => 'Tim Tutor PintarKuy',
-                'kelas_jurusan' => null,
-                'bio' => 'Pengajar materi Saintek di PintarKuy sejak 2024.',
-                'paket' => null,
-            ]
-        );
+        $guru = User::query()->where('email', 'guru@demo.id')->first();
+        if ($guru === null) {
+            $guru = new User();
+            $guru->email = 'guru@demo.id';
+            $guru->name = 'Rina Kumala, M.Si.';
+            $guru->foto = self::FOTO_DEFAULT;
+            $guru->sekolah = 'Tim Tutor PintarKuy';
+            $guru->kelas_jurusan = null;
+            $guru->bio = 'Pengajar materi Saintek di PintarKuy sejak 2024.';
+        }
+        $guru->password = 'password';
         $guru->role = 'guru';
         $guru->save();
 
-        $admin = User::query()->firstOrCreate(
-            ['email' => 'admin@demo.id'],
-            [
-                'name' => 'Operator PintarKuy',
-                'password' => 'password',
-                'foto' => self::FOTO_DEFAULT,
-                'sekolah' => 'Tim Operasional PintarKuy',
-                'kelas_jurusan' => null,
-                'bio' => 'Admin: mengelola paket & akun siswa.',
-                'paket' => null,
-            ]
-        );
+        $admin = User::query()->where('email', 'admin@demo.id')->first();
+        if ($admin === null) {
+            $admin = new User();
+            $admin->email = 'admin@demo.id';
+            $admin->name = 'Operator PintarKuy';
+            $admin->foto = self::FOTO_DEFAULT;
+            $admin->sekolah = 'Tim Operasional PintarKuy';
+            $admin->kelas_jurusan = null;
+            $admin->bio = 'Admin: mengelola paket & akun siswa.';
+        }
+        $admin->password = 'password';
         $admin->role = 'admin';
         $admin->save();
 

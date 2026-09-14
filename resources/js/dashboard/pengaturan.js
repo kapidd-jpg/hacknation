@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // toggle switches — balikin state tersimpan
     const prefs = window.pintarKuyPrefs || {};
     document.querySelectorAll('.toggle').forEach((t) => {
+        if (t.id === 'sTwoFa') return;
         const key = t.parentElement.querySelector('b') ? t.parentElement.querySelector('b').textContent.trim() : '';
         if (prefs[key] !== undefined) {
             t.classList.toggle('on', !!prefs[key]);
@@ -60,6 +61,43 @@ document.addEventListener('DOMContentLoaded', () => {
             t.setAttribute('aria-pressed', t.classList.contains('on') ? 'true' : 'false');
         });
     });
+
+    // toggle 2FA — simpan ke server (bukan sekadar kosmetik)
+    const sTwoFa = document.getElementById('sTwoFa');
+    const keamananUrl = window.pintarKuyKeamananUrl || '';
+    const postKeamanan = (payload) => fetch(keamananUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'X-CSRF-TOKEN': window.pintarKuyCsrf || '',
+        },
+        body: JSON.stringify(payload),
+    }).then((r) => r.json().catch(() => ({})));
+
+    if (sTwoFa && keamananUrl) {
+        sTwoFa.addEventListener('click', () => {
+            const want = !sTwoFa.classList.contains('on');
+            const prev = sTwoFa.classList.contains('on');
+            sTwoFa.classList.toggle('on', want);
+            sTwoFa.setAttribute('aria-pressed', want ? 'true' : 'false');
+            postKeamanan({ two_factor: want })
+                .then((res) => {
+                    if (res && res.ok === true) {
+                        showToast(res.message || 'Pengaturan 2FA diperbarui.');
+                    } else {
+                        sTwoFa.classList.toggle('on', prev);
+                        sTwoFa.setAttribute('aria-pressed', prev ? 'true' : 'false');
+                        showToast((res && res.message) || 'Gagal memperbarui 2FA.');
+                    }
+                })
+                .catch(() => {
+                    sTwoFa.classList.toggle('on', prev);
+                    sTwoFa.setAttribute('aria-pressed', prev ? 'true' : 'false');
+                    showToast('Gagal memperbarui 2FA. Periksa koneksimu.');
+                });
+        });
+    }
 
     // ganti foto
     if (fotoBtn) fotoBtn.addEventListener('click', () => fileInput.click());
@@ -146,6 +184,47 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 return;
             }
+
+            if (pane && pane.id === 'pane-keamanan') {
+                const passLama = document.getElementById('sPassLama');
+                const passBaru = document.getElementById('sPassBaru');
+                const passKonf = document.getElementById('sPassKonf');
+                const lama = passLama ? passLama.value : '';
+                const baru = passBaru ? passBaru.value : '';
+                const konf = passKonf ? passKonf.value : '';
+
+                if (!lama) {
+                    showToast('Password lama wajib diisi.');
+                    return;
+                }
+                if (!baru || baru.length < 8) {
+                    showToast('Password baru minimal 8 karakter.');
+                    return;
+                }
+                if (baru !== konf) {
+                    showToast('Konfirmasi password tidak cocok.');
+                    return;
+                }
+
+                postKeamanan({
+                    password_lama: lama,
+                    password_baru: baru,
+                    password_baru_confirmation: konf,
+                })
+                    .then((res) => {
+                        if (res && res.ok === true) {
+                            if (passLama) passLama.value = '';
+                            if (passBaru) passBaru.value = '';
+                            if (passKonf) passKonf.value = '';
+                            showToast(res.message || 'Password berhasil diubah.');
+                        } else {
+                            showToast((res && res.message) || 'Gagal mengubah password.');
+                        }
+                    })
+                    .catch(() => showToast('Gagal mengubah password. Periksa koneksimu.'));
+                return;
+            }
+
             showToast(btn.dataset.msg || 'Perubahan berhasil disimpan.');
         });
     });

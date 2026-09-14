@@ -147,4 +147,8 @@
 
 @push('scripts')
     @vite(['resources/js/halaman/kontak.js'])
+    <script>
+        window.pintarKuyContactUrl = @json(route('contact.send'));
+        window.pintarKuyCsrf = @json(csrf_token());
+    </script>
 @endpush
