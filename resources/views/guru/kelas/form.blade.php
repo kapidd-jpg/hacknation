@@ -23,7 +23,7 @@
                 </div>
             @endif
 
-            <div class="dash-grid dash-grid--2" style="grid-template-columns:1fr 1fr;">
+            <div class="dash-grid dash-grid--2">>
                 <div class="setting-field">
                     <label for="name">Nama Kelas</label>
                     <input id="name" name="name" type="text" required value="{{ old('name', $kelas?->name) }}" placeholder="Coding Python Dasar">
@@ -34,7 +34,7 @@
                 </div>
             </div>
 
-            <div class="dash-grid dash-grid--2" style="grid-template-columns:1fr 1fr;">
+            <div class="dash-grid dash-grid--2">>
                 <div class="setting-field">
                     <label for="cat">Kategori</label>
                     <select id="cat" name="cat" class="guru-select">
@@ -59,7 +59,7 @@
                 <textarea id="desc" name="desc" rows="3">{{ old('desc', $kelas?->desc) }}</textarea>
             </div>
 
-            <div class="dash-grid dash-grid--2" style="grid-template-columns:1fr 1fr;">
+            <div class="dash-grid dash-grid--2">>
                 <div class="setting-field">
                     <label for="modul">Jumlah Modul</label>
                     <input id="modul" name="modul" type="number" min="1" required value="{{ old('modul', $kelas?->modul) }}">
@@ -70,7 +70,7 @@
                 </div>
             </div>
 
-            <div class="dash-grid dash-grid--2" style="grid-template-columns:1fr 1fr;">
+            <div class="dash-grid dash-grid--2">>
                 <div class="setting-field">
                     <label for="price">Harga</label>
                     <input id="price" name="price" type="text" value="{{ old('price', $kelas?->price) }}" placeholder="Rp 399K">
@@ -81,7 +81,7 @@
                 </div>
             </div>
 
-            <div class="dash-grid dash-grid--2" style="grid-template-columns:1fr 1fr;">
+            <div class="dash-grid dash-grid--2">>
                 <div class="setting-field">
                     <label for="bg">Warna Latar Ikon (CSS)</label>
                     <input id="bg" name="bg" type="text" value="{{ old('bg', $kelas?->bg) }}" placeholder="rgba(237,233,254,1)">

@@ -11,6 +11,12 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Keselamatan responsif: blokir geser horizontal global (seperti blob dekoratif) */
+html,
+body {
+    overflow-x: clip;
+}
+
 .reveal {
     opacity: 0;
 }

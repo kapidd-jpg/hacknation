@@ -105,7 +105,7 @@
     width: 288px;
     overflow: hidden;
     z-index: 40;
-    transition: width 0.28s ease;
+    transition: width 0.28s ease, transform 0.28s ease;
 }
 .dash-sidebar-inner {
     width: 288px;
@@ -119,19 +119,46 @@
 }
 .dash-main { margin-left: 288px; transition: margin-left 0.28s ease; }
 
+.dash-sidebar-overlay {
+    display: none;
+}
+
 .dash-wrap.is-collapsed .dash-sidebar,
 .dash-wrap.is-collapsed .dash-sidebar-inner { width: 88px; }
 .dash-wrap.is-collapsed .dash-main { margin-left: 88px; }
 
-.dash-wrap.is-collapsed .dash-brand { padding: 0; justify-content: center; }
-.dash-wrap.is-collapsed .dash-brand .dash-brand-text { display: none; }
-.dash-wrap.is-collapsed .dash-sidebar nav { padding-left: 0; padding-right: 0; }
-.dash-wrap.is-collapsed .dash-menu-link { justify-content: center; padding-left: 0; padding-right: 0; }
-.dash-wrap.is-collapsed .dash-menu-label { display: none; }
-.dash-wrap.is-collapsed .dash-sidebar-inner > div:last-child { padding-left: 0; padding-right: 0; }
-.dash-wrap.is-collapsed .dash-paket-text { display: none; }
-.dash-wrap.is-collapsed .dash-paket-upgrade,
-.dash-wrap.is-collapsed .dash-paket-ganti { display: none; }
-.dash-wrap.is-collapsed .dash-paket { justify-content: center; }
-.dash-wrap.is-collapsed .dash-logout { justify-content: center; padding-left: 0; padding-right: 0; }
-.dash-wrap.is-collapsed .dash-logout-label { display: none; }
+/* ---------- Off-canvas (mobile & tablet < 1024px) ---------- */
+@media (max-width: 1023px) {
+    .dash-sidebar,
+    .dash-sidebar-inner { width: 288px; }
+    .dash-wrap.is-collapsed .dash-sidebar,
+    .dash-wrap.is-collapsed .dash-sidebar-inner { width: 288px; }
+    .dash-sidebar { transform: translateX(-100%); }
+    .dash-main { margin-left: 0; }
+    .dash-wrap.is-collapsed .dash-main { margin-left: 0; }
+    .dash-wrap.is-collapsed .dash-brand { padding: 0 24px; justify-content: flex-start; }
+    .dash-wrap.is-collapsed .dash-brand .dash-brand-text { display: block; }
+    .dash-wrap.is-collapsed .dash-sidebar nav { padding-left: 16px; padding-right: 16px; }
+    .dash-wrap.is-collapsed .dash-menu-link { justify-content: flex-start; padding-left: 16px; padding-right: 16px; }
+    .dash-wrap.is-collapsed .dash-menu-label { display: inline; }
+    .dash-wrap.is-collapsed .dash-sidebar-inner > div:last-child { padding-left: 16px; padding-right: 16px; }
+    .dash-wrap.is-collapsed .dash-paket-text,
+    .dash-wrap.is-collapsed .dash-paket-upgrade,
+    .dash-wrap.is-collapsed .dash-paket-ganti { display: block; }
+    .dash-wrap.is-collapsed .dash-paket { justify-content: flex-start; }
+    .dash-wrap.is-collapsed .dash-logout { justify-content: flex-start; padding-left: 16px; padding-right: 16px; }
+    .dash-wrap.is-collapsed .dash-logout-label { display: inline; }
+
+    .dash-wrap.is-open .dash-sidebar { transform: translateX(0); }
+    .dash-sidebar-overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 35;
+        background: rgba(0, 5, 44, 0.55);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.28s ease;
+    }
+    .dash-wrap.is-open .dash-sidebar-overlay { opacity: 1; pointer-events: auto; }
+}

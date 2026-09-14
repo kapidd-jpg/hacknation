@@ -73,9 +73,11 @@
         </div>
     </aside>
 
+    <div class="dash-sidebar-overlay" id="sidebarOverlay"></div>
+
     <div class="dash-main min-h-screen" id="dashMain">
         @include('komponen.dashboard.topbar')
-        <main class="px-8 py-8 flex flex-col gap-8">
+        <main class="px-4 sm:px-8 py-6 sm:py-8 flex flex-col gap-8">
             @yield('pageContent')
         </main>
     </div>
@@ -103,13 +105,20 @@
 
         const wrap = document.getElementById('dashWrap');
         const toggle = document.getElementById('sidebarToggle');
+        const overlay = document.getElementById('sidebarOverlay');
         if (!wrap || !toggle) return;
         const apply = (collapsed) => {
             wrap.classList.toggle('is-collapsed', collapsed);
             try { localStorage.setItem('pintarKuySidebar', collapsed ? '1' : '0'); } catch (e) {}
         };
         try { if (localStorage.getItem('pintarKuySidebar') === '1') apply(true); } catch (e) {}
-        toggle.addEventListener('click', () => apply(!wrap.classList.contains('is-collapsed')));
+        const isMobile = () => window.matchMedia('(max-width: 1023px)').matches;
+        toggle.addEventListener('click', () => {
+            if (isMobile()) wrap.classList.toggle('is-open');
+            else apply(!wrap.classList.contains('is-collapsed'));
+        });
+        if (overlay) overlay.addEventListener('click', () => wrap.classList.remove('is-open'));
+        window.addEventListener('resize', () => { if (!isMobile()) wrap.classList.remove('is-open'); });
 
         const logout = document.querySelector('.dash-logout');
         if (logout && window.pintarKuyAuth) {

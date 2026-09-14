@@ -61,9 +61,11 @@
         </div>
     </aside>
 
+    <div class="dash-sidebar-overlay" id="sidebarOverlay"></div>
+
     <div class="dash-main min-h-screen" id="guruMain">
         @include('komponen.dashboard.topbar')
-        <main class="px-8 py-8 flex flex-col gap-8">
+        <main class="px-4 sm:px-8 py-6 sm:py-8 flex flex-col gap-8">
             @if (session('status'))
                 <div class="guru-toast" role="status" id="guruToast">
                     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -86,10 +88,17 @@
         } catch (_) {}
         const wrap = document.getElementById('guruWrap');
         const toggle = document.getElementById('sidebarToggle');
+        const overlay = document.getElementById('sidebarOverlay');
         if (wrap && toggle) {
             const apply = (collapsed) => { wrap.classList.toggle('is-collapsed', collapsed); try { localStorage.setItem('pintarKuySidebar', collapsed ? '1' : '0'); } catch (e) {} };
             try { if (localStorage.getItem('pintarKuySidebar') === '1') apply(true); } catch (e) {}
-            toggle.addEventListener('click', () => apply(!wrap.classList.contains('is-collapsed')));
+            const isMobile = () => window.matchMedia('(max-width: 1023px)').matches;
+            toggle.addEventListener('click', () => {
+                if (isMobile()) wrap.classList.toggle('is-open');
+                else apply(!wrap.classList.contains('is-collapsed'));
+            });
+            if (overlay) overlay.addEventListener('click', () => wrap.classList.remove('is-open'));
+            window.addEventListener('resize', () => { if (!isMobile()) wrap.classList.remove('is-open'); });
         }
         document.querySelectorAll('.dash-reveal').forEach((el) => el.classList.add('is-visible'));
         const toast = document.getElementById('guruToast');

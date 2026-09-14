@@ -470,8 +470,8 @@
                         </div>
                         <div class="flex flex-col gap-1">
                             <p class="text-xs font-semibold line-through {{ $plan['dark'] ? 'text-white/50' : 'text-ink-muted' }}">{{ $plan['old'] }}</p>
-                            <div class="flex items-baseline gap-1.5">
-                                <span class="text-4xl font-black tracking-tight {{ $plan['dark'] ? 'text-white' : 'text-navy-950' }}">{{ $plan['price'] }}</span>
+                            <div class="flex flex-wrap items-baseline gap-x-1.5 gap-y-1 min-w-0">
+                                <span class="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight whitespace-nowrap {{ $plan['dark'] ? 'text-white' : 'text-navy-950' }}">{{ $plan['price'] }}</span>
                                 <span class="text-xs font-semibold {{ $plan['dark'] ? 'text-white/70' : 'text-ink-muted' }}">/{{ $plan['per'] }}</span>
                             </div>
                         </div>
