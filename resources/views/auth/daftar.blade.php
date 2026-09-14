@@ -34,7 +34,7 @@
 
             <div class="relative rounded-2xl overflow-hidden shadow-2xl mt-2" style="background:linear-gradient(34deg, rgba(0,5,44,0.6) 0%, rgba(0,5,44,0) 100%); padding:22px 6px 6px;">
                 <div class="relative aspect-video bg-navy-950 rounded-xl overflow-hidden">
-                    <img src="https://www.figma.com/api/mcp/asset/d250731a-01e9-4f84-b341-1109ec7594f9.png"
+                    <img src="{{ asset('assets/images/banner-auth.jpg') }}"
                          alt="Meja belajar dengan laptop menampilkan analitik kurikulum"
                          class="absolute inset-0 w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-navy-800/60 to-transparent"></div>
@@ -140,16 +140,17 @@
                 <span class="relative bg-navy-50 px-4 text-ink-soft text-xs font-semibold tracking-widest uppercase">Atau</span>
             </div>
 
-            <div class="grid grid-cols-2 gap-3">
-                <button type="button" class="bg-white shadow-sm rounded-xl py-3 flex items-center justify-center gap-2.5 hover:bg-navy-50 transition">
+            <div class="grid grid-cols-2 gap-3 hidden">
+                <button type="button" title="Segera hadir" class="bg-white shadow-sm rounded-xl py-3 flex items-center justify-center gap-2.5 hover:bg-navy-50 transition">
                     <svg class="size-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z"/><path fill="#FBBC05" d="M5.27 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62H1.29A11.96 11.96 0 000 12c0 1.93.46 3.76 1.29 5.38l3.98-3.09z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z"/></svg>
                     <span class="text-navy-900 text-sm font-semibold">Google</span>
                 </button>
-                <button type="button" class="bg-white shadow-sm rounded-xl py-3 flex items-center justify-center gap-2.5 hover:bg-navy-50 transition">
+                <button type="button" title="Segera hadir" class="bg-white shadow-sm rounded-xl py-3 flex items-center justify-center gap-2.5 hover:bg-navy-50 transition">
                     <svg class="size-4" viewBox="0 0 24 24"><rect width="11" height="11" x="1" y="1" fill="#f25022"/><rect width="11" height="11" x="12" y="1" fill="#7fba00"/><rect width="11" height="11" x="1" y="12" fill="#00a4ef"/><rect width="11" height="11" x="12" y="12" fill="#ffb900"/></svg>
                     <span class="text-navy-900 text-sm font-semibold">Microsoft</span>
                 </button>
             </div>
+            <p class="text-center text-ink-muted text-xs">Daftar dengan Google & Microsoft segera hadir.</p>
 
             <p class="text-center text-sm text-ink-soft mt-6">
                 Sudah punya akun?
@@ -173,7 +174,7 @@
                 const nama = document.getElementById('nama');
                 const email = document.getElementById('email');
                 if (auth) auth.login({
-                    name: (nama && nama.value.trim()) ? nama.value.trim() : 'Brian Pratama',
+                    name: (nama && nama.value.trim()) ? nama.value.trim() : '',
                     email: email ? email.value.trim() : '',
                     role: 'siswa',
                 });

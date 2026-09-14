@@ -9,6 +9,8 @@ class Kelas extends Model
 {
     use HasFactory;
 
+    protected $table = 'kelas';
+
     protected $fillable = [
         'slug',
         'name',

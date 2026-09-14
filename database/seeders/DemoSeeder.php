@@ -12,7 +12,7 @@ use Illuminate\Database\Seeder;
 
 class DemoSeeder extends Seeder
 {
-    protected const FOTO_DEFAULT = 'https://www.figma.com/api/mcp/asset/4b9001eb-320b-418b-b43a-9ddbb0503794.png';
+    protected const FOTO_DEFAULT = 'assets/images/default-avatar.jpg';
 
     public function run(): void
     {

@@ -208,6 +208,10 @@ class DashboardController extends Controller
             $meta = self::META_KELAS[$k->slug] ?? ['fokus' => 'Fokus UTBK', 'pct' => 60, 'jadwal' => 'Minggu, 18:30 WIB', 'pertemuan' => '12 Pertemuan'];
             $materi = $k->materi()->orderBy('urutan')->get();
             $judulMateri = $materi->sortBy('urutan')->skip(1)->first();
+            $babSelesai = Nilai::query()
+                ->where('user_id', Auth::user()->id)
+                ->where('kelas_id', $k->id)
+                ->count();
             $courses[$k->slug] = [
                 'name' => $k->name,
                 'fokus' => $meta['fokus'],
@@ -216,7 +220,7 @@ class DashboardController extends Controller
                 'pertemuan' => $meta['pertemuan'],
                 'pct' => $meta['pct'],
                 'modul_total' => $k->modul,
-                'bab_cur' => 2,
+                'bab_cur' => min(max($babSelesai + 1, 1), max($k->modul, 1)),
                 'jadwal_live' => $meta['jadwal'],
             ];
         }
@@ -316,6 +320,10 @@ class DashboardController extends Controller
 
         if (blank($foto)) {
             abort(404);
+        }
+
+        if (str_starts_with($foto, 'assets/')) {
+            return redirect(asset($foto));
         }
 
         if (str_starts_with($foto, 'http://') || str_starts_with($foto, 'https://')) {

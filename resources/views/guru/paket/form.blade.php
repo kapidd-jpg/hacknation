@@ -23,7 +23,7 @@
                 </div>
             @endif
 
-            <div class="dash-grid dash-grid--2">>
+            <div class="dash-grid dash-grid--2">
                 <div class="setting-field">
                     <label for="key">Key</label>
                     <input id="key" name="key" type="text" required value="{{ old('key', $paket?->key) }}" placeholder="utbk-pro">
@@ -34,7 +34,7 @@
                 </div>
             </div>
 
-            <div class="dash-grid dash-grid--2">>
+            <div class="dash-grid dash-grid--2">
                 <div class="setting-field">
                     <label for="tag">Tag</label>
                     <input id="tag" name="tag" type="text" value="{{ old('tag', $paket?->tag) }}" placeholder="Best Seller">
@@ -45,7 +45,7 @@
                 </div>
             </div>
 
-            <div class="dash-grid dash-grid--2">>
+            <div class="dash-grid dash-grid--2">
                 <div class="setting-field">
                     <label for="harga">Harga (angka)</label>
                     <input id="harga" name="harga" type="number" min="0" required value="{{ old('harga', $paket?->harga) }}" placeholder="399000">

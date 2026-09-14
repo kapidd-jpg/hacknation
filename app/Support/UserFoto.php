@@ -4,13 +4,13 @@ namespace App\Support;
 
 final class UserFoto
 {
-    public const DEFAULT_URL = 'https://www.figma.com/api/mcp/asset/4b9001eb-320b-418b-b43a-9ddbb0503794.png';
+    public const DEFAULT_PATH = 'assets/images/default-avatar.jpg';
 
     public const MAX_SIZE = 512;
 
     public static function src(?string $foto): string
     {
-        return blank($foto) ? self::DEFAULT_URL : route('user.foto');
+        return blank($foto) ? asset(self::DEFAULT_PATH) : route('user.foto');
     }
 
     public static function compress(?string $foto): ?string

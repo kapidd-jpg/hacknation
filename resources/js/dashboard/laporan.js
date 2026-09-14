@@ -59,11 +59,11 @@ document.addEventListener('DOMContentLoaded', () => {
             statDelta.textContent = (diff >= 0 ? '+' : '') + diff;
             statDelta.className = 'lap-stat-delta ' + deltaClass(diff);
         }
-        if (statDeltaSub) statDeltaSub.textContent = 'Sejak ' + range + (range === 1 ? ' bulan' : ' bulan') + ' lalu';
+        if (statDeltaSub) statDeltaSub.textContent = 'Sejak ' + range + ' bulan lalu';
 
         const avg = Math.round(slice.reduce((s, m) => s + (m.akurasi || 0), 0) / slice.length);
         if (statAkurasi) statAkurasi.textContent = avg + '%';
-        if (statAkurasiSub) statAkurasiSub.textContent = 'Rata-rata ' + range + (range === 1 ? ' bulan' : ' bulan');
+        if (statAkurasiSub) statAkurasiSub.textContent = 'Rata-rata ' + range + ' bulan';
 
         const _h = hOf(slice);
         chart.innerHTML = slice.map((m, i) => `
