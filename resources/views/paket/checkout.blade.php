@@ -5,6 +5,8 @@
 @section('pageContent')
 @php
     $isOwned = in_array($paket->key, $ownedKeys, true);
+    $paketLain = $hasAnyPaket && ! $isOwned;
+    $bayar = $paketLain ? $paket->harga_lama : $paket->harga;
 @endphp
 <div class="flex flex-col gap-6">
     <div class="dash-head dash-reveal">
@@ -56,7 +58,7 @@
                     <span class="text-sm font-semibold text-ink-soft">Batas daftar kelas</span>
                     <span class="text-sm font-bold text-navy-950">Tanpa batas</span>
                 </div>
-                @if ($paket->harga_lama)
+                @if ($paket->harga_lama && ! $paketLain)
                     <div class="flex items-center justify-between">
                         <span class="text-sm font-semibold text-ink-soft">Harga asli</span>
                         <span class="text-sm font-semibold line-through text-ink-muted">Rp {{ number_format($paket->harga_lama, 0, ',', '.') }}</span>
@@ -64,7 +66,7 @@
                 @endif
                 <div class="flex items-center justify-between pt-2 border-t border-navy-100">
                     <span class="text-sm font-bold text-navy-950">Total dibayar</span>
-                    <span class="text-lg font-black text-navy-950">Rp {{ number_format($paket->harga, 0, ',', '.') }}<span class="text-xs font-semibold text-ink-muted">/bulan</span></span>
+                    <span class="text-lg font-black text-navy-950">Rp {{ number_format($bayar, 0, ',', '.') }}<span class="text-xs font-semibold text-ink-muted">/bulan</span></span>
                 </div>
             </div>
             <div class="h-px w-full bg-navy-100"></div>

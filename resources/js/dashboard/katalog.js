@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const aksesKategori = Array.isArray(window.pintarKuyAksesKategori)
         ? window.pintarKuyAksesKategori
         : [];
+    const hasAnyPaket = Boolean(window.pintarKuyHasAnyPaket);
     const catPaket = window.pintarKuyCatPaket || {};
     const paketKeys = Array.isArray(window.pintarKuyPaketKeys) ? window.pintarKuyPaketKeys : [];
     const daftarUrl = window.pintarKuyDaftarUrl || '/dashboard/katalog/daftar';
@@ -67,6 +68,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const isOpen = (item) => aksesKategori.includes(item.cat);
 
+    const lockPriceHTML = (item, cls = '') => (
+        hasAnyPaket
+            ? `<p class="katalog-price ${cls}">${esc(item.old)}/bln</p>`
+            : `<p class="katalog-price ${cls}"><small>${esc(item.old)}</small> ${esc(item.price)}/bln</p>`
+    );
+
     const cardHTML = (item) => `
         <article class="katalog-card">
             <div class="katalog-top">
@@ -84,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="katalog-foot">
                 ${isOpen(item)
                     ? `<span class="katalog-free">Gratis · Termasuk ${esc(freeLabel(item.cat))}</span>`
-                    : `<p class="katalog-price"><small>${esc(item.old)}</small> ${esc(item.price)}/bln</p>`}
+                    : lockPriceHTML(item)}
                 <button type="button" class="katalog-add" data-id="${esc(item.id)}" data-name="${esc(item.name)}">+ Daftar</button>
             </div>
         </article>`;
@@ -140,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="katalog-hr"></div>
                 ${isOpen(item)
                     ? `<span class="katalog-free katalog-modal-price">Gratis · Termasuk ${esc(freeLabel(item.cat))}</span>`
-                    : `<p class="katalog-price katalog-modal-price"><small>${esc(item.old)}</small> ${esc(item.price)}/bln</p>`}
+                    : lockPriceHTML(item, 'katalog-modal-price')}
             </div>
             <div class="katalog-modal-foot">
                 <button type="button" class="katalog-btn katalog-btn--ghost" data-act="cancel">Batal</button>

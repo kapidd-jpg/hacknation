@@ -24,9 +24,11 @@
         </button>
         <span class="hidden md:block h-6 w-px bg-navy-100"></span>
         <div class="flex items-center gap-2">
-            <div class="relative">
-                <img src="{{ \App\Support\UserFoto::src(auth()->user()->foto) }}" alt="Foto profil" data-user-photo
-                     class="size-8 rounded-full object-cover ring-2 ring-navy-800/20">
+            <div class="relative size-8 shrink-0">
+                <img src="{{ auth()->user()->foto ? \App\Support\UserFoto::src(auth()->user()->foto) : '' }}" alt="Foto profil" data-user-photo
+                     class="absolute inset-0 size-8 rounded-full object-cover ring-2 ring-navy-800/20 {{ auth()->user()->foto ? '' : 'hidden' }}">
+                <span data-user-initials
+                      class="absolute inset-0 size-8 rounded-full ring-2 ring-navy-800/20 bg-navy-800 text-white text-xs font-bold flex items-center justify-center {{ auth()->user()->foto ? 'hidden' : '' }}">{{ \App\Support\UserFoto::initials(auth()->user()->name) }}</span>
                 <span class="absolute -bottom-0.5 -right-0.5 size-2.5 rounded-full bg-brand-green ring-2 ring-white"></span>
             </div>
             <div class="hidden lg:block">

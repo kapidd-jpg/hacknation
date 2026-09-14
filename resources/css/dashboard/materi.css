@@ -319,3 +319,18 @@ button.modul-row:disabled { opacity: 0.85; }
     color: var(--navy-900);
     white-space: pre-wrap;
 }
+
+/* ---------- Aksi modal (tandai selesai) ---------- */
+.materi-modal-actions {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--navy-50);
+    display: flex;
+    justify-content: flex-end;
+}
+#materiModalDone { min-width: 160px; }
+#materiModalDone.is-done {
+    background: rgba(94, 234, 212, 0.18);
+    border: 1px solid var(--green);
+    color: var(--green);
+}

@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Jawaban;
 use App\Models\Kelas;
+use App\Models\Materi;
 use App\Models\Nilai;
 use App\Models\Paket;
 use App\Models\Pendaftaran;
 use App\Models\Pengerjaan;
+use App\Models\ProgresModul;
 use App\Models\Soal;
 use App\Support\UserFoto;
 use Illuminate\Http\Request;
@@ -83,6 +85,7 @@ class DashboardController extends Controller
             'terdaftarIds' => $user->pendaftaran()->pluck('kelas_id')->map(fn ($v) => (string) $v)->all(),
             'paketKeys' => $user->paketKeys(),
             'aksesKategori' => $user->aksesKategori(),
+            'hasAnyPaket' => $user->hasAnyPaket(),
             'catPaket' => $catPaket,
         ]);
     }
@@ -146,8 +149,13 @@ class DashboardController extends Controller
             return redirect()->route('guru.dashboard');
         }
 
+        $user = Auth::user();
         $kelasAll = [];
-        foreach (Auth::user()->kelasTerdaftar()->orderBy('pendaftaran.created_at', 'desc')->get() as $k) {
+        $completedIds = $user->completedModulIds();
+        foreach ($user->kelasTerdaftar()->orderBy('pendaftaran.created_at', 'desc')->get() as $k) {
+            $modulTotal = max($k->materi()->count(), 1);
+            $modulDone = $completedIds->intersect($k->materi()->pluck('id'))->count();
+            $pct = (int) round($modulDone / $modulTotal * 100);
             $meta = self::META_KELAS[$k->slug] ?? ['pct' => 60, 'note' => 'Latihan Soal Tersedia', 'pertemuan' => $k->durasi ?? '10 Pertemuan'];
             $kelasAll[] = [
                 'slug' => $k->slug,
@@ -157,8 +165,8 @@ class DashboardController extends Controller
                 'ico' => substr($k->ico ?? 'KL', 0, 2),
                 'bg' => $k->bg ?? 'rgba(94,234,212,0.4)',
                 'color' => $k->color ?? '#0F766E',
-                'pct' => $meta['pct'],
-                'prog' => round(($meta['pct'] / 100) * max($k->modul, 1)) . '/' . $k->modul . ' Modul',
+                'pct' => $pct,
+                'prog' => $modulDone . '/' . $modulTotal . ' Modul',
                 'note' => $meta['note'],
                 'cat' => $k->cat,
                 'pertemuan' => $meta['pertemuan'],
@@ -178,9 +186,13 @@ class DashboardController extends Controller
         $allBabs = [];
         $allSets = [];
         $kelasSlugs = [];
+        $completedIds = Auth::user()->completedModulIds();
         foreach (Auth::user()->kelasTerdaftar()->orderBy('pendaftaran.created_at', 'desc')->get() as $k) {
             $meta = self::META_KELAS[$k->slug] ?? ['fokus' => 'Fokus UTBK', 'pct' => 60, 'jadwal' => 'Minggu, 18:30 WIB', 'pertemuan' => '12 Pertemuan'];
             $materi = $k->materi()->orderBy('urutan')->get();
+            $modulTotal = max($materi->count(), 1);
+            $modulDone = $materi->whereIn('id', $completedIds)->count();
+            $pct = (int) round($modulDone / $modulTotal * 100);
             $judulMateri = $materi->sortBy('urutan')->skip(1)->first();
             $courses[$k->slug] = [
                 'name' => $k->name,
@@ -188,8 +200,8 @@ class DashboardController extends Controller
                 'judul' => $judulMateri ? $judulMateri->judul : 'Pembahasan Materi Inti ' . $k->name,
                 'tutor' => $materi->first()->tutor ?? 'Tim Tutor Master PTN',
                 'pertemuan' => $meta['pertemuan'],
-                'pct' => $meta['pct'],
-                'modul_total' => $k->modul,
+                'pct' => $pct,
+                'modul_total' => $modulTotal,
                 'bab_cur' => 2,
                 'jadwal_live' => $meta['jadwal'],
             ];
@@ -197,24 +209,34 @@ class DashboardController extends Controller
 
             $babs = [];
             $babIndex = [];
-            $modulKe = 0;
-            $modulDone = (int) round($meta['pct'] / 100 * max($k->modul, 1));
+            $foundCurrent = false;
+            $foundNext = false;
             foreach ($materi as $m) {
                 $bab = $m->bab ?: 'Bab ' . $m->urutan;
                 if (!isset($babIndex[$bab])) {
                     $babIndex[$bab] = count($babs);
                     $babs[] = ['no' => count($babs) + 1, 'judul' => $bab, 'open' => false, 'modul' => []];
                 }
-                $st = $modulKe < $modulDone ? 'done' : ($modulKe === $modulDone ? 'current' : ($modulKe === $modulDone + 1 ? 'next' : 'locked'));
+                if ($completedIds->contains($m->id)) {
+                    $st = 'done';
+                } elseif (! $foundCurrent) {
+                    $st = 'current';
+                    $foundCurrent = true;
+                } elseif (! $foundNext) {
+                    $st = 'next';
+                    $foundNext = true;
+                } else {
+                    $st = 'locked';
+                }
                 $babs[$babIndex[$bab]]['modul'][] = [
                     'nama' => $m->judul,
                     'durasi' => $m->durasi ?: '15 Menit',
                     'status' => $st,
+                    'materi_id' => $m->id,
                     'tipe' => $m->tipe ?: 'video',
                     'video_url' => $m->video_url,
                     'konten' => $m->konten,
                 ];
-                $modulKe++;
             }
             foreach ($babs as $i => &$bab) {
                 $bab['open'] = $i === 0;
@@ -282,7 +304,7 @@ class DashboardController extends Controller
                     'ico' => substr($kelas?->ico ?? 'LT', 0, 2),
                     'bg' => $kelas?->bg ?: 'rgba(94,234,212,0.4)',
                     'color' => $kelas?->color ?: '#0F766E',
-                    'soal' => $items->sum('total'),
+                    'soal' => $items->max('total'),
                     'latihan' => $items->count(),
                     'avg' => $avg,
                     'akurasi' => round($items->map(fn (Pengerjaan $p) => $p->akurasi)->avg()),
@@ -439,6 +461,45 @@ class DashboardController extends Controller
         return view('dashboard.latsol-hasil', ['p' => $pengerjaan]);
     }
 
+    public function progresModul(Request $request)
+    {
+        $user = Auth::user();
+        if ($user->isStaff()) {
+            return response()->json(['ok' => false, 'message' => 'Hanya untuk akun siswa.'], 403);
+        }
+
+        $data = $request->validate([
+            'materi_id' => ['required', 'integer', 'exists:materi,id'],
+        ]);
+
+        $materi = Materi::query()->findOrFail($data['materi_id']);
+        if (! $user->kelasTerdaftar()->whereKey($materi->kelas_id)->exists()) {
+            return response()->json(['ok' => false, 'message' => 'Kelas tidak terdaftar.'], 403);
+        }
+
+        $existing = ProgresModul::query()
+            ->where('user_id', $user->id)
+            ->where('materi_id', $materi->id)
+            ->first();
+
+        if ($existing) {
+            $existing->delete();
+            $completed = false;
+        } else {
+            ProgresModul::query()->create([
+                'user_id' => $user->id,
+                'materi_id' => $materi->id,
+            ]);
+            $completed = true;
+        }
+
+        return response()->json([
+            'ok' => true,
+            'completed' => $completed,
+            'pct' => $user->progresPct($materi->kelas),
+        ]);
+    }
+
     public function laporan()
     {
         if (Auth::user()->isStaff()) {
@@ -462,11 +523,10 @@ class DashboardController extends Controller
 
         $materi = [];
         foreach ($user->kelasTerdaftar()->get() as $k) {
-            $meta = self::META_KELAS[$k->slug] ?? ['pct' => 60];
             $judul = $k->materi()->orderBy('urutan')->skip(1)->first();
             $materi[] = [
                 'name' => $judul?->judul ?? $k->name,
-                'pct' => $meta['pct'],
+                'pct' => $user->progresPct($k),
             ];
         }
         usort($materi, fn ($a, $b) => $a['pct'] <=> $b['pct']);

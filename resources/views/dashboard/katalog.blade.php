@@ -42,6 +42,7 @@
         window.pintarKuyDaftarUrl = @json(route('dashboard.katalog.daftar'));
         window.pintarKuyPaketKeys = @json($paketKeys);
         window.pintarKuyAksesKategori = @json($aksesKategori);
+        window.pintarKuyHasAnyPaket = @json($hasAnyPaket ?? false);
         window.pintarKuyCatPaket = @json($catPaket);
         window.pintarKuyKelasUrl = window.pintarKuyKelasUrl || @json(route('dashboard.kelas'));
         window.pintarKuyPaketUrl = window.pintarKuyPaketUrl || @json(route('paket.index'));

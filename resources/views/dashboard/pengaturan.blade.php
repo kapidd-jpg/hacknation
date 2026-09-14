@@ -21,7 +21,10 @@
         <div class="dash-card setting-pane active" id="pane-profil">
             <div class="setting-row">
                 <div class="setting-avatar">
-                    <img id="sFoto" src="{{ \App\Support\UserFoto::src(auth()->user()->foto) }}" alt="Foto profil">
+                    <div class="setting-avatar-photo">
+                        <img id="sFoto" src="{{ auth()->user()->foto ? \App\Support\UserFoto::src(auth()->user()->foto) : '' }}" alt="Foto profil" class="{{ auth()->user()->foto ? '' : 'hidden' }}">
+                        <span id="sFotoInitials" class="{{ auth()->user()->foto ? 'hidden' : '' }}">{{ \App\Support\UserFoto::initials(auth()->user()->name) }}</span>
+                    </div>
                     <div>
                         <b style="font-size:15px;color:var(--navy-900);">Foto Profil</b>
                         <p class="setting-hint" style="margin:4px 0 10px;">JPG atau PNG, maks 2 MB.</p>

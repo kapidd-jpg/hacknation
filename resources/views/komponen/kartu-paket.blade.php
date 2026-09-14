@@ -1,9 +1,10 @@
-@props(['paket', 'ctaUrl' => null, 'ctaLabel' => 'Mulai Sekarang', 'dataPaket' => null, 'current' => false, 'owned' => false, 'revealClass' => 'reveal', 'delay' => '0s'])
+@props(['paket', 'ctaUrl' => null, 'ctaLabel' => 'Mulai Sekarang', 'dataPaket' => null, 'current' => false, 'owned' => false, 'hasAnyPaket' => false, 'revealClass' => 'reveal', 'delay' => '0s'])
 
 @php
     $dark = $paket->key === 'utbk';
-    $old = $paket->harga_lama ? 'Rp ' . number_format($paket->harga_lama, 0, ',', '.') : null;
-    $price = 'Rp ' . number_format($paket->harga, 0, ',', '.');
+    $paketLain = $hasAnyPaket && ! $owned;
+    $old = (! $paketLain && $paket->harga_lama) ? 'Rp ' . number_format($paket->harga_lama, 0, ',', '.') : null;
+    $price = 'Rp ' . number_format(($paketLain ? $paket->harga_lama : $paket->harga), 0, ',', '.');
     $kategori = collect($paket->kategori ?? []);
 @endphp
 

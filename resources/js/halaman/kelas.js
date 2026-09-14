@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
             meta: 'Kelas 12 SMA · Persiapan UTBK',
             desc: 'Pahami teks bacaan panjang dengan cepat lewat teknik scanning, skimming, dan inferensi.',
             modul: 28, durasi: '10 Minggu', siswa: 231, simbol: 'L',
-            price: 'Rp 499K', old: 'Rp 699K',
+            price: 'Rp 599K', old: 'Rp 799K',
             iconBg: 'rgba(222, 225, 255, 1)', iconColor: '#1E3ABA',
         },
         {
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             meta: 'Kelas 12 SMA · Saintek',
             desc: 'Integral, trigonometri, dan statistika dengan trik cepat 20 detik ala tutor master.',
             modul: 30, durasi: '12 Minggu', siswa: 318, simbol: '∑',
-            price: 'Rp 649K', old: 'Rp 849K',
+            price: 'Rp 599K', old: 'Rp 799K',
             iconBg: 'rgba(254, 243, 199, 1)', iconColor: '#92400e',
         },
         {
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
             meta: 'Kelas 12 SMA · Persiapan UTBK',
             desc: 'Riset masalah kontekstual dan penalaran kuantitatif bertingkat ala soal SNBT terbaru.',
             modul: 26, durasi: '10 Minggu', siswa: 187, simbol: 'M',
-            price: 'Rp 549K', old: 'Rp 749K',
+            price: 'Rp 599K', old: 'Rp 799K',
             iconBg: 'rgba(94, 234, 212, 0.35)', iconColor: '#0F766E',
         },
         {
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
             meta: 'Kelas 12 SMA · Persiapan UTBK',
             desc: 'Bilangan, aljabar, geometri, dan statistika dasar dengan trik cepat mengerjakan.',
             modul: 24, durasi: '10 Minggu', siswa: 156, simbol: 'K',
-            price: 'Rp 499K', old: 'Rp 699K',
+            price: 'Rp 599K', old: 'Rp 799K',
             iconBg: 'rgba(254, 243, 199, 1)', iconColor: '#92400e',
         },
         {
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
             meta: 'Kelas 12 SMA · Persiapan UTBK',
             desc: 'Memahami wacana kompleks dan latihan menulis efektif bergaya formal.',
             modul: 22, durasi: '9 Minggu', siswa: 143, simbol: 'B',
-            price: 'Rp 449K', old: 'Rp 649K',
+            price: 'Rp 599K', old: 'Rp 799K',
             iconBg: 'rgba(222, 225, 255, 1)', iconColor: '#1E3ABA',
         },
         {
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
             meta: 'Kelas 12 SMA · Persiapan UTBK',
             desc: 'Reading comprehension dan vocabulary untuk soal literasi bahasa Inggris SNBT.',
             modul: 20, durasi: '8 Minggu', siswa: 168, simbol: 'E',
-            price: 'Rp 469K', old: 'Rp 629K',
+            price: 'Rp 599K', old: 'Rp 799K',
             iconBg: 'rgba(237, 233, 254, 1)', iconColor: '#1E3ABA',
         },
         {
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
             meta: 'Kelas 11 SMA · Wajib & Peminatan',
             desc: 'Kinematika, dinamika, dan energi dengan pendekatan visual yang gampang dicerna.',
             modul: 24, durasi: '10 Minggu', siswa: 197, simbol: 'F',
-            price: 'Rp 449K', old: 'Rp 599K',
+            price: 'Rp 499K', old: 'Rp 699K',
             iconBg: 'rgba(237, 233, 254, 1)', iconColor: '#1E3ABA',
         },
         {
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
             meta: 'Kelas 10-11 SMA · Wajib',
             desc: 'Perhitungan kimia dan konsep mol dibuat simpel dengan metode latihan berulang.',
             modul: 22, durasi: '9 Minggu', siswa: 164, simbol: 'K',
-            price: 'Rp 399K', old: 'Rp 549K',
+            price: 'Rp 499K', old: 'Rp 699K',
             iconBg: 'rgba(94, 234, 212, 0.35)', iconColor: '#0F766E',
         },
         {
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
             meta: 'Kelas 12 SMA · Peminatan Saintek',
             desc: 'Materi sel, hereditas, dan bioteknologi dengan peta konsep interaktif.',
             modul: 26, durasi: '10 Minggu', siswa: 152, simbol: 'D',
-            price: 'Rp 429K', old: 'Rp 579K',
+            price: 'Rp 499K', old: 'Rp 699K',
             iconBg: 'rgba(222, 225, 255, 1)', iconColor: '#1E3ABA',
         },
         {
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
             meta: 'Kelas 10-12 SMA · Wajib',
             desc: 'Aljabar, fungsi, dan statistika untuk semua jurusan.',
             modul: 24, durasi: '10 Minggu', siswa: 214, simbol: '∑',
-            price: 'Rp 429K', old: 'Rp 579K',
+            price: 'Rp 499K', old: 'Rp 699K',
             iconBg: 'rgba(254, 243, 199, 1)', iconColor: '#92400e',
         },
         {
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
             meta: 'Kelas 10-12 SMA · Peminatan IPS',
             desc: 'Ekonomi mikro-makro, akuntansi dasar, dan kebijakan fiskal.',
             modul: 25, durasi: '10 Minggu', siswa: 132, simbol: 'E',
-            price: 'Rp 419K', old: 'Rp 559K',
+            price: 'Rp 499K', old: 'Rp 699K',
             iconBg: 'rgba(222, 225, 255, 1)', iconColor: '#1E3ABA',
         },
         {
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
             meta: 'Kelas 10-12 SMA · Peminatan IPS',
             desc: 'Struktur sosial, interaksi, dan dinamika masyarakat.',
             modul: 21, durasi: '9 Minggu', siswa: 118, simbol: 'S',
-            price: 'Rp 389K', old: 'Rp 529K',
+            price: 'Rp 499K', old: 'Rp 699K',
             iconBg: 'rgba(94, 234, 212, 0.35)', iconColor: '#0F766E',
         },
         {
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
             meta: 'Kelas 10-12 SMA · Peminatan IPS',
             desc: 'Bumi, atmosfer, dan interaksi ruang-wilayah dengan pemetaan.',
             modul: 23, durasi: '9 Minggu', siswa: 111, simbol: 'G',
-            price: 'Rp 399K', old: 'Rp 539K',
+            price: 'Rp 499K', old: 'Rp 699K',
             iconBg: 'rgba(237, 233, 254, 1)', iconColor: '#1E3ABA',
         },
         {
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
             meta: 'Kelas 10-12 SMA · Wajib',
             desc: 'Kronologi sejarah nasional dan kesadaran historis.',
             modul: 22, durasi: '9 Minggu', siswa: 127, simbol: 'H',
-            price: 'Rp 379K', old: 'Rp 519K',
+            price: 'Rp 499K', old: 'Rp 699K',
             iconBg: 'rgba(254, 243, 199, 1)', iconColor: '#92400e',
         },
         {
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
             meta: 'Semua Jenjang · Tes & Percakapan',
             desc: 'Tingkatkan skor TOEFL dan percakapan harian melalui live class interaktif 2x pekan.',
             modul: 20, durasi: '8 Minggu', siswa: 208, simbol: 'AB',
-            price: 'Rp 529K', old: 'Rp 699K',
+            price: 'Rp 399K', old: 'Rp 599K',
             iconBg: 'rgba(254, 243, 199, 1)', iconColor: '#92400e',
         },
         {
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
             meta: 'Kelas 12 SMA · UTBK',
             desc: 'Reading comprehension dan grammar level HOTS SNBT.',
             modul: 24, durasi: '10 Minggu', siswa: 175, simbol: 'EN',
-            price: 'Rp 469K', old: 'Rp 629K',
+            price: 'Rp 399K', old: 'Rp 599K',
             iconBg: 'rgba(222, 225, 255, 1)', iconColor: '#1E3ABA',
         },
         {
@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
             meta: 'Semua Jenjang · Tes Internasional',
             desc: 'Latihan intensif Listening, Reading, Writing, dan Speaking IELTS.',
             modul: 24, durasi: '10 Minggu', siswa: 176, simbol: 'IL',
-            price: 'Rp 699K', old: 'Rp 899K',
+            price: 'Rp 399K', old: 'Rp 599K',
             iconBg: 'rgba(222, 225, 255, 1)', iconColor: '#1E3ABA',
         },
         {
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
             meta: 'Semua Jenjang · Tes Internasional',
             desc: 'Tingkatkan skor TOEIC untuk karier dan studi ke luar negeri.',
             modul: 20, durasi: '8 Minggu', siswa: 98, simbol: 'TC',
-            price: 'Rp 599K', old: 'Rp 799K',
+            price: 'Rp 399K', old: 'Rp 599K',
             iconBg: 'rgba(254, 243, 199, 1)', iconColor: '#92400e',
         },
         {
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
             meta: 'Semua Jenjang · Pemula',
             desc: 'Dari nol sampai percakapan dasar dan persiapan Goethe A1-A2.',
             modul: 18, durasi: '8 Minggu', siswa: 134, simbol: 'DE',
-            price: 'Rp 549K', old: 'Rp 749K',
+            price: 'Rp 399K', old: 'Rp 599K',
             iconBg: 'rgba(237, 233, 254, 1)', iconColor: '#1E3ABA',
         },
         {
@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
             meta: 'Semua Jenjang · Pemula',
             desc: 'Hangul, tata bahasa, dan percakapan seru ala drakor.',
             modul: 20, durasi: '8 Minggu', siswa: 241, simbol: 'KR',
-            price: 'Rp 549K', old: 'Rp 749K',
+            price: 'Rp 399K', old: 'Rp 599K',
             iconBg: 'rgba(94, 234, 212, 0.35)', iconColor: '#0F766E',
         },
         {
@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
             meta: 'Semua Jenjang · Pemula',
             desc: 'Hiragana, katakana, kanji dasar, dan persiapan JLPT N5-N4.',
             modul: 22, durasi: '10 Minggu', siswa: 189, simbol: 'JP',
-            price: 'Rp 569K', old: 'Rp 769K',
+            price: 'Rp 399K', old: 'Rp 599K',
             iconBg: 'rgba(222, 225, 255, 1)', iconColor: '#1E3ABA',
         },
         {
@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
             meta: 'Semua Jenjang · Pemula',
             desc: 'Pinyin, nada, dan percakapan bisnis dasar HSK 1-2.',
             modul: 20, durasi: '8 Minggu', siswa: 156, simbol: 'CN',
-            price: 'Rp 559K', old: 'Rp 759K',
+            price: 'Rp 399K', old: 'Rp 599K',
             iconBg: 'rgba(254, 243, 199, 1)', iconColor: '#92400e',
         },
         {
@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
             meta: 'Ekstrakurikuler · Maks. 25 Siswa',
             desc: 'Logika pemrograman dan sains data menggunakan Python untuk pemula total.',
             modul: 18, durasi: '8 Minggu', siswa: 121, simbol: '</>',
-            price: 'Rp 399K', old: 'Rp 499K',
+            price: 'Rp 499K', old: 'Rp 699K',
             iconBg: 'rgba(237, 233, 254, 1)', iconColor: '#1E3ABA',
         },
         {
@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
             meta: 'Ekstrakurikuler · Studio Kreatif',
             desc: 'Bangun portofolio desain web pertamamu dari wireframe sampai prototype interaktif.',
             modul: 16, durasi: '7 Minggu', siswa: 98, simbol: '#',
-            price: 'Rp 349K', old: 'Rp 449K',
+            price: 'Rp 499K', old: 'Rp 699K',
             iconBg: 'rgba(222, 225, 255, 1)', iconColor: '#1E3ABA',
         },
         {
@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
             meta: 'Ekstrakurikuler · Soft Skill',
             desc: 'Atasi grogi, bangun materi, dan berbicara di depan umum dengan percaya diri.',
             modul: 12, durasi: '6 Minggu', siswa: 145, simbol: 'P',
-            price: 'Rp 299K', old: 'Rp 399K',
+            price: 'Rp 499K', old: 'Rp 699K',
             iconBg: 'rgba(237, 233, 254, 1)', iconColor: '#1E3ABA',
         },
         {
@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
             meta: 'Ekstrakurikuler · Skill Digital',
             desc: 'Strategi konten, iklan, dan analitik untuk pemula bisnis online.',
             modul: 16, durasi: '7 Minggu', siswa: 137, simbol: 'DM',
-            price: 'Rp 349K', old: 'Rp 449K',
+            price: 'Rp 499K', old: 'Rp 699K',
             iconBg: 'rgba(94, 234, 212, 0.35)', iconColor: '#0F766E',
         },
     ];

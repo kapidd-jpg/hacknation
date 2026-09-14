@@ -80,6 +80,12 @@
     <div class="dash-main min-h-screen" id="dashMain">
         @include('komponen.dashboard.topbar')
         <main class="px-4 sm:px-8 py-6 sm:py-8 flex flex-col gap-8">
+            @if (session('status'))
+                <div class="guru-toast" role="status" id="guruToast">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span>{{ session('status') }}</span>
+                </div>
+            @endif
             @yield('pageContent')
         </main>
     </div>
@@ -106,7 +112,7 @@
                 ] : null;
                 $pkUserFoto = auth()->user()?->foto ? route('user.foto') : null;
             @endphp
-            const u = @json($pkUserCtx);
+            u = @json($pkUserCtx);
             if (u && window.pintarKuyAuth) {
                 window.pintarKuyAuth.login({
                     name: u.name,
@@ -159,6 +165,8 @@
                 if (kelola) kelola.textContent = 'Pilih Paket';
             }
         } catch (e) {}
+        const toast = document.getElementById('guruToast');
+        if (toast) window.setTimeout(() => toast.classList.add('show'), 30);
     })();
 </script>
 

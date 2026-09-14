@@ -38,6 +38,7 @@
                 'ctaUrl' => route('paket.checkout', $paket->key),
                 'ctaLabel' => $owned ? 'Sudah Aktif' : 'Beli Paket Ini',
                 'owned' => $owned,
+                'hasAnyPaket' => $hasAnyPaket ?? false,
                 'revealClass' => 'reveal dash-reveal',
                 'delay' => ($loop->iteration * 0.15) . 's',
             ])

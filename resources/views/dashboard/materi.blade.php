@@ -126,6 +126,8 @@
                                                 data-tipe="{{ $m['tipe'] }}"
                                                 data-video="{{ $m['video_url'] }}"
                                                 data-konten="{{ $m['konten'] }}"
+                                                data-materi="{{ $m['materi_id'] }}"
+                                                data-status="{{ $m['status'] }}"
                                                 {{ $m['status'] === 'locked' ? 'disabled' : '' }}>
                                                 <span class="modul-ico modul-ico--{{ $m['status'] }}">
                                                     @if ($m['status'] === 'locked')
@@ -191,7 +193,7 @@
                                             <p class="materi-latsol-set-label">{{ $set['label'] }}</p>
                                             <p class="materi-latsol-set-meta">{{ $set['total'] }} soal • Terbaik: {{ $set['best'] ?? '—' }}</p>
                                         </div>
-                                        <a href="{{ route('dashboard.latsol.mulai', [$set['kelas_id'], urlencode($set['label'])]) }}" class="dash-btn dash-btn--primary dash-btn--sm">Mulai</a>
+                                        <a href="{{ route('dashboard.latsol.mulai', [$set['kelas_id'], $set['label']]) }}" class="dash-btn dash-btn--primary dash-btn--sm">Mulai</a>
                                     </div>
                                 @endforeach
                             </div>
@@ -218,6 +220,9 @@
                 <div class="materi-modal-video" id="materiModalVideo"></div>
                 <div class="materi-modal-durasi" id="materiModalDurasi"></div>
                 <div class="materi-modal-konten" id="materiModalKonten"></div>
+                <div class="materi-modal-actions">
+                    <button type="button" class="dash-btn dash-btn--ghost" id="materiModalDone">Tandai Selesai ✓</button>
+                </div>
             </div>
         </div>
     </div>

@@ -50,6 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/latsol/mulai/{kelas}/{set}', [DashboardController::class, 'latsolMulai'])->name('dashboard.latsol.mulai');
     Route::post('/dashboard/latsol/kirim', [DashboardController::class, 'latsolKirim'])->name('dashboard.latsol.kirim');
     Route::get('/dashboard/latsol/hasil/{pengerjaan}', [DashboardController::class, 'latsolHasil'])->name('dashboard.latsol.hasil');
+    Route::post('/dashboard/progres-modul', [DashboardController::class, 'progresModul'])->name('dashboard.progres.modul');
     Route::get('/dashboard/pengaturan', [DashboardController::class, 'pengaturan'])->name('dashboard.pengaturan');
     Route::get('/akun/foto', [DashboardController::class, 'foto'])->name('user.foto');
     Route::post('/dashboard/pengaturan', [DashboardController::class, 'pengaturanUpdate'])->name('dashboard.pengaturan.update');

@@ -2,30 +2,6 @@
    PintarKuy — Guru dashboard (tables, stats, forms)
    ============================================================ */
 
-/* ---------- Toast ---------- */
-.guru-toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translate(-50%, 24px);
-    background: var(--navy-900);
-    color: #fff;
-    font-size: 13.5px;
-    font-weight: 700;
-    padding: 13px 22px;
-    border-radius: 12px;
-    box-shadow: 0 12px 30px -8px rgba(15, 23, 42, 0.5);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    z-index: 80;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.35s ease, transform 0.35s ease;
-}
-.guru-toast svg { width: 18px; height: 18px; color: var(--green-light); flex-shrink: 0; }
-.guru-toast.show { opacity: 1; transform: translate(-50%, 0); }
-
 /* ---------- Stats ---------- */
 .guru-stats {
     display: grid;

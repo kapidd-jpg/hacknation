@@ -73,6 +73,11 @@ class User extends Authenticatable
         return $this->pakets->isNotEmpty();
     }
 
+    public function hasAnyPaket(): bool
+    {
+        return $this->hasPaket();
+    }
+
     public function aksesKategori(): array
     {
         $kategori = [];
@@ -108,5 +113,34 @@ class User extends Authenticatable
     public function nilaiHasil()
     {
         return $this->hasMany(Nilai::class);
+    }
+
+    public function progresModul()
+    {
+        return $this->hasMany(ProgresModul::class);
+    }
+
+    public function completedModulIds(): \Illuminate\Support\Collection
+    {
+        return $this->progresModul()->pluck('materi_id');
+    }
+
+    public function isModulDone(Materi $materi): bool
+    {
+        return $this->progresModul()->where('materi_id', $materi->id)->exists();
+    }
+
+    public function progresPct(Kelas $kelas): int
+    {
+        $total = $kelas->materi()->count();
+        if ($total === 0) {
+            return 0;
+        }
+
+        $completed = $this->progresModul()
+            ->whereHas('materi', fn ($q) => $q->where('kelas_id', $kelas->id))
+            ->count();
+
+        return (int) round($completed / $total * 100);
     }
 }

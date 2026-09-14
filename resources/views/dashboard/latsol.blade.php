@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <div class="latsol-item-action">
-                    <a href="{{ route('dashboard.latsol.mulai', [$set['kelas_id'], urlencode($set['label'])]) }}" class="dash-btn dash-btn--primary">
+                    <a href="{{ route('dashboard.latsol.mulai', [$set['kelas_id'], $set['label']]) }}" class="dash-btn dash-btn--primary">
                         Mulai
                     </a>
                 </div>

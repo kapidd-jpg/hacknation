@@ -20,6 +20,7 @@ class PaketPilihanController extends Controller
         return view('paket.pilih', [
             'pakets' => $pakets,
             'ownedKeys' => $ownedKeys,
+            'hasAnyPaket' => Auth::user()->hasAnyPaket(),
         ]);
     }
 
@@ -34,6 +35,7 @@ class PaketPilihanController extends Controller
         return view('paket.checkout', [
             'paket' => $paket,
             'ownedKeys' => Auth::user()->paketKeys(),
+            'hasAnyPaket' => Auth::user()->hasAnyPaket(),
         ]);
     }
 
