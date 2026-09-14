@@ -92,7 +92,7 @@
             <div class="absolute inset-4 rounded-3xl bg-gradient-to-br from-brand-greenlight/30 to-navy-100/40 blur-2xl"></div>
 
             <div class="relative bg-white p-2.5 rounded-3xl shadow-2xl w-full max-w-md">
-                <img src="https://www.figma.com/api/mcp/asset/4cbcc0bf-e804-4e9a-8e8b-fcf8b74e5af0.png"
+                <img src="{{ asset('assets/images/hero-landing.jpg') }}"
                      alt="Siswa PintarKuy belajar online dengan laptop"
                      class="w-full rounded-2xl aspect-[454/339] object-cover">
             </div>

@@ -1,7 +1,7 @@
 // PintarKuy — Dashboard: Pengaturan (tabs + toggles + profil tersimpan)
 document.addEventListener('DOMContentLoaded', () => {
     const auth = window.pintarKuyAuth;
-    const DEFAULT_PHOTO = 'https://www.figma.com/api/mcp/asset/4b9001eb-320b-418b-b43a-9ddbb0503794.png';
+    const DEFAULT_PHOTO = window.pintarKuyAuth ? window.pintarKuyAuth.defaultPhoto() : '/assets/images/default-avatar.jpg';
 
     // toast
     const toast = document.getElementById('settingToast');
