@@ -74,8 +74,8 @@ class OtorisasiDanPendaftaranTest extends TestCase
             'modul' => 8,
             'durasi' => '8 Minggu',
             'siswa' => 0,
-            'price' => 'Rp 399K',
-            'old' => 'Rp 499K',
+            'price' => 399000,
+            'old' => 499000,
             'aktif' => true,
         ], $overrides));
     }
@@ -289,8 +289,8 @@ class OtorisasiDanPendaftaranTest extends TestCase
             'cat' => 'UTBK-SNBT',
             'modul' => 10,
             'durasi' => '8 Minggu',
-            'price' => 'Rp 399K',
-            'old' => 'Rp 499K',
+            'price' => 399000,
+            'old' => 499000,
             'aktif' => true,
         ]);
 
@@ -321,8 +321,8 @@ class OtorisasiDanPendaftaranTest extends TestCase
             'cat' => 'Ekstra',
             'modul' => 3,
             'durasi' => '8 Minggu',
-            'price' => 'Rp 399K',
-            'old' => 'Rp 499K',
+            'price' => 399000,
+            'old' => 499000,
             'aktif' => true,
         ]);
 
