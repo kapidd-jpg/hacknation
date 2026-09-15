@@ -358,4 +358,52 @@ class OtorisasiDanPendaftaranTest extends TestCase
         $this->get('/masuk')->assertOk();
         $this->get('/daftar')->assertOk();
     }
+
+    // ------------------------------------------------------------------
+    //  Keamanan email — tolak CRLF injection (CVE-2026-48019)
+    // ------------------------------------------------------------------
+
+    public function test_email_mengandung_crlf_ditolak_di_semua_jalur(): void
+    {
+        $payloads = [
+            ['/masuk', 'email', [
+                'email' => "bob@test.id\r\nBcc: spam@evil.test",
+                'password' => 'password',
+            ]],
+            ['/daftar', 'email', [
+                'name' => 'Bob',
+                'email' => "bob@test.id\r\nBcc: spam@evil.test",
+                'password' => 'rahasia123',
+                'password_confirmation' => 'rahasia123',
+                'sekolah' => 'SMA Negeri 1',
+                'kelas_jurusan' => 'IPA',
+            ]],
+            ['/kontak', 'email', [
+                'nama' => 'Bob',
+                'email' => "bob@test.id\nSubject: x",
+                'subjek' => 'Halo',
+                'pesan' => 'Pesan panjang untuk kontak.',
+            ]],
+        ];
+
+        foreach ($payloads as [$uri, $field, $data]) {
+            $response = $this->post($uri, $data);
+            $response->assertSessionHasErrors($field);
+            $this->assertGuest();
+        }
+    }
+
+    public function test_email_mengandung_crlf_ditolak_saat_update_profil(): void
+    {
+        $siswa = $this->createSiswa();
+        $this->actingAs($siswa);
+
+        $response = $this->post('/dashboard/pengaturan', [
+            'name' => 'Siswa Test',
+            'email' => "siswa@test.id\r\nBcc: spam@evil.test",
+        ]);
+
+        $response->assertSessionHasErrors('email');
+        $this->assertDatabaseMissing('users', ['email' => "siswa@test.id\r\nBcc: spam@evil.test"]);
+    }
 }
