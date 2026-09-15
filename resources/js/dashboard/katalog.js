@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     render();
                     renderBadge();
                     toast(res.message, true);
-                    window.setTimeout(() => { window.location.href = pintarKuyKelasUrl; }, 1200);
+                    window.setTimeout(() => { window.location.href = window.pintarKuyKelasUrl; }, 1200);
                 } else {
                     toast(res.message, false);
                 }
@@ -159,6 +159,11 @@ document.addEventListener('DOMContentLoaded', () => {
         dialog.querySelector('[data-act="confirm"]').addEventListener('click', () => enroll(item));
     };
 
+    const pkPaketUrl = (key) => {
+        const base = paketUrl.replace(/\/+$/, '');
+        return base + '/' + encodeURIComponent(key);
+    };
+
     const openLocked = (item) => {
         const needKey = catPaket[item.cat] || '';
         const needLabel = (needKey && PAKETS[needKey]) ? PAKETS[needKey].label : 'Paket yang sesuai';
@@ -191,11 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
         dialog.querySelector('[data-act="cancel"]').addEventListener('click', closeModal);
     };
 
-    const pkPaketUrl = (key) => {
-        const base = paketUrl.replace(/\/+$/, '');
-        return base + '/' + encodeURIComponent(key);
-    };
-
     const renderBadge = () => {
         if (!headActions) return;
         const paketText = ownedLabels.length ? ownedLabels.join(' + ') : 'Belum punya paket';
@@ -205,7 +205,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const render = () => {
-        const cat = document.querySelector('#katalogFilter button.active').dataset.cat;
+        const activeBtn = document.querySelector('#katalogFilter button.active');
+        if (!activeBtn) return;
+        const cat = activeBtn.dataset.cat;
         const q = search.value.trim().toLowerCase();
         const list = data.filter((item) =>
             (cat === 'Semua' || item.cat === cat) &&
@@ -216,6 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         grid.querySelectorAll('.katalog-add').forEach((btn) => {
             const item = data.find((i) => String(i.id) === btn.dataset.id);
+            if (!item) return;
             if (terdaftarIds.includes(String(item.id))) {
                 btn.textContent = '✓ Terdaftar';
                 btn.classList.add('added');

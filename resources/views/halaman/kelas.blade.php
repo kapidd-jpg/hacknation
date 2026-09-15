@@ -16,8 +16,9 @@
     <div class="pk-container">
 
         <div class="kelas-filter" role="tablist">
-            @foreach (['Semua', 'UTBK-SNBT', 'SMA', 'Bahasa', 'Ekstra'] as $i => $cat)
-                <button type="button" data-cat="{{ $cat }}" {{ $i === 0 ? 'class="active"' : '' }}>{{ $cat }}</button>
+            <button type="button" data-cat="Semua" class="active">Semua</button>
+            @foreach ($kategori as $cat)
+                <button type="button" data-cat="{{ $cat }}">{{ $cat }}</button>
             @endforeach
         </div>
 
@@ -44,5 +45,6 @@
 
 @push('scripts')
     <script>window.pintarKuyRegisterUrl = window.pintarKuyRegisterUrl || @json(route('register'));</script>
+    <script>window.pintarKuyKelas = window.pintarKuyKelas || @json($kelas);</script>
     @vite(['resources/js/halaman/kelas.js'])
 @endpush

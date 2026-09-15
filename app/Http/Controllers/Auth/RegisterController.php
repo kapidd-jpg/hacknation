@@ -25,12 +25,18 @@ class RegisterController extends Controller
             'kelas_jurusan' => ['required', 'string', 'max:255'],
         ]);
 
-$user = new User();
-        $user->name = $data['name'];
-        $user->email = $data['email'];
-        $user->password = $data['password'];
-        $user->role = 'siswa';
-        $user->save();
+try {
+            $user = new User();
+            $user->name = $data['name'];
+            $user->email = $data['email'];
+            $user->password = $data['password'];
+            $user->role = 'siswa';
+            $user->sekolah = $data['sekolah'] ?? null;
+            $user->kelas_jurusan = $data['kelas_jurusan'] ?? null;
+            $user->save();
+        } catch (\Throwable $e) {
+            return back()->withErrors(['email' => 'Pendaftaran gagal. Silakan coba lagi.'])->withInput();
+        }
 
         event(new Registered($user));
 

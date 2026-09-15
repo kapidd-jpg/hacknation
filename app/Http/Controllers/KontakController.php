@@ -17,8 +17,21 @@ class KontakController extends Controller
             'pesan' => ['required', 'string', 'min:10', 'max:5000'],
         ]);
 
-        Kontak::query()->create($data);
+        try {
+            Kontak::query()->create($data);
+        } catch (\Throwable $e) {
+            if ($request->wantsJson()) {
+                return response()->json(['ok' => false, 'message' => 'Terjadi kesalahan saat mengirim pesan. Coba lagi.'], 422);
+            }
 
-        return response()->json(['ok' => true, 'message' => 'Pesanmu berhasil terkirim!']);
+            return back()->with('error', 'Terjadi kesalahan saat mengirim pesan. Coba lagi.');
+        }
+
+        $pesan = 'Pesanmu berhasil terkirim!';
+        if ($request->wantsJson()) {
+            return response()->json(['ok' => true, 'message' => $pesan]);
+        }
+
+        return back()->with('status', $pesan);
     }
 }

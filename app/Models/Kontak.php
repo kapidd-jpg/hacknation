@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kontak extends Model
 {
+    protected $table = 'kontak';
+
     protected $fillable = [
         'nama',
         'email',
@@ -14,10 +16,7 @@ class Kontak extends Model
         'pesan',
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'read_at' => 'datetime',
-        ];
-    }
+    protected $casts = [
+        'read_at' => 'datetime',
+    ];
 }

@@ -20,7 +20,7 @@
         <div class="w-full rounded-xl bg-navy-50 p-4 flex flex-col gap-3 items-start text-left">
             <div class="flex items-center justify-between w-full">
                 <span class="text-xs font-semibold text-ink-muted">Nomor pembayaran</span>
-                <span class="text-xs font-bold text-navy-950">{{ $nomorPembayaran ?? 'PK-' . date('Ymd') . '-DEMO' }}</span>
+                <span class="text-xs font-bold text-navy-950">{{ $nomorPembayaran ?? 'PK-' . now()->format('Ymd') . '-' . strtoupper(substr(md5((string) auth()->id()), 0, 8)) }}</span>
             </div>
             @if ($metodeNama)
                 <div class="flex items-center justify-between w-full">

@@ -33,9 +33,9 @@
                 <span class="lap-stat-delta" id="statAkurasiSub">Rata-rata 6 bulan</span>
             </div>
             <div class="lap-stat dash-card" style="gap:14px;">
-                <span class="lap-stat-label">Peringkat Nasional</span>
-                <span class="lap-stat-value">Top 1.5%</span>
-                <span class="lap-stat-delta lap-delta--up">Dari 40.224 siswa</span>
+                <span class="lap-stat-label">Total Latihan Soal</span>
+                <span class="lap-stat-value">{{ $laporan['total_latihan'] ?? 0 }}</span>
+                <span class="lap-stat-delta lap-delta--up">{{ $laporan['total_soal'] ?? 0 }} soal dikerjakan</span>
             </div>
         </div>
 

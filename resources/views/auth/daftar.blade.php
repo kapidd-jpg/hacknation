@@ -134,7 +134,7 @@
                         <div class="relative mt-2">
                             <svg class="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-ink-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 21h18M4 21V10m6 11V10m4 11V10m6 11V10M2 10l10-7 10 7M12 3v2m-4 1v1m8-1v1"/></svg>
                             <input id="sekolah" name="sekolah" type="text" required autocomplete="organization" value="{{ old('sekolah') }}"
-                                   placeholder="Nama SMA/SMK/Mahid kamu"
+                                   placeholder="Nama SMA/SMK/Mahasiswa kamu"
                                    class="w-full bg-white rounded-xl shadow-sm pl-12 pr-4 py-4 text-sm text-navy-900 placeholder:text-ink-muted focus:outline-none focus:ring-2 focus:ring-navy-800">
                         </div>
                     </div>
@@ -157,7 +157,7 @@
 
                 <label class="flex items-start gap-3 cursor-pointer">
                     <input type="checkbox" name="syarat" required @checked(old('syarat')) class="size-4 mt-0.5 rounded-[3px] border-ink-muted text-navy-800 focus:ring-navy-800">
-                    <span class="text-ink-soft text-sm">Saya menyetujui <a href="#" class="text-navy-950 font-semibold underline">Ketentuan Layanan</a> & <a href="#" class="text-navy-950 font-semibold underline">Kebijakan Privasi</a> PintarKuy.</span>
+                    <span class="text-ink-soft text-sm">Saya menyetujui <span class="text-navy-950 font-semibold underline">Ketentuan Layanan</span> & <span class="text-navy-950 font-semibold underline">Kebijakan Privasi</span> PintarKuy.</span>
                 </label>
 
                 <button type="submit" class="w-full bg-gradient-brand text-white font-semibold text-sm rounded-xl px-6 py-3.5 shadow-md hover:brightness-110 transition flex items-center justify-center gap-2">

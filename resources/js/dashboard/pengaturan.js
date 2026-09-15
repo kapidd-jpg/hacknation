@@ -1,7 +1,6 @@
 // PintarKuy — Dashboard: Pengaturan (tabs + toggles + profil tersimpan)
 document.addEventListener('DOMContentLoaded', () => {
     const auth = window.pintarKuyAuth;
-    const DEFAULT_PHOTO = window.pintarKuyAuth ? window.pintarKuyAuth.defaultPhoto() : '/assets/images/default-avatar.jpg';
 
     const initialsOf = (name) => {
         const parts = String(name || '').trim().replace(/\s+/g, ' ').split(' ');

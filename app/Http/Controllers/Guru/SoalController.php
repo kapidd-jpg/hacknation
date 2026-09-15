@@ -32,6 +32,7 @@ class SoalController extends Controller
     {
         return view('guru.soal.form', [
             'soal' => null,
+            'opsi' => ['A' => '', 'B' => '', 'C' => '', 'D' => ''],
             'kelasSemua' => $this->kelasSemua(),
             'materiSemua' => [],
         ]);

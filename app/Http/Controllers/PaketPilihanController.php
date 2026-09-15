@@ -10,10 +10,6 @@ class PaketPilihanController extends Controller
 {
     public function index()
     {
-        if (Auth::user()->isStaff()) {
-            return redirect()->route('guru.dashboard');
-        }
-
         $pakets = Paket::query()->where('aktif', true)->orderBy('harga')->get();
         $ownedKeys = Auth::user()->paketKeys();
 
@@ -26,10 +22,6 @@ class PaketPilihanController extends Controller
 
     public function checkout(string $key)
     {
-        if (Auth::user()->isStaff()) {
-            return redirect()->route('guru.dashboard');
-        }
-
         $paket = Paket::query()->where('key', $key)->where('aktif', true)->firstOrFail();
 
         return view('paket.checkout', [
@@ -42,12 +34,9 @@ class PaketPilihanController extends Controller
     public function bayar(Request $request)
     {
         $user = Auth::user();
-        if ($user->isStaff()) {
-            return redirect()->route('guru.dashboard');
-        }
 
         $data = $request->validate([
-            'paket' => ['required', 'string', 'in:utbk,sma-ekstra,bahasa'],
+            'paket' => ['required', 'string', 'max:255'],
             'metode' => ['required', 'string', 'in:va,qris,transfer'],
         ]);
 
@@ -72,10 +61,6 @@ class PaketPilihanController extends Controller
 
     public function berhasil()
     {
-        if (Auth::user()->isStaff()) {
-            return redirect()->route('guru.dashboard');
-        }
-
         return view('paket.sukses', [
             'paketNama' => session('paketNama'),
             'metodeNama' => session('metodeNama'),

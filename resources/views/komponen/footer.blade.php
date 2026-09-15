@@ -41,8 +41,8 @@
         <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <p class="text-navy-400 text-xs">© {{ date('Y') }} PT PintarKuy Edukasi Indonesia. Hak Cipta Dilindungi.</p>
             <div class="flex gap-6">
-                <a href="#" class="text-navy-400 text-xs hover:text-white transition">Kebijakan Privasi</a>
-                <a href="#" class="text-navy-400 text-xs hover:text-white transition">Syarat & Ketentuan</a>
+                <span class="text-navy-400 text-xs">Kebijakan Privasi</span>
+                <span class="text-navy-400 text-xs">Syarat &amp; Ketentuan</span>
             </div>
         </div>
     </div>

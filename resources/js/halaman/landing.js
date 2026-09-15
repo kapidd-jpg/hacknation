@@ -95,6 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let score = 0;
 
     const setFeedback = (message, ok) => {
+        if (!feedback) return;
         feedback.textContent = message;
         feedback.classList.remove('hidden');
         feedback.classList.toggle('text-brand-green', ok);
@@ -129,8 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
             setFeedback('Belum tepat. Jawaban yang benar adalah ' + correct + '.', false);
         }
 
-        const correctLabel = current.querySelector('input[value="' + correct + '"]').closest('.quiz-option');
-        if (correctLabel !== chosenLabel) {
+        const correctLabel = current.querySelector('input[value="' + correct + '"]')?.closest('.quiz-option');
+        if (correctLabel && correctLabel !== chosenLabel) {
             correctLabel.classList.add('border-brand-green', 'bg-brand-greenlight/30');
         }
 

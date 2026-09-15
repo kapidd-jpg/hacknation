@@ -20,56 +20,73 @@ use Illuminate\Support\Facades\Hash;
 
 class DashboardController extends Controller
 {
-    protected const META_KELAS = [
-        'tps' => ['fokus' => 'UTBK Fokus', 'pct' => 71, 'jadwal' => 'Minggu, 18:30 WIB', 'pertemuan' => '24 Pertemuan', 'note' => 'Latihan Soal Tersedia'],
-        'matematika' => ['fokus' => 'SNBT Fokus', 'pct' => 82, 'jadwal' => 'Rabu, 19:00 WIB', 'pertemuan' => '27 Pertemuan', 'note' => 'Live: Besok, 16:00 WIB'],
-        'fisika' => ['fokus' => 'Saintek Fokus', 'pct' => 65, 'jadwal' => 'Kamis, 19:30 WIB', 'pertemuan' => '20 Pertemuan', 'note' => 'Live: Kamis, 19:30 WIB'],
-        'inggris-literasi' => ['fokus' => 'Literasi & HOTS', 'pct' => 90, 'jadwal' => 'Jumat, 17:00 WIB', 'pertemuan' => '30 Pertemuan', 'note' => 'Latihan Soal Tersedia'],
-        'python' => ['fokus' => 'Ekstra • Python', 'pct' => 45, 'jadwal' => 'Sabtu, 10:00 WIB', 'pertemuan' => '20 Pertemuan', 'note' => 'Tugas Coding Aktif (H-2)'],
-        'kimia' => ['fokus' => 'Saintek Fokus', 'pct' => 58, 'jadwal' => 'Sabtu, 09:00 WIB', 'pertemuan' => '24 Pertemuan', 'note' => 'Live: Sabtu, 09:00 WIB'],
-        'literasi' => ['fokus' => 'SNBT Fokus', 'pct' => 75, 'jadwal' => 'Kamis, 16:00 WIB', 'pertemuan' => '28 Pertemuan', 'note' => 'Latihan Soal Tersedia'],
-        'biologi' => ['fokus' => 'Saintek Fokus', 'pct' => 50, 'jadwal' => 'Selasa, 15:30 WIB', 'pertemuan' => '26 Pertemuan', 'note' => 'Latihan Soal Tersedia'],
-        'toefl' => ['fokus' => 'Bahasa', 'pct' => 60, 'jadwal' => 'Senin, 18:00 WIB', 'pertemuan' => '20 Pertemuan', 'note' => 'Latihan Soal Tersedia'],
-        'web-design' => ['fokus' => 'Ekstra • Studio', 'pct' => 40, 'jadwal' => 'Sabtu, 13:00 WIB', 'pertemuan' => '16 Pertemuan', 'note' => 'Live: Sabtu, 13:00 WIB'],
-        'penalaran-matematika' => ['fokus' => 'UTBK Fokus', 'pct' => 55, 'jadwal' => 'Selasa, 18:00 WIB', 'pertemuan' => '22 Pertemuan', 'note' => 'Latihan Soal Tersedia'],
-        'pengetahuan-kuantitatif' => ['fokus' => 'UTBK Fokus', 'pct' => 52, 'jadwal' => 'Senin, 17:30 WIB', 'pertemuan' => '20 Pertemuan', 'note' => 'Latihan Soal Tersedia'],
-        'pbm' => ['fokus' => 'UTBK Fokus', 'pct' => 48, 'jadwal' => 'Kamis, 17:00 WIB', 'pertemuan' => '18 Pertemuan', 'note' => 'Latihan Soal Tersedia'],
-        'literasi-inggris' => ['fokus' => 'UTBK Fokus', 'pct' => 50, 'jadwal' => 'Jumat, 16:30 WIB', 'pertemuan' => '18 Pertemuan', 'note' => 'Latihan Soal Tersedia'],
-        'matematika-wajib' => ['fokus' => 'Mapel SMA', 'pct' => 62, 'jadwal' => 'Rabu, 15:30 WIB', 'pertemuan' => '20 Pertemuan', 'note' => 'Live: Rabu, 15:30 WIB'],
-        'ekonomi' => ['fokus' => 'Mapel SMA', 'pct' => 46, 'jadwal' => 'Senin, 16:00 WIB', 'pertemuan' => '20 Pertemuan', 'note' => 'Latihan Soal Tersedia'],
-        'sosiologi' => ['fokus' => 'Mapel SMA', 'pct' => 44, 'jadwal' => 'Selasa, 13:00 WIB', 'pertemuan' => '18 Pertemuan', 'note' => 'Latihan Soal Tersedia'],
-        'geografi' => ['fokus' => 'Mapel SMA', 'pct' => 42, 'jadwal' => 'Rabu, 13:30 WIB', 'pertemuan' => '18 Pertemuan', 'note' => 'Latihan Soal Tersedia'],
-        'sejarah' => ['fokus' => 'Mapel SMA', 'pct' => 40, 'jadwal' => 'Kamis, 14:00 WIB', 'pertemuan' => '18 Pertemuan', 'note' => 'Latihan Soal Tersedia'],
-        'ielts' => ['fokus' => 'Tes Internasional', 'pct' => 38, 'jadwal' => 'Sabtu, 08:00 WIB', 'pertemuan' => '20 Pertemuan', 'note' => 'Live: Sabtu, 08:00 WIB'],
-        'toeic' => ['fokus' => 'Tes Internasional', 'pct' => 36, 'jadwal' => 'Minggu, 09:00 WIB', 'pertemuan' => '16 Pertemuan', 'note' => 'Latihan Soal Tersedia'],
-        'jerman' => ['fokus' => 'Bahasa', 'pct' => 34, 'jadwal' => 'Selasa, 18:30 WIB', 'pertemuan' => '16 Pertemuan', 'note' => 'Live: Selasa, 18:30 WIB'],
-        'korea' => ['fokus' => 'Bahasa', 'pct' => 42, 'jadwal' => 'Jumat, 19:00 WIB', 'pertemuan' => '16 Pertemuan', 'note' => 'Live: Jumat, 19:00 WIB'],
-        'jepang' => ['fokus' => 'Bahasa', 'pct' => 36, 'jadwal' => 'Sabtu, 19:00 WIB', 'pertemuan' => '18 Pertemuan', 'note' => 'Live: Sabtu, 19:00 WIB'],
-        'mandarin' => ['fokus' => 'Bahasa', 'pct' => 32, 'jadwal' => 'Minggu, 19:30 WIB', 'pertemuan' => '16 Pertemuan', 'note' => 'Live: Minggu, 19:30 WIB'],
-        'public-speaking' => ['fokus' => 'Ekstra • Soft Skill', 'pct' => 30, 'jadwal' => 'Senin, 19:30 WIB', 'pertemuan' => '12 Pertemuan', 'note' => 'Live: Senin, 19:30 WIB'],
-        'digital-marketing' => ['fokus' => 'Ekstra • Skill Digital', 'pct' => 28, 'jadwal' => 'Rabu, 19:30 WIB', 'pertemuan' => '14 Pertemuan', 'note' => 'Tugas Praktek Aktif'],
-    ];
+    private static function fokusLabel(string $cat): string
+    {
+        return match ($cat) {
+            'SAINTEK' => 'Saintek Fokus',
+            'SOSHUM' => 'Soshum Fokus',
+            'LITERASI' => 'Literasi & HOTS',
+            'EKSTRA' => 'Ekstra Kulikuler',
+            'BAHASA' => 'Bahasa',
+            default => 'Fokus ' . ($cat ?: 'UTBK'),
+        };
+    }
 
     public function index()
     {
         $user = Auth::user();
-        if ($user->isStaff()) {
-            return redirect()->route('guru.dashboard');
-        }
 
         if (! $user->hasPaket()) {
             return redirect()->route('paket.index');
         }
 
-        return view('dashboard.index');
+        $kelasDaftar = $user->kelasTerdaftar()->orderBy('pendaftaran.created_at', 'desc')->get();
+        $kelasCount = $kelasDaftar->count();
+
+        $nilai = Nilai::query()->where('user_id', $user->id)->get();
+        $avgNilai = $nilai->count() ? round($nilai->avg('skor')) : null;
+        $latihanCount = Pengerjaan::query()->where('user_id', $user->id)->count();
+
+        $completedIds = $user->completedModulIds();
+        $classes = [];
+        foreach ($kelasDaftar as $k) {
+            $materi = $k->materi()->count();
+            $done = $completedIds->intersect($k->materi()->pluck('id'))->count();
+            $total = max($materi, 1);
+            $classes[] = [
+                'name' => $k->name,
+                'tag' => $k->cat,
+                'desc' => $k->meta ?: ($k->cat . ' • Bimbel Adaptif'),
+                'pct' => (int) round($done / $total * 100),
+                'progressText' => $done . '/' . $total . ' Modul',
+                'icon' => substr($k->ico ?: 'KL', 0, 2),
+                'bg' => $k->bg ?: 'rgba(94,234,212,0.4)',
+                'color' => $k->color ?: '#0F766E',
+            ];
+        }
+
+        $totalModul = 0;
+        $doneModul = 0;
+        foreach ($kelasDaftar as $k) {
+            $totalModul += $k->materi()->count();
+            $doneModul += $completedIds->intersect($k->materi()->pluck('id'))->count();
+        }
+        $pctProgres = $totalModul ? (int) round($doneModul / $totalModul * 100) : 0;
+
+        return view('dashboard.index', [
+            'kelasCount' => $kelasCount,
+            'avgNilai' => $avgNilai,
+            'latihanCount' => $latihanCount,
+            'nilaiCount' => $nilai->count(),
+            'pctProgres' => $pctProgres,
+            'doneModul' => $doneModul,
+            'totalModul' => $totalModul,
+            'classes' => $classes,
+        ]);
     }
 
     public function katalog()
     {
-        if (Auth::user()->isStaff()) {
-            return redirect()->route('guru.dashboard');
-        }
-
         $user = Auth::user();
         $kelas = Kelas::query()->where('aktif', true)->orderBy('cat')->orderBy('id')->get();
 
@@ -147,7 +164,7 @@ class DashboardController extends Controller
         return $this->respondDaftar($request, true, 'Berhasil daftar kelas ' . $kelas->name . '!', true);
     }
 
-protected function respondDaftar(Request $request, bool $ok, string $message, bool $redirectToKelas = false)
+    protected function respondDaftar(Request $request, bool $ok, string $message, bool $redirectToKelas = false)
     {
         if ($request->wantsJson() || $request->ajax()) {
             return response()->json(['ok' => $ok, 'message' => $message]);
@@ -162,18 +179,16 @@ protected function respondDaftar(Request $request, bool $ok, string $message, bo
 
     public function kelas()
     {
-        if (Auth::user()->isStaff()) {
-            return redirect()->route('guru.dashboard');
-        }
-
         $user = Auth::user();
         $kelasAll = [];
         $completedIds = $user->completedModulIds();
         foreach ($user->kelasTerdaftar()->orderBy('pendaftaran.created_at', 'desc')->get() as $k) {
-            $modulTotal = max($k->materi()->count(), 1);
+            $materiRaw = $k->materi()->count();
+            $modulTotal = max($materiRaw, 1);
             $modulDone = $completedIds->intersect($k->materi()->pluck('id'))->count();
             $pct = (int) round($modulDone / $modulTotal * 100);
-            $meta = self::META_KELAS[$k->slug] ?? ['pct' => 60, 'note' => 'Latihan Soal Tersedia', 'pertemuan' => $k->durasi ?? '10 Pertemuan'];
+            $pertemuan = $k->durasi ?: ($modulTotal . ' Modul');
+            $note = $materiRaw > 0 ? 'Latihan Soal Tersedia' : 'Belum ada materi';
             $kelasAll[] = [
                 'slug' => $k->slug,
                 'name' => $k->name,
@@ -184,9 +199,9 @@ protected function respondDaftar(Request $request, bool $ok, string $message, bo
                 'color' => $k->color ?? '#0F766E',
                 'pct' => $pct,
                 'prog' => $modulDone . '/' . $modulTotal . ' Modul',
-                'note' => $meta['note'],
+                'note' => $note,
                 'cat' => $k->cat,
-                'pertemuan' => $meta['pertemuan'],
+                'pertemuan' => $pertemuan,
             ];
         }
 
@@ -195,32 +210,28 @@ protected function respondDaftar(Request $request, bool $ok, string $message, bo
 
     public function materi()
     {
-        if (Auth::user()->isStaff()) {
-            return redirect()->route('guru.dashboard');
-        }
-
         $courses = [];
         $allBabs = [];
         $allSets = [];
         $kelasSlugs = [];
         $completedIds = Auth::user()->completedModulIds();
         foreach (Auth::user()->kelasTerdaftar()->orderBy('pendaftaran.created_at', 'desc')->get() as $k) {
-            $meta = self::META_KELAS[$k->slug] ?? ['fokus' => 'Fokus UTBK', 'pct' => 60, 'jadwal' => 'Minggu, 18:30 WIB', 'pertemuan' => '12 Pertemuan'];
             $materi = $k->materi()->orderBy('urutan')->get();
             $modulTotal = max($materi->count(), 1);
             $modulDone = $materi->whereIn('id', $completedIds)->count();
             $pct = (int) round($modulDone / $modulTotal * 100);
             $judulMateri = $materi->sortBy('urutan')->skip(1)->first();
+            $pertemuan = $k->durasi ?: ($modulTotal . ' Modul');
             $courses[$k->slug] = [
                 'name' => $k->name,
-                'fokus' => $meta['fokus'],
+                'fokus' => self::fokusLabel($k->cat),
                 'judul' => $judulMateri ? $judulMateri->judul : 'Pembahasan Materi Inti ' . $k->name,
                 'tutor' => $materi->first()?->tutor ?? 'Tim Tutor Master PTN',
-                'pertemuan' => $meta['pertemuan'],
+                'pertemuan' => $pertemuan,
                 'pct' => $pct,
                 'modul_total' => $modulTotal,
                 'bab_cur' => min(max($modulDone + 1, 1), max($modulTotal, 1)),
-                'jadwal_live' => $meta['jadwal'],
+                'jadwal_live' => '',
             ];
             $kelasSlugs[] = $k->slug;
 
@@ -290,17 +301,13 @@ protected function respondDaftar(Request $request, bool $ok, string $message, bo
 
     public function nilai()
     {
-        if (Auth::user()->isStaff()) {
-            return redirect()->route('guru.dashboard');
-        }
-
-$user = Auth::user();
+        $user = Auth::user();
         $rows = Pengerjaan::query()->where('user_id', $user->id)->with('kelas')->orderBy('created_at')->get();
 
-        $batas = '2026-07-01';
+        $awalTahunAjaran = now()->month >= 7 ? now()->year : now()->year - 1;
         $semesters = [
-            'ganjil' => ['label' => 'Semester Ganjil 2026/2027', 'from' => $batas, 'to' => null],
-            'genap' => ['label' => 'Semester Genap 2025/2026', 'from' => '2025-01-01', 'to' => $batas],
+            'ganjil' => ['label' => 'Semester Ganjil ' . $awalTahunAjaran . '/' . ($awalTahunAjaran + 1), 'from' => $awalTahunAjaran . '-07-01', 'to' => ($awalTahunAjaran + 1) . '-07-01'],
+            'genap' => ['label' => 'Semester Genap ' . $awalTahunAjaran . '/' . ($awalTahunAjaran + 1), 'from' => ($awalTahunAjaran + 1) . '-01-01', 'to' => ($awalTahunAjaran + 1) . '-07-01'],
         ];
 
         $nilaiData = [];
@@ -356,10 +363,6 @@ $user = Auth::user();
 
     public function latsol()
     {
-        if (Auth::user()->isStaff()) {
-            return redirect()->route('guru.dashboard');
-        }
-
         $setsList = [];
         foreach (Auth::user()->kelasTerdaftar()->orderBy('pendaftaran.created_at', 'desc')->get() as $k) {
             $labels = Soal::where('kelas_id', $k->id)->where('aktif', true)->distinct()->orderBy('set_label')->pluck('set_label');
@@ -384,10 +387,6 @@ $user = Auth::user();
 
     public function latsolMulai($kelas, $set)
     {
-        if (Auth::user()->isStaff()) {
-            return redirect()->route('guru.dashboard');
-        }
-
         $kelas = Kelas::findOrFail($kelas);
         if (!Auth::user()->kelasTerdaftar()->whereKey($kelas->id)->exists()) {
             return redirect()->route('dashboard.latsol')->with('status', 'Kelas tidak terdaftar.');
@@ -404,9 +403,6 @@ $user = Auth::user();
     public function latsolKirim(Request $request)
     {
         $user = Auth::user();
-        if ($user->isStaff()) {
-            return redirect()->route('guru.dashboard');
-        }
 
         $data = $request->validate([
             'kelas_id' => ['required', 'integer', 'exists:kelas,id'],
@@ -436,29 +432,38 @@ $user = Auth::user();
         }
 
         $akurasi = $total ? (int) round($benar / $total * 100) : 0;
-        $pengerjaan = Pengerjaan::create([
-            'user_id' => $user->id,
-            'kelas_id' => $data['kelas_id'],
-            'set_label' => $data['set'],
-            'tipe' => 'latsol',
-            'skor' => $akurasi,
-            'akurasi' => $akurasi,
-            'benar' => $benar,
-            'total' => $total,
-        ]);
-        foreach ($jawabanRows as $jr) {
-            $jr['user_id'] = $user->id;
-            $jr['pengerjaan_id'] = $pengerjaan->id;
-            Jawaban::create($jr);
-        }
 
-        Nilai::create([
-            'user_id' => $user->id,
-            'kelas_id' => $data['kelas_id'],
-            'skor' => $akurasi,
-            'akurasi' => $akurasi,
-            'tanggal' => now()->toDateString(),
-        ]);
+        try {
+            $pengerjaan = DB::transaction(function () use ($user, $data, $jawabanRows, $akurasi, $benar, $total) {
+                $pengerjaan = Pengerjaan::create([
+                    'user_id' => $user->id,
+                    'kelas_id' => $data['kelas_id'],
+                    'set_label' => $data['set'],
+                    'tipe' => 'latsol',
+                    'skor' => $akurasi,
+                    'akurasi' => $akurasi,
+                    'benar' => $benar,
+                    'total' => $total,
+                ]);
+                foreach ($jawabanRows as $jr) {
+                    $jr['user_id'] = $user->id;
+                    $jr['pengerjaan_id'] = $pengerjaan->id;
+                    Jawaban::create($jr);
+                }
+
+                Nilai::create([
+                    'user_id' => $user->id,
+                    'kelas_id' => $data['kelas_id'],
+                    'skor' => $akurasi,
+                    'akurasi' => $akurasi,
+                    'tanggal' => now()->toDateString(),
+                ]);
+
+                return $pengerjaan;
+            });
+        } catch (QueryException $e) {
+            return back()->with('status', 'Terjadi kesalahan saat menyimpan jawaban. Silakan coba lagi.');
+        }
 
         return redirect()->route('dashboard.latsol.hasil', $pengerjaan->id);
     }
@@ -466,9 +471,6 @@ $user = Auth::user();
     public function latsolHasil(Pengerjaan $pengerjaan)
     {
         $user = Auth::user();
-        if ($user->isStaff()) {
-            return redirect()->route('guru.dashboard');
-        }
         if ((int) $pengerjaan->user_id !== (int) $user->id) {
             abort(403);
         }
@@ -519,10 +521,6 @@ $user = Auth::user();
 
     public function laporan()
     {
-        if (Auth::user()->isStaff()) {
-            return redirect()->route('guru.dashboard');
-        }
-
         $user = Auth::user();
 
         $rows = Nilai::query()
@@ -532,11 +530,12 @@ $user = Auth::user();
 
         $bulan = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
 
-        $months = $rows->map(fn (Nilai $n) => [
-            'label' => $bulan[(int) $n->tanggal->format('n') - 1] ?? $n->tanggal->format('M'),
-            'val' => $n->skor,
-            'akurasi' => $n->akurasi,
-        ])->values()->all();
+        $months = $rows->groupBy(fn (Nilai $n) => $n->tanggal->format('Y-m'))
+            ->map(fn ($group) => [
+                'label' => $bulan[(int) $group->first()->tanggal->format('n') - 1] ?? $group->first()->tanggal->format('M'),
+                'val' => round($group->avg('skor')),
+                'akurasi' => round($group->avg('akurasi')),
+            ])->values()->all();
 
         $materi = [];
         foreach ($user->kelasTerdaftar()->get() as $k) {
@@ -549,15 +548,21 @@ $user = Auth::user();
         usort($materi, fn ($a, $b) => $a['pct'] <=> $b['pct']);
         $materi = array_slice($materi, 0, 5);
 
-        $terkini = $rows->last();
+        $valAkhir = $months[count($months) - 1]['val'] ?? null;
+        $akurasiAkhir = $months[count($months) - 1]['akurasi'] ?? null;
+
+        $totalLatihan = Nilai::query()->where('user_id', $user->id)->count();
+        $totalSoalDikerjakan = (int) Pengerjaan::query()->where('user_id', $user->id)->sum('total');
 
         return view('dashboard.laporan', [
             'laporan' => [
                 'months' => $months,
                 'materi' => array_values($materi),
-                'skor' => $terkini?->skor,
-                'akurasi' => $terkini?->akurasi,
-                'delta' => $rows->count() >= 2 ? $terkini->skor - $rows->first()->skor : null,
+                'skor' => $valAkhir,
+                'akurasi' => $akurasiAkhir,
+                'delta' => count($months) >= 2 ? $valAkhir - $months[0]['val'] : null,
+                'total_latihan' => $totalLatihan,
+                'total_soal' => $totalSoalDikerjakan,
             ],
         ]);
     }
@@ -613,10 +618,6 @@ $user = Auth::user();
 
     public function pengaturan()
     {
-        if (Auth::user()->isStaff()) {
-            return redirect()->route('guru.dashboard');
-        }
-
         return view('dashboard.pengaturan');
     }
 

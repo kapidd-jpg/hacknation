@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HalamanController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\Guru\DashboardController as GuruDashboardController;
 use App\Http\Controllers\Guru\KelasController as GuruKelasController;
@@ -25,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', fn () => view('halaman.landing'))->name('home');
 
 Route::view('/tentang', 'halaman.tentang')->name('about');
-Route::view('/kelas', 'halaman.kelas')->name('classes');
+Route::get('/kelas', [HalamanController::class, 'kelas'])->name('classes');
 Route::view('/kontak', 'halaman.kontak')->name('contact');
 
 // ---------- Auth ----------
@@ -44,27 +45,30 @@ Route::post('/kontak', [KontakController::class, 'store'])
 
 // ---------- Dashboard Siswa (perlu login) ----------
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/dashboard/kelas', [DashboardController::class, 'kelas'])->name('dashboard.kelas');
-    Route::get('/dashboard/materi', [DashboardController::class, 'materi'])->name('dashboard.materi');
-    Route::get('/dashboard/katalog', [DashboardController::class, 'katalog'])->name('dashboard.katalog');
+    Route::middleware('redirect.staff')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/dashboard/kelas', [DashboardController::class, 'kelas'])->name('dashboard.kelas');
+        Route::get('/dashboard/materi', [DashboardController::class, 'materi'])->name('dashboard.materi');
+        Route::get('/dashboard/katalog', [DashboardController::class, 'katalog'])->name('dashboard.katalog');
+        Route::get('/dashboard/nilai', [DashboardController::class, 'nilai'])->name('dashboard.nilai');
+        Route::get('/dashboard/laporan', [DashboardController::class, 'laporan'])->name('dashboard.laporan');
+        Route::get('/dashboard/latsol', [DashboardController::class, 'latsol'])->name('dashboard.latsol');
+        Route::get('/dashboard/latsol/mulai/{kelas}/{set}', [DashboardController::class, 'latsolMulai'])->name('dashboard.latsol.mulai');
+        Route::post('/dashboard/latsol/kirim', [DashboardController::class, 'latsolKirim'])->name('dashboard.latsol.kirim');
+        Route::get('/dashboard/latsol/hasil/{pengerjaan}', [DashboardController::class, 'latsolHasil'])->name('dashboard.latsol.hasil');
+        Route::get('/dashboard/pengaturan', [DashboardController::class, 'pengaturan'])->name('dashboard.pengaturan');
+
+        Route::get('/pilih-paket', [PaketPilihanController::class, 'index'])->name('paket.index');
+        Route::get('/pilih-paket/{key}', [PaketPilihanController::class, 'checkout'])->name('paket.checkout');
+        Route::post('/pilih-paket/bayar', [PaketPilihanController::class, 'bayar'])->name('paket.bayar');
+        Route::get('/paket-berhasil', [PaketPilihanController::class, 'berhasil'])->name('paket.berhasil');
+    });
+
     Route::post('/dashboard/katalog/daftar', [DashboardController::class, 'katalogDaftar'])->name('dashboard.katalog.daftar');
-    Route::get('/dashboard/nilai', [DashboardController::class, 'nilai'])->name('dashboard.nilai');
-    Route::get('/dashboard/laporan', [DashboardController::class, 'laporan'])->name('dashboard.laporan');
-    Route::get('/dashboard/latsol', [DashboardController::class, 'latsol'])->name('dashboard.latsol');
-    Route::get('/dashboard/latsol/mulai/{kelas}/{set}', [DashboardController::class, 'latsolMulai'])->name('dashboard.latsol.mulai');
-    Route::post('/dashboard/latsol/kirim', [DashboardController::class, 'latsolKirim'])->name('dashboard.latsol.kirim');
-    Route::get('/dashboard/latsol/hasil/{pengerjaan}', [DashboardController::class, 'latsolHasil'])->name('dashboard.latsol.hasil');
     Route::post('/dashboard/progres-modul', [DashboardController::class, 'progresModul'])->name('dashboard.progres.modul');
-    Route::get('/dashboard/pengaturan', [DashboardController::class, 'pengaturan'])->name('dashboard.pengaturan');
     Route::get('/akun/foto', [DashboardController::class, 'foto'])->name('user.foto');
     Route::post('/dashboard/pengaturan', [DashboardController::class, 'pengaturanUpdate'])->name('dashboard.pengaturan.update');
     Route::post('/dashboard/pengaturan/keamanan', [DashboardController::class, 'pengaturanKeamanan'])->name('dashboard.pengaturan.keamanan');
-
-    Route::get('/pilih-paket', [PaketPilihanController::class, 'index'])->name('paket.index');
-    Route::get('/pilih-paket/{key}', [PaketPilihanController::class, 'checkout'])->name('paket.checkout')->whereIn('key', ['utbk', 'sma-ekstra', 'bahasa']);
-    Route::post('/pilih-paket/bayar', [PaketPilihanController::class, 'bayar'])->name('paket.bayar');
-    Route::get('/paket-berhasil', [PaketPilihanController::class, 'berhasil'])->name('paket.berhasil');
 });
 
 // ---------- Dashboard Guru (perlu login + role guru/admin) ----------

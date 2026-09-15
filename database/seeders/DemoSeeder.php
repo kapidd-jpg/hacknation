@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Jawaban;
 use App\Models\Kelas;
 use App\Models\Materi;
+use App\Models\Nilai;
 use App\Models\Paket;
 use App\Models\Pendaftaran;
 use App\Models\Pengerjaan;
@@ -198,7 +200,17 @@ protected const FOTO_DEFAULT = 'assets/images/default-avatar.jpg';
 
         $bankKelas = ['tps', 'matematika', 'fisika', 'kimia'];
         $bankKelasIds = Kelas::query()->whereIn('slug', $bankKelas)->pluck('id');
-        Pengerjaan::query()->whereIn('kelas_id', $bankKelasIds)->delete();
+
+        $pengerjaanIds = Pengerjaan::query()
+            ->where('user_id', $siswa->id)
+            ->whereIn('kelas_id', $bankKelasIds)
+            ->pluck('id');
+        Jawaban::query()->whereIn('pengerjaan_id', $pengerjaanIds)->delete();
+        Pengerjaan::query()->whereIn('id', $pengerjaanIds)->delete();
+        Nilai::query()
+            ->where('user_id', $siswa->id)
+            ->whereIn('kelas_id', $bankKelasIds)
+            ->delete();
         Soal::query()->whereIn('kelas_id', $bankKelasIds)->delete();
         foreach ($bankKelas as $slug) {
             $kelas = Kelas::query()->where('slug', $slug)->first();
@@ -256,6 +268,16 @@ protected const FOTO_DEFAULT = 'assets/images/default-avatar.jpg';
             $template = $bankUmum[$kelas->cat] ?? $bankUmum['SMA'];
             $subjek = $kelas->name;
             $materiId = $kelas->materi()->where('urutan', 4)->first()?->id;
+
+            $existingIds = Pengerjaan::query()
+                ->where('user_id', $siswa->id)
+                ->where('kelas_id', $kelas->id)
+                ->pluck('id');
+            Jawaban::query()->whereIn('pengerjaan_id', $existingIds)->delete();
+            Pengerjaan::query()->whereIn('id', $existingIds)->delete();
+            Nilai::query()->where('user_id', $siswa->id)->where('kelas_id', $kelas->id)->delete();
+            Soal::query()->where('kelas_id', $kelas->id)->delete();
+
             foreach ($template as $i => $item) {
                 Soal::query()->create([
                     'kelas_id' => $kelas->id,

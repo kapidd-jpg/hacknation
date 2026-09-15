@@ -9,4 +9,3 @@ vendor
 tests
 .devcontainer
 .phpunit.cache
-composer.lock

@@ -144,11 +144,6 @@
         if (overlay) overlay.addEventListener('click', () => wrap.classList.remove('is-open'));
         window.addEventListener('resize', () => { if (!isMobile()) wrap.classList.remove('is-open'); });
 
-        const PAKETS = {
-            'utbk':       { label: 'Paket UTBK',        kategori: ['UTBK-SNBT'] },
-            'sma-ekstra': { label: 'Paket SMA + Ekstra', kategori: ['SMA', 'Ekstra'] },
-            'bahasa':     { label: 'Paket Bahasa',       kategori: ['Bahasa'] },
-        };
         const lbl = document.getElementById('dashPaketLabel');
         const sub = document.getElementById('dashPaketSub');
         const kelola = document.getElementById('dashPaketKelola');

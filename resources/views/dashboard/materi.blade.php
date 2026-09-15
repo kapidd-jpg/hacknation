@@ -170,11 +170,11 @@
                             </li>
                             <li>
                                 <span class="materi-info-ico">📅</span>
-                                <div><span class="materi-info-label">Kelas Live Mingguan</span><span class="materi-info-value">{{ $currentCourse['jadwal_live'] }}</span></div>
+                                <div><span class="materi-info-label">Kelas Live Mingguan</span><span class="materi-info-value">{{ $currentCourse['jadwal_live'] ?: 'Rekaman tersedia 24/7' }}</span></div>
                             </li>
                             <li>
                                 <span class="materi-info-ico">📜</span>
-                                <div><span class="materi-info-label">Akses Kelas</span><span class="materi-info-value">1 Sep 2026 — 1 Mar 2027</span></div>
+                                <div><span class="materi-info-label">Akses Kelas</span><span class="materi-info-value">Selama paket aktif</span></div>
                             </li>
                             <li>
                                 <span class="materi-info-ico">🎓</span>

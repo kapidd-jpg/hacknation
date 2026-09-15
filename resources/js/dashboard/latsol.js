@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (form) {
         const counter = document.getElementById('latsolAnswered');
         const submitBtn = document.getElementById('latsolSubmit');
-        const soalCount = form.querySelectorAll('.latsol-soal').length;
 
         const count = () => {
             const total = form.querySelectorAll('.latsol-soal').length;

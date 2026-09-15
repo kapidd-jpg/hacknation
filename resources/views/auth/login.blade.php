@@ -48,7 +48,7 @@
                                 <p class="text-navy-300 text-xs">Simulasi Tryout Nasional ke-4</p>
                             </div>
                         </div>
-                        <span class="bg-brand-green/30 text-brand-greenlight text-xs font-semibold px-2.5 py-1 rounded-full">+18.4% Skor</span>
+                        <span class="bg-brand-green/30 text-brand-greenlight text-xs font-semibold px-2.5 py-1 rounded-full">Simulasi Nasional</span>
                     </div>
                 </div>
             </div>
@@ -66,8 +66,6 @@
             <span class="inline-block bg-navy-100 text-navy-950 text-[11px] font-bold tracking-widest uppercase px-2.5 py-1 rounded">Portal Masuk</span>
             <h2 class="text-navy-950 text-2xl font-bold mt-2">Masuk</h2>
             <p class="text-ink-soft text-sm mt-1 mb-6">Silakan masukkan detail akun PintarKuy kamu.</p>
-
-            <p class="text-[11px] text-ink-muted font-semibold mb-5" id="demoHint">Demo: <b>siswa@demo.id</b>, <b>guru@demo.id</b>, atau <b>admin@demo.id</b> / <b>password</b></p>
 
             @if ($errors->any())
                 <div class="mb-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3">
@@ -91,7 +89,7 @@
                 <div>
                     <div class="flex items-center justify-between">
                         <label for="password" class="text-navy-900 text-sm font-semibold">Password</label>
-                        <a href="#" class="text-navy-600 text-[11px] font-bold">Lupa password?</a>
+                        <span class="text-navy-600 text-[11px] font-bold">Lupa password? Hubungi admin.</span>
                     </div>
                     <div class="relative mt-2">
                         <svg class="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-ink-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
@@ -139,7 +137,7 @@
             </p>
 
             <p class="text-center text-ink-muted text-xs leading-relaxed mt-6">
-                Dengan masuk, kamu menyetujui <a href="#" class="underline">Ketentuan Layanan</a> & <a href="#" class="underline">Kebijakan Privasi</a> PintarKuy.
+                Dengan masuk, kamu menyetujui <span class="underline">Ketentuan Layanan</span> & <span class="underline">Kebijakan Privasi</span> PintarKuy.
             </p>
         </div>
     </div>

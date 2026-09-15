@@ -17,19 +17,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
     const emptyNote = (msg) => {
-        tbody.innerHTML = `<tr><td colspan="7" class="guru-empty" style="padding:28px;text-align:center;">${msg}</td></tr>`;
-        sumAvg.textContent = '0';
-        sumAvgBadge.textContent = 'Belum ada';
-        sumMax.textContent = '—';
-        sumMaxSubj.textContent = '—';
-        sumLatihan.textContent = '0';
-        sumLatihanNote.textContent = 'Paket';
-        sumPred.textContent = '—';
+        if (tbody) tbody.innerHTML = `<tr><td colspan="7" class="guru-empty" style="padding:28px;text-align:center;">${msg}</td></tr>`;
+        if (sumAvg) sumAvg.textContent = '0';
+        if (sumAvgBadge) sumAvgBadge.textContent = 'Belum ada';
+        if (sumMax) sumMax.textContent = '—';
+        if (sumMaxSubj) sumMaxSubj.textContent = '—';
+        if (sumLatihan) sumLatihan.textContent = '0';
+        if (sumLatihanNote) sumLatihanNote.textContent = 'Paket';
+        if (sumPred) sumPred.textContent = '—';
     };
 
     const render = (key) => {
         const sem = semesters[key] || { label: '—', rows: [] };
-        label.textContent = sem.label || '—';
+        if (label) label.textContent = sem.label || '—';
 
         const rows = Array.isArray(sem.rows) ? sem.rows : [];
         if (rows.length === 0) {
@@ -37,29 +37,29 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        tbody.innerHTML = rows.map((r) => `
+        if (tbody) tbody.innerHTML = rows.map((r) => `
             <tr>
                 <td>
                     <div class="nilai-subj">
-                        <span class="nilai-subj-icon" style="background:${r.bg};color:${r.color}">${esc(r.ico)}</span>
+                        <span class="nilai-subj-icon" style="background:${esc(r.bg)};color:${esc(r.color)}">${esc(r.ico)}</span>
                         <div><b>${esc(r.subj)}</b><small>${esc(r.cat)}</small></div>
                     </div>
                 </td>
-                <td>${r.latihan}</td>
-                <td>${r.soal}</td>
-                <td>${r.akurasi}%</td>
-                <td class="nilai-avg">${r.avg}</td>
-                <td class="nilai-avg">${r.best !== null && r.best !== undefined ? r.best : '—'}</td>
-                <td><span class="nilai-badge ${gradeClass(r.grade)}">${r.grade}</span></td>
+                <td>${esc(r.latihan)}</td>
+                <td>${esc(r.soal)}</td>
+                <td>${esc(r.akurasi)}%</td>
+                <td class="nilai-avg">${esc(r.avg)}</td>
+                <td class="nilai-avg">${r.best !== null && r.best !== undefined ? esc(r.best) : '—'}</td>
+                <td><span class="nilai-badge ${gradeClass(r.grade)}">${esc(r.grade)}</span></td>
             </tr>`).join('');
 
-        sumAvg.textContent = sem.avg !== null && sem.avg !== undefined ? sem.avg : '0';
-        sumAvgBadge.textContent = sem.grade === '-' || sem.grade === null || sem.grade === undefined ? 'Belum ada' : 'Kategori ' + sem.grade;
-        sumMax.textContent = sem.best !== null && sem.best !== undefined ? sem.best : '—';
-        sumMaxSubj.textContent = sem.bestSubj || '—';
-        sumLatihan.textContent = sem.latihan || 0;
-        sumLatihanNote.textContent = 'Paket';
-        sumPred.textContent = sem.grade || '—';
+        if (sumAvg) sumAvg.textContent = sem.avg !== null && sem.avg !== undefined ? sem.avg : '0';
+        if (sumAvgBadge) sumAvgBadge.textContent = sem.grade === '-' || sem.grade === null || sem.grade === undefined ? 'Belum ada' : 'Kategori ' + sem.grade;
+        if (sumMax) sumMax.textContent = sem.best !== null && sem.best !== undefined ? sem.best : '—';
+        if (sumMaxSubj) sumMaxSubj.textContent = sem.bestSubj || '—';
+        if (sumLatihan) sumLatihan.textContent = sem.latihan || 0;
+        if (sumLatihanNote) sumLatihanNote.textContent = 'Paket';
+        if (sumPred) sumPred.textContent = sem.grade || '—';
     };
 
     document.querySelectorAll('#semesterFilter button').forEach((btn) => {

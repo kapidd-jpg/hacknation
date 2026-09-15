@@ -20,6 +20,7 @@ class Kelas extends Model
         'desc',
         'modul',
         'durasi',
+        'siswa',
         'price',
         'old',
         'bg',
@@ -28,8 +29,6 @@ class Kelas extends Model
     ];
 
     protected $casts = [
-        'price' => 'integer',
-        'old' => 'integer',
         'modul' => 'integer',
         'aktif' => 'boolean',
     ];

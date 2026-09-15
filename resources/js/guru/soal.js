@@ -17,7 +17,7 @@
             });
             const items = await res.json();
             materiEl.innerHTML = '<option value="">— Tanpa materi —</option>' + items.map(function (m) {
-                return '<option value="' + m.id + '">' + m.judul.replace(/</g, '&lt;') + '</option>';
+                return '<option value="' + m.id + '">' + m.judul.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</option>';
             }).join('');
 
             const sel = keepValue ? String(keepValue) : '';
