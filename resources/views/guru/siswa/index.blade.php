@@ -44,7 +44,14 @@
                                 <td>{{ $s->email }}</td>
                                 <td>{{ $s->sekolah ?: '—' }}</td>
                                 <td>{{ $s->kelas_jurusan ?: '—' }}</td>
-                                <td><span class="dash-pill">{{ $s->paket ?: '—' }}</span></td>
+                                <td>
+                                    @php $owned = $s->pakets->pluck('nama')->all(); @endphp
+                                    @if ($owned)
+                                        <span class="dash-pill" title="{{ implode(', ', $owned) }}">{{ implode(' + ', $owned) }}</span>
+                                    @else
+                                        <span class="dash-pill">—</span>
+                                    @endif
+                                </td>
                                 <td>{{ $s->kelasTerdaftar->pluck('name')->implode(', ') ?: '—' }}</td>
                                 <td>
                                     <div class="flex items-center justify-end gap-2">

@@ -30,7 +30,10 @@
         <div class="flex items-center gap-4" id="landingAuth">
             @auth
                 <a href="{{ $dashHomeUrl }}" class="flex items-center gap-2 bg-white/10 ring-1 ring-white/20 pl-1.5 pr-4 py-1.5 rounded-full hover:bg-white/20 transition" title="Buka Dashboard">
-                    <img src="{{ $userFoto }}" alt="" class="size-7 rounded-full object-cover">
+                    <div class="relative size-7 shrink-0">
+                    <img src="{{ $userFoto ?? '' }}" data-user-photo alt="" class="absolute inset-0 size-7 rounded-full object-cover {{ Auth::user()->foto ? '' : 'hidden' }}">
+                    <span data-user-initials class="absolute inset-0 size-7 rounded-full bg-white/15 ring-1 ring-white/40 text-white text-[10px] font-bold flex items-center justify-center {{ Auth::user()->foto ? 'hidden' : '' }}">{{ \App\Support\UserFoto::initials(Auth::user()->name) }}</span>
+                </div>
                     <span class="text-white text-sm font-bold">{{ explode(' ', Auth::user()->name)[0] }}</span>
                 </a>
             @else

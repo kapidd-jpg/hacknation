@@ -8,9 +8,27 @@ final class UserFoto
 
     public const MAX_SIZE = 512;
 
-    public static function src(?string $foto): string
+    public static function src(?string $foto): ?string
     {
         return blank($foto) ? asset(self::DEFAULT_PATH) : route('user.foto');
+    }
+
+    public static function initials(?string $name): string
+    {
+        $name = preg_replace('/\s+/', ' ', trim((string) $name));
+
+        if (blank($name)) {
+            return 'U';
+        }
+
+        $parts = explode(' ', $name);
+        $initials = strtoupper(mb_substr($parts[0], 0, 1));
+
+        if (count($parts) > 1) {
+            $initials .= strtoupper(mb_substr($parts[1], 0, 1));
+        }
+
+        return $initials;
     }
 
     public static function compress(?string $foto): ?string

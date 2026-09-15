@@ -40,10 +40,12 @@
         window.pintarKuyKatalog = @json($katalog);
         window.pintarKuyTerdaftarIds = @json($terdaftarIds);
         window.pintarKuyDaftarUrl = @json(route('dashboard.katalog.daftar'));
-        window.pintarKuyUpgradeUrl = @json(route('dashboard.paket.upgrade'));
-        window.pintarKuyPaket = @json(auth()->user()->paket);
+        window.pintarKuyPaketKeys = @json($paketKeys);
+        window.pintarKuyAksesKategori = @json($aksesKategori);
+        window.pintarKuyHasAnyPaket = @json($hasAnyPaket ?? false);
+        window.pintarKuyCatPaket = @json($catPaket);
         window.pintarKuyKelasUrl = window.pintarKuyKelasUrl || @json(route('dashboard.kelas'));
-        window.pintarKuyPaketUrl = window.pintarKuyPaketUrl || @json(route('home') . '#program');
+        window.pintarKuyPaketUrl = window.pintarKuyPaketUrl || @json(route('paket.index'));
     </script>
     @vite(['resources/js/dashboard/katalog.js'])
 @endpush

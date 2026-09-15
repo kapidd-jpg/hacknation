@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
 use App\Models\Paket;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class PaketController extends Controller
@@ -42,7 +41,7 @@ class PaketController extends Controller
 
     public function destroy(Paket $paket)
     {
-        if (User::query()->where('paket', $paket->key)->exists()) {
+        if ($paket->users()->exists()) {
             return redirect()->route('guru.paket.index')->with('status', 'Paket tidak bisa dihapus karena masih dipakai oleh siswa.');
         }
 
@@ -59,12 +58,15 @@ class PaketController extends Controller
             'tag' => ['nullable', 'string', 'max:255'],
             'harga' => ['required', 'integer', 'min:0'],
             'harga_lama' => ['nullable', 'integer', 'min:0'],
-            'kuota' => ['nullable', 'integer', 'min:1'],
+            'kategori' => ['required', 'array', 'min:1'],
+            'kategori.*' => ['required', 'string', 'in:UTBK-SNBT,SMA,Bahasa,Ekstra'],
             'fitur' => ['nullable', 'string', 'max:5000'],
         ];
 
         $data = $request->validate($rules);
         $data['fitur'] = array_values(array_filter(array_map('trim', explode("\n", (string) $request->input('fitur', '')))));
+        $data['kategori'] = array_values(array_unique(array_map('trim', (array) $request->input('kategori', []))));
+        $data['kuota'] = null;
         $data['aktif'] = $request->boolean('aktif');
 
         return $data;

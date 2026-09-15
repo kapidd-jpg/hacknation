@@ -3,6 +3,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const auth = window.pintarKuyAuth;
     const DEFAULT_PHOTO = window.pintarKuyAuth ? window.pintarKuyAuth.defaultPhoto() : '/assets/images/default-avatar.jpg';
 
+    const initialsOf = (name) => {
+        const parts = String(name || '').trim().replace(/\s+/g, ' ').split(' ');
+        const first = (parts[0] || '').charAt(0).toUpperCase();
+        const second = parts.length > 1 ? parts[1].charAt(0).toUpperCase() : '';
+        return (first + second) || 'U';
+    };
+
     // toast
     const toast = document.getElementById('settingToast');
     const showToast = (msg) => {
@@ -123,7 +130,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
                 pickedFoto = canvas.toDataURL('image/jpeg', 0.85);
-                if (fotoEl) fotoEl.setAttribute('src', pickedFoto);
+                if (fotoEl) {
+                    fotoEl.classList.remove('hidden');
+                    fotoEl.setAttribute('src', pickedFoto);
+                }
+                const initialsEl = document.getElementById('sFotoInitials');
+                if (initialsEl) initialsEl.classList.add('hidden');
                 showToast('Foto terpilih. Klik "Simpan Perubahan" untuk menyimpan.');
             };
             img.onerror = () => {
@@ -147,11 +159,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     kelas_jurusan: kelasJurusan ? kelasJurusan.value.trim() : '',
                     bio: bio ? bio.value.trim() : '',
                 };
-                const photoValue = pickedFoto || (fotoEl ? fotoEl.getAttribute('src') || DEFAULT_PHOTO : DEFAULT_PHOTO);
+                const photoValue = pickedFoto || (fotoEl ? fotoEl.getAttribute('src') || '' : '');
                 auth.login({ ...profil, photo: photoValue });
                 document.querySelectorAll('[data-user-name]').forEach((el) => {
                     const u = auth.user();
                     if (el && u && u.name) el.textContent = u.name;
+                });
+                document.querySelectorAll('[data-user-initials]').forEach((el) => {
+                    const u = auth.user();
+                    if (el && u && !u.photo && u.name) el.textContent = initialsOf(u.name);
                 });
 
                 const url = window.pintarKuyPengaturanUrl || '';
@@ -171,7 +187,18 @@ document.addEventListener('DOMContentLoaded', () => {
                         .then((res) => {
                             if (res && res.ok === true) {
                                 document.querySelectorAll('[data-user-photo]').forEach((el) => {
-                                    if (el && photoValue) el.setAttribute('src', photoValue);
+                                    if (!el) return;
+                                    if (photoValue) {
+                                        el.classList.remove('hidden');
+                                        el.setAttribute('src', photoValue);
+                                    } else {
+                                        el.classList.add('hidden');
+                                    }
+                                });
+                                document.querySelectorAll('[data-user-initials]').forEach((el) => {
+                                    if (!el) return;
+                                    if (photoValue) el.classList.add('hidden');
+                                    else el.classList.remove('hidden');
                                 });
                                 showToast(res.message || 'Profil berhasil disimpan.');
                             } else {

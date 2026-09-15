@@ -6,9 +6,9 @@
 <div class="min-h-screen flex flex-col lg:flex-row">
 
     {{-- ============ LEFT: BRAND PANEL ============ --}}
-    <div class="relative lg:flex-1 bg-navy-800 overflow-hidden p-10 md:p-16 flex flex-col justify-between">
-        <div class="absolute -top-32 -left-32 size-96 rounded-full bg-brand-green/15 blur-3xl"></div>
-        <div class="absolute bottom-10 right-0 size-[448px] rounded-full bg-purple-400/10 blur-3xl"></div>
+    <div class="relative lg:flex-1 bg-gradient-navy overflow-hidden p-10 md:p-16 flex flex-col justify-between">
+        <div class="absolute -top-32 -left-32 size-96 rounded-full bg-brand-greenlight/20 blur-3xl"></div>
+        <div class="absolute bottom-10 right-0 size-[448px] rounded-full bg-brand-greenlight/15 blur-3xl"></div>
 
         <div class="relative flex items-center justify-between gap-4">
             <div class="flex items-center gap-3">
@@ -32,7 +32,7 @@
             <h1 class="text-white text-4xl font-extrabold leading-tight tracking-tight">Selamat datang kembali.</h1>
             <p class="text-navy-300/90 leading-relaxed">Lanjutkan langkah belajarmu hari ini untuk mencapai masa depan dan meraih kampus impian bersama PintarKuy.</p>
 
-            <div class="relative rounded-2xl overflow-hidden shadow-2xl mt-2" style="background:linear-gradient(34deg, rgba(0,5,44,0.6) 0%, rgba(0,5,44,0) 100%); padding:22px 6px 6px;">
+            <div class="relative rounded-2xl overflow-hidden shadow-2xl mt-2" style="background:linear-gradient(34deg, rgba(15,23,42,0.6) 0%, rgba(15,23,42,0) 100%); padding:22px 6px 6px;">
                 <div class="relative aspect-video bg-navy-950 rounded-xl overflow-hidden">
                     <img src="{{ asset('assets/images/banner-auth.jpg') }}"
                          alt="Meja belajar dengan laptop menampilkan analitik kurikulum"
@@ -96,7 +96,7 @@
                     <div class="relative mt-2">
                         <svg class="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-ink-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                         <input id="password" name="password" type="password" required
-                               placeholder="••••••••••••"
+                               placeholder="Masukkan password kamu"
                                class="w-full bg-white rounded-xl shadow-sm pl-12 pr-12 py-4 text-sm text-navy-900 placeholder:text-ink-muted focus:outline-none focus:ring-2 focus:ring-navy-800">
                         <button type="button" onclick="const i=document.getElementById('password'); i.type = i.type==='password' ? 'text' : 'password';"
                                 class="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-ink-muted hover:bg-navy-50">
@@ -110,7 +110,7 @@
                     <span class="text-ink-soft text-sm">Ingat saya di perangkat ini</span>
                 </label>
 
-                <button type="submit" class="w-full bg-navy-800 text-white font-semibold text-sm rounded-xl px-6 py-3.5 shadow-md hover:bg-navy-950 transition flex items-center justify-center gap-2">
+                <button type="submit" class="w-full bg-gradient-brand text-white font-semibold text-sm rounded-xl px-6 py-3.5 shadow-md hover:brightness-110 transition flex items-center justify-center gap-2">
                     Masuk
                     <svg class="size-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                 </button>

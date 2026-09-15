@@ -11,7 +11,7 @@ class SiswaController extends Controller
 {
     public function index(Request $request)
     {
-        $query = User::query()->where('role', 'siswa')->with('kelasTerdaftar');
+        $query = User::query()->where('role', 'siswa')->with(['kelasTerdaftar', 'pakets']);
 
         if ($request->filled('cari')) {
             $q = addcslashes($request->string('cari')->trim()->toString(), '\\%_');

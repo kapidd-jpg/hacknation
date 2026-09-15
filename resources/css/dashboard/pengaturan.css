@@ -9,7 +9,7 @@
     font-weight: 800;
     color: var(--ink-muted);
     background: #fff;
-    border: 1px solid rgba(15, 27, 76, 0.12);
+    border: 1px solid rgba(30, 58, 186, 0.12);
     padding: 10px 22px;
     border-radius: 9999px;
     cursor: pointer;
@@ -31,7 +31,7 @@
     font-size: 14px;
     color: var(--navy-900);
     background: #f8f9ff;
-    border: 1px solid rgba(15, 27, 76, 0.14);
+    border: 1px solid rgba(30, 58, 186, 0.14);
     border-radius: 12px;
     padding: 13px 16px;
     box-sizing: border-box;
@@ -39,10 +39,18 @@
 }
 .setting-field textarea { resize: vertical; min-height: 100px; }
 .setting-field input:focus,
-.setting-field textarea:focus { outline: none; border-color: var(--navy-800); box-shadow: 0 0 0 3px rgba(17, 28, 78, 0.1); background: #fff; }
+.setting-field textarea:focus { outline: none; border-color: var(--navy-800); box-shadow: 0 0 0 3px rgba(30, 58, 186, 0.1); background: #fff; }
 .setting-hint { font-size: 11.5px; color: var(--ink-muted); }
 .setting-avatar { display: flex; align-items: center; gap: 16px; }
-.setting-avatar img { width: 64px; height: 64px; border-radius: 9999px; object-fit: cover; }
+.setting-avatar-photo { position: relative; width: 64px; height: 64px; flex-shrink: 0; }
+.setting-avatar-photo img { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 9999px; object-fit: cover; }
+.setting-avatar-photo span {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 9999px; background: var(--navy-800); color: #fff;
+    font-size: 22px; font-weight: 800;
+}
+.setting-avatar-photo .hidden { display: none; }
 
 .toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .toggle-row b { font-size: 13.5px; color: var(--navy-900); display: block; }
@@ -84,7 +92,7 @@
     font-weight: 700;
     padding: 13px 22px;
     border-radius: 12px;
-    box-shadow: 0 12px 30px -8px rgba(0, 5, 44, 0.5);
+    box-shadow: 0 12px 30px -8px rgba(15, 23, 42, 0.5);
     display: flex;
     align-items: center;
     gap: 10px;

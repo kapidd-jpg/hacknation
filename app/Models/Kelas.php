@@ -39,6 +39,21 @@ class Kelas extends Model
         return $this->hasMany(Materi::class);
     }
 
+    public function soal()
+    {
+        return $this->hasMany(Soal::class);
+    }
+
+    public function pengerjaan()
+    {
+        return $this->hasMany(Pengerjaan::class);
+    }
+
+    public function guruDiampu()
+    {
+        return $this->belongsToMany(User::class, 'pengampu')->withTimestamps();
+    }
+
     public function pendaftaran()
     {
         return $this->hasMany(Pendaftaran::class);

@@ -34,7 +34,7 @@
                             <tr>
                                 <td>
                                     <div class="flex items-center gap-3">
-                                        <span class="kelas-icon" style="background:{{ $k->bg ?? 'rgba(126,252,154,0.35)' }};color:{{ $k->color ?? '#007433' }}">{{ substr($k->ico ?? 'KL', 0, 2) }}</span>
+                                        <span class="kelas-icon" style="background:{{ $k->bg ?? 'rgba(94,234,212,0.35)' }};color:{{ $k->color ?? '#0F766E' }}">{{ substr($k->ico ?? 'KL', 0, 2) }}</span>
                                         <div>
                                             <p class="guru-cell-title">{{ $k->name }}</p>
                                             <p class="guru-cell-sub">{{ $k->meta }}</p>

@@ -3,9 +3,10 @@
 namespace Tests\Feature;
 
 use App\Models\Kelas;
-use App\Models\Nilai;
+use App\Models\Materi;
 use App\Models\Paket;
 use App\Models\Pendaftaran;
+use App\Models\ProgresModul;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -28,7 +29,6 @@ class OtorisasiDanPendaftaranTest extends TestCase
             'email' => $email ?? 'siswa-' . uniqid() . '@test.id',
         ]);
         $user->role = 'siswa';
-        $user->paket = 'utbk-pro';
         $user->password = 'password';
         $user->save();
 
@@ -51,10 +51,13 @@ class OtorisasiDanPendaftaranTest extends TestCase
     protected function createPaket(array $overrides = []): Paket
     {
         $data = array_merge([
+            'key' => 'utbk-' . uniqid(),
             'nama' => 'UTBK Pro',
             'tag' => 'Best Seller',
             'kuota' => 3,
             'harga' => 399000,
+            'harga_lama' => 499000,
+            'kategori' => ['UTBK-SNBT'],
             'fitur' => ['Bank soal', 'Konsultasi'],
             'aktif' => true,
         ], $overrides);
@@ -70,8 +73,9 @@ class OtorisasiDanPendaftaranTest extends TestCase
             'cat' => 'UTBK-SNBT',
             'modul' => 8,
             'durasi' => '8 Minggu',
-            'price' => 399000,
-            'old' => 499000,
+            'siswa' => 0,
+            'price' => 'Rp 399K',
+            'old' => 'Rp 499K',
             'aktif' => true,
         ], $overrides));
     }
@@ -142,6 +146,8 @@ class OtorisasiDanPendaftaranTest extends TestCase
     public function test_siswa_bisa_akses_dashboard_siswa(): void
     {
         $siswa = $this->createSiswa();
+        $paket = $this->createPaket();
+        $siswa->pakets()->attach($paket->id);
         $this->actingAs($siswa);
 
         $this->get('/dashboard')->assertOk();
@@ -194,8 +200,9 @@ class OtorisasiDanPendaftaranTest extends TestCase
 
     public function test_daftar_kelas_berhasil(): void
     {
-        $this->createPaket(['key' => 'utbk-pro', 'kuota' => 3]);
+        $paket = $this->createPaket();
         $siswa = $this->createSiswa();
+        $siswa->pakets()->attach($paket->id);
         $kelas = $this->createKelas();
 
         $this->actingAs($siswa);
@@ -216,8 +223,9 @@ class OtorisasiDanPendaftaranTest extends TestCase
 
     public function test_daftar_kelas_duplikat_ditolak(): void
     {
-        $this->createPaket(['key' => 'utbk-pro', 'kuota' => 3]);
+        $paket = $this->createPaket();
         $siswa = $this->createSiswa();
+        $siswa->pakets()->attach($paket->id);
         $kelas = $this->createKelas();
 
         Pendaftaran::create(['user_id' => $siswa->id, 'kelas_id' => $kelas->id]);
@@ -234,26 +242,28 @@ class OtorisasiDanPendaftaranTest extends TestCase
         ]);
     }
 
-    public function test_daftar_kelas_kuota_penuh_ditolak(): void
+    public function test_daftar_kelas_di_luar_kategori_paket_ditolak(): void
     {
-        $this->createPaket(['key' => 'starter', 'kuota' => 1]);
+        $paket = $this->createPaket(['key' => 'bahasa-' . uniqid(), 'kategori' => ['Bahasa']]);
         $siswa = $this->createSiswa();
-        $siswa->paket = 'starter';
-        $siswa->save();
+        $siswa->pakets()->attach($paket->id);
 
-        $k1 = $this->createKelas(['slug' => 'k1-' . uniqid()]);
-        $k2 = $this->createKelas(['slug' => 'k2-' . uniqid()]);
+        $kelas = $this->createKelas(['cat' => 'UTBK-SNBT']);
 
         $this->actingAs($siswa);
 
-        $this->postJson('/dashboard/katalog/daftar', ['kelas_id' => $k1->id])
-            ->assertOk()->assertJson(['ok' => true]);
+        $response = $this->postJson('/dashboard/katalog/daftar', [
+            'kelas_id' => $kelas->id,
+        ]);
 
-        $this->postJson('/dashboard/katalog/daftar', ['kelas_id' => $k2->id])
-            ->assertOk()->assertJson([
-                'ok' => false,
-                'message' => 'Kuota kelas paket kamu sudah penuh. Upgrade paket untuk menambah kelas.',
-            ]);
+        $response->assertOk()->assertJson([
+            'ok' => false,
+        ]);
+
+        $this->assertDatabaseMissing('pendaftaran', [
+            'user_id' => $siswa->id,
+            'kelas_id' => $kelas->id,
+        ]);
     }
 
     public function test_staff_tidak_bisa_daftar_kelas(): void
@@ -271,62 +281,26 @@ class OtorisasiDanPendaftaranTest extends TestCase
     //  Nilai / Materi — bab_cur dinamis
     // ------------------------------------------------------------------
 
-    public function test_bab_cur_dinamis_dari_jumlah_tryout(): void
+    public function test_bab_cur_dinamis_dari_progres_modul(): void
     {
-        $this->createPaket(['key' => 'utbk-pro', 'kuota' => 5]);
         $siswa = $this->createSiswa();
         $kelas = Kelas::query()->updateOrCreate(['slug' => 'matematika'], [
             'name' => 'Kelas Test',
             'cat' => 'UTBK-SNBT',
             'modul' => 10,
             'durasi' => '8 Minggu',
-            'price' => 399000,
-            'old' => 499000,
+            'price' => 'Rp 399K',
+            'old' => 'Rp 499K',
             'aktif' => true,
         ]);
 
         Pendaftaran::create(['user_id' => $siswa->id, 'kelas_id' => $kelas->id]);
 
-        Nilai::create([
-            'user_id' => $siswa->id,
-            'kelas_id' => $kelas->id,
-            'skor' => 75,
-            'akurasi' => 70,
-            'tanggal' => now(),
-        ]);
-
-        $this->actingAs($siswa);
-        $response = $this->get('/dashboard/materi');
-        $response->assertOk();
-
-        $courses = $response->viewData('courses');
-        $this->assertArrayHasKey('matematika', $courses);
-        $this->assertEquals(2, $courses['matematika']['bab_cur']);
-    }
-
-    public function test_bab_cur_tidak_melesbihi_modul(): void
-    {
-        $this->createPaket(['key' => 'utbk-pro', 'kuota' => 5]);
-        $siswa = $this->createSiswa();
-        $kelas = Kelas::query()->updateOrCreate(['slug' => 'python'], [
-            'name' => 'Kelas Test',
-            'cat' => 'Ekstra',
-            'modul' => 3,
-            'durasi' => '8 Minggu',
-            'price' => 399000,
-            'old' => 499000,
-            'aktif' => true,
-        ]);
-
-        Pendaftaran::create(['user_id' => $siswa->id, 'kelas_id' => $kelas->id]);
-
-        for ($i = 0; $i < 10; $i++) {
-            Nilai::create([
+        $materiIds = $kelas->materi()->orderBy('urutan')->pluck('id');
+        foreach ($materiIds->take(2) as $materiId) {
+            ProgresModul::query()->create([
                 'user_id' => $siswa->id,
-                'kelas_id' => $kelas->id,
-                'skor' => 80 + $i,
-                'akurasi' => 75,
-                'tanggal' => now()->addDays($i),
+                'materi_id' => $materiId,
             ]);
         }
 
@@ -335,7 +309,41 @@ class OtorisasiDanPendaftaranTest extends TestCase
         $response->assertOk();
 
         $courses = $response->viewData('courses');
-        $this->assertEquals(3, $courses['python']['bab_cur']);
+        $this->assertArrayHasKey('matematika', $courses);
+        $this->assertEquals(3, $courses['matematika']['bab_cur']);
+    }
+
+    public function test_bab_cur_tidak_melesbihi_modul(): void
+    {
+        $siswa = $this->createSiswa();
+        $kelas = Kelas::query()->updateOrCreate(['slug' => 'python'], [
+            'name' => 'Kelas Test',
+            'cat' => 'Ekstra',
+            'modul' => 3,
+            'durasi' => '8 Minggu',
+            'price' => 'Rp 399K',
+            'old' => 'Rp 499K',
+            'aktif' => true,
+        ]);
+
+        Pendaftaran::create(['user_id' => $siswa->id, 'kelas_id' => $kelas->id]);
+
+        $materiIds = $kelas->materi()->orderBy('urutan')->pluck('id');
+        foreach ($materiIds as $materiId) {
+            ProgresModul::query()->create([
+                'user_id' => $siswa->id,
+                'materi_id' => $materiId,
+            ]);
+        }
+
+        $this->actingAs($siswa);
+        $response = $this->get('/dashboard/materi');
+        $response->assertOk();
+
+        $courses = $response->viewData('courses');
+        $modulTotal = $kelas->materi()->count();
+        $this->assertEquals($modulTotal, $courses['python']['bab_cur']);
+        $this->assertLessThanOrEqual($modulTotal, $courses['python']['bab_cur']);
     }
 
     // ------------------------------------------------------------------

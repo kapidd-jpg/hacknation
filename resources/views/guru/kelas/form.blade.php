@@ -84,11 +84,11 @@
             <div class="dash-grid dash-grid--2">
                 <div class="setting-field">
                     <label for="bg">Warna Latar Ikon (CSS)</label>
-                    <input id="bg" name="bg" type="text" value="{{ old('bg', $kelas?->bg) }}" placeholder="rgba(237,233,254,1)">
+                    <input id="bg" name="bg" type="text" value="{{ old('bg', $kelas?->bg) }}" placeholder="rgba(223,228,251,1)">
                 </div>
                 <div class="setting-field">
                     <label for="color">Warna Ikon (CSS)</label>
-                    <input id="color" name="color" type="text" value="{{ old('color', $kelas?->color) }}" placeholder="#6d28d9">
+                    <input id="color" name="color" type="text" value="{{ old('color', $kelas?->color) }}" placeholder="#1E3ABA">
                 </div>
             </div>
 

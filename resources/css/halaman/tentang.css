@@ -13,13 +13,13 @@
 }
 .tentang-story-card {
     background: #fff;
-    border: 1px solid rgba(15, 27, 76, 0.08);
+    border: 1px solid rgba(30, 58, 186, 0.08);
     border-radius: 20px;
     padding: 32px;
     box-shadow: var(--shadow-card);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.tentang-story-card:hover { transform: translateY(-4px); box-shadow: 0 16px 34px -12px rgba(15, 27, 76, 0.16); }
+.tentang-story-card:hover { transform: translateY(-4px); box-shadow: 0 16px 34px -12px rgba(30, 58, 186, 0.16); }
 .tentang-story-icon {
     width: 52px;
     height: 52px;
@@ -29,10 +29,10 @@
     justify-content: center;
 }
 .tentang-story-icon svg { width: 24px; height: 24px; }
-.tentang-story-icon--green { background: rgba(126, 252, 154, 0.35); color: var(--green-text); }
+.tentang-story-icon--green { background: rgba(94, 234, 212, 0.35); color: var(--green-text); }
 .tentang-story-icon--navy { background: var(--navy-100); color: var(--navy-800); }
 .tentang-story-icon--amber { background: #fef3c7; color: #92400e; }
-.tentang-story-icon--purple { background: #ede9fe; color: #6d28d9; }
+.tentang-story-icon--purple { background: #ede9fe; color: #1E3ABA; }
 .tentang-story-card h3 { font-size: 20px; font-weight: 900; color: var(--navy-900); margin: 18px 0 10px; }
 .tentang-story-card p { color: var(--ink-soft); font-size: 14px; line-height: 1.7; margin: 0; }
 

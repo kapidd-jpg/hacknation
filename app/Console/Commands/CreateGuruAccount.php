@@ -43,7 +43,7 @@ class CreateGuruAccount extends Command
 
         $role = $this->option('admin') ? 'admin' : 'guru';
 
-        $user = new User();
+$user = new User();
         $user->name = $nama;
         $user->email = $email;
         $user->password = $password;

@@ -27,12 +27,12 @@
     gap: 24px;
     flex-wrap: wrap;
     color: #fff;
-    box-shadow: 0 18px 40px -18px rgba(17, 28, 78, 0.7);
+    box-shadow: 0 18px 40px -18px rgba(30, 58, 186, 0.7);
 }
 .materi-hero-main { flex: 1 1 360px; display: flex; flex-direction: column; align-items: flex-start; }
 .materi-hero-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
 .materi-hero-tags .dash-pill { background: rgba(255, 255, 255, 0.12); color: var(--navy-300); }
-.materi-hero-tags .dash-pill--green { background: rgba(126, 252, 154, 0.2); color: var(--green-light); }
+.materi-hero-tags .dash-pill--green { background: rgba(94, 234, 212, 0.2); color: var(--green-light); }
 .materi-hero h2 { font-size: 24px; font-weight: 900; margin: 4px 0 4px; letter-spacing: -0.01em; }
 .materi-hero-sub { margin: 0 0 18px; color: var(--navy-300); font-size: 13px; }
 
@@ -47,7 +47,7 @@
     color: var(--navy-950);
     padding: 13px 24px;
     font-size: 14px;
-    box-shadow: 0 12px 26px -12px rgba(126, 252, 154, 0.6);
+    box-shadow: 0 12px 26px -12px rgba(94, 234, 212, 0.6);
 }
 .materi-cta:hover { background: #a2ffba; transform: translateY(-1px); }
 .materi-hero-hint { margin-top: 10px; font-size: 12px; font-weight: 700; color: var(--navy-300); }
@@ -66,7 +66,7 @@
     width: 46px;
     height: 46px;
     border-radius: 14px;
-    background: rgba(126, 252, 154, 0.18);
+    background: rgba(94, 234, 212, 0.18);
     color: var(--green-light);
     font-size: 26px;
     font-weight: 900;
@@ -85,8 +85,8 @@
 
 /* ---------- Silabus / accordion ---------- */
 .materi-silabus { display: flex; flex-direction: column; gap: 12px; }
-.bab-item { border: 1px solid rgba(15, 27, 76, 0.09); border-radius: 16px; overflow: hidden; background: #fff; }
-.bab-item.is-open { border-color: rgba(17, 28, 78, 0.25); box-shadow: 0 8px 22px -14px rgba(15, 27, 76, 0.2); }
+.bab-item { border: 1px solid rgba(30, 58, 186, 0.09); border-radius: 16px; overflow: hidden; background: #fff; }
+.bab-item.is-open { border-color: rgba(30, 58, 186, 0.25); box-shadow: 0 8px 22px -14px rgba(30, 58, 186, 0.2); }
 
 .bab-head {
     width: 100%;
@@ -107,7 +107,7 @@
     font-weight: 900;
     color: var(--navy-800);
     background: #fff;
-    border: 1px solid rgba(15, 27, 76, 0.12);
+    border: 1px solid rgba(30, 58, 186, 0.12);
     border-radius: 9999px;
     padding: 5px 12px;
     flex-shrink: 0;
@@ -126,7 +126,7 @@
     align-items: center;
     gap: 12px;
     padding: 13px 4px;
-    border-bottom: 1px solid rgba(15, 27, 76, 0.06);
+    border-bottom: 1px solid rgba(30, 58, 186, 0.06);
 }
 .modul-row:last-child { border-bottom: none; }
 .modul-ico {
@@ -138,7 +138,7 @@
     justify-content: center;
     flex-shrink: 0;
 }
-.modul-ico--done { background: rgba(126, 252, 154, 0.4); color: var(--green); }
+.modul-ico--done { background: rgba(94, 234, 212, 0.4); color: var(--green); }
 .modul-ico--current { background: var(--navy-800); color: #fff; }
 .modul-ico--next { background: #fef3c7; color: #92400e; }
 .modul-ico--locked { background: var(--navy-50); color: var(--ink-muted); }
@@ -155,16 +155,16 @@
     border-radius: 9999px;
     flex-shrink: 0;
 }
-.materi-status--done { background: rgba(126, 252, 154, 0.4); color: var(--green); }
+.materi-status--done { background: rgba(94, 234, 212, 0.4); color: var(--green); }
 .materi-status--current { background: var(--navy-800); color: #fff; }
 .materi-status--next { background: #fef3c7; color: #92400e; }
 .materi-status--locked { background: var(--navy-50); color: var(--ink-muted); }
 
-.modul-row.is-current { background: rgba(126, 252, 154, 0.14); border-radius: 12px; }
+.modul-row.is-current { background: rgba(94, 234, 212, 0.14); border-radius: 12px; }
 .modul-row.is-current.pulse { animation: materiPulse 1.6s ease 2; }
 @keyframes materiPulse {
-    0% { box-shadow: 0 0 0 0 rgba(17, 28, 78, 0.25); }
-    100% { box-shadow: 0 0 0 14px rgba(17, 28, 78, 0); }
+    0% { box-shadow: 0 0 0 0 rgba(30, 58, 186, 0.25); }
+    100% { box-shadow: 0 0 0 14px rgba(30, 58, 186, 0); }
 }
 
 .materi-foot-note {
@@ -203,3 +203,134 @@
 .materi-promo-title { font-size: 15px; font-weight: 800; color: var(--navy-900); margin: 0 0 6px; }
 .materi-promo-sub { font-size: 12.5px; color: var(--ink-soft); line-height: 1.6; margin: 0 0 16px; }
 .materi-promo-btn { width: 100%; }
+
+/* ---------- Modul sebagai tombol (clickable) ---------- */
+button.modul-row {
+    width: 100%;
+    font: inherit;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: default;
+    transition: background 0.15s ease, border-radius 0.15s ease;
+}
+button.modul-row.is-clickable { cursor: pointer; }
+button.modul-row.is-clickable:not(.is-current):hover {
+    background: var(--navy-50);
+    border-radius: 12px;
+}
+button.modul-row:disabled { opacity: 0.85; }
+
+/* ---------- Latihan set (sidebar mapel) ---------- */
+.materi-latsol-set {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border: 1px solid var(--navy-100);
+    border-radius: 12px;
+    padding: 12px 14px;
+}
+.materi-latsol-set-label { font-size: 13px; font-weight: 800; color: var(--navy-950); margin: 0; }
+.materi-latsol-set-meta { font-size: 11.5px; font-weight: 600; color: var(--ink-muted); margin: 3px 0 0; }
+
+/* ---------- Modal materi ---------- */
+.materi-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    background: rgba(15, 23, 42, 0.72);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+.materi-modal-backdrop.is-open { opacity: 1; visibility: visible; }
+.materi-modal {
+    width: 100%;
+    max-width: 720px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 30px 80px -20px rgba(15, 23, 42, 0.6);
+    transform: translateY(16px) scale(0.98);
+    transition: transform 0.25s ease;
+}
+.materi-modal-backdrop.is-open .materi-modal { transform: translateY(0) scale(1); }
+.materi-modal-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 22px 26px 12px;
+}
+.materi-modal-kicker {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin: 0 0 4px;
+}
+.materi-modal-head h3 { font-size: 18px; font-weight: 900; color: var(--navy-950); margin: 0; }
+.materi-modal-close {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    border: none;
+    background: var(--navy-50);
+    color: var(--navy-700);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.15s ease;
+}
+.materi-modal-close:hover { background: var(--navy-100); }
+.materi-modal-body { padding: 0 26px 26px; }
+.materi-modal-video { position: relative; aspect-ratio: 16 / 9; background: var(--navy-950); border-radius: 14px; overflow: hidden; }
+.materi-modal-video iframe,
+.materi-modal-video video {
+    position: absolute; inset: 0; width: 100%; height: 100%; border: none;
+}
+.materi-modal-video-empty {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; gap: 8px;
+    align-items: center; justify-content: center;
+    color: var(--navy-300); font-size: 13px; font-weight: 700;
+}
+.materi-modal-durasi {
+    display: inline-flex;
+    margin-top: 12px;
+    font-size: 11.5px;
+    font-weight: 800;
+    color: var(--navy-800);
+    background: var(--navy-50);
+    border-radius: 9999px;
+    padding: 6px 14px;
+}
+.materi-modal-konten {
+    margin-top: 14px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--navy-900);
+    white-space: pre-wrap;
+}
+
+/* ---------- Aksi modal (tandai selesai) ---------- */
+.materi-modal-actions {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--navy-50);
+    display: flex;
+    justify-content: flex-end;
+}
+#materiModalDone { min-width: 160px; }
+#materiModalDone.is-done {
+    background: rgba(94, 234, 212, 0.18);
+    border: 1px solid var(--green);
+    color: var(--green);
+}

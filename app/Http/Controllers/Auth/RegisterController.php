@@ -21,14 +21,15 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'sekolah' => ['required', 'string', 'max:255'],
+            'kelas_jurusan' => ['required', 'string', 'max:255'],
         ]);
 
-        $user = new User();
+$user = new User();
         $user->name = $data['name'];
         $user->email = $data['email'];
         $user->password = $data['password'];
         $user->role = 'siswa';
-        $user->paket = 'utbk-pro';
         $user->save();
 
         event(new Registered($user));
@@ -36,6 +37,6 @@ class RegisterController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
-        return redirect()->route('dashboard');
+        return redirect()->route('paket.index');
     }
 }

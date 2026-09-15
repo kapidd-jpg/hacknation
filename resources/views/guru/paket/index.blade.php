@@ -7,7 +7,7 @@
         <div class="dash-head dash-reveal">
             <div>
                 <h1>Kelola Paket</h1>
-                <p class="dash-head-sub">Paket langganan yang mengatur kuota & fitur untuk akun siswa.</p>
+                <p class="dash-head-sub">Paket langganan yang mengatur akses kategori kelas untuk siswa.</p>
             </div>
             <div class="dash-head-actions">
                 <a href="{{ route('guru.paket.create') }}" class="dash-btn dash-btn--primary">+ Tambah Paket</a>
@@ -22,9 +22,9 @@
                             <th>Key</th>
                             <th>Nama</th>
                             <th>Tag</th>
+                            <th>Kategori</th>
                             <th>Harga</th>
                             <th>Harga Lama</th>
-                            <th>Kuota</th>
                             <th>Status</th>
                             <th class="text-right">Aksi</th>
                         </tr>
@@ -35,9 +35,9 @@
                                 <td><code class="guru-code">{{ $p->key }}</code></td>
                                 <td class="guru-cell-title">{{ $p->nama }}</td>
                                 <td><span class="dash-pill">{{ $p->tag }}</span></td>
+                                <td class="text-xs font-semibold">{{ implode(', ', $p->kategori ?? []) }}</td>
                                 <td>Rp {{ number_format($p->harga, 0, ',', '.') }}</td>
                                 <td><small class="guru-cell-old">Rp {{ number_format($p->harga_lama ?? 0, 0, ',', '.') }}</small></td>
-                                <td>{{ $p->kuota ?? '∞' }}</td>
                                 <td>
                                     @if ($p->aktif)
                                         <span class="guru-badge guru-badge--ok">Aktif</span>
@@ -48,7 +48,7 @@
                                 <td>
                                     <div class="flex items-center justify-end gap-2">
                                         <a href="{{ route('guru.paket.edit', $p->id) }}" class="dash-btn dash-btn--ghost dash-btn--sm">Edit</a>
-                                        <form method="POST" action="{{ route('guru.paket.destroy', $p->id) }}" onsubmit='return confirm(@json("Hapus paket {$p->nama}? Siswa dengan paket ini akan revert ke default."));'>
+                                        <form method="POST" action="{{ route('guru.paket.destroy', $p->id) }}" onsubmit='return confirm(@json("Hapus paket {$p->nama}? Siswa yang memiliki paket ini akan kehilangan aksesnya."));'>
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="dash-btn dash-btn--danger dash-btn--sm">Hapus</button>
