@@ -21,8 +21,8 @@
                 @php
                     $infos = [
                         ['ico' => 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z', 'title' => 'Alamat Kantor', 'body' => 'Jl. Cipete Raya No. 88, Kebayoran Baru, Jakarta Selatan, DKI Jakarta 12150'],
-                        ['ico' => 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z', 'title' => 'Email Support', 'body' => 'support@pintarkuy.id  ·  kerjasama@pintarkuy.id', 'link' => 'mailto:support@pintarkuy.id', 'linkText' => 'support@pintarkuy.id'],
-                        ['ico' => 'M2 3h5l2 5-3 2a14 14 0 007 7l2-3 5 2v5a1 1 0 01-1 1C9 23 1 14 1 4a1 1 0 011-1z', 'title' => 'Telepon / WhatsApp', 'body' => '+62 (021) 8899-2345  ·  +62 812-8899-2345', 'link' => 'tel:+622188992345', 'linkText' => '+62 (021) 8899-2345'],
+                        ['ico' => 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z', 'title' => 'Email Support', 'body' => 'pintarkuyid@gmail.com  ·  kerjasama@pintarkuy.id', 'link' => 'https://mail.google.com/mail/?view=cm&fs=1&to=pintarkuyid@gmail.com', 'linkText' => 'pintarkuyid@gmail.com'],
+                        ['ico' => 'M2 3h5l2 5-3 2a14 14 0 007 7l2-3 5 2v5a1 1 0 01-1 1C9 23 1 14 1 4a1 1 0 011-1z', 'title' => 'Telepon / WhatsApp', 'body' => '<a href="tel:+62895424011288">+62 895-4240-1128</a><br><a href="https://wa.me/6281225124408" target="_blank" rel="noopener">+62 812-2512-4408</a>'],
                         ['ico' => 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z', 'title' => 'Jam Operasional', 'body' => 'Senin–Jumat: 08.00–21.00 WIB<br>Sabtu–Minggu: 09.00–17.00 WIB'],
                     ];
                 @endphp
@@ -119,7 +119,7 @@
                 $faqs = [
                     ['q' => 'Berapa lama waktu respons support?', 'a' => 'Rata-rata kami menjawab di bawah 2 jam kerja pada jam operasional. Pertanyaan teknis UTBK yang masuk via fitur Tanya Tutor umumnya dijawab kurang dari 30 menit.'],
                     ['q' => 'Bagaimana cara refund jika tidak cocok?', 'a' => 'Kamu bisa mengajukan refund hingga 14 hari sejak pembelian paket bulanan. Dana akan dikembalikan maksimal 2x24 jam ke nominal terawal.'],
-                    ['q' => 'Apakah tersedia paket khusus sekolah?', 'a' => 'Ya. Kami punya paket institusi dengan dashboard khusus untuk guru dan admin sekolah. Hubungi tim kerjasama di kerjasama@pintarkuy.id.'],
+                    ['q' => 'Apakah tersedia paket khusus sekolah?', 'a' => 'Ya. Kami punya paket institusi dengan dashboard khusus untuk guru dan admin sekolah. Hubungi tim kerjasama di pintarkuyid@gmail.com.'],
                     ['q' => 'Apakah bisa belajar lewat HP dengan kuota terbatas?', 'a' => 'Bisa. Semua video kami dikompresi untuk hemat kuota, dan tersedia mode putar audio saat koneksi sedang buruk.'],
                 ];
             @endphp

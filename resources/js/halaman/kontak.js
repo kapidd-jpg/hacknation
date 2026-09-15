@@ -90,7 +90,19 @@ document.addEventListener('DOMContentLoaded', () => {
             statusOk.classList.add('is-visible');
             form.reset();
         } catch (err) {
-            statusErr.classList.add('is-visible');
+            const pesan = [
+                `Halo, saya ${fields.nama.el.value.trim()}`,
+                `Email: ${fields.email.el.value.trim()}`,
+                `Subjek: ${fields.subjek.el.value.trim()}`,
+                `Kategori: ${kat ? kat.value : ''}`,
+                '',
+                fields.pesan.el.value.trim(),
+            ].join('\n');
+
+            window.open(`https://wa.me/62895368265900?text=${encodeURIComponent(pesan)}`, '_blank', 'noopener');
+
+            statusOk.classList.add('is-visible');
+            form.reset();
         } finally {
             btn.disabled = false;
             btn.innerHTML = original;
