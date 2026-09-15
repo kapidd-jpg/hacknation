@@ -1,11 +1,11 @@
 // PintarKuy — Dashboard: Katalog (render + filter + daftar via server → DB)
+// Akses dibatasi per kategori paket: kelas di luar kategori yang dimiliki tampil terkunci.
 document.addEventListener('DOMContentLoaded', () => {
     const PAKETS = {
-        'starter':  { label: 'Starter',       quota: 1 },
-        'utbk-pro': { label: 'UTBK Pro',      quota: 3 },
-        'golden':   { label: 'Golden Campus', quota: null },
+        'utbk':       { label: 'Paket UTBK',        kategori: ['UTBK-SNBT'] },
+        'sma-ekstra': { label: 'Paket SMA + Ekstra', kategori: ['SMA', 'Ekstra'] },
+        'bahasa':     { label: 'Paket Bahasa',       kategori: ['Bahasa'] },
     };
-    const ORDER = ['starter', 'utbk-pro', 'golden'];
 
     const esc = (s) => {
         const d = document.createElement('div');
@@ -17,16 +17,17 @@ document.addEventListener('DOMContentLoaded', () => {
     let terdaftarIds = Array.isArray(window.pintarKuyTerdaftarIds)
         ? window.pintarKuyTerdaftarIds.map(String)
         : [];
+    const aksesKategori = Array.isArray(window.pintarKuyAksesKategori)
+        ? window.pintarKuyAksesKategori
+        : [];
+    const hasAnyPaket = Boolean(window.pintarKuyHasAnyPaket);
+    const catPaket = window.pintarKuyCatPaket || {};
+    const paketKeys = Array.isArray(window.pintarKuyPaketKeys) ? window.pintarKuyPaketKeys : [];
     const daftarUrl = window.pintarKuyDaftarUrl || '/dashboard/katalog/daftar';
-    const upgradeUrl = window.pintarKuyUpgradeUrl || '/dashboard/paket/upgrade';
+    const paketUrl = window.pintarKuyPaketUrl || '/pilih-paket';
     const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
 
-    const getPaket = () => {
-        const key = window.pintarKuyPaket || 'utbk-pro';
-        return { key, ...(PAKETS[key] || PAKETS['utbk-pro']) };
-    };
-    const quotaText = (paket) => (paket.quota === null ? 'Semua' : paket.quota);
-    const quotaFull = (paket) => paket.quota !== null && terdaftarIds.length >= paket.quota;
+    const ownedLabels = paketKeys.map((k) => PAKETS[k]?.label).filter(Boolean);
 
     const grid = document.getElementById('katalogGrid');
     const empty = document.getElementById('katalogEmpty');
@@ -59,6 +60,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3600);
     };
 
+    const freeLabel = (cat) => {
+        const key = catPaket[cat];
+        const lab = (key && PAKETS[key]) ? PAKETS[key].label : 'Paket';
+        return lab;
+    };
+
+    const isOpen = (item) => aksesKategori.includes(item.cat);
+
+    const lockPriceHTML = (item, cls = '') => (
+        hasAnyPaket
+            ? `<p class="katalog-price ${cls}">${esc(item.old)}/bln</p>`
+            : `<p class="katalog-price ${cls}"><small>${esc(item.old)}</small> ${esc(item.price)}/bln</p>`
+    );
+
     const cardHTML = (item) => `
         <article class="katalog-card">
             <div class="katalog-top">
@@ -74,7 +89,9 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <div class="katalog-hr"></div>
             <div class="katalog-foot">
-                <p class="katalog-price"><small>${esc(item.old)}</small> ${esc(item.price)}/bln</p>
+                ${isOpen(item)
+                    ? `<span class="katalog-free">Gratis · Termasuk ${esc(freeLabel(item.cat))}</span>`
+                    : lockPriceHTML(item)}
                 <button type="button" class="katalog-add" data-id="${esc(item.id)}" data-name="${esc(item.name)}">+ Daftar</button>
             </div>
         </article>`;
@@ -114,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="katalog-icon" style="background:${esc(item.bg)};color:${esc(item.color)}">${esc(item.ico)}</span>
                 <div>
                     <p class="katalog-modal-title">Daftar Kelas Baru</p>
-                    <p class="katalog-modal-sub">Konfirmasi kelas pilihanmu berikut ini.</p>
+                    <p class="katalog-modal-sub">Konfirmasi kelas pilihanmu berikut ini. Gratis untuk anggota paket aktifmu.</p>
                 </div>
                 <button type="button" class="katalog-modal-x" aria-label="Tutup">×</button>
             </div>
@@ -128,7 +145,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span class="katalog-stat">${esc(item.siswa)} Siswa</span>
                 </div>
                 <div class="katalog-hr"></div>
-                <p class="katalog-price katalog-modal-price"><small>${esc(item.old)}</small> ${esc(item.price)}/bln</p>
+                ${isOpen(item)
+                    ? `<span class="katalog-free katalog-modal-price">Gratis · Termasuk ${esc(freeLabel(item.cat))}</span>`
+                    : lockPriceHTML(item, 'katalog-modal-price')}
             </div>
             <div class="katalog-modal-foot">
                 <button type="button" class="katalog-btn katalog-btn--ghost" data-act="cancel">Batal</button>
@@ -140,95 +159,49 @@ document.addEventListener('DOMContentLoaded', () => {
         dialog.querySelector('[data-act="confirm"]').addEventListener('click', () => enroll(item));
     };
 
-    const openQuota = (item) => {
-        const paket = getPaket();
-        const pct = paket.quota === null ? 100 : Math.min(100, Math.round((terdaftarIds.length / paket.quota) * 100));
-        const nextKey = ORDER[ORDER.indexOf(paket.key) + 1];
-        const note = item
-            ? `Tidak bisa menambahkan <b>${esc(item.name)}</b> karena kuota kelas paket kamu sudah penuh. Upgrade paket untuk membuka lebih banyak kelas.`
-            : 'Upgrade paket sekarang untuk membuka lebih banyak kelas sekaligus fitur eksklusif (tryout, mentor, live class).';
+    const openLocked = (item) => {
+        const needKey = catPaket[item.cat] || '';
+        const needLabel = (needKey && PAKETS[needKey]) ? PAKETS[needKey].label : 'Paket yang sesuai';
+        const buyUrl = needKey ? pkPaketUrl(needKey) : paketUrl;
 
         dialog.innerHTML = `
             <div class="katalog-modal-head">
                 <span class="katalog-modal-ico katalog-modal-ico--warn">!</span>
                 <div>
-                    <p class="katalog-modal-title">Kuota Kelas Mencapai Batas</p>
-                    <p class="katalog-modal-sub">Paket ${esc(paket.label)} membatasi maksimal ${quotaText(paket)} program.</p>
+                    <p class="katalog-modal-title">Kelas Ini Perlu Paket</p>
+                    <p class="katalog-modal-sub">${esc(item.name)} termasuk kategori ${esc(item.cat)}.</p>
                 </div>
                 <button type="button" class="katalog-modal-x" aria-label="Tutup">×</button>
             </div>
             <div class="katalog-modal-body">
-                <div class="katalog-quota-head">
-                    <span class="katalog-quota-count">${esc(terdaftarIds.length + '/' + quotaText(paket) + ' Kelas Terpakai')}</span>
-                    <span class="dash-pill">Paket ${esc(paket.label)}</span>
+                <p class="katalog-quota-note">Untuk mendaftar kelas ini, kamu butuh <b>${esc(needLabel)}</b>. Setelah paket aktif, daftar kelas di kategorinya gratis tanpa biaya tambahan, tanpa batas jumlah.</p>
+                <div class="katalog-hr"></div>
+                <div class="katalog-stats">
+                    <span class="katalog-stat">${esc(item.modul)} Modul</span>
+                    <span class="katalog-stat">${esc(item.durasi)}</span>
+                    <span class="katalog-stat">${esc(item.siswa)} Siswa</span>
                 </div>
-                <div class="katalog-quota-bar"><span style="width:${pct}%"></span></div>
-                <p class="katalog-quota-note">${note}</p>
             </div>
             <div class="katalog-modal-foot">
                 <button type="button" class="katalog-btn katalog-btn--ghost" data-act="cancel">Nanti Saja</button>
-                ${nextKey ? '<button type="button" class="katalog-btn katalog-btn--primary" data-act="upgrade">Upgrade</button>' : ''}
-                <a href="${esc(window.pintarKuyPaketUrl)}" class="katalog-btn katalog-btn--outline" data-see-paket>Lihat Semua Paket</a>
+                <a href="${esc(buyUrl)}" class="katalog-btn katalog-btn--primary">Beli ${esc(needLabel)}</a>
             </div>`;
         overlay.classList.add('is-open');
         dialog.querySelector('.katalog-modal-x').addEventListener('click', closeModal);
         dialog.querySelector('[data-act="cancel"]').addEventListener('click', closeModal);
-        const seeLink = dialog.querySelector('[data-see-paket]');
-        if (seeLink) seeLink.addEventListener('click', () => {
-            try { sessionStorage.setItem('pintarKuyUpgrade', '1'); } catch (e) {}
-        });
-        const up = dialog.querySelector('[data-act="upgrade"]');
-        if (up) up.addEventListener('click', () => {
-            if (!nextKey) return;
-            up.disabled = true;
-            up.textContent = 'Mengupgrade...';
-            fetch(upgradeUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken,
-                },
-                body: JSON.stringify({ paket: nextKey }),
-            })
-                .then((r) => r.json())
-                .then((res) => {
-                    closeModal();
-                    if (res.ok) {
-                        toast(res.message || 'Paket berhasil diupgrade!', true);
-                        window.setTimeout(() => { window.location.reload(); }, 800);
-                    } else {
-                        toast(res.message || 'Gagal mengupgrade paket.', false);
-                        up.disabled = false;
-                        up.textContent = 'Upgrade';
-                    }
-                })
-                .catch(() => {
-                    closeModal();
-                    toast('Terjadi kesalahan. Coba lagi.', false);
-                    up.disabled = false;
-                    up.textContent = 'Upgrade';
-                });
-        });
+    };
+
+    const pkPaketUrl = (key) => {
+        const base = paketUrl.replace(/\/+$/, '');
+        return base + '/' + encodeURIComponent(key);
     };
 
     const renderBadge = () => {
         if (!headActions) return;
-        const paket = getPaket();
-        const isTop = paket.key === 'golden';
+        const paketText = ownedLabels.length ? ownedLabels.join(' + ') : 'Belum punya paket';
         headActions.innerHTML = `
-            <span class="dash-pill dash-pill--green">Diskon 20% Periode Semester Baru</span>
-            <span class="dash-pill">Paket ${esc(paket.label)} · ${esc(terdaftarIds.length + '/' + quotaText(paket))} Kelas</span>
-            ${isTop
-                ? '<button type="button" class="katalog-upgrade" id="katalogGanti">Ganti Paket</button>'
-                : '<button type="button" class="katalog-upgrade" id="katalogUpgrade">Upgrade Paket</button>'}`;
-        const gantiBtn = document.getElementById('katalogGanti');
-        if (gantiBtn) gantiBtn.addEventListener('click', () => {
-            try { sessionStorage.setItem('pintarKuyGanti', '1'); } catch (e) {}
-            window.location.href = window.pintarKuyPaketUrl;
-        });
-        const upBtn = document.getElementById('katalogUpgrade');
-        if (upBtn) upBtn.addEventListener('click', () => openQuota(null));
+            <span class="dash-pill dash-pill--green">Gratis daftar sesuai paket</span>
+            <span class="dash-pill">${esc(terdaftarIds.length + '/' + data.filter((i) => aksesKategori.includes(i.cat)).length)} Kelas terbuka · ${esc(paketText)}</span>`;
     };
 
     const render = () => {
@@ -241,18 +214,18 @@ document.addEventListener('DOMContentLoaded', () => {
         grid.innerHTML = list.map(cardHTML).join('');
         empty.classList.toggle('is-visible', list.length === 0);
 
-        const paket = getPaket();
         grid.querySelectorAll('.katalog-add').forEach((btn) => {
             const item = data.find((i) => String(i.id) === btn.dataset.id);
             if (terdaftarIds.includes(String(item.id))) {
                 btn.textContent = '✓ Terdaftar';
                 btn.classList.add('added');
                 btn.disabled = true;
-            } else if (quotaFull(paket)) {
-                btn.textContent = 'Kuota Penuh';
+            } else if (!aksesKategori.includes(item.cat)) {
+                btn.textContent = 'Butuh Paket';
                 btn.classList.add('full');
-                btn.addEventListener('click', () => openQuota(item));
+                btn.addEventListener('click', () => openLocked(item));
             } else {
+                btn.textContent = '+ Daftar';
                 btn.addEventListener('click', () => openConfirm(item));
             }
         });

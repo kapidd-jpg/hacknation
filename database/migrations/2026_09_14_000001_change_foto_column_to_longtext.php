@@ -1,17 +1,22 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
     public function up(): void
     {
-        DB::statement('ALTER TABLE users MODIFY COLUMN foto LONGTEXT NULL');
+        Schema::table('users', function (Blueprint $table) {
+            $table->longText('foto')->nullable()->change();
+        });
     }
 
     public function down(): void
     {
-        DB::statement('ALTER TABLE users MODIFY COLUMN foto VARCHAR(255) NULL');
+        Schema::table('users', function (Blueprint $table) {
+            $table->text('foto')->nullable()->change();
+        });
     }
 };

@@ -21,7 +21,10 @@
         <div class="dash-card setting-pane active" id="pane-profil">
             <div class="setting-row">
                 <div class="setting-avatar">
-                    <img id="sFoto" src="{{ \App\Support\UserFoto::src(auth()->user()->foto) }}" alt="Foto profil">
+                    <div class="setting-avatar-photo">
+                        <img id="sFoto" src="{{ auth()->user()->foto ? \App\Support\UserFoto::src(auth()->user()->foto) : '' }}" alt="Foto profil" class="{{ auth()->user()->foto ? '' : 'hidden' }}">
+                        <span id="sFotoInitials" class="{{ auth()->user()->foto ? 'hidden' : '' }}">{{ \App\Support\UserFoto::initials(auth()->user()->name) }}</span>
+                    </div>
                     <div>
                         <b style="font-size:15px;color:var(--navy-900);">Foto Profil</b>
                         <p class="setting-hint" style="margin:4px 0 10px;">JPG atau PNG, maks 2 MB.</p>
@@ -85,7 +88,7 @@
                         <b>Autentikasi Dua Lapis (2FA)</b>
                         <p>Amankan akun dengan kode OTP setiap masuk dari perangkat baru.</p>
                     </div>
-                    <button type="button" class="toggle" aria-pressed="false"></button>
+                    <button type="button" id="sTwoFa" class="toggle {{ auth()->user()->two_factor_enabled ? 'on' : '' }}" aria-pressed="{{ auth()->user()->two_factor_enabled ? 'true' : 'false' }}"></button>
                 </div>
                 <div class="toggle-row">
                     <div>
@@ -148,6 +151,7 @@
 @push('scripts')
     <script>
         window.pintarKuyPengaturanUrl = @json(route('dashboard.pengaturan.update'));
+        window.pintarKuyKeamananUrl = @json(route('dashboard.pengaturan.keamanan'));
         window.pintarKuyCsrf = @json(csrf_token());
     </script>
     @vite(['resources/js/dashboard/pengaturan.js'])

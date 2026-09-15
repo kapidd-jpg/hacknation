@@ -11,10 +11,10 @@ class SiswaController extends Controller
 {
     public function index(Request $request)
     {
-        $query = User::query()->where('role', 'siswa')->with('kelasTerdaftar');
+        $query = User::query()->where('role', 'siswa')->with(['kelasTerdaftar', 'pakets']);
 
         if ($request->filled('cari')) {
-            $q = $request->string('cari')->trim();
+            $q = addcslashes($request->string('cari')->trim()->toString(), '\\%_');
             $query->where(function ($w) use ($q) {
                 $w->where('name', 'like', "%{$q}%")
                     ->orWhere('email', 'like', "%{$q}%")
@@ -35,6 +35,6 @@ class SiswaController extends Controller
         $nama = $siswa->name;
         $siswa->delete();
 
-        return redirect()->route('guru.siswa.index')->with('status', 'Akun siswa "' . $nama . '" berhasil dihapus.');
+        return redirect()->route('guru.siswa')->with('status', 'Akun siswa "' . $nama . '" berhasil dihapus.');
     }
 }

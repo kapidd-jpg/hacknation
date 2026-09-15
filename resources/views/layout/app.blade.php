@@ -22,7 +22,7 @@
         // Helper auth front-end — didefinisikan di sini (eksekusi sinkron) supaya
         // script layout (yang jalan saat parse) sudah bisa memakai window.pintarKuyAuth.
         window.pintarKuyAuth = {
-            defaultPhoto() { return 'https://www.figma.com/api/mcp/asset/4b9001eb-320b-418b-b43a-9ddbb0503794.png'; },
+defaultPhoto() { return '{{ asset('assets/images/default-avatar.jpg') }}'; },
             user() {
                 try { return JSON.parse(localStorage.getItem('pintarKuyUser') || 'null'); } catch (e) { return null; }
             },
@@ -30,7 +30,7 @@
             login(u) {
                 const prev = this.user() || {};
                 try {
-                    localStorage.setItem('pintarKuyUser', JSON.stringify(Object.assign({ name: 'Brian Pratama', photo: this.defaultPhoto() }, prev, u || {})));
+                    localStorage.setItem('pintarKuyUser', JSON.stringify(Object.assign({ name: '', photo: this.defaultPhoto() }, prev, u || {})));
                 } catch (e) {}
             },
             logout() { try { localStorage.removeItem('pintarKuyUser'); } catch (e) {} },

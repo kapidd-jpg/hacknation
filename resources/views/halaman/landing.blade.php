@@ -29,7 +29,10 @@
         <div class="flex items-center gap-4" id="landingAuth">
             @auth
                 <a href="{{ $dashHomeUrl }}" class="flex items-center gap-2 bg-white/10 ring-1 ring-white/20 pl-1.5 pr-4 py-1.5 rounded-full hover:bg-white/20 transition" title="Buka Dashboard">
-                    <img src="{{ $userFoto }}" alt="" class="size-7 rounded-full object-cover">
+                    <div class="relative size-7 shrink-0">
+                    <img src="{{ $userFoto ?? '' }}" data-user-photo alt="" class="absolute inset-0 size-7 rounded-full object-cover {{ Auth::user()->foto ? '' : 'hidden' }}">
+                    <span data-user-initials class="absolute inset-0 size-7 rounded-full bg-white/15 ring-1 ring-white/40 text-white text-[10px] font-bold flex items-center justify-center {{ Auth::user()->foto ? 'hidden' : '' }}">{{ \App\Support\UserFoto::initials(Auth::user()->name) }}</span>
+                </div>
                     <span class="text-white text-sm font-bold">{{ explode(' ', Auth::user()->name)[0] }}</span>
                 </a>
             @else
@@ -92,7 +95,7 @@
             <div class="absolute inset-4 rounded-3xl bg-gradient-to-br from-brand-greenlight/30 to-navy-100/40 blur-2xl"></div>
 
             <div class="relative bg-white p-2.5 rounded-3xl shadow-2xl w-full max-w-md">
-                <img src="https://www.figma.com/api/mcp/asset/4cbcc0bf-e804-4e9a-8e8b-fcf8b74e5af0.png"
+                <img src="{{ asset('assets/images/hero-landing.jpg') }}"
                      alt="Siswa PintarKuy belajar online dengan laptop"
                      class="w-full rounded-2xl aspect-[454/339] object-cover">
             </div>
@@ -101,8 +104,8 @@
             <div class="absolute -top-6 -right-6 max-w-[210px] bg-white/95 backdrop-blur border border-white/60 rounded-2xl shadow-xl px-4 py-3.5 flex items-center gap-3.5">
                 <div class="relative flex items-center justify-center size-12 shrink-0">
                     <svg class="size-12 -rotate-90" viewBox="0 0 36 36">
-                        <circle cx="18" cy="18" r="16" fill="none" stroke="#dce9ff" stroke-width="3"/>
-                        <circle cx="18" cy="18" r="16" fill="none" stroke="#006d30" stroke-width="3" stroke-dasharray="100" stroke-dashoffset="8" stroke-linecap="round"/>
+                        <circle cx="18" cy="18" r="16" fill="none" stroke="#DFE4FB" stroke-width="3"/>
+                        <circle cx="18" cy="18" r="16" fill="none" stroke="#0D9488" stroke-width="3" stroke-dasharray="100" stroke-dashoffset="8" stroke-linecap="round"/>
                     </svg>
                     <span class="absolute text-[11px] font-bold text-navy-900">92%</span>
                 </div>
@@ -309,7 +312,7 @@
 <section id="uji-kemampuan" class="bg-navy-50 py-16 px-6 md:px-12 scroll-mt-20">
     <div class="w-full bg-white border border-black/10 rounded-3xl shadow-xl p-8 md:p-12 flex flex-col lg:flex-row gap-10 items-center">
         <div class="reveal flex-1 flex flex-col gap-5">
-            <span class="inline-flex bg-brand-greenlight text-[#00210a] text-[11px] font-bold px-3 py-1 rounded-full w-fit">Simulasi IRT Real-Time</span>
+            <span class="inline-flex bg-brand-greenlight text-[#033830] text-[11px] font-bold px-3 py-1 rounded-full w-fit">Simulasi IRT Real-Time</span>
             <h2 class="text-2xl font-extrabold text-navy-950 leading-snug">Uji Kemampuan Sekarang: Soal HOTS TPS Penalaran Umum</h2>
             <p class="text-sm text-ink-soft leading-relaxed">Rasakan langsung pengalaman simulasi tryout berbobot SNBT dengan analitik real-time. Dapatkan feedback instan mengenai kelemahan dan rekomendasi materi yang perlu dipelajari ulang.</p>
             <div class="flex gap-6 items-center pt-1">
@@ -399,7 +402,7 @@
             <div id="quizResult" class="hidden mt-4 bg-white border border-black/10 rounded-2xl p-5 flex flex-col gap-3">
                 <div class="flex items-center justify-between">
                     <span class="text-[11px] font-bold text-navy-800 tracking-widest uppercase">Hasil Akhir</span>
-                    <span class="bg-brand-greenlight text-[#00210a] text-[11px] font-bold px-2.5 py-0.5 rounded-full">5 Soal Selesai</span>
+                    <span class="bg-brand-greenlight text-[#033830] text-[11px] font-bold px-2.5 py-0.5 rounded-full">5 Soal Selesai</span>
                 </div>
                 <div class="flex items-baseline gap-2">
                     <span id="quizScore" class="text-4xl font-black text-navy-950">0</span>
@@ -416,80 +419,23 @@
 <section id="program" class="bg-navy-50 py-24 px-6 md:px-12">
     <div class="w-full flex flex-col items-center gap-14">
         <div class="reveal max-w-2xl flex flex-col items-center text-center gap-4">
-            <span class="bg-brand-greenlight text-[#00210a] text-[11px] font-bold tracking-widest uppercase px-3.5 py-1 rounded-full">Program & Paket</span>
+            <span class="bg-brand-greenlight text-[#033830] text-[11px] font-bold tracking-widest uppercase px-3.5 py-1 rounded-full">Program & Paket</span>
             <h2 class="text-3xl md:text-4xl font-extrabold text-navy-900 tracking-tight">Pilih Program Sesuai Target</h2>
             <p class="text-ink-soft">Semua paket sudah termasuk akses penuh ke bank soal HOTS, live class, dan analitik IRT. Tanpa kontrak, berhenti kapan saja.</p>
         </div>
 
         <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
             @php
-                $plans = [
-                    [
-                        'key' => 'starter',
-                        'name' => 'Starter',
-                        'old' => 'Rp 299.000',
-                        'price' => 'Rp 199.000',
-                        'per' => 'bulan',
-                        'tag' => null,
-                        'dark' => false,
-                        'feats' => ['3 sesi live class per minggu', 'Bank soal terbatas (500 soal)', '2x simulasi IRT', 'Forum diskusi komunitas'],
-                    ],
-                    [
-                        'key' => 'utbk-pro',
-                        'name' => 'UTBK Pro',
-                        'old' => 'Rp 799.000',
-                        'price' => 'Rp 599.000',
-                        'per' => 'bulan',
-                        'tag' => 'Paling Laris',
-                        'dark' => true,
-                        'feats' => ['Semua fitur Starter', '6.000+ soal HOTS + pembahasan', 'Tryout nasional mingguan', 'Live class tanpa batas', 'Konsultasi private tutor', 'Analitik prediksi skor IRT'],
-                    ],
-                    [
-                        'key' => 'golden',
-                        'name' => 'Golden Campus',
-                        'old' => 'Rp 1.499.000',
-                        'price' => 'Rp 1.199.000',
-                        'per' => 'bulan',
-                        'tag' => null,
-                        'dark' => false,
-                        'feats' => ['Semua fitur UTBK Pro', 'Mentor 1-on-1 (4x/bulan)', 'Paket tryout khusus 3 PTN', 'Revisi berkas & beasiswa', 'Grup khusus golden (max 20 siswa)'],
-                    ],
-                ];
+                $pakets = \App\Models\Paket::query()->where('aktif', true)->orderBy('harga')->get();
             @endphp
-            @foreach ($plans as $plan)
-                <div class="reveal relative rounded-3xl p-8 shadow-card flex flex-col justify-between gap-8 {{ $plan['dark'] ? 'bg-navy-800 md:-translate-y-4 ring-4 ring-brand-green/30' : 'bg-white' }}" style="animation-delay:{{ $loop->iteration * 0.15 }}s">
-                    @if ($plan['tag'])
-                        <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brand-green text-white text-[11px] font-bold tracking-wide px-4 py-1.5 rounded-full shadow-lg">{{ $plan['tag'] }}</span>
-                    @endif
-                    <div class="flex flex-col gap-4">
-                        <div class="flex items-center justify-between">
-                            <h3 class="font-bold text-xl {{ $plan['dark'] ? 'text-white' : 'text-navy-900' }}">{{ $plan['name'] }}</h3>
-                            <span class="flex items-center justify-center size-10 rounded-xl {{ $plan['dark'] ? 'bg-white/10' : 'bg-navy-50' }}">
-                                <svg class="size-5 {{ $plan['dark'] ? 'text-brand-greenlight' : 'text-navy-800' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                            </span>
-                        </div>
-                        <div class="flex flex-col gap-1">
-                            <p class="text-xs font-semibold line-through {{ $plan['dark'] ? 'text-white/50' : 'text-ink-muted' }}">{{ $plan['old'] }}</p>
-                            <div class="flex flex-wrap items-baseline gap-x-1.5 gap-y-1 min-w-0">
-                                <span class="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight whitespace-nowrap {{ $plan['dark'] ? 'text-white' : 'text-navy-950' }}">{{ $plan['price'] }}</span>
-                                <span class="text-xs font-semibold {{ $plan['dark'] ? 'text-white/70' : 'text-ink-muted' }}">/{{ $plan['per'] }}</span>
-                            </div>
-                        </div>
-                        <div class="h-px w-full {{ $plan['dark'] ? 'bg-white/10' : 'bg-navy-100' }}"></div>
-                        <ul class="flex flex-col gap-3">
-                            @foreach ($plan['feats'] as $feat)
-                                <li class="flex items-start gap-2.5 text-sm {{ $plan['dark'] ? 'text-white/85' : 'text-ink-soft' }}">
-                                    <svg class="size-4 mt-0.5 shrink-0 {{ $plan['dark'] ? 'text-brand-greenlight' : 'text-brand-green' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-                                    {{ $feat }}
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    <a href="{{ route('login') }}" data-paket="{{ $plan['key'] }}" class="plans-cta text-center text-sm font-bold rounded-full py-3.5 transition
-                        {{ $plan['dark'] ? 'bg-brand-greenlight text-navy-950 hover:bg-brand-greenlight/90 shadow-lg hover:shadow-[0_0_22px_rgba(126,252,154,0.75),0_0_50px_rgba(126,252,154,0.35)] hover:-translate-y-0.5' : 'bg-navy-800 text-white hover:bg-navy-950' }}">
-                        Mulai Sekarang
-                    </a>
-                </div>
+            @foreach ($pakets as $paket)
+                @include('komponen.kartu-paket', [
+                    'paket' => $paket,
+                    'ctaUrl' => route('register'),
+                    'ctaLabel' => 'Mulai Sekarang',
+                    'dataPaket' => $paket->key,
+                    'delay' => ($loop->iteration * 0.15) . 's',
+                ])
             @endforeach
         </div>
     </div>
@@ -555,7 +501,7 @@
             <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight">Siap Menggapai Kampus Impianmu?</h2>
             <p class="text-navy-400 leading-relaxed">Bergabunglah bersama ribuan pejuang PTN lainnya hari ini. Mulai langsung dari paket yang sesuai targetmu dan rasakan bedanya belajar dengan sistem adaptif.</p>
         </div>
-        <a href="{{ route('register') }}" data-auth-cta class="relative bg-white text-navy-950 font-bold text-sm text-center px-8 py-4 rounded-full shadow-lg shrink-0 hover:bg-navy-50 hover:shadow-[0_0_24px_rgba(255,255,255,0.7),0_0_60px_rgba(126,252,154,0.4)] hover:-translate-y-0.5 transition">
+        <a href="{{ route('register') }}" data-auth-cta class="relative bg-white text-navy-950 font-bold text-sm text-center px-8 py-4 rounded-full shadow-lg shrink-0 hover:bg-navy-50 hover:shadow-[0_0_24px_rgba(255,255,255,0.7),0_0_60px_rgba(94,234,212,0.4)] hover:-translate-y-0.5 transition">
             Daftar Sekarang
         </a>
     </div>
@@ -571,9 +517,10 @@
 
         <div class="w-full flex flex-col gap-3">
             @foreach ([
-                ['Apakah ada paket gratis?', 'Tidak ada paket gratis. Semua paket berbayar — bahkan untuk mencoba kamu cukup mulai dari paket Starter dengan tarif terjangkau Rp 199.000/bulan. Kebijakan ini menjaga keadilan dan mencegah penyalahgunaan lewat pendaftaran akun ganda.', true],
+                ['Apakah ada paket gratis?', 'Tidak ada paket gratis. Semua paket berbayar — mulai dari Paket UTBK, Paket SMA + Ekstra, hingga Paket Bahasa. Sekali bayar, kamu bisa daftar semua kelas di kategori paketmu tanpa biaya tambahan. Kebijakan ini menjaga keadilan dan mencegah penyalahgunaan lewat pendaftaran akun ganda.', true],
                 ['Apakah pintarkuy cocok buat siswa SMA biasa?', 'Tentu. Sistem adaptif kami menyesuaikan level kesulitan soal dengan kemampuan awalmu. Tidak masalah mau rantau kelas 10, 11, atau 12 — rencana belajar dibuat khusus untukmu.', false],
-                ['Bagaimana cara konsultasi dengan tutor?', 'Melalui fitur Tanya Tutor di aplikasi, kamu bisa mengirim foto soal kapan saja. Balasan rata-rata datang di bawah 30 menit di jam aktif, dan untuk paket Golden tersedia sesi konsultasi 1-on-1 via video call.', false],
+                ['Bagaimana cara konsultasi dengan tutor?', 'Melalui fitur Tanya Tutor di aplikasi, kamu bisa mengirim foto soal kapan saja. Balasan rata-rata datang di bawah 30 menit di jam aktif.', false],
+                ['Apakah bisa kombinasi lebih dari satu paket?', 'Bisa. Kamu bebas membeli kombinasi paket, misalnya Paket UTBK + Paket Bahasa. Akses kategori akan otomatis digabungkan di akunmu.', false],
                 ['Soal dan materi memakai kurikulum yang mana?', 'Semua materi disusun mengikuti standar BPPP SNBT terbaru plus kurikulum merdeka untuk pendampingan sekolah. Bank soal diperbarui setiap bulan menyusul perubahan pola ujian.', false],
                 ['Bisakah berhenti kapan saja?', 'Bisa. Tidak ada ikatan kontrak. Kamu hanya membayar untuk periode yang berjalan, dan bisa berhenti kapan pun dari halaman pengaturan akun.', false],
             ] as [$q, $a, $open])
@@ -651,6 +598,7 @@
     <script>
         window.pintarKuyDashUrl = @json($dashKatalogUrl);
         window.pintarKuyDashHomeUrl = @json($dashHomeUrl);
+        window.pintarKuyPaketUrl = @json(route('paket.index'));
     </script>
     @vite(['resources/js/halaman/landing.js'])
 @endpush

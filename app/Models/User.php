@@ -15,13 +15,10 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password',
-        'role',
         'foto',
         'sekolah',
         'kelas_jurusan',
         'bio',
-        'paket',
     ];
 
     protected $hidden = [
@@ -59,8 +56,89 @@ class User extends Authenticatable
         return $this->hasMany(Pendaftaran::class);
     }
 
+    public function pakets()
+    {
+        return $this->belongsToMany(Paket::class, 'user_paket')->withTimestamps();
+    }
+
+    public function paketKeys(): array
+    {
+        return $this->pakets->pluck('key')->all();
+    }
+
+    public function hasPaket(): bool
+    {
+        return $this->pakets->isNotEmpty();
+    }
+
+    public function hasAnyPaket(): bool
+    {
+        return $this->hasPaket();
+    }
+
+    public function aksesKategori(): array
+    {
+        $kategori = [];
+        foreach ($this->pakets as $paket) {
+            foreach (($paket->kategori ?? []) as $cat) {
+                $kategori[$cat] = true;
+            }
+        }
+
+        return array_keys($kategori);
+    }
+
     public function kelasTerdaftar()
     {
         return $this->belongsToMany(Kelas::class, 'pendaftaran')->withTimestamps();
+    }
+
+    public function kelasDiampu()
+    {
+        return $this->belongsToMany(Kelas::class, 'pengampu')->withTimestamps();
+    }
+
+    public function pengerjaan()
+    {
+        return $this->hasMany(Pengerjaan::class);
+    }
+
+    public function jawaban()
+    {
+        return $this->hasMany(Jawaban::class);
+    }
+
+    public function nilaiHasil()
+    {
+        return $this->hasMany(Nilai::class);
+    }
+
+    public function progresModul()
+    {
+        return $this->hasMany(ProgresModul::class);
+    }
+
+    public function completedModulIds(): \Illuminate\Support\Collection
+    {
+        return $this->progresModul()->pluck('materi_id');
+    }
+
+    public function isModulDone(Materi $materi): bool
+    {
+        return $this->progresModul()->where('materi_id', $materi->id)->exists();
+    }
+
+    public function progresPct(Kelas $kelas): int
+    {
+        $total = $kelas->materi()->count();
+        if ($total === 0) {
+            return 0;
+        }
+
+        $completed = $this->progresModul()
+            ->whereHas('materi', fn ($q) => $q->where('kelas_id', $kelas->id))
+            ->count();
+
+        return (int) round($completed / $total * 100);
     }
 }

@@ -12,7 +12,7 @@
     gap: 18px;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.kelas-item:hover { transform: translateY(-3px); box-shadow: 0 16px 34px -12px rgba(15, 27, 76, 0.16); }
+.kelas-item:hover { transform: translateY(-3px); box-shadow: 0 16px 34px -12px rgba(30, 58, 186, 0.16); }
 .kelas-item-top { display: flex; align-items: flex-start; gap: 14px; }
 .kelas-icon {
     width: 52px;
@@ -49,7 +49,7 @@
 
 .kelas-empty-step {
     background: var(--navy-50);
-    border: 1px dashed rgba(15, 27, 76, 0.2);
+    border: 1px dashed rgba(30, 58, 186, 0.2);
     border-radius: 20px;
     padding: 36px;
     text-align: center;
@@ -71,7 +71,7 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    box-shadow: 0 20px 44px -14px rgba(0, 5, 44, 0.7);
+    box-shadow: 0 20px 44px -14px rgba(15, 23, 42, 0.7);
     opacity: 0;
     transform: translateY(14px);
     transition: opacity 0.4s ease, transform 0.4s ease;
@@ -97,9 +97,9 @@
     font-weight: 800;
     color: var(--green-light);
     text-decoration: none;
-    background: rgba(126, 252, 154, 0.14);
+    background: rgba(94, 234, 212, 0.14);
     border-radius: 9999px;
     padding: 7px 12px;
     transition: background 0.2s ease;
 }
-.kelas-toast-link:hover { background: rgba(126, 252, 154, 0.26); }
+.kelas-toast-link:hover { background: rgba(94, 234, 212, 0.26); }

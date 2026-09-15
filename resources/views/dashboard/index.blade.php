@@ -143,8 +143,8 @@
 
                 <div class="relative flex items-center justify-center py-4">
                     <svg class="size-36 -rotate-90" viewBox="0 0 120 120">
-                        <circle cx="60" cy="60" r="52" fill="none" stroke="#eff4ff" stroke-width="12"/>
-                        <circle cx="60" cy="60" r="52" fill="none" stroke="#006d30" stroke-width="12"
+                        <circle cx="60" cy="60" r="52" fill="none" stroke="#EEF1FD" stroke-width="12"/>
+                        <circle cx="60" cy="60" r="52" fill="none" stroke="#0D9488" stroke-width="12"
                                 stroke-dasharray="326.7" stroke-dashoffset="{{ round(326.7 * (1 - 0.74)) }}" stroke-linecap="round"/>
                     </svg>
                     <div class="absolute flex flex-col items-center">

@@ -19,6 +19,9 @@ class Materi extends Model
         'durasi',
         'bab',
         'urutan',
+        'tipe',
+        'video_url',
+        'konten',
     ];
 
     public function kelas()

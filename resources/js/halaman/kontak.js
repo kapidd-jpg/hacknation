@@ -55,23 +55,46 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
         statusOk.classList.remove('is-visible');
         statusErr.classList.remove('is-visible');
 
         if (!validate()) return;
 
-        // simulate send
+        const kat = document.getElementById('fKategori');
         const btn = form.querySelector('.kontak-submit');
+        const original = btn.innerHTML;
         btn.disabled = true;
         btn.textContent = 'Mengirim...';
-        window.setTimeout(() => {
+
+        try {
+            const res = await fetch(window.pintarKuyContactUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': window.pintarKuyCsrf,
+                },
+                body: JSON.stringify({
+                    nama: fields.nama.el.value,
+                    email: fields.email.el.value,
+                    subjek: fields.subjek.el.value,
+                    kategori: kat ? kat.value : null,
+                    pesan: fields.pesan.el.value,
+                }),
+            });
+
+            if (!res.ok) throw new Error('http-' + res.status);
+
             statusOk.classList.add('is-visible');
             form.reset();
+        } catch (err) {
+            statusErr.classList.add('is-visible');
+        } finally {
             btn.disabled = false;
-            btn.textContent = 'Kirim Pesan';
-        }, 900);
+            btn.innerHTML = original;
+        }
     });
 
     // ---------- FAQ accordion ----------

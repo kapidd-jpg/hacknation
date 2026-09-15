@@ -21,18 +21,22 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'sekolah' => ['required', 'string', 'max:255'],
+            'kelas_jurusan' => ['required', 'string', 'max:255'],
         ]);
 
-        $user = User::create(array_merge($data, [
-            'role' => 'siswa',
-            'paket' => 'utbk-pro',
-        ]));
+$user = new User();
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->password = $data['password'];
+        $user->role = 'siswa';
+        $user->save();
 
         event(new Registered($user));
 
         Auth::login($user);
         $request->session()->regenerate();
 
-        return redirect()->route('dashboard');
+        return redirect()->route('paket.index');
     }
 }

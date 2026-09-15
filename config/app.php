@@ -33,6 +33,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Vercel Serverless Flag
+    |--------------------------------------------------------------------------
+    |
+    | Set env VERCEL=1 saat berjalan di Vercel Serverless. Dipakai provider
+    | untuk memindahkan path penyimpanan & cache ke /tmp yang writable.
+    |
+    */
+
+    'vercel' => env('VERCEL', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Debug Mode
     |--------------------------------------------------------------------------
     |

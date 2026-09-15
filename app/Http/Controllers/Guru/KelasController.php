@@ -11,7 +11,7 @@ class KelasController extends Controller
     public function index()
     {
         return view('guru.kelas.index', [
-            'kelas' => Kelas::query()->orderBy('id', 'desc')->get(),
+            'kelas' => Kelas::query()->withCount('pendaftaran')->orderBy('id', 'desc')->get(),
         ]);
     }
 
@@ -43,6 +43,10 @@ class KelasController extends Controller
 
     public function destroy(Kelas $kelas)
     {
+        if ($kelas->pendaftaran()->exists() || $kelas->materi()->exists()) {
+            return redirect()->route('guru.kelas.index')->with('status', 'Tidak bisa menghapus kelas yang masih memiliki materi atau siswa terdaftar.');
+        }
+
         $kelas->delete();
 
         return redirect()->route('guru.kelas.index')->with('status', 'Kelas berhasil dihapus.');
@@ -59,14 +63,16 @@ class KelasController extends Controller
             'desc' => ['nullable', 'string', 'max:1000'],
             'modul' => ['required', 'integer', 'min:1'],
             'durasi' => ['nullable', 'string', 'max:255'],
-            'siswa' => ['nullable', 'integer', 'min:0'],
-            'price' => ['nullable', 'string', 'max:255'],
-            'old' => ['nullable', 'string', 'max:255'],
+            'price' => ['nullable', 'integer', 'min:0'],
+            'old' => ['nullable', 'integer', 'min:0'],
             'bg' => ['nullable', 'string', 'max:255'],
             'color' => ['nullable', 'string', 'max:255'],
             'aktif' => ['nullable', 'boolean'],
         ];
 
-        return $request->validate($rules);
+        $data = $request->validate($rules);
+        $data['aktif'] = $request->boolean('aktif');
+
+        return $data;
     }
 }

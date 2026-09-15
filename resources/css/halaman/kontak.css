@@ -62,7 +62,7 @@
     color: var(--navy-900);
     padding: 13px 16px;
     border-radius: 12px;
-    border: 1px solid rgba(15, 27, 76, 0.14);
+    border: 1px solid rgba(30, 58, 186, 0.14);
     background: #f8f9ff;
     box-sizing: border-box;
     transition: border 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
@@ -73,7 +73,7 @@
 .kontak-field textarea:focus {
     outline: none;
     border-color: var(--navy-800);
-    box-shadow: 0 0 0 3px rgba(17, 28, 78, 0.12);
+    box-shadow: 0 0 0 3px rgba(30, 58, 186, 0.12);
     background: #fff;
 }
 .kontak-field.has-error input,
@@ -101,7 +101,7 @@
 .kontak-faq { margin-top: 8px; }
 .kontak-faq-item {
     background: #fff;
-    border: 1px solid rgba(15, 27, 76, 0.08);
+    border: 1px solid rgba(30, 58, 186, 0.08);
     border-radius: 14px;
     margin-bottom: 12px;
     overflow: hidden;

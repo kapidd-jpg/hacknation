@@ -9,6 +9,8 @@ class Kelas extends Model
 {
     use HasFactory;
 
+    protected $table = 'kelas';
+
     protected $fillable = [
         'slug',
         'name',
@@ -18,7 +20,6 @@ class Kelas extends Model
         'desc',
         'modul',
         'durasi',
-        'siswa',
         'price',
         'old',
         'bg',
@@ -26,9 +27,31 @@ class Kelas extends Model
         'aktif',
     ];
 
+    protected $casts = [
+        'price' => 'integer',
+        'old' => 'integer',
+        'modul' => 'integer',
+        'aktif' => 'boolean',
+    ];
+
     public function materi()
     {
         return $this->hasMany(Materi::class);
+    }
+
+    public function soal()
+    {
+        return $this->hasMany(Soal::class);
+    }
+
+    public function pengerjaan()
+    {
+        return $this->hasMany(Pengerjaan::class);
+    }
+
+    public function guruDiampu()
+    {
+        return $this->belongsToMany(User::class, 'pengampu')->withTimestamps();
     }
 
     public function pendaftaran()

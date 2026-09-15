@@ -37,7 +37,7 @@
                             <th>Kelas</th>
                             <th>Tutor</th>
                             <th>Pertemuan</th>
-                            <th>Durasi</th>
+                            <th>Tipe</th>
                             <th>Bab</th>
                             <th class="text-right">Aksi</th>
                         </tr>
@@ -49,7 +49,7 @@
                                 <td><span class="dash-pill">{{ $m->kelas?->name }}</span></td>
                                 <td>{{ $m->tutor }}</td>
                                 <td>Pertemuan {{ $m->pertemuan }}</td>
-                                <td>{{ $m->durasi }}</td>
+                                <td><span class="dash-pill">{{ $m->tipe }}</span></td>
                                 <td>{{ $m->bab }}</td>
                                 <td>
                                     <div class="flex items-center justify-end gap-2">

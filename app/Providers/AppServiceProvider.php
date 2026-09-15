@@ -11,8 +11,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        if (env('VERCEL')) {
+        if (config('app.vercel')) {
             $this->app->useStoragePath('/tmp/storage');
+            config(['view.compiled' => '/tmp/storage/framework/views']);
         }
     }
 
@@ -21,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (env('VERCEL')) {
+        if (config('app.vercel')) {
             foreach (['framework/cache/data', 'framework/sessions', 'framework/views', 'logs'] as $dir) {
                 $path = storage_path($dir);
 

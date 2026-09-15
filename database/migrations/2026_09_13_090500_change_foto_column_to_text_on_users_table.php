@@ -15,8 +15,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        if (Schema::hasTable('users')) {
-            DB::statement('ALTER TABLE users MODIFY foto VARCHAR(255) NULL');
-        }
+        // foto is already TEXT — no rollback needed
     }
 };

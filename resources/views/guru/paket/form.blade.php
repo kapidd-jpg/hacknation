@@ -7,7 +7,7 @@
         <div class="dash-head dash-reveal">
             <div>
                 <h1>{{ $paket ? 'Edit Paket' : 'Tambah Paket Baru' }}</h1>
-                <p class="dash-head-sub">Key paket dipakai untuk menetapkan default saat siswa mendaftar.</p>
+                <p class="dash-head-sub">Pilih kategori kelas yang bisa diakses pemilik paket ini.</p>
             </div>
         </div>
 
@@ -23,10 +23,10 @@
                 </div>
             @endif
 
-            <div class="dash-grid dash-grid--2">>
+            <div class="dash-grid dash-grid--2">
                 <div class="setting-field">
                     <label for="key">Key</label>
-                    <input id="key" name="key" type="text" required value="{{ old('key', $paket?->key) }}" placeholder="utbk-pro">
+                    <input id="key" name="key" type="text" required value="{{ old('key', $paket?->key) }}" placeholder="utbk">
                 </div>
                 <div class="setting-field">
                     <label for="nama">Nama Paket</label>
@@ -34,18 +34,25 @@
                 </div>
             </div>
 
-            <div class="dash-grid dash-grid--2">>
+            <div class="dash-grid dash-grid--2">
                 <div class="setting-field">
                     <label for="tag">Tag</label>
                     <input id="tag" name="tag" type="text" value="{{ old('tag', $paket?->tag) }}" placeholder="Best Seller">
                 </div>
                 <div class="setting-field">
-                    <label for="kuota">Kuota</label>
-                    <input id="kuota" name="kuota" type="number" min="1" value="{{ old('kuota', $paket?->kuota) }}" placeholder="50">
+                    <label>Akses Kategori</label>
+                    <div class="flex flex-wrap gap-2 pt-1" style="display:flex;flex-wrap:wrap;gap:8px;">
+                        @foreach (['UTBK-SNBT', 'SMA', 'Bahasa', 'Ekstra'] as $cat)
+                            <label class="guru-check" style="display:flex;align-items:center;gap:6px;">
+                                <input type="checkbox" name="kategori[]" value="{{ $cat }}" @checked(in_array($cat, old('kategori', $paket?->kategori ?? []), true))>
+                                <span style="font-size:13px;font-weight:600;">{{ $cat }}</span>
+                            </label>
+                        @endforeach
+                    </div>
                 </div>
             </div>
 
-            <div class="dash-grid dash-grid--2">>
+            <div class="dash-grid dash-grid--2">
                 <div class="setting-field">
                     <label for="harga">Harga (angka)</label>
                     <input id="harga" name="harga" type="number" min="0" required value="{{ old('harga', $paket?->harga) }}" placeholder="399000">

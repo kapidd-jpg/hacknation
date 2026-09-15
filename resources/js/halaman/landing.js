@@ -32,44 +32,21 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(step);
     }
 
-    // ---------- upgrade paket dari dashboard (skip login) ----------
-    // Jika pengunjung datang dari tombol "Upgrade Paket" di dashboard,
-    // klik paket di harga langsung diterapkan ke localStorage & kembali ke dashboard.
+    // ---------- pilihan paket dari landing ----------
+    // Tamu → diarahkan daftar/login. Sudah login → langsung ke halaman checkout paket tsb.
     const ctas = document.querySelectorAll('[data-paket]');
     if (ctas.length) {
-        const TIER = ['starter', 'utbk-pro', 'golden'];
-        const LABELS = { starter: 'Starter', 'utbk-pro': 'UTBK Pro', golden: 'Golden Campus' };
+        const TIER = ['utbk', 'sma-ekstra', 'bahasa'];
         const loggedIn = !!(window.pintarKuyAuth && window.pintarKuyAuth.isLoggedIn());
-        const notice = (message) => {
-            const t = document.createElement('div');
-            t.setAttribute('role', 'status');
-            t.textContent = message;
-            t.style.cssText = 'position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:1000;background:#0a1235;color:#fff;font-size:13px;font-weight:700;padding:13px 20px;border-radius:14px;box-shadow:0 20px 45px -12px rgba(2,6,30,.55);max-width:min(480px,90vw);text-align:center;';
-            document.body.appendChild(t);
-            window.setTimeout(() => { t.style.transition = 'opacity .3s ease'; t.style.opacity = '0'; window.setTimeout(() => t.remove(), 350); }, 3200);
-        };
-        let upgrading = false;
-        let ganti = false;
-        try { upgrading = sessionStorage.getItem('pintarKuyUpgrade') === '1'; ganti = sessionStorage.getItem('pintarKuyGanti') === '1'; } catch (e) {}
-        ctas.forEach((btn) => btn.addEventListener('click', (e) => {
-            const paket = btn.dataset.paket;
-            if (!TIER.includes(paket)) return;
-            if (!upgrading && !ganti && !loggedIn) return;
-            e.preventDefault();
-            let current = 'utbk-pro';
-            try { current = localStorage.getItem('pintarKuyPaket') || 'utbk-pro'; } catch (err) {}
-            if (upgrading && TIER.indexOf(paket) < TIER.indexOf(current)) {
-                notice('Paket kamu saat ini ' + LABELS[current] + ' (lebih tinggi). Pilih level yang sama atau di atasnya untuk melanjutkan upgrade.');
-                return;
-            }
-            try {
-                localStorage.setItem('pintarKuyPaket', paket);
-                localStorage.setItem('pintarKuyUpgradeBaru', '1');
-                sessionStorage.removeItem('pintarKuyUpgrade');
-                sessionStorage.removeItem('pintarKuyGanti');
-            } catch (err) {}
-            window.location.href = window.pintarKuyDashUrl || '/';
-        }));
+        if (window.pintarKuyPaketUrl) {
+            ctas.forEach((btn) => btn.addEventListener('click', (e) => {
+                const paket = btn.dataset.paket;
+                if (!TIER.includes(paket)) return;
+                if (!loggedIn) return;
+                e.preventDefault();
+                window.location.href = window.pintarKuyPaketUrl + '/' + paket;
+            }));
+        }
     }
 
     // ---------- smooth scroll untuk semua link anchor ----------

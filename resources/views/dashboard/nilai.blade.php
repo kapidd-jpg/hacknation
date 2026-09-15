@@ -3,11 +3,14 @@
 @section('title', 'Nilai — PintarKuy')
 
 @section('pageContent')
+    @php
+        $empty = empty($nilaiData['ganjil']['rows']) && empty($nilaiData['genap']['rows']);
+    @endphp
     <div class="flex flex-col gap-6">
         <div class="dash-head dash-reveal">
             <div>
                 <h1>Nilai</h1>
-                <p class="dash-head-sub">Rekap nilai tugas, ujian, dan predikat setiap mata pelajaran.</p>
+                <p class="dash-head-sub">Rekap nilai latihan soal tiap mapel yang kamu kerjakan.</p>
             </div>
             <div class="dash-filter" id="semesterFilter">
                 <button type="button" data-sem="ganjil" class="active">Ganjil 2026/2027</button>
@@ -27,14 +30,14 @@
                 <span class="nilai-sum-note" id="sumMaxSubj">—</span>
             </div>
             <div class="nilai-sum-card">
-                <span class="nilai-sum-label">Tugas Selesai</span>
-                <span class="nilai-sum-value">24 <span style="font-size:15px;color:var(--ink-muted)">/ 28</span></span>
-                <span class="nilai-sum-note">85.7%</span>
+                <span class="nilai-sum-label">Latihan Dikerjakan</span>
+                <span class="nilai-sum-value" id="sumLatihan">0</span>
+                <span class="nilai-sum-note" id="sumLatihanNote">Paket</span>
             </div>
             <div class="nilai-sum-card">
                 <span class="nilai-sum-label">Predikat Umum</span>
-                <span class="nilai-sum-value" id="sumPred">A</span>
-                <span class="nilai-sum-note">Sangat Baik</span>
+                <span class="nilai-sum-value" id="sumPred">—</span>
+                <span class="nilai-sum-note">0–100</span>
             </div>
         </div>
 
@@ -45,10 +48,11 @@
                     <thead>
                         <tr>
                             <th>Mata Pelajaran</th>
-                            <th>Tugas</th>
-                            <th>UTS / ATS</th>
-                            <th>UAS / AAS</th>
+                            <th>Latihan</th>
+                            <th>Soal</th>
+                            <th>Akurasi</th>
                             <th>Rata-rata</th>
+                            <th>Terbaik</th>
                             <th>Predikat</th>
                         </tr>
                     </thead>
@@ -59,9 +63,20 @@
 
         <div class="nilai-note dash-reveal">
             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            <div>Nilai dibulatkan ke skala 0–100 sesuai pembobotan kurikulum. Klik "Lihat Detail" pada tiap mata pelajaran untuk melihat rincian per kompetensi.</div>
+            <div>Nilai diambil otomatis dari hasil latihan soal yang kamu kumpulkan (skala 0–100). Predikat A ≥ 85, B ≥ 70, dan C &lt; 70.</div>
         </div>
+
+        @if ($empty)
+            <div class="nilai-note dash-reveal">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <div>Belum ada latihan soal yang dikerjakan. Kerjakan latihan di menu <a href="{{ route('dashboard.latsol') }}" style="text-decoration:underline;font-weight:700;color:var(--green-text);">Latihan Soal</a> agar nilai tampil di sini.</div>
+            </div>
+        @endif
     </div>
+
+    <script>
+        window.pintarKuyNilai = @json($nilaiData);
+    </script>
 @endsection
 
 @push('styles')
