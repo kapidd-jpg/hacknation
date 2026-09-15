@@ -30,6 +30,9 @@ class Kelas extends Model
 
     protected $casts = [
         'modul' => 'integer',
+        'siswa' => 'integer',
+        'price' => 'integer',
+        'old' => 'integer',
         'aktif' => 'boolean',
     ];
 

@@ -97,10 +97,14 @@ class DashboardController extends Controller
             }
         }
 
+        $catPrice = Paket::pricesByKategori();
+
         return view('dashboard.katalog', [
             'kelas' => $kelas,
             'katalog' => $kelas->map(fn ($k) => collect($k->getAttributes())
-                ->only(['id', 'slug', 'cat', 'ico', 'name', 'meta', 'desc', 'modul', 'durasi', 'siswa', 'price', 'old', 'bg', 'color'])
+                ->only(['id', 'slug', 'cat', 'ico', 'name', 'meta', 'desc', 'modul', 'durasi', 'siswa', 'bg', 'color'])
+                ->put('price', Paket::formatHarga($catPrice[$k->cat]['harga'] ?? $k->price))
+                ->put('old', Paket::formatHarga($catPrice[$k->cat]['harga_lama'] ?? $k->old))
                 ->all()),
             'terdaftarIds' => $user->pendaftaran()->pluck('kelas_id')->map(fn ($v) => (string) $v)->all(),
             'paketKeys' => $user->paketKeys(),

@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelas;
 
+use App\Models\Paket;
+
 class HalamanController extends Controller
 {
     public function kelas()
     {
+        $catPrice = Paket::pricesByKategori();
+
         $kelas = Kelas::query()
             ->where('aktif', true)
             ->orderBy('cat')
@@ -22,8 +26,8 @@ class HalamanController extends Controller
                 'modul' => $k->modul,
                 'durasi' => $k->durasi,
                 'siswa' => $k->siswa,
-                'price' => $k->price,
-                'old' => $k->old,
+                'price' => Paket::formatHarga($catPrice[$k->cat]['harga'] ?? $k->price),
+                'old' => Paket::formatHarga($catPrice[$k->cat]['harga_lama'] ?? $k->old),
                 'iconBg' => $k->bg ?: 'rgba(94,234,212,0.4)',
                 'iconColor' => $k->color ?: '#0F766E',
             ])

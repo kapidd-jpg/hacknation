@@ -9,13 +9,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->index('role');
-            $table->index('paket');
+            if (! Schema::hasIndex('users', 'users_role_index')) {
+                $table->index('role');
+            }
         });
 
         Schema::table('kelas', function (Blueprint $table) {
-            $table->index('cat');
-            $table->index('aktif');
+            if (! Schema::hasIndex('kelas', 'kelas_cat_index')) {
+                $table->index('cat');
+            }
+            if (! Schema::hasIndex('kelas', 'kelas_aktif_index')) {
+                $table->index('aktif');
+            }
         });
     }
 
@@ -27,7 +32,6 @@ return new class extends Migration
         });
 
         Schema::table('users', function (Blueprint $table) {
-            $table->dropIndex(['paket']);
             $table->dropIndex(['role']);
         });
     }
