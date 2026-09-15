@@ -177,7 +177,7 @@
 <section class="bg-white pt-20 pb-10 px-6 md:px-12">
     <div class="w-full flex flex-col items-center gap-8">
         <p class="reveal text-ink-muted text-xs font-bold tracking-widest uppercase text-center">Dipercaya universitas & institusi pendidikan di seluruh Indonesia</p>
-        <div class="reveal w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 items-center" style="animation-delay:0.1s">
+        <div class="reveal w-full flex items-center justify-between gap-6 overflow-x-auto pb-2" style="animation-delay:0.1s">
             @foreach ([
                 ['U-27', 'Univ. Negeri 27', 'bg-navy-100'],
                 ['S', 'SMA Juara', 'bg-amber-100'],

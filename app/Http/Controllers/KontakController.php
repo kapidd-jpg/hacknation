@@ -11,7 +11,7 @@ class KontakController extends Controller
     {
         $data = $request->validate([
             'nama' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'not_regex:/[\r\n]/'],
             'subjek' => ['required', 'string', 'max:255'],
             'kategori' => ['nullable', 'string', 'max:255'],
             'pesan' => ['required', 'string', 'min:10', 'max:5000'],
