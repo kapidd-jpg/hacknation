@@ -159,20 +159,6 @@ Seeder `DemoSeeder` mengisi (±): 3 user demo, 27 kelas katalog, 162 materi (6 p
 | 20 | Halaman `/kelas` publik | Dari DB (`HalamanController@kelas`) termasuk harga per kategori |
 | 21 | DemoSeeder diperluas | Kelas/materi/soal/pengampu/pendaftaran idempotent; guru demo diampu fisika & kimia |
 
-### ⬜ BELUM / Menunggu Tim Lain
-
-| # | Item | Catatan |
-|---|------|---------|
-| 1 | Email verify / lupa password | Belum diimplementasi (tabel `password_reset_tokens` sudah ada) |
-| 2 | Audit log | Belum ada logging aksi penting |
-| 3 | Ownership multi-guru | Kelas bisa diedit guru mana saja (belum di-scope per guru) |
-| 4 | Aset eksternal (Figma) | Ikon & gambar dari CDN / asset publik |
-| 5 | Counter `kelas.siswa` | Jumlah siswa per kelas dihitung manual dari `pendaftaran` |
-| 6 | Race condition TOCTOU | Enroll + kuota belum pakai database lock/transaction |
-| 7 | Password di console | `akun:guru` output password plaintext ke terminal |
-| 8 | Config deploy | Sudah live di **Vercel** (`vercel.json` + vercel-php + TiDB Cloud), tapi `APP_DEBUG`/`APP_ENV`/session driver produksi **belum diaudit** (masih `file` session di serverless) |
-| 9 | 2FA login | Toggle 2FA tersimpan di DB tapi belum dicek saat login |
-
 ---
 
 ## 🛠️ Alat AI yang Digunakan (per §5.2)
@@ -181,7 +167,6 @@ Pengembangan dibantu oleh asisten AI kode (`opencode`):
 - **opencode** - scaffolding backend (controller, middleware, migrasi, model, routes),
   perbaikan bug UI (pengaturan profil, foto, katalog), dan penulisan seeder demo.
 - **Claude / AI chat model** - asisten penulisan & evaluasi kode front-end.
-- **GitHub Copilot** *(jika digunakan tim)* - autocomplete saat menulis komponen UI.
 - Framework & library utama: **Laravel 10**, **MySQL 8**, **Tailwind CSS**, **Vite**, **Alpine.js (vanilla JS lokal)**.
 
 ---
