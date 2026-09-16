@@ -60,15 +60,15 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/pilih-paket', [PaketPilihanController::class, 'index'])->name('paket.index');
         Route::get('/pilih-paket/{key}', [PaketPilihanController::class, 'checkout'])->name('paket.checkout');
-        Route::post('/pilih-paket/bayar', [PaketPilihanController::class, 'bayar'])->name('paket.bayar');
+        Route::post('/pilih-paket/bayar', [PaketPilihanController::class, 'bayar'])->middleware('throttle:20,1')->name('paket.bayar');
         Route::get('/paket-berhasil', [PaketPilihanController::class, 'berhasil'])->name('paket.berhasil');
     });
 
-    Route::post('/dashboard/katalog/daftar', [DashboardController::class, 'katalogDaftar'])->name('dashboard.katalog.daftar');
-    Route::post('/dashboard/progres-modul', [DashboardController::class, 'progresModul'])->name('dashboard.progres.modul');
+    Route::post('/dashboard/katalog/daftar', [DashboardController::class, 'katalogDaftar'])->middleware('throttle:20,1')->name('dashboard.katalog.daftar');
+    Route::post('/dashboard/progres-modul', [DashboardController::class, 'progresModul'])->middleware('throttle:20,1')->name('dashboard.progres.modul');
     Route::get('/akun/foto', [DashboardController::class, 'foto'])->name('user.foto');
-    Route::post('/dashboard/pengaturan', [DashboardController::class, 'pengaturanUpdate'])->name('dashboard.pengaturan.update');
-    Route::post('/dashboard/pengaturan/keamanan', [DashboardController::class, 'pengaturanKeamanan'])->name('dashboard.pengaturan.keamanan');
+    Route::post('/dashboard/pengaturan', [DashboardController::class, 'pengaturanUpdate'])->middleware('throttle:20,1')->name('dashboard.pengaturan.update');
+    Route::post('/dashboard/pengaturan/keamanan', [DashboardController::class, 'pengaturanKeamanan'])->middleware('throttle:20,1')->name('dashboard.pengaturan.keamanan');
 });
 
 // ---------- Dashboard Guru (perlu login + role guru/admin) ----------
@@ -76,39 +76,39 @@ Route::middleware(['auth', 'role:guru,admin'])->prefix('dashboard-guru')->name('
     Route::get('/', [GuruDashboardController::class, 'index'])->name('dashboard');
     Route::get('/kelas', [GuruKelasController::class, 'index'])->name('kelas.index');
     Route::get('/kelas/create', [GuruKelasController::class, 'create'])->name('kelas.create');
-    Route::post('/kelas', [GuruKelasController::class, 'store'])->name('kelas.store');
+    Route::post('/kelas', [GuruKelasController::class, 'store'])->middleware('throttle:20,1')->name('kelas.store');
     Route::get('/kelas/{kelas}/edit', [GuruKelasController::class, 'edit'])->name('kelas.edit');
-    Route::put('/kelas/{kelas}', [GuruKelasController::class, 'update'])->name('kelas.update');
-    Route::delete('/kelas/{kelas}', [GuruKelasController::class, 'destroy'])->name('kelas.destroy');
+    Route::put('/kelas/{kelas}', [GuruKelasController::class, 'update'])->middleware('throttle:20,1')->name('kelas.update');
+    Route::delete('/kelas/{kelas}', [GuruKelasController::class, 'destroy'])->middleware('throttle:20,1')->name('kelas.destroy');
 
     Route::get('/materi', [GuruMateriController::class, 'index'])->name('materi.index');
     Route::get('/materi/create', [GuruMateriController::class, 'create'])->name('materi.create');
-    Route::post('/materi', [GuruMateriController::class, 'store'])->name('materi.store');
+    Route::post('/materi', [GuruMateriController::class, 'store'])->middleware('throttle:20,1')->name('materi.store');
     Route::get('/materi/{materi}/edit', [GuruMateriController::class, 'edit'])->name('materi.edit');
-    Route::put('/materi/{materi}', [GuruMateriController::class, 'update'])->name('materi.update');
-    Route::delete('/materi/{materi}', [GuruMateriController::class, 'destroy'])->name('materi.destroy');
+    Route::put('/materi/{materi}', [GuruMateriController::class, 'update'])->middleware('throttle:20,1')->name('materi.update');
+    Route::delete('/materi/{materi}', [GuruMateriController::class, 'destroy'])->middleware('throttle:20,1')->name('materi.destroy');
 
     Route::get('/soal', [GuruSoalController::class, 'index'])->name('soal.index');
     Route::get('/soal/create', [GuruSoalController::class, 'create'])->name('soal.create');
-    Route::post('/soal', [GuruSoalController::class, 'store'])->name('soal.store');
+    Route::post('/soal', [GuruSoalController::class, 'store'])->middleware('throttle:20,1')->name('soal.store');
     Route::get('/soal/{soal}/edit', [GuruSoalController::class, 'edit'])->name('soal.edit');
-    Route::put('/soal/{soal}', [GuruSoalController::class, 'update'])->name('soal.update');
-    Route::delete('/soal/{soal}', [GuruSoalController::class, 'destroy'])->name('soal.destroy');
+    Route::put('/soal/{soal}', [GuruSoalController::class, 'update'])->middleware('throttle:20,1')->name('soal.update');
+    Route::delete('/soal/{soal}', [GuruSoalController::class, 'destroy'])->middleware('throttle:20,1')->name('soal.destroy');
     Route::get('/soal/materi/{kelas}', [GuruSoalController::class, 'materiByKelas'])->name('soal.materi.bykelas');
 
     // Paket & hapus siswa & pengampu mapel guru: hanya admin
     Route::middleware('role:admin')->group(function () {
         Route::get('/paket', [GuruPaketController::class, 'index'])->name('paket.index');
         Route::get('/paket/create', [GuruPaketController::class, 'create'])->name('paket.create');
-        Route::post('/paket', [GuruPaketController::class, 'store'])->name('paket.store');
+        Route::post('/paket', [GuruPaketController::class, 'store'])->middleware('throttle:20,1')->name('paket.store');
         Route::get('/paket/{paket}/edit', [GuruPaketController::class, 'edit'])->name('paket.edit');
-        Route::put('/paket/{paket}', [GuruPaketController::class, 'update'])->name('paket.update');
-        Route::delete('/paket/{paket}', [GuruPaketController::class, 'destroy'])->name('paket.destroy');
+        Route::put('/paket/{paket}', [GuruPaketController::class, 'update'])->middleware('throttle:20,1')->name('paket.update');
+        Route::delete('/paket/{paket}', [GuruPaketController::class, 'destroy'])->middleware('throttle:20,1')->name('paket.destroy');
 
-        Route::delete('/siswa/{siswa}', [GuruSiswaController::class, 'destroy'])->name('siswa.destroy');
+        Route::delete('/siswa/{siswa}', [GuruSiswaController::class, 'destroy'])->middleware('throttle:20,1')->name('siswa.destroy');
 
         Route::get('/pengampu', [GuruPengampuController::class, 'index'])->name('pengampu.index');
-        Route::post('/pengampu', [GuruPengampuController::class, 'update'])->name('pengampu.update');
+        Route::post('/pengampu', [GuruPengampuController::class, 'update'])->middleware('throttle:20,1')->name('pengampu.update');
     });
 
     Route::get('/siswa', [GuruSiswaController::class, 'index'])->name('siswa');
