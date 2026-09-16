@@ -1,6 +1,6 @@
 @extends('layout.dashboard')
 
-@section('title', 'Kelas Saya — PintarKuy')
+@section('title', 'Kelas Saya - PintarKuy')
 
 @php
     $kelasAll = $kelasAll ?? [];

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'PintarKuy — Bimbel Adaptif UTBK-SNBT')</title>
+    <title>@yield('title', 'PintarKuy - Bimbel Adaptif UTBK-SNBT')</title>
     <link rel="icon" type="image/png" href="{{ asset('assets/images/favicon.png') }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,7 +19,7 @@
     </script>
 
     <script>
-        // Helper auth front-end — didefinisikan di sini (eksekusi sinkron) supaya
+        // Helper auth front-end - didefinisikan di sini (eksekusi sinkron) supaya
         // script layout (yang jalan saat parse) sudah bisa memakai window.pintarKuyAuth.
         window.pintarKuyAuth = {
 defaultPhoto() { return '{{ asset('assets/images/default-avatar.jpg') }}'; },

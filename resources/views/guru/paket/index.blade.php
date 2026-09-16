@@ -1,6 +1,6 @@
 @extends('layout.guru')
 
-@section('title', 'Kelola Paket — PintarKuy')
+@section('title', 'Kelola Paket - PintarKuy')
 
 @section('pageContent')
     <div class="flex flex-col gap-6">

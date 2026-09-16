@@ -1,6 +1,6 @@
 @extends('layout.guru')
 
-@section('title', 'Dashboard Guru — PintarKuy')
+@section('title', 'Dashboard Guru - PintarKuy')
 
 @section('pageContent')
     <div class="flex flex-col gap-6">
@@ -64,7 +64,7 @@
                             <span class="guru-student-avatar">{{ strtoupper(substr($s->name, 0, 1)) }}</span>
                             <div class="flex-1 min-w-0">
                                 <p class="guru-row-title">{{ $s->name }}</p>
-                                <p class="guru-row-sub">{{ $s->sekolah ?: '—' }} • {{ $s->kelasTerdaftar->count() }} kelas</p>
+                                <p class="guru-row-sub">{{ $s->sekolah ?: '-' }} • {{ $s->kelasTerdaftar->count() }} kelas</p>
                             </div>
                         </div>
                     @empty

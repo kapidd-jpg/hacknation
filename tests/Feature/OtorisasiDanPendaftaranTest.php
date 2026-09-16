@@ -278,7 +278,7 @@ class OtorisasiDanPendaftaranTest extends TestCase
     }
 
     // ------------------------------------------------------------------
-    //  Nilai / Materi — bab_cur dinamis
+    //  Nilai / Materi - bab_cur dinamis
     // ------------------------------------------------------------------
 
     public function test_bab_cur_dinamis_dari_progres_modul(): void
@@ -360,7 +360,7 @@ class OtorisasiDanPendaftaranTest extends TestCase
     }
 
     // ------------------------------------------------------------------
-    //  Keamanan email — tolak CRLF injection (CVE-2026-48019)
+    //  Keamanan email - tolak CRLF injection (CVE-2026-48019)
     // ------------------------------------------------------------------
 
     public function test_email_mengandung_crlf_ditolak_di_semua_jalur(): void

@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', 'Daftar — PintarKuy')
+@section('title', 'Daftar - PintarKuy')
 
 @section('content')
 <div class="min-h-screen flex flex-col lg:flex-row">
@@ -15,7 +15,7 @@
                 <img src="{{ asset('assets/images/logopintar.png') }}" alt="PintarKuy" class="h-11 w-auto shrink-0">
                 <div>
                     <p class="text-white font-semibold text-lg leading-tight">PintarKuy</p>
-                    <p class="text-navy-300 text-[11px] font-bold tracking-widest uppercase">Adaptive Bimbel Ecosystem</p>
+                    <p class="text-navy-300 text-[11px] font-bold tracking-widest uppercase">Bimbingan Belajar Adaptif</p>
                 </div>
             </div>
             <a href="{{ route('home') }}" class="inline-flex items-center gap-1.5 text-navy-300 text-xs font-bold hover:text-white transition shrink-0">
@@ -29,8 +29,8 @@
                 <span class="size-2.5 rounded-full bg-brand-greenlight"></span>
                 <span class="text-brand-greenlight text-xs font-semibold tracking-wide">Platform Bimbingan UTBK & Belajar #1</span>
             </span>
-            <h1 class="text-white text-4xl font-extrabold leading-tight tracking-tight">Mulai perjalanan impianmu.</h1>
-            <p class="text-navy-300/90 leading-relaxed">Buat akun gratis, lalu biarkan sistem adaptif kami menyusun rencana belajar yang tepat sesuai target kampus impianmu.</p>
+            <h1 class="text-white text-4xl font-extrabold leading-tight tracking-tight">Mulai langkah pertamamu.</h1>
+            <p class="text-navy-300/90 leading-relaxed">Buat akun gratis, lalu biarkan sistem adaptif kami menyusun rencana belajar yang sesuai targetmu.</p>
 
             <div class="relative rounded-2xl overflow-hidden shadow-2xl mt-2" style="background:linear-gradient(34deg, rgba(15,23,42,0.6) 0%, rgba(15,23,42,0) 100%); padding:22px 6px 6px;">
                 <div class="relative aspect-video bg-navy-950 rounded-xl overflow-hidden">
@@ -56,7 +56,7 @@
 
         <div class="relative flex items-center gap-2">
             <span class="h-0.5 w-4 bg-brand-greenlight"></span>
-            <p class="text-navy-300/70 text-xs italic">Belajar lebih terarah. Berkembang lebih cepat. — Solusi Bimbel Adaptif Masa Depan</p>
+            <p class="text-navy-300/70 text-xs italic">Belajar lebih terarah. Berkembang lebih cepat. Solusi bimbel adaptif.</p>
         </div>
     </div>
 

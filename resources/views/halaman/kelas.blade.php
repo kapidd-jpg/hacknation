@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', 'Program Kelas — PintarKuy')
+@section('title', 'Program Kelas - PintarKuy')
 
 @section('content')
 @include('komponen.header')
@@ -8,7 +8,7 @@
 <div class="page-hero">
     <span class="pk-eyebrow">Katalog Kelas</span>
     <h1 class="page-hero-title">Temukan Kelas yang Sesuai Targetmu</h1>
-    <p class="page-hero-sub">Dari persiapan UTBK-SNBT hingga ekstrakurikuler pengembangan skill — semua disusun kurikulumnya oleh tutor master dan bisa diakses dari perangkat mana saja.</p>
+    <p class="page-hero-sub">Dari persiapan UTBK-SNBT hingga ekstrakurikuler pengembangan skill, semua kurikulumnya disusun tutor lulusan PTN dan bisa diakses dari perangkat mana saja.</p>
 </div>
 
 <!-- ============ Katalog ============ -->

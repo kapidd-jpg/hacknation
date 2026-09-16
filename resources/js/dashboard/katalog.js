@@ -1,4 +1,4 @@
-// PintarKuy — Dashboard: Katalog (render + filter + daftar via server → DB)
+// PintarKuy - Dashboard: Katalog (render + filter + daftar via server → DB)
 // Akses dibatasi per kategori paket: kelas di luar kategori yang dimiliki tampil terkunci.
 document.addEventListener('DOMContentLoaded', () => {
     const PAKETS = {

@@ -1,4 +1,4 @@
-// PintarKuy — Halaman Landing (scroll halus + reveal + quiz teaser 5 soal × 20 poin)
+// PintarKuy - Halaman Landing (scroll halus + reveal + quiz teaser 5 soal × 20 poin)
 document.addEventListener('DOMContentLoaded', () => {
 
     // ---------- selalu kembali ke atas saat halaman di-refresh ----------

@@ -1,6 +1,6 @@
 @extends('layout.dashboard')
 
-@section('title', 'Detail Materi — PintarKuy')
+@section('title', 'Detail Materi - PintarKuy')
 
 @php
     $emptyKelas = empty($course);
@@ -191,7 +191,7 @@
                                     <div class="materi-latsol-set">
                                         <div class="materi-latsol-set-info">
                                             <p class="materi-latsol-set-label">{{ $set['label'] }}</p>
-                                            <p class="materi-latsol-set-meta">{{ $set['total'] }} soal • Terbaik: {{ $set['best'] ?? '—' }}</p>
+                                            <p class="materi-latsol-set-meta">{{ $set['total'] }} soal • Terbaik: {{ $set['best'] ?? '-' }}</p>
                                         </div>
                                         <a href="{{ route('dashboard.latsol.mulai', [$set['kelas_id'], $set['label']]) }}" class="dash-btn dash-btn--primary dash-btn--sm">Mulai</a>
                                     </div>
@@ -210,7 +210,7 @@
             <div class="materi-modal-head">
                 <div>
                     <p class="materi-modal-kicker" id="materiModalKicker">Video Pembelajaran</p>
-                    <h3 id="materiModalTitle">—</h3>
+                    <h3 id="materiModalTitle">-</h3>
                 </div>
                 <button type="button" class="materi-modal-close" id="materiModalClose" aria-label="Tutup">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>

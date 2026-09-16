@@ -1,4 +1,4 @@
-{{-- Konfirmasi logout — dipakai layout dashboard & guru. Diwarnai dengan .dash-logout-overlay / .dash-logout-modal --}}
+{{-- Konfirmasi logout - dipakai layout dashboard & guru. Diwarnai dengan .dash-logout-overlay / .dash-logout-modal --}}
 @once
     <div class="dash-logout-overlay" id="logoutOverlay" role="dialog" aria-modal="true" aria-labelledby="logoutModalTitle">
         <div class="dash-logout-modal">

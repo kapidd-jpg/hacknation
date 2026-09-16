@@ -1,6 +1,6 @@
 @extends('layout.dashboard')
 
-@section('title', 'Pembayaran Berhasil — PintarKuy')
+@section('title', 'Pembayaran Berhasil - PintarKuy')
 
 @section('pageContent')
 <div class="flex flex-col items-center gap-6">
@@ -10,7 +10,7 @@
         </span>
         <div class="flex flex-col gap-1.5">
             <h1 class="text-2xl font-black text-navy-950 tracking-tight">Pembayaran Berhasil!</h1>
-            <p class="text-sm text-ink-soft">(Mode simulasi — transaksi tidak memindahkan uang sungguhan)</p>
+            <p class="text-sm text-ink-soft">(Mode simulasi, transaksi tidak memindahkan uang sungguhan)</p>
         </div>
 
         @if ($paketNama)

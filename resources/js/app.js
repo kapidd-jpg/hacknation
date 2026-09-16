@@ -1,4 +1,4 @@
-// PintarKuy — front-end scripts
+// PintarKuy - front-end scripts
 document.addEventListener('DOMContentLoaded', () => {
     const user = window.pintarKuyAuth.user();
     if (!user) return;

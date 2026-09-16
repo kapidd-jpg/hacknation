@@ -1,6 +1,6 @@
 @extends('layout.guru')
 
-@section('title', ($soal ? 'Edit Soal' : 'Tambah Soal') . ' — PintarKuy')
+@section('title', ($soal ? 'Edit Soal' : 'Tambah Soal') . ' - PintarKuy')
 
 @section('pageContent')
     <div class="flex flex-col gap-6 max-w-3xl">
@@ -37,7 +37,7 @@
                     <select id="materi_id" name="materi_id" class="guru-select"
                         data-materi-url="{{ route('guru.soal.materi.bykelas', 'KELAS') }}"
                         data-materi-value="{{ old('materi_id', $soal?->materi_id) }}">
-                        <option value="">— Tanpa materi —</option>
+                        <option value="">- Tanpa materi -</option>
                         @foreach ($materiSemua as $m)
                             <option value="{{ $m->id }}" @selected(old('materi_id', $soal?->materi_id) == $m->id)>{{ $m->judul }}</option>
                         @endforeach

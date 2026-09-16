@@ -1,6 +1,6 @@
 @extends('layout.dashboard')
 
-@section('title', 'Katalog — PintarKuy')
+@section('title', 'Katalog - PintarKuy')
 
 @section('pageContent')
     <div class="flex flex-col gap-6">

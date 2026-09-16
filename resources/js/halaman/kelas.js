@@ -1,4 +1,4 @@
-// PintarKuy — Halaman Kelas (render data dari DB + filter kategori)
+// PintarKuy - Halaman Kelas (render data dari DB + filter kategori)
 document.addEventListener('DOMContentLoaded', () => {
     const kelasData = window.pintarKuyKelas || [];
 

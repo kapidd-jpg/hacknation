@@ -15,6 +15,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        // foto is already TEXT — no rollback needed
+        // foto is already TEXT - no rollback needed
     }
 };

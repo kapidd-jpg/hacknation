@@ -1,6 +1,6 @@
 @extends('layout.dashboard')
 
-@section('title', 'Checkout — PintarKuy')
+@section('title', 'Checkout - PintarKuy')
 
 @section('pageContent')
 @php

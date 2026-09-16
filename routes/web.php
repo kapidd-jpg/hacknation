@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| PintarKuy — minimalis: 2 role (Siswa + Guru) + auth database
+| PintarKuy - minimalis: 2 role (Siswa + Guru) + auth database
 |--------------------------------------------------------------------------
 */
 

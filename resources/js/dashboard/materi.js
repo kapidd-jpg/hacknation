@@ -1,4 +1,4 @@
-// PintarKuy — Dashboard: Detail Materi (reveal, progress, silabus accordion, modal konten hybrid, tandai selesai)
+// PintarKuy - Dashboard: Detail Materi (reveal, progress, silabus accordion, modal konten hybrid, tandai selesai)
 document.addEventListener('DOMContentLoaded', () => {
     const revealEls = document.querySelectorAll('.dash-reveal');
 
@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             title.textContent = row.dataset.nama || 'Materi';
             kicker.textContent = tipe === 'teks' ? 'Ringkasan Teks' : tipe === 'video_teks' ? 'Video + Ringkasan' : 'Video Pembelajaran';
-            durasi.textContent = 'Durasi: ' + (row.dataset.durasi || '—');
+            durasi.textContent = 'Durasi: ' + (row.dataset.durasi || '-');
 
             if (tipe !== 'teks' && video) {
                 videoBox.innerHTML = '<iframe src="' + esc(youtubeEmbed(video)) + '" title="Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';

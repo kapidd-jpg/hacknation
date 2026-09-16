@@ -153,10 +153,10 @@ protected const FOTO_DEFAULT = 'assets/images/default-avatar.jpg';
             $base = 'Pembahasan Materi Inti ' . $kelas->name;
             $defs = [
                 ['judul' => 'Perkenalan Kelas & Strategi Belajar', 'tutor' => $tutor, 'pertemuan' => 1, 'durasi' => '45 Menit', 'bab' => 'Pembukaan', 'urutan' => 1, 'tipe' => 'video_teks', 'video_url' => self::VIDEO_DUMMY, 'konten' => $kontenPembukaan($kelas)],
-                ['judul' => $base . ' — Konsep Dasar', 'tutor' => $tutor, 'pertemuan' => 2, 'durasi' => '90 Menit', 'bab' => 'Bab 1', 'urutan' => 2, 'tipe' => 'video_teks', 'video_url' => self::VIDEO_DUMMY, 'konten' => $kontenKonsep($kelas)],
-                ['judul' => $base . ' — Penerapan & Trik Cepat', 'tutor' => $tutor, 'pertemuan' => 3, 'durasi' => '90 Menit', 'bab' => 'Bab 1', 'urutan' => 3, 'tipe' => 'video', 'video_url' => self::VIDEO_DUMMY, 'konten' => null],
+                ['judul' => $base . ' - Konsep Dasar', 'tutor' => $tutor, 'pertemuan' => 2, 'durasi' => '90 Menit', 'bab' => 'Bab 1', 'urutan' => 2, 'tipe' => 'video_teks', 'video_url' => self::VIDEO_DUMMY, 'konten' => $kontenKonsep($kelas)],
+                ['judul' => $base . ' - Penerapan & Trik Cepat', 'tutor' => $tutor, 'pertemuan' => 3, 'durasi' => '90 Menit', 'bab' => 'Bab 1', 'urutan' => 3, 'tipe' => 'video', 'video_url' => self::VIDEO_DUMMY, 'konten' => null],
                 ['judul' => 'Latihan Soal & Pembahasan Bab 1', 'tutor' => $tutor, 'pertemuan' => 4, 'durasi' => '60 Menit', 'bab' => 'Bab 2', 'urutan' => 4, 'tipe' => 'video_teks', 'video_url' => self::VIDEO_DUMMY, 'konten' => $kontenLatihan($kelas)],
-                ['judul' => $base . ' — Soal HOTS', 'tutor' => $tutor, 'pertemuan' => 5, 'durasi' => '90 Menit', 'bab' => 'Bab 2', 'urutan' => 5, 'tipe' => 'video', 'video_url' => self::VIDEO_DUMMY, 'konten' => null],
+                ['judul' => $base . ' - Soal HOTS', 'tutor' => $tutor, 'pertemuan' => 5, 'durasi' => '90 Menit', 'bab' => 'Bab 2', 'urutan' => 5, 'tipe' => 'video', 'video_url' => self::VIDEO_DUMMY, 'konten' => null],
                 ['judul' => 'Tryout Mini Bab 1-2', 'tutor' => $tutor, 'pertemuan' => 6, 'durasi' => '30 Menit', 'bab' => 'Bab 3', 'urutan' => 6, 'tipe' => 'teks', 'video_url' => null, 'konten' => $kontenTryout($kelas)],
             ];
             foreach ($defs as $def) {

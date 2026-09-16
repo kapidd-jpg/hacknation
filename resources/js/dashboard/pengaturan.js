@@ -1,4 +1,4 @@
-// PintarKuy — Dashboard: Pengaturan (tabs + toggles + profil tersimpan)
+// PintarKuy - Dashboard: Pengaturan (tabs + toggles + profil tersimpan)
 document.addEventListener('DOMContentLoaded', () => {
     const auth = window.pintarKuyAuth;
 
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (kelasJurusan && user.kelas_jurusan) kelasJurusan.value = user.kelas_jurusan;
     if (bio && user.bio) bio.value = user.bio;
 
-    // toggle switches — balikin state tersimpan
+    // toggle switches - balikin state tersimpan
     const prefs = window.pintarKuyPrefs || {};
     document.querySelectorAll('.toggle').forEach((t) => {
         if (t.id === 'sTwoFa') return;
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // toggle 2FA — simpan ke server (bukan sekadar kosmetik)
+    // toggle 2FA - simpan ke server (bukan sekadar kosmetik)
     const sTwoFa = document.getElementById('sTwoFa');
     const keamananUrl = window.pintarKuyKeamananUrl || '';
     const postKeamanan = (payload) => fetch(keamananUrl, {

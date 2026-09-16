@@ -1,4 +1,4 @@
-// PintarKuy — Dashboard: Latihan Soal (reveal + counter jawaban + konfirmasi kumpul)
+// PintarKuy - Dashboard: Latihan Soal (reveal + counter jawaban + konfirmasi kumpul)
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.dash-reveal').forEach((el) => {
         setTimeout(() => el.classList.add('is-visible'), 40);

@@ -1,6 +1,6 @@
 @extends('layout.dashboard')
 
-@section('title', 'Nilai — PintarKuy')
+@section('title', 'Nilai - PintarKuy')
 
 @section('pageContent')
     @php
@@ -26,8 +26,8 @@
             </div>
             <div class="nilai-sum-card">
                 <span class="nilai-sum-label">Nilai Tertinggi</span>
-                <span class="nilai-sum-value" id="sumMax">—</span>
-                <span class="nilai-sum-note" id="sumMaxSubj">—</span>
+                <span class="nilai-sum-value" id="sumMax">-</span>
+                <span class="nilai-sum-note" id="sumMaxSubj">-</span>
             </div>
             <div class="nilai-sum-card">
                 <span class="nilai-sum-label">Latihan Dikerjakan</span>
@@ -36,7 +36,7 @@
             </div>
             <div class="nilai-sum-card">
                 <span class="nilai-sum-label">Predikat Umum</span>
-                <span class="nilai-sum-value" id="sumPred">—</span>
+                <span class="nilai-sum-value" id="sumPred">-</span>
                 <span class="nilai-sum-note">0–100</span>
             </div>
         </div>

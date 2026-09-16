@@ -1,11 +1,11 @@
 @extends('layout.dashboard')
 
-@section('title', 'Dashboard Siswa — PintarKuy')
+@section('title', 'Dashboard Siswa - PintarKuy')
 
 @php
     $stats = [
         ['label' => 'Kelas Aktif', 'value' => $kelasCount . ' Kelas', 'note' => $latihanCount . ' latihan soal dikerjakan', 'bg' => 'bg-brand-greenlight/40', 'color' => 'text-brand-green', 'icon' => 'M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25'],
-        ['label' => 'Rata-rata Nilai', 'value' => $avgNilai ?? '—', 'note' => $nilaiCount ? 'Dari ' . $nilaiCount . ' latihan soal' : 'Belum ada latihan soal', 'bg' => 'bg-purple-100', 'color' => 'text-purple-700', 'icon' => 'M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z'],
+        ['label' => 'Rata-rata Nilai', 'value' => $avgNilai ?? '-', 'note' => $nilaiCount ? 'Dari ' . $nilaiCount . ' latihan soal' : 'Belum ada latihan soal', 'bg' => 'bg-purple-100', 'color' => 'text-purple-700', 'icon' => 'M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z'],
         ['label' => 'Latihan Soal', 'value' => $latihanCount, 'note' => 'Total pengerjaan latihan soal', 'bg' => 'bg-navy-100', 'color' => 'text-navy-800', 'icon' => 'M9 12.75 11.25 15 15 7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'],
         ['label' => 'Progres Modul', 'value' => $pctProgres . '%', 'note' => $doneModul . ' dari ' . $totalModul . ' modul tuntas', 'bg' => 'bg-navy-100', 'color' => 'text-navy-800', 'icon' => 'M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5'],
     ];
@@ -110,8 +110,8 @@
                     </div>
                     <div class="flex-1 min-w-0">
                         <div class="flex items-center gap-2">
-                            <span class="bg-brand-greenlight/40 text-brand-green text-[11px] font-bold px-2.5 py-0.5 rounded-full">{{ count($classes) ? $classes[0]['name'] : '—' }}</span>
-                            <span class="text-ink-muted text-[11px] font-bold">• {{ count($classes) ? ucwords(strtolower($classes[0]['tag'])) : '—' }}</span>
+                            <span class="bg-brand-greenlight/40 text-brand-green text-[11px] font-bold px-2.5 py-0.5 rounded-full">{{ count($classes) ? $classes[0]['name'] : '-' }}</span>
+                            <span class="text-ink-muted text-[11px] font-bold">• {{ count($classes) ? ucwords(strtolower($classes[0]['tag'])) : '-' }}</span>
                         </div>
                         <h3 class="text-navy-950 font-bold text-lg mt-1.5 truncate">{{ count($classes) ? $classes[0]['name'] : 'Belum ada kelas terdaftar' }}</h3>
                         <p class="text-ink-soft text-xs mt-1 truncate">{{ count($classes) ? $classes[0]['desc'] : 'Daftar kelas melalui Katalog untuk mulai belajar.' }}</p>
@@ -121,7 +121,7 @@
                 <div class="flex flex-col gap-2 pt-2">
                     <div class="flex items-center justify-between text-[11px] font-bold">
                         <span class="text-brand-green">{{ count($classes) ? $classes[0]['pct'] : 0 }}% Selesai</span>
-                        <span class="text-ink-soft">{{ count($classes) ? $classes[0]['progressText'] : '—' }}</span>
+                        <span class="text-ink-soft">{{ count($classes) ? $classes[0]['progressText'] : '-' }}</span>
                     </div>
                     <div class="bg-navy-100 h-2.5 rounded-full overflow-hidden">
                         <div class="bg-brand-green h-full rounded-full" style="width:{{ count($classes) ? $classes[0]['pct'] : 0 }}%"></div>

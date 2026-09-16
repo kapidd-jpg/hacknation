@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', 'PintarKuy — Belajar lebih terarah, berkembang lebih cepat')
+@section('title', 'PintarKuy - Belajar lebih terarah, berkembang lebih cepat')
 
 @section('content')
 
@@ -201,7 +201,7 @@
         <div class="reveal max-w-2xl flex flex-col items-center text-center gap-4">
             <span class="bg-navy-100 text-navy-950 text-[11px] font-bold tracking-widest uppercase px-3.5 py-1 rounded-full">Metodologi Belajar Modern</span>
             <h2 class="text-3xl md:text-4xl font-extrabold text-navy-900 tracking-tight">Kenapa pilih PintarKuy?</h2>
-            <p class="text-ink-soft">Kami merancang ekosistem belajar komprehensif yang mengombinasikan keunggulan pedagogi tatap muka dengan fleksibilitas teknologi adaptif.</p>
+            <p class="text-ink-soft">Belajar di PintarKuy itu campuran kelas live bersama tutor dan sistem adaptif yang menyesuaikan materi dengan kemampuanmu.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
@@ -216,7 +216,7 @@
                     </div>
                     <div>
                         <h3 class="font-bold text-xl text-navy-900 mb-2.5">Kelas Berkualitas</h3>
-                        <p class="text-sm text-ink-soft leading-relaxed">Kurikulum terstruktur sesuai standar BPPP SNBT terbaru, diajarkan langsung oleh tutor master berprestasi dengan penjelasan konsep mendalam dan trik cepat 20 detik.</p>
+                        <p class="text-sm text-ink-soft leading-relaxed">Kurikulum mengikuti standar BPPP SNBT terbaru, diajarkan langsung oleh tutor lulusan PTN. Penjelasan konsepnya runtut, plus trik cepat 20 detik yang membuat soal sulit jadi lebih mudah.</p>
                     </div>
                 </div>
                 <div class="border-t border-navy-50 mt-6 pt-6 flex items-center justify-between">
@@ -259,7 +259,7 @@
                     </div>
                     <div>
                         <h3 class="font-bold text-xl text-navy-900 mb-2.5">Terpercaya</h3>
-                        <p class="text-sm text-ink-soft leading-relaxed">Terbukti meloloskan ribuan siswa ke perguruan tinggi negeri impian seperti FK UI, STEI ITB, dan FEB UGM dengan akurasi prediksi skor sistem IRT hingga 98%.</p>
+                        <p class="text-sm text-ink-soft leading-relaxed">Ribuan siswa kami diterima di kampus negeri seperti FK UI, STEI ITB, dan FEB UGM, dengan akurasi prediksi skor sistem IRT hingga 98%.</p>
                     </div>
                 </div>
                 <div class="border-t border-navy-50 mt-6 pt-6 flex items-center justify-between">
@@ -393,7 +393,7 @@
                     <svg class="size-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                 </button>
                 <a href="{{ route('register') }}" data-auth-cta class="inline-flex items-center gap-2 text-xs font-bold text-navy-950 hover:text-brand-green transition">
-                    Daftar Gratis &amp; Uji Penuh — 2 Menit
+                    Daftar Gratis &amp; Uji Penuh dalam 2 Menit
                     <svg class="size-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                 </a>
             </div>
@@ -447,12 +447,12 @@
         <div class="reveal max-w-2xl flex flex-col items-center text-center gap-4">
             <span class="bg-navy-100 text-navy-950 text-[11px] font-bold tracking-widest uppercase px-3.5 py-1 rounded-full">Cerita Mereka</span>
             <h2 class="text-3xl md:text-4xl font-extrabold text-navy-900 tracking-tight">Lolos PTN Bersama PintarKuy</h2>
-            <p class="text-ink-soft">Ribuan alumni sudah membuktikan. Ini sebagian dari cerita mereka — kamu berikutnya.</p>
+            <p class="text-ink-soft">Ini sebagian dari cerita mereka. Kamu bisa jadi salah satunya.</p>
         </div>
 
         <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-6">
             @foreach ([
-                ['Nav', 'Nabila Zahra', 'FK UI 2026', 'Skor gadja dari 480 ke 705 dalam 6 bulan. Live class-nya paling nge-zoom jelasin konsep — beda banget sama sekadar nonton video. Emak sampe nangis pas pengumuman.', 'bg-navy-900'],
+                ['Nav', 'Nabila Zahra', 'FK UI 2026', 'Skor gadja dari 480 ke 705 dalam 6 bulan. Live class-nya paling nge-zoom jelasin konsep, beda banget sama sekadar nonton video. Emak sampe nangis pas pengumuman.', 'bg-navy-900'],
                 ['R', 'Rangga Prasetyo', 'STEI ITB 2026', 'Fitur analitik IRT-nya gila sih. Tiap minggu aku tau persis lemah di mana dan langsung direkomendasiin materi yang harus diulang.', 'bg-brand-green'],
                 ['S', 'Salsabila Putri', 'FEB UGM 2026', 'Tryout mingguannya bikin mental juara. Jaringan internet lemot di kampung juga tetap lancar karena video-nya compact. Recommended 100%.', 'bg-navy-800'],
             ] as [$initial, $name, $role, $quote, $bg])
@@ -517,8 +517,8 @@
 
         <div class="w-full flex flex-col gap-3">
             @foreach ([
-                ['Apakah ada paket gratis?', 'Tidak ada paket gratis. Semua paket berbayar — mulai dari Paket UTBK, Paket SMA + Ekstra, hingga Paket Bahasa. Sekali bayar, kamu bisa daftar semua kelas di kategori paketmu tanpa biaya tambahan. Kebijakan ini menjaga keadilan dan mencegah penyalahgunaan lewat pendaftaran akun ganda.', true],
-                ['Apakah pintarkuy cocok buat siswa SMA biasa?', 'Tentu. Sistem adaptif kami menyesuaikan level kesulitan soal dengan kemampuan awalmu. Tidak masalah mau rantau kelas 10, 11, atau 12 — rencana belajar dibuat khusus untukmu.', false],
+                ['Apakah ada paket gratis?', 'Tidak ada paket gratis. Semua paket berbayar, mulai dari Paket UTBK, Paket SMA + Ekstra, hingga Paket Bahasa. Sekali bayar, kamu bisa daftar semua kelas di kategori paketmu tanpa biaya tambahan. Kebijakan ini menjaga keadilan dan mencegah penyalahgunaan lewat pendaftaran akun ganda.', true],
+                ['Apakah pintarkuy cocok buat siswa SMA biasa?', 'Tentu. Sistem adaptif kami menyesuaikan level kesulitan soal dengan kemampuan awalmu. Tidak masalah mau rantau kelas 10, 11, atau 12; rencana belajar dibuat khusus untukmu.', false],
                 ['Bagaimana cara konsultasi dengan tutor?', 'Melalui fitur Tanya Tutor di aplikasi, kamu bisa mengirim foto soal kapan saja. Balasan rata-rata datang di bawah 30 menit di jam aktif.', false],
                 ['Apakah bisa kombinasi lebih dari satu paket?', 'Bisa. Kamu bebas membeli kombinasi paket, misalnya Paket UTBK + Paket Bahasa. Akses kategori akan otomatis digabungkan di akunmu.', false],
                 ['Soal dan materi memakai kurikulum yang mana?', 'Semua materi disusun mengikuti standar BPPP SNBT terbaru plus kurikulum merdeka untuk pendampingan sekolah. Bank soal diperbarui setiap bulan menyusul perubahan pola ujian.', false],
@@ -550,43 +550,43 @@
                     <img src="{{ asset('assets/images/logopintar.png') }}" alt="PintarKuy" class="h-9 w-auto">
                     <span class="text-white font-bold text-xl">PintarKuy</span>
                 </div>
-                <p class="text-navy-400 text-xs leading-relaxed">Platform bimbingan belajar digital terdepan untuk persiapan UTBK-SNBT dan ujian sekolah dengan teknologi adaptif berstandar nasional.</p>
+                <p class="text-white/70 text-sm leading-relaxed">Bimbingan belajar online untuk persiapan UTBK-SNBT dan ujian sekolah, dengan sistem adaptif yang menyesuaikan materi sesuai kemampuan tiap siswa.</p>
             </div>
             <div class="flex flex-col gap-3">
                 <h4 class="text-white text-sm font-semibold tracking-widest uppercase">Navigasi</h4>
-                <a href="{{ url('/') }}" class="text-navy-400 text-sm hover:text-white transition">Beranda</a>
-                <a href="{{ route('about') }}" class="text-navy-400 text-sm hover:text-white transition">Tentang Kami</a>
-                <a href="{{ route('classes') }}" class="text-navy-400 text-sm hover:text-white transition">Program Kelas</a>
-                <a href="{{ route('contact') }}" class="text-navy-400 text-sm hover:text-white transition">Hubungi Kami</a>
+                <a href="{{ url('/') }}" class="text-white/85 text-sm hover:text-white transition">Beranda</a>
+                <a href="{{ route('about') }}" class="text-white/85 text-sm hover:text-white transition">Tentang Kami</a>
+                <a href="{{ route('classes') }}" class="text-white/85 text-sm hover:text-white transition">Program Kelas</a>
+                <a href="{{ route('contact') }}" class="text-white/85 text-sm hover:text-white transition">Hubungi Kami</a>
             </div>
             <div class="flex flex-col gap-3">
                 <h4 class="text-white text-sm font-semibold tracking-widest uppercase">Program Unggulan</h4>
-                <a href="#uji-kemampuan" class="text-navy-400 text-sm hover:text-white transition">Simulasi UTBK/SNBT</a>
-                <a href="{{ route('classes') }}" class="text-navy-400 text-sm hover:text-white transition">Bimbel Intensif SMA</a>
-                <a href="{{ route('classes') }}" class="text-navy-400 text-sm hover:text-white transition">Bank Soal &amp; Pembahasan</a>
-                <a href="{{ route('classes') }}" class="text-navy-400 text-sm hover:text-white transition">Live Tutoring Interaktif</a>
+                <a href="#uji-kemampuan" class="text-white/85 text-sm hover:text-white transition">Simulasi UTBK/SNBT</a>
+                <a href="{{ route('classes') }}" class="text-white/85 text-sm hover:text-white transition">Bimbel Intensif SMA</a>
+                <a href="{{ route('classes') }}" class="text-white/85 text-sm hover:text-white transition">Bank Soal &amp; Pembahasan</a>
+                <a href="{{ route('classes') }}" class="text-white/85 text-sm hover:text-white transition">Live Tutoring Interaktif</a>
             </div>
             <div class="flex flex-col gap-3">
                 <h4 class="text-white text-sm font-semibold tracking-widest uppercase">Hubungi Kami</h4>
-                <p class="text-navy-400 text-xs leading-relaxed">Jakarta Selatan, DKI Jakarta<br>support@PintarKuy.id<br>+62 895-4240-1128</p>
+                <p class="text-white/85 text-xs leading-relaxed">Jakarta Selatan, DKI Jakarta<br>support@PintarKuy.id<br>+62 895-4240-1128</p>
                 <div class="flex gap-3 pt-1">
-                    <a href="https://www.instagram.com/pintarkuyid?stkn=dzJ2dWFnYjRpd2h1" target="_blank" rel="noopener" title="Instagram" class="flex items-center justify-center size-9 rounded-full bg-navy-950 text-brand-greenlight ring-1 ring-white/10 hover:bg-navy-900 transition">
+                    <a href="https://www.instagram.com/pintarkuyid?stkn=dzJ2dWFnYjRpd2h1" target="_blank" rel="noopener" title="Instagram" class="flex items-center justify-center size-9 rounded-full bg-white/10 text-white ring-1 ring-white/20 hover:bg-white/20 transition">
                         <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
                     </a>
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pintarkuyid@gmail.com" target="_blank" rel="noopener" title="Email" class="flex items-center justify-center size-9 rounded-full bg-navy-950 text-brand-greenlight ring-1 ring-white/10 hover:bg-navy-900 transition">
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pintarkuyid@gmail.com" target="_blank" rel="noopener" title="Email" class="flex items-center justify-center size-9 rounded-full bg-white/10 text-white ring-1 ring-white/20 hover:bg-white/20 transition">
                         <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
                     </a>
-                    <a href="https://wa.me/6281225124408" target="_blank" rel="noopener" title="WhatsApp" class="flex items-center justify-center size-9 rounded-full bg-navy-950 text-brand-greenlight ring-1 ring-white/10 hover:bg-navy-900 transition">
+                    <a href="https://wa.me/6281225124408" target="_blank" rel="noopener" title="WhatsApp" class="flex items-center justify-center size-9 rounded-full bg-white/10 text-white ring-1 ring-white/20 hover:bg-white/20 transition">
                         <svg class="size-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.83 9.83 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.23 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.16-.48-.29Z"/></svg>
                     </a>
                 </div>
             </div>
         </div>
         <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p class="text-navy-400 text-xs">© {{ date('Y') }} PT PintarKuy Edukasi Indonesia. Hak Cipta Dilindungi.</p>
+            <p class="text-white/70 text-xs">© {{ date('Y') }} PT PintarKuy Edukasi Indonesia. Hak Cipta Dilindungi.</p>
             <div class="flex gap-6">
-                <span class="text-navy-400 text-xs hover:text-white transition">Kebijakan Privasi</span>
-                <span class="text-navy-400 text-xs hover:text-white transition">Syarat &amp; Ketentuan</span>
+                <span class="text-white/85 text-xs hover:text-white transition">Kebijakan Privasi</span>
+                <span class="text-white/85 text-xs hover:text-white transition">Syarat &amp; Ketentuan</span>
             </div>
         </div>
     </div>

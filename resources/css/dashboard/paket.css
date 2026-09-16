@@ -1,4 +1,4 @@
-/* PintarKuy — Paket (pilih / checkout / sukses) */
+/* PintarKuy - Paket (pilih / checkout / sukses) */
 
 .paket-metode { position: relative; }
 .paket-metode:has(input:checked) {

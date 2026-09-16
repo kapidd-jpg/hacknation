@@ -1,6 +1,6 @@
 @extends('layout.dashboard')
 
-@section('title', 'Latihan Soal — PintarKuy')
+@section('title', 'Latihan Soal - PintarKuy')
 
 @section('pageContent')
     <div class="flex flex-col gap-6">
@@ -33,7 +33,7 @@
                         <span class="latsol-stat-key">Dikerjakan</span>
                     </div>
                     <div class="latsol-stat">
-                        <span class="latsol-stat-val">{{ $set['best'] !== null ? $set['best'] : '—' }}</span>
+                        <span class="latsol-stat-val">{{ $set['best'] !== null ? $set['best'] : '-' }}</span>
                         <span class="latsol-stat-key">Skor Terbaik</span>
                     </div>
                 </div>

@@ -7,7 +7,7 @@
 
     async function loadMateri(kelasId, keepValue) {
         if (!kelasId || !urlTemplate) {
-            materiEl.innerHTML = '<option value="">— Tanpa materi —</option>';
+            materiEl.innerHTML = '<option value="">- Tanpa materi -</option>';
             return;
         }
         try {
@@ -16,7 +16,7 @@
                 headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN': token ? token.getAttribute('content') : '' },
             });
             const items = await res.json();
-            materiEl.innerHTML = '<option value="">— Tanpa materi —</option>' + items.map(function (m) {
+            materiEl.innerHTML = '<option value="">- Tanpa materi -</option>' + items.map(function (m) {
                 return '<option value="' + m.id + '">' + m.judul.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</option>';
             }).join('');
 
@@ -26,7 +26,7 @@
                 if (opt) opt.selected = true;
             }
         } catch (_) {
-            materiEl.innerHTML = '<option value="">— Tanpa materi —</option>';
+            materiEl.innerHTML = '<option value="">- Tanpa materi -</option>';
         }
     }
 

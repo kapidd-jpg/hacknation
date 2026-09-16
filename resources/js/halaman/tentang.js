@@ -1,4 +1,4 @@
-// PintarKuy — Halaman Tentang (scroll reveal + animated counters)
+// PintarKuy - Halaman Tentang (scroll reveal + animated counters)
 document.addEventListener('DOMContentLoaded', () => {
     const revealEls = document.querySelectorAll('.pk-reveal');
 

@@ -1,6 +1,6 @@
 @extends('layout.dashboard')
 
-@section('title', $set . ' — ' . $kelas->name . ' — PintarKuy')
+@section('title', $set . ' - ' . $kelas->name . ' - PintarKuy')
 
 @section('pageContent')
     <div class="flex flex-col gap-6">

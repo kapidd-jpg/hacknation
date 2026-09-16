@@ -1,4 +1,4 @@
-// PintarKuy — Dashboard: Kelas Saya (reveal + progress bar animasi)
+// PintarKuy - Dashboard: Kelas Saya (reveal + progress bar animasi)
 document.addEventListener('DOMContentLoaded', () => {
     const revealEls = document.querySelectorAll('.dash-reveal');
 

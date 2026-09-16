@@ -1,6 +1,6 @@
 @extends('layout.guru')
 
-@section('title', 'Siswa — PintarKuy')
+@section('title', 'Siswa - PintarKuy')
 
 @section('pageContent')
     <div class="flex flex-col gap-6">
@@ -42,17 +42,17 @@
                                     </div>
                                 </td>
                                 <td>{{ $s->email }}</td>
-                                <td>{{ $s->sekolah ?: '—' }}</td>
-                                <td>{{ $s->kelas_jurusan ?: '—' }}</td>
+                                <td>{{ $s->sekolah ?: '-' }}</td>
+                                <td>{{ $s->kelas_jurusan ?: '-' }}</td>
                                 <td>
                                     @php $owned = $s->pakets->pluck('nama')->all(); @endphp
                                     @if ($owned)
                                         <span class="dash-pill" title="{{ implode(', ', $owned) }}">{{ implode(' + ', $owned) }}</span>
                                     @else
-                                        <span class="dash-pill">—</span>
+                                        <span class="dash-pill">-</span>
                                     @endif
                                 </td>
-                                <td>{{ $s->kelasTerdaftar->pluck('name')->implode(', ') ?: '—' }}</td>
+                                <td>{{ $s->kelasTerdaftar->pluck('name')->implode(', ') ?: '-' }}</td>
                                 <td>
                                     <div class="flex items-center justify-end gap-2">
                                         <form method="POST" action="{{ route('guru.siswa.destroy', $s->id) }}" onsubmit='return confirm(@json("Hapus akun siswa {$s->name} beserta pendaftaran kelasnya?"));'>

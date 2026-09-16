@@ -1,6 +1,6 @@
 @extends('layout.dashboard')
 
-@section('title', 'Hasil Latihan — PintarKuy')
+@section('title', 'Hasil Latihan - PintarKuy')
 
 @section('pageContent')
     @php
@@ -60,7 +60,7 @@
                         <p class="latsol-soal-text" style="font-size:14px;line-height:1.65;color:var(--navy-900);font-weight:600;margin:10px 0;">{{ $soal?->pertanyaan }}</p>
                         @if ($opsi)
                             <p class="latsol-pembahasan-opsi" style="font-size:13.5px;color:var(--ink-soft);">
-                                Jawabanmu: <b style="color:var(--navy-900);">{{ $j->pilihan !== null ? array_keys($opsi)[$j->pilihan] : '—' }}</b>
+                                Jawabanmu: <b style="color:var(--navy-900);">{{ $j->pilihan !== null ? array_keys($opsi)[$j->pilihan] : '-' }}</b>
                                 • Kunci: <b style="color:var(--green-text);">{{ $kunciHuruf }}</b>
                             </p>
                         @endif

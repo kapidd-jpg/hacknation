@@ -1,6 +1,6 @@
 @extends('layout.dashboard')
 
-@section('title', 'Pilih Paket — PintarKuy')
+@section('title', 'Pilih Paket - PintarKuy')
 
 @section('pageContent')
 <div class="flex flex-col gap-6">
@@ -27,7 +27,7 @@
             <span class="w-8 h-px bg-navy-100"></span>
             <span class="flex items-center gap-1.5 text-ink-muted"><span class="flex items-center justify-center size-6 rounded-full bg-navy-50 text-navy-400 text-xs">3</span> Pembayaran</span>
         </div>
-        <p class="text-xs text-ink-muted ml-auto">Pembayaran simulasi — tidak ada uang yang benar-benar ditransfer.</p>
+        <p class="text-xs text-ink-muted ml-auto">Pembayaran simulasi, tidak ada uang yang benar-benar ditransfer.</p>
     </div>
 
     <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">

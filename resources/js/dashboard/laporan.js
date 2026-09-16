@@ -1,4 +1,4 @@
-// PintarKuy — Dashboard: Laporan (bar chart + rentang waktu + rekomendasi)
+// PintarKuy - Dashboard: Laporan (bar chart + rentang waktu + rekomendasi)
 document.addEventListener('DOMContentLoaded', () => {
     const data = window.pintarKuyLaporan || {};
     const months = Array.isArray(data.months) ? data.months : [];
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const statAkurasi = document.getElementById('statAkurasi');
     const statAkurasiSub = document.getElementById('statAkurasiSub');
 
-    // tinggi bar dalam % — dinormalisasi dari rentang skor aktual
+    // tinggi bar dalam % - dinormalisasi dari rentang skor aktual
     const hOf = (slice) => {
         const vals = slice.map((m) => m.val);
         const min = Math.min(...vals);
@@ -42,9 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!months.length) {
             chart.innerHTML = '<div class="lap-empty">Belum ada data tryout. Ayo ikuti tryout pertamamu!</div>';
-            if (statDelta) statDelta.textContent = '—';
-            if (statSkor) statSkor.textContent = '—';
-            if (statAkurasi) statAkurasi.textContent = '—';
+            if (statDelta) statDelta.textContent = '-';
+            if (statSkor) statSkor.textContent = '-';
+            if (statAkurasi) statAkurasi.textContent = '-';
             return;
         }
 

@@ -1,4 +1,4 @@
-// PintarKuy — Halaman Kontak (form validation + FAQ accordion + reveal)
+// PintarKuy - Halaman Kontak (form validation + FAQ accordion + reveal)
 document.addEventListener('DOMContentLoaded', () => {
 
     // ---------- scroll reveal ----------

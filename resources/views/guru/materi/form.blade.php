@@ -1,6 +1,6 @@
 @extends('layout.guru')
 
-@section('title', ($materi ? 'Edit Materi' : 'Tambah Materi') . ' — PintarKuy')
+@section('title', ($materi ? 'Edit Materi' : 'Tambah Materi') . ' - PintarKuy')
 
 @section('pageContent')
     <div class="flex flex-col gap-6 max-w-3xl">
