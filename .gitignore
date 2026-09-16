@@ -18,6 +18,7 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+/.codegraph
 /.agents
 /.claude
 /agent
