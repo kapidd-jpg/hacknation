@@ -37,6 +37,141 @@ body {
     }
 }
 
+/* Varian animasi reveal: pilih via kelas rv-* (fallback default = slide-up) */
+.reveal.is-visible.rv-fade {
+    animation-name: revealFade;
+}
+.reveal.is-visible.rv-left {
+    animation-name: revealLeft;
+}
+.reveal.is-visible.rv-right {
+    animation-name: revealRight;
+}
+.reveal.is-visible.rv-zoom {
+    animation-name: revealZoom;
+}
+.reveal.is-visible.rv-blur {
+    animation-name: revealBlur;
+}
+
+@keyframes revealFade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes revealLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-28px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes revealRight {
+    from {
+        opacity: 0;
+        transform: translateX(28px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes revealZoom {
+    from {
+        opacity: 0;
+        transform: scale(0.92);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes revealBlur {
+    from {
+        opacity: 0;
+        filter: blur(8px);
+    }
+    to {
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+/* ============================================================
+   Mikro-interaksi premium (dipakai landing & halaman statis)
+   ============================================================ */
+
+/* ---------- Entrance kartu hero ---------- */
+.reveal.is-visible.hero-f1 {
+    animation: revealZoom 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.55s backwards;
+}
+.reveal.is-visible.hero-f2 {
+    animation: revealLeft 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.7s backwards;
+}
+.reveal.is-visible.hero-f3 {
+    animation: revealRight 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.85s backwards;
+}
+
+/* ---------- Progress ring hero menggambar sendiri ---------- */
+.pk-ring-fill {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+}
+.reveal.is-visible .pk-ring-fill {
+    animation: pkRingDraw 1.3s cubic-bezier(0.22, 1, 0.36, 1) 0.9s forwards;
+}
+@keyframes pkRingDraw {
+    to {
+        stroke-dashoffset: 8;
+    }
+}
+
+/* ---------- Hover kartu lebih hidup ---------- */
+.pk-card-hover {
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, background-color 0.3s ease;
+}
+.pk-card-hover:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 44px -18px rgba(15, 23, 42, 0.24);
+}
+.pk-card-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.pk-card-hover:hover .pk-card-icon {
+    transform: scale(1.1) rotate(-4deg);
+}
+.pk-arrow svg {
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pk-arrow:hover svg {
+    transform: translateX(4px);
+}
+
+/* ---------- Angka stat (count-up) ---------- */
+.pk-stat-value {
+    display: inline-block;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Entrance hero halaman statis (stagger) ---------- */
+.pk-hero-in {
+    opacity: 0;
+    animation: revealUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
@@ -45,6 +180,13 @@ body {
         opacity: 1;
     }
     .reveal.is-visible {
+        animation: none;
+    }
+    .pk-ring-fill {
+        stroke-dashoffset: 8;
+    }
+    .pk-hero-in {
+        opacity: 1;
         animation: none;
     }
 }

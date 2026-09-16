@@ -50,25 +50,24 @@
 
     <div class="relative w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         <div class="lg:col-span-7 flex flex-col items-start gap-6">
-            <span class="reveal inline-flex items-center gap-2 bg-navy-50 border border-black/10 rounded-full px-4 py-1.5 shadow-sm" style="animation-delay:0.05s">
+            <span class="reveal rv-blur inline-flex items-center gap-2 bg-navy-50 border border-black/10 rounded-full px-4 py-1.5 shadow-sm" style="animation-delay:0.05s">
                 <span class="relative flex size-2.5">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-green opacity-75"></span>
                     <span class="relative inline-flex rounded-full size-2.5 bg-brand-green"></span>
                 </span>
                 <span class="text-[12px] font-semibold text-navy-950 tracking-wide">Pendaftaran Gelombang UTBK-SNBT 2026 Dibuka</span>
             </span>
 
-            <h1 class="reveal text-4xl md:text-5xl font-extrabold text-navy-900 leading-tight tracking-tight" style="animation-delay:0.15s">
+            <h1 class="reveal rv-left text-4xl md:text-5xl font-extrabold text-navy-900 leading-tight tracking-tight" style="animation-delay:0.15s">
                 Belajar lebih terarah.<br>
                 <span class="bg-gradient-to-r from-navy-800 via-navy-950 to-brand-green bg-clip-text text-transparent">Berkembang lebih cepat.</span>
             </h1>
 
-            <p class="reveal text-ink-soft text-base leading-relaxed max-w-xl" style="animation-delay:0.25s">
+            <p class="reveal rv-fade text-ink-soft text-base leading-relaxed max-w-xl" style="animation-delay:0.25s">
                 Platform bimbingan belajar interaktif dengan tutor lulusan PTN terbaik, ribuan latihan
                 soal adaptif, dan simulasi tryout berstandar resmi untuk membantumu lolos kampus impian.
             </p>
 
-            <div class="reveal flex flex-wrap items-center gap-4 pt-2" style="animation-delay:0.35s">
+            <div class="reveal rv-zoom flex flex-wrap items-center gap-4 pt-2" style="animation-delay:0.35s">
                 <a href="{{ route('register') }}" data-auth-cta class="inline-flex items-center gap-2 bg-navy-800 text-white font-semibold text-sm px-8 py-3.5 rounded-full shadow-lg shadow-navy-800/20 hover:bg-navy-950 transition">
                     Mulai Belajar
                     <svg class="size-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
@@ -91,7 +90,7 @@
             </div>
         </div>
 
-        <div class="reveal lg:col-span-5 relative flex items-center justify-center min-h-[360px]" style="animation-delay:0.3s">
+        <div class="reveal rv-zoom lg:col-span-5 relative flex items-center justify-center min-h-[360px]" style="animation-delay:0.3s">
             <div class="absolute inset-4 rounded-3xl bg-gradient-to-br from-brand-greenlight/30 to-navy-100/40 blur-2xl"></div>
 
             <div class="relative bg-white p-2.5 rounded-3xl shadow-2xl w-full max-w-md">
@@ -101,11 +100,11 @@
             </div>
 
             {{-- Floating card: progress ring --}}
-            <div class="absolute -top-6 -right-6 max-w-[210px] bg-white/95 backdrop-blur border border-white/60 rounded-2xl shadow-xl px-4 py-3.5 flex items-center gap-3.5">
+            <div class="reveal hero-f1 absolute -top-6 -right-6 max-w-[210px] bg-white/95 backdrop-blur border border-white/60 rounded-2xl shadow-xl px-4 py-3.5 flex items-center gap-3.5">
                 <div class="relative flex items-center justify-center size-12 shrink-0">
                     <svg class="size-12 -rotate-90" viewBox="0 0 36 36">
                         <circle cx="18" cy="18" r="16" fill="none" stroke="#DFE4FB" stroke-width="3"/>
-                        <circle cx="18" cy="18" r="16" fill="none" stroke="#0D9488" stroke-width="3" stroke-dasharray="100" stroke-dashoffset="8" stroke-linecap="round"/>
+                        <circle class="pk-ring-fill" cx="18" cy="18" r="16" fill="none" stroke="#0D9488" stroke-width="3" stroke-dasharray="100" stroke-dashoffset="8" stroke-linecap="round"/>
                     </svg>
                     <span class="absolute text-[11px] font-bold text-navy-900">92%</span>
                 </div>
@@ -116,8 +115,8 @@
             </div>
 
             {{-- Floating card: live tutoring --}}
-            <div class="absolute -bottom-5 -left-6 max-w-[260px] bg-white/95 backdrop-blur border border-white/60 rounded-2xl shadow-xl px-4 py-3.5 flex items-center gap-3">
-                <span class="flex items-center justify-center size-9 rounded-xl bg-brand-greenlight shrink-0">
+            <div class="reveal hero-f2 absolute -bottom-5 -left-6 max-w-[260px] bg-white/95 backdrop-blur border border-white/60 rounded-2xl shadow-xl px-4 py-3.5 flex items-center gap-3">
+                <span class="pk-card-icon flex items-center justify-center size-9 rounded-xl bg-brand-greenlight shrink-0">
                     <svg class="size-4 text-navy-950" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.55-2.28A1 1 0 0121 8.6v6.8a1 1 0 01-1.45.9L15 14M4 7h9a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V9a2 2 0 012-2z"/></svg>
                 </span>
                 <div>
@@ -129,7 +128,7 @@
             </div>
 
             {{-- Floating card: score --}}
-            <div class="absolute right-0 top-1/2 -translate-y-1/2 bg-navy-800 rounded-xl shadow-lg px-3.5 py-2.5 flex items-center gap-2.5">
+            <div class="reveal hero-f3 absolute right-0 top-1/2 -translate-y-1/2 bg-navy-800 rounded-xl shadow-lg px-3.5 py-2.5 flex items-center gap-2.5">
                 <svg class="size-[18px] text-brand-greenlight" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
                 <div>
                     <p class="text-[11px] font-bold text-navy-100 tracking-wide uppercase">Skor rata-rata</p>
@@ -143,29 +142,29 @@
     <div class="relative w-full -mb-8 mt-12">
         <div class="reveal bg-white rounded-2xl shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1)] p-8 grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-black/10">
             <div class="flex items-center gap-4 px-4 py-2">
-                <span class="flex items-center justify-center size-12 rounded-2xl bg-navy-100 shrink-0">
+                <span class="pk-card-icon flex items-center justify-center size-12 rounded-2xl bg-navy-100 shrink-0">
                     <svg class="size-6 text-navy-800" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m6-1a4 4 0 10-4-4 4 4 0 004 4zm6 0a4 4 0 10-4-4"/></svg>
                 </span>
                 <div>
-                    <p class="text-2xl font-extrabold text-navy-950">1,200+ Siswa</p>
+                    <p class="text-2xl font-extrabold text-navy-950"><span class="pk-stat-value" data-counter="1200" data-suffix="+">0</span> Siswa</p>
                     <p class="text-xs font-medium text-ink-soft">Aktif belajar & simulasi harian</p>
                 </div>
             </div>
             <div class="flex items-center gap-4 px-4 py-2">
-                <span class="flex items-center justify-center size-12 rounded-2xl bg-brand-greenlight/40 shrink-0">
+                <span class="pk-card-icon flex items-center justify-center size-12 rounded-2xl bg-brand-greenlight/40 shrink-0">
                     <svg class="size-6 text-brand-greentext" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.42A12.083 12.083 0 0112 21a12.08 12.08 0 01-6.16-10.42L12 14z"/></svg>
                 </span>
                 <div>
-                    <p class="text-2xl font-extrabold text-navy-950">150+ Pengajar</p>
+                    <p class="text-2xl font-extrabold text-navy-950"><span class="pk-stat-value" data-counter="150" data-suffix="+">0</span> Pengajar</p>
                     <p class="text-xs font-medium text-ink-soft">Master tutor lulusan UI, ITB, UGM</p>
                 </div>
             </div>
             <div class="flex items-center gap-4 px-4 py-2">
-                <span class="flex items-center justify-center size-12 rounded-2xl bg-navy-100 shrink-0">
+                <span class="pk-card-icon flex items-center justify-center size-12 rounded-2xl bg-navy-100 shrink-0">
                     <svg class="size-6 text-navy-800" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.25278V19.25M12 6.25278C10.8321 5.47686 9.24649 5 7.5 5C5.75351 5 4.16789 5.47686 3 6.25278V19.25C4.16789 18.4741 5.75351 18 7.5 18C9.24649 18 10.8321 18.4741 12 19.25M12 6.25278C13.1679 5.47686 14.7535 5 16.5 5C18.2465 5 19.8321 5.47686 21 6.25278V19.25C19.8321 18.4741 18.2465 18 16.5 18C14.7535 18 13.1679 18.4741 12 19.25"/></svg>
                 </span>
                 <div>
-                    <p class="text-2xl font-extrabold text-navy-950">300+ Kelas</p>
+                    <p class="text-2xl font-extrabold text-navy-950"><span class="pk-stat-value" data-counter="300" data-suffix="+">0</span> Kelas</p>
                     <p class="text-xs font-medium text-ink-soft">Modul interaktif & bank soal HOTS</p>
                 </div>
             </div>
@@ -176,8 +175,8 @@
 {{-- ============ TRUSTED BY STRIP ============ --}}
 <section class="bg-white pt-20 pb-10 px-6 md:px-12">
     <div class="w-full flex flex-col items-center gap-8">
-        <p class="reveal text-ink-muted text-xs font-bold tracking-widest uppercase text-center">Dipercaya universitas & institusi pendidikan di seluruh Indonesia</p>
-        <div class="reveal w-full flex items-center justify-between gap-6 overflow-x-auto pb-2" style="animation-delay:0.1s">
+        <p class="reveal rv-fade text-ink-muted text-xs font-bold tracking-widest uppercase text-center">Dipercaya universitas & institusi pendidikan di seluruh Indonesia</p>
+        <div class="reveal rv-fade w-full flex items-center justify-between gap-6 overflow-x-auto pb-2" style="animation-delay:0.1s">
             @foreach ([
                 ['U-27', 'Univ. Negeri 27', 'bg-navy-100'],
                 ['S', 'SMA Juara', 'bg-amber-100'],
@@ -206,10 +205,10 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
             {{-- Card 1 --}}
-            <div class="reveal bg-white rounded-2xl p-8 shadow-[0px_4px_20px_-2px_rgba(15,27,76,0.06)] flex flex-col justify-between group">
+            <div class="reveal rv-left pk-card-hover bg-white rounded-2xl p-8 shadow-[0px_4px_20px_-2px_rgba(15,27,76,0.06)] flex flex-col justify-between group">
                 <div class="flex flex-col gap-6">
                     <div class="flex items-center justify-between">
-                        <span class="flex items-center justify-center size-14 rounded-2xl bg-navy-800 shadow-lg">
+                        <span class="pk-card-icon flex items-center justify-center size-14 rounded-2xl bg-navy-800 shadow-lg">
                             <svg class="size-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.25278V19.25M12 6.25278C10.8321 5.47686 9.24649 5 7.5 5C5.75351 5 4.16789 5.47686 3 6.25278V19.25C4.16789 18.4741 5.75351 18 7.5 18C9.24649 18 10.8321 18.4741 12 19.25M12 6.25278C13.1679 5.47686 14.7535 5 16.5 5C18.2465 5 19.8321 5.47686 21 6.25278V19.25C19.8321 18.4741 18.2465 18 16.5 18C14.7535 18 13.1679 18.4741 12 19.25"/></svg>
                         </span>
                         <span class="bg-navy-100 text-navy-950 text-[11px] font-bold px-3 py-1 rounded-full">Kurikulum 2026</span>
@@ -220,7 +219,7 @@
                     </div>
                 </div>
                 <div class="border-t border-navy-50 mt-6 pt-6 flex items-center justify-between">
-                    <a href="{{ route('classes') }}" class="text-xs font-semibold text-navy-950 flex items-center gap-1 hover:text-brand-green transition">
+                    <a href="{{ route('classes') }}" class="pk-arrow text-xs font-semibold text-navy-950 flex items-center gap-1 hover:text-brand-green transition">
                         Lihat silabus materi
                         <svg class="size-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                     </a>
@@ -228,10 +227,10 @@
             </div>
 
             {{-- Card 2 --}}
-            <div class="reveal bg-white rounded-2xl p-8 shadow-[0px_4px_20px_-2px_rgba(15,27,76,0.06)] flex flex-col justify-between group" style="animation-delay:0.15s">
+            <div class="reveal rv-zoom pk-card-hover bg-white rounded-2xl p-8 shadow-[0px_4px_20px_-2px_rgba(15,27,76,0.06)] flex flex-col justify-between group" style="animation-delay:0.15s">
                 <div class="flex flex-col gap-6">
                     <div class="flex items-center justify-between">
-                        <span class="flex items-center justify-center size-14 rounded-2xl bg-brand-green shadow-lg">
+                        <span class="pk-card-icon flex items-center justify-center size-14 rounded-2xl bg-brand-green shadow-lg">
                             <svg class="size-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                         </span>
                         <span class="bg-brand-greenlight/40 text-brand-greentext text-[11px] font-bold px-3 py-1 rounded-full">24/7 Akses</span>
@@ -242,17 +241,17 @@
                     </div>
                 </div>
                 <div class="border-t border-navy-50 mt-6 pt-6 flex items-center justify-between">
-                    <a href="#uji-kemampuan" class="text-xs font-semibold text-navy-950 flex items-center gap-1 hover:text-brand-green transition">Coba simulasi IRT
+                    <a href="#uji-kemampuan" class="pk-arrow text-xs font-semibold text-navy-950 flex items-center gap-1 hover:text-brand-green transition">Coba simulasi IRT
                         <svg class="size-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                     </a>
                 </div>
             </div>
 
             {{-- Card 3 --}}
-            <div class="reveal bg-white rounded-2xl p-8 shadow-[0px_4px_20px_-2px_rgba(15,27,76,0.06)] flex flex-col justify-between group" style="animation-delay:0.3s">
+            <div class="reveal rv-right pk-card-hover bg-white rounded-2xl p-8 shadow-[0px_4px_20px_-2px_rgba(15,27,76,0.06)] flex flex-col justify-between group" style="animation-delay:0.3s">
                 <div class="flex flex-col gap-6">
                     <div class="flex items-center justify-between">
-                        <span class="flex items-center justify-center size-14 rounded-2xl bg-amber-500 shadow-lg">
+                        <span class="pk-card-icon flex items-center justify-center size-14 rounded-2xl bg-amber-500 shadow-lg">
                             <svg class="size-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                         </span>
                         <span class="bg-amber-100 text-amber-900 text-[11px] font-bold px-3 py-1 rounded-full">Lolos 89.4%</span>
@@ -263,7 +262,7 @@
                     </div>
                 </div>
                 <div class="border-t border-navy-50 mt-6 pt-6 flex items-center justify-between">
-                    <a href="{{ route('about') }}" class="text-xs font-semibold text-navy-950 flex items-center gap-1 hover:text-brand-green transition">Lihat rekap kelulusan alumni
+                    <a href="{{ route('about') }}" class="pk-arrow text-xs font-semibold text-navy-950 flex items-center gap-1 hover:text-brand-green transition">Lihat rekap kelulusan alumni
                         <svg class="size-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                     </a>
                 </div>
@@ -278,7 +277,7 @@
     <div class="absolute bottom-0 -left-24 size-80 rounded-full bg-navy-800 blur-3xl"></div>
 
     <div class="relative w-full flex flex-col items-center gap-16">
-        <div class="reveal max-w-2xl flex flex-col items-center text-center gap-4">
+        <div class="reveal rv-fade max-w-2xl flex flex-col items-center text-center gap-4">
             <span class="bg-white/10 text-brand-greenlight text-[11px] font-bold tracking-widest uppercase px-3.5 py-1 rounded-full backdrop-blur">Mulai Belajar dalam 3 Langkah</span>
             <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight">Gimana cara mulai di PintarKuy?</h2>
             <p class="text-navy-300">Tidak butuh pengalaman atau persiapan khusus. Cukup daftar dan biarkan sistem adaptif kami menyusun rencana belajarmu.</p>
@@ -290,9 +289,9 @@
                 ['2', 'Ikuti Rencana Adaptif', 'Setiap hari dapatkan materi, latihan soal, dan live class yang disesuaikan dengan level serta target skor personalmu.', 'M3 3v1.5M21 3v1.5M20.5 8H3.5M21 5.5h-18a0 0 0 0 0 0v3a0 0 0 0 0 0 0h18a0 0 0 0 0 0 0v-3zM5.5 14l1.5 1.5L9.5 13M5.5 18l1.5 1.5L9.5 17M13 13.5h5M13 17.5h5'],
                 ['3', 'Lolos Kampus Impian', 'Pantau perkembangan lewat analitik real-time, ikuti tryout nasional, dan masuk jajaran dengan skor di atas passing grade.', 'M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z'],
             ] as [$step, $title, $desc, $icon])
-            <div class="reveal relative bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-7 flex flex-col gap-5 hover:bg-white/10 hover:-translate-y-1 transition duration-300" style="animation-delay:{{ $loop->iteration * 0.12 }}s">
+            <div class="reveal rv-{{ [0 => 'left', 1 => 'zoom', 2 => 'right'][$loop->index] }} pk-card-hover relative bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-7 flex flex-col gap-5 hover:bg-white/10" style="animation-delay:{{ $loop->iteration * 0.12 }}s">
                 <div class="flex items-center justify-between">
-                    <span class="flex items-center justify-center size-12 rounded-2xl bg-gradient-to-br from-brand-green to-brand-greentext shadow-lg">
+                    <span class="pk-card-icon flex items-center justify-center size-12 rounded-2xl bg-gradient-to-br from-brand-green to-brand-greentext shadow-lg">
                         <svg class="size-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="{{ $icon }}"/></svg>
                     </span>
                     <span class="text-white/20 font-black text-5xl leading-none">{{ $step }}</span>
@@ -311,7 +310,7 @@
 {{-- ============ QUIZ TEASER ============ --}}
 <section id="uji-kemampuan" class="bg-navy-50 py-16 px-6 md:px-12 scroll-mt-20">
     <div class="w-full bg-white border border-black/10 rounded-3xl shadow-xl p-8 md:p-12 flex flex-col lg:flex-row gap-10 items-center">
-        <div class="reveal flex-1 flex flex-col gap-5">
+        <div class="reveal rv-left flex-1 flex flex-col gap-5">
             <span class="inline-flex bg-brand-greenlight text-[#033830] text-[11px] font-bold px-3 py-1 rounded-full w-fit">Simulasi IRT Real-Time</span>
             <h2 class="text-2xl font-extrabold text-navy-950 leading-snug">Uji Kemampuan Sekarang: Soal HOTS TPS Penalaran Umum</h2>
             <p class="text-sm text-ink-soft leading-relaxed">Rasakan langsung pengalaman simulasi tryout berbobot SNBT dengan analitik real-time. Dapatkan feedback instan mengenai kelemahan dan rekomendasi materi yang perlu dipelajari ulang.</p>
@@ -327,7 +326,7 @@
             </div>
         </div>
 
-        <div class="reveal flex-1 w-full bg-navy-50 border border-black/10 rounded-2xl p-6" style="animation-delay:0.15s">
+        <div class="reveal rv-right flex-1 w-full bg-navy-50 border border-black/10 rounded-2xl p-6" style="animation-delay:0.15s">
             @php
                 $quiz = [
                     [
@@ -434,6 +433,7 @@
                     'ctaUrl' => route('register'),
                     'ctaLabel' => 'Mulai Sekarang',
                     'dataPaket' => $paket->key,
+                    'revealClass' => 'reveal ' . ['rv-left', 'rv-zoom', 'rv-right'][$loop->index % 3],
                     'delay' => ($loop->iteration * 0.15) . 's',
                 ])
             @endforeach
@@ -444,7 +444,7 @@
 {{-- ============ TESTIMONIALS ============ --}}
 <section class="bg-white py-24 px-6 md:px-12">
     <div class="w-full flex flex-col items-center gap-14">
-        <div class="reveal max-w-2xl flex flex-col items-center text-center gap-4">
+        <div class="reveal rv-fade max-w-2xl flex flex-col items-center text-center gap-4">
             <span class="bg-navy-100 text-navy-950 text-[11px] font-bold tracking-widest uppercase px-3.5 py-1 rounded-full">Cerita Mereka</span>
             <h2 class="text-3xl md:text-4xl font-extrabold text-navy-900 tracking-tight">Lolos PTN Bersama PintarKuy</h2>
             <p class="text-ink-soft">Ini sebagian dari cerita mereka. Kamu bisa jadi salah satunya.</p>
@@ -456,7 +456,7 @@
                 ['R', 'Rangga Prasetyo', 'STEI ITB 2026', 'Fitur analitik IRT-nya gila sih. Tiap minggu aku tau persis lemah di mana dan langsung direkomendasiin materi yang harus diulang.', 'bg-brand-green'],
                 ['S', 'Salsabila Putri', 'FEB UGM 2026', 'Tryout mingguannya bikin mental juara. Jaringan internet lemot di kampung juga tetap lancar karena video-nya compact. Recommended 100%.', 'bg-navy-800'],
             ] as [$initial, $name, $role, $quote, $bg])
-            <div class="reveal bg-navy-50 rounded-2xl p-7 flex flex-col gap-5 hover:-translate-y-1 transition duration-300" style="animation-delay:{{ $loop->iteration * 0.12 }}s">
+            <div class="reveal rv-{{ [0 => 'left', 1 => 'zoom', 2 => 'right'][$loop->index] }} pk-card-hover bg-navy-50 rounded-2xl p-7 flex flex-col gap-5" style="animation-delay:{{ $loop->iteration * 0.12 }}s">
                 <div class="flex items-center justify-between">
                     <div class="flex gap-1">
                         @for ($i = 0; $i < 5; $i++)
@@ -467,7 +467,7 @@
                 </div>
                 <p class="text-navy-900 text-sm leading-relaxed">"{{ $quote }}"</p>
                 <div class="flex items-center gap-3 pt-1">
-                    <span class="flex items-center justify-center size-10 rounded-full {{ $bg }} text-white font-bold text-sm shrink-0">{{ $initial }}</span>
+                    <span class="pk-card-icon flex items-center justify-center size-10 rounded-full {{ $bg }} text-white font-bold text-sm shrink-0">{{ $initial }}</span>
                     <div>
                         <p class="text-navy-950 font-bold text-sm">{{ $name }}</p>
                         <p class="text-ink-soft text-xs font-semibold">{{ $role }}</p>
@@ -492,7 +492,7 @@
 
 {{-- ============ CTA BANNER ============ --}}
 <section class="bg-navy-50 py-24 px-6 md:px-12">
-    <div class="reveal relative w-full bg-navy-800 rounded-3xl shadow-2xl overflow-hidden p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8">
+    <div class="reveal rv-zoom relative w-full bg-navy-800 rounded-3xl shadow-2xl overflow-hidden p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8">
         <div class="absolute -bottom-24 -right-24 size-80 rounded-full bg-brand-green/30 blur-3xl"></div>
         <div class="absolute -top-20 -left-20 size-72 rounded-full bg-navy-100/20 blur-3xl"></div>
 
@@ -510,7 +510,7 @@
 {{-- ============ FAQ ============ --}}
 <section class="bg-navy-50 py-24 px-6 md:px-12">
     <div class="w-full max-w-3xl mx-auto flex flex-col items-center gap-12">
-        <div class="reveal flex flex-col items-center text-center gap-4">
+        <div class="reveal rv-fade flex flex-col items-center text-center gap-4">
             <span class="bg-navy-100 text-navy-950 text-[11px] font-bold tracking-widest uppercase px-3.5 py-1 rounded-full">Bantuan</span>
             <h2 class="text-3xl md:text-4xl font-extrabold text-navy-900 tracking-tight">Pertanyaan yang Sering Ditanya</h2>
         </div>
