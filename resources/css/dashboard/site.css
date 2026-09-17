@@ -462,7 +462,8 @@
 /* ============================================================
    Logout confirmation modal
    ============================================================ */
-.dash-logout-overlay {
+.dash-logout-overlay,
+.dash-confirm-overlay {
     position: fixed;
     inset: 0;
     z-index: 90;
@@ -477,9 +478,11 @@
     visibility: hidden;
     transition: opacity 0.25s ease, visibility 0.25s ease;
 }
-.dash-logout-overlay.is-open { opacity: 1; visibility: visible; }
+.dash-logout-overlay.is-open,
+.dash-confirm-overlay.is-open { opacity: 1; visibility: visible; }
 
-.dash-logout-modal {
+.dash-logout-modal,
+.dash-confirm-modal {
     width: 100%;
     max-width: 380px;
     background: var(--white-warm);
@@ -494,9 +497,11 @@
     transform: translateY(10px) scale(0.96);
     transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.dash-logout-overlay.is-open .dash-logout-modal { transform: none; }
+.dash-logout-overlay.is-open .dash-logout-modal,
+.dash-confirm-overlay.is-open .dash-confirm-modal { transform: none; }
 
-.dash-logout-icon {
+.dash-logout-icon,
+.dash-confirm-icon {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -507,7 +512,8 @@
     color: var(--danger);
     margin-bottom: 18px;
 }
-.dash-logout-title {
+.dash-logout-title,
+.dash-confirm-title {
     font-family: 'Space Grotesk', 'Inter', sans-serif;
     font-size: 21px;
     font-weight: 700;
@@ -515,15 +521,41 @@
     letter-spacing: -0.02em;
     margin: 0 0 8px;
 }
-.dash-logout-desc { font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 24px; }
+.dash-logout-desc,
+.dash-confirm-desc { font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 24px; }
 
-.dash-logout-actions {
+.dash-logout-actions,
+.dash-confirm-actions {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
     width: 100%;
 }
-.dash-logout-cancel { background: var(--paper-100); color: var(--ink); }
-.dash-logout-cancel:hover { background: var(--paper-100); border-color: rgba(16, 26, 46, 0.25); }
+.dash-logout-cancel,
+.dash-confirm-cancel { background: var(--paper-100); color: var(--ink); }
+.dash-logout-cancel:hover,
+.dash-confirm-cancel:hover { background: var(--paper-100); border-color: rgba(16, 26, 46, 0.25); }
 .dash-logout-confirm { background: var(--danger); color: #FFFFFF; box-shadow: 2px 2px 0 0 rgba(186, 26, 26, 0.35); }
 .dash-logout-confirm:hover { background: #A32821; }
+
+/* ============================================================
+   Generic confirm modal buttons (same visual family as logout)
+   ============================================================ */
+.dash-confirm-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    background: transparent;
+    border: none;
+    border-radius: 2px;
+    padding: 11px 12px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.18s ease, color 0.18s ease;
+}
+.dash-confirm-icon--warn { background: var(--gold); color: #101A2E; }
+.dash-confirm-confirm { background: var(--brick); color: #FFFDF5; box-shadow: 2px 2px 0 0 rgba(16, 26, 46, 0.35); }
+.dash-confirm-confirm:hover { background: var(--brick-600); }

@@ -497,7 +497,23 @@ class DashboardController extends Controller
 
         $pengerjaan->load(['kelas', 'jawaban.soal']);
 
-        return view('dashboard.latsol-hasil', ['p' => $pengerjaan]);
+        $percobaan = Pengerjaan::where('user_id', $user->id)
+            ->where('kelas_id', $pengerjaan->kelas_id)
+            ->where('set_label', $pengerjaan->set_label)
+            ->where('tipe', 'latsol')
+            ->where('id', '<=', $pengerjaan->id)
+            ->count();
+        $terbaik = Pengerjaan::where('user_id', $user->id)
+            ->where('kelas_id', $pengerjaan->kelas_id)
+            ->where('set_label', $pengerjaan->set_label)
+            ->where('tipe', 'latsol')
+            ->max('akurasi');
+
+        return view('dashboard.latsol-hasil', [
+            'p' => $pengerjaan,
+            'percobaan' => $percobaan,
+            'terbaik' => $terbaik,
+        ]);
     }
 
     public function progresModul(Request $request)
