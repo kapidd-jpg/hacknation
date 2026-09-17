@@ -173,19 +173,23 @@ export function createVoiceController(ctx) {
     const toggleMute = async () => {
         if (!lk || !els.mic) return;
         const willMute = !els.mic.classList.contains('is-muted');
-        els.mic.disabled = true;
         try {
             await lk.localParticipant.setMicrophoneEnabled(!willMute);
             els.mic.classList.toggle('is-muted', willMute);
             const svg = els.mic.querySelector('svg');
             els.mic.innerHTML = (svg ? svg.outerHTML : '') + (willMute ? ' Unmute' : ' Mute');
+            els.mic.title = '';
             setState(willMute ? 'Terhubung • mic diam' : 'Terhubung • mic aktif', 'live');
             render();
         } catch (_) {
-            // Mic ditolak / gagal: biarkan UI mencerminkan state aktual.
+            // Mic ditolak/diblokir (hak izin, non-secure context, dll): jangan
+            // biarkan tombol diam — tampilkan alasan supaya user tahu cara perbaiki.
+            els.mic.title = 'Mic tidak bisa diakses. Gunakan https:// atau http://localhost, lalu izinkan akses mikrofon di browser.';
+            if (els.state) {
+                els.state.title = 'Mic tidak bisa diakses — cek izin mikrofon & buka lewat HTTPS/localhost.';
+                setState('Terhubung • mic dimatikan (blokir)', 'live');
+            }
             render();
-        } finally {
-            els.mic.disabled = false;
         }
     };
 
