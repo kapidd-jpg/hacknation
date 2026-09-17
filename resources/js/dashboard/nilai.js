@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const gradeClass = (g) => ({ A: 'nilai-badge--A', B: 'nilai-badge--B', C: 'nilai-badge--C' }[g] || 'nilai-badge--B');
 
-    const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
     const emptyNote = (msg) => {
         if (tbody) tbody.innerHTML = `<tr><td colspan="7" class="guru-empty" style="padding:28px;text-align:center;">${msg}</td></tr>`;

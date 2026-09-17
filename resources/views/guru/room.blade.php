@@ -89,7 +89,14 @@
                     <div class="room-player" id="roomPlayer">
                         @if ($stMateri && $stMateri->tipe !== 'teks' && $stMateri->video_url)
                             @php $yt = $youtubeId($stMateri->video_url); @endphp
-                            <iframe class="room-player-frame" src="https://www.youtube.com/embed/{{ $yt ?: e($stMateri->video_url) }}" title="Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            @if ($yt)
+                                <iframe class="room-player-frame" src="https://www.youtube.com/embed/{{ $yt }}" title="Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            @else
+                                <div class="room-player-empty" id="roomPlayerEmpty">
+                                    <strong>Video tidak dapat ditayangkan</strong>
+                                    <span id="roomPlayerEmptySub">URL video harus YouTube (youtube.com/watch?v=... atau youtu.be/...).</span>
+                                </div>
+                            @endif
                         @else
                             <div class="room-player-empty" id="roomPlayerEmpty">
                                 <strong>Belum ada materi dipilih</strong>

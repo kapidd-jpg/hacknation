@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const deltaClass = (diff) => (diff >= 0 ? 'lap-delta--up' : 'lap-delta--down');
     const deltaText = (diff) => (diff >= 0 ? '▲ +' + diff : '▼ ' + diff);
+    const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
     const renderMateri = () => {
         if (!materi.length) {
@@ -35,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const label = m.skor !== undefined && m.skor !== null ? m.skor + '%' : m.pct + '%';
             return `
             <div class="lap-materi-row">
-                <div class="lap-materi-head"><b>${m.name}</b><span>${label}</span></div>
+                <div class="lap-materi-head"><b>${esc(m.name)}</b><span>${label}</span></div>
                 <div class="dash-progress"><span style="width:${val}%"></span></div>
             </div>`;
         }).join('');
@@ -74,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="lap-bar-col ${i === slice.length - 1 ? 'is-current' : ''}">
                 <span class="lap-bar-value">${m.val}</span>
                 <div class="lap-bar-area"><div class="lap-bar" data-h="${_h(m.val)}"></div></div>
-                <span class="lap-bar-label">${m.label}</span>
+                <span class="lap-bar-label">${esc(m.label)}</span>
             </div>`).join('');
 
         requestAnimationFrame(() => {

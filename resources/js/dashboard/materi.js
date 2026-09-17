@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const youtubeEmbed = (url) => {
             if (!url) return '';
             const id = getYoutubeId(url);
-            return id ? 'https://www.youtube-nocookie.com/embed/' + id : url;
+            return id ? 'https://www.youtube-nocookie.com/embed/' + id : '';
         };
 
         const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const embedSrc = youtubeEmbed(video);
                 const poster = id ? 'https://img.youtube.com/vi/' + id + '/hqdefault.jpg' : '';
                 videoBox.innerHTML = [
-                    '<iframe src="' + esc(embedSrc) + '" title="Video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
+                    embedSrc ? '<iframe src="' + esc(embedSrc) + '" title="Video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>' : '',
                     '<div class="materi-video-fallback">',
                     '<a class="materi-video-thumb" href="#" role="button" aria-label="Putar video"',
                     poster ? ' style="background-image:url(\'' + esc(poster) + '\')"' : '',

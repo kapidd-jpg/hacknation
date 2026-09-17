@@ -10,7 +10,7 @@ export const tipeLabel = (t) => TIPE_LABEL[t] || t || 'Video Pembelajaran';
 export function youtubeEmbed(url) {
     if (!url) return '';
     const m = String(url).match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/|live\/)|youtu\.be\/)([\w-]{6,})/);
-    return m ? 'https://www.youtube.com/embed/' + m[1] : String(url);
+    return m ? 'https://www.youtube.com/embed/' + m[1] : '';
 }
 
 export function youtubeIdOf(url) {
@@ -52,8 +52,7 @@ export function renderMateri({ playerEl, infoEl, kelas, materi, halaman, pengiri
     if (tipe !== 'teks' && materi.video_url && !playerKept) {
         playerEl.innerHTML = youtubeIdOf(materi.video_url)
             ? '<div class="room-player-yt" id="pkYtHost"></div>'
-            : '<iframe class="room-player-frame" src="' + esc(youtubeEmbed(materi.video_url)) + '"' +
-              ' title="Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+            : playerEmpty('🎬', 'Video tidak dapat ditayangkan', 'URL video harus YouTube (youtube.com/watch?v=... atau youtu.be/...).');
     } else if (tipe !== 'teks' && !playerKept) {
         playerEl.innerHTML = playerEmpty('🎬', 'Video sedang disiapkan tutor', 'Tutor akan mulai menayangkan sebentar lagi.');
     } else {
