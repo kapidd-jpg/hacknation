@@ -831,19 +831,6 @@ body.nav-open .site-nav-overlay {
     background: #101A2E;
     color: rgba(253, 253, 249, 0.66);
 }
-.site-footer::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: repeating-linear-gradient(
-        0deg,
-        rgba(253, 253, 249, 0.035) 0,
-        rgba(253, 253, 249, 0.035) 1px,
-        transparent 1px,
-        transparent 27px
-    );
-    pointer-events: none;
-}
 .site-footer .lb-container,
 .site-footer .sf-container {
     position: relative;
@@ -944,7 +931,6 @@ body.nav-open .site-nav-overlay {
     gap: 14px;
     margin-top: 44px;
     padding-top: 26px;
-    border-top: 1px solid rgba(253, 253, 249, 0.12);
 }
 @media (min-width: 640px) {
     .sf-bottom {
