@@ -162,8 +162,10 @@
                             <p class="room-empty-peserta">Belum ada peserta. Join voice untuk mulai.</p>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    {{-- ============ PESERTA ROOM (menonton + voice) ============ --}}
+            {{-- ============ PESERTA ROOM (menonton + voice) ============ --}}
             <div class="room-panel">
                 <div class="room-panel-head">
                     <p class="room-panel-title">

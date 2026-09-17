@@ -38,7 +38,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/daftar', [RegisterController::class, 'store'])->middleware('throttle:5,1')->name('register.attempt');
 });
 
-Route::post('/logout', LogoutController::class)->name('logout');
+Route::post('/logout', LogoutController::class)->middleware('auth')->name('logout');
 
 Route::post('/kontak', [KontakController::class, 'store'])
     ->middleware('throttle:5,1')
@@ -65,7 +65,15 @@ Route::middleware('auth')->group(function () {
         Route::get('/paket-berhasil', [PaketPilihanController::class, 'berhasil'])->name('paket.berhasil');
 
         Route::get('/ruang/{room}', [RoomController::class, 'show'])->name('room.show');
+
+        Route::post('/dashboard/katalog/daftar', [DashboardController::class, 'katalogDaftar'])->middleware('throttle:20,1')->name('dashboard.katalog.daftar');
+        Route::post('/dashboard/progres-modul', [DashboardController::class, 'progresModul'])->middleware('throttle:20,1')->name('dashboard.progres.modul');
+        Route::post('/dashboard/pengaturan', [DashboardController::class, 'pengaturanUpdate'])->middleware('throttle:20,1')->name('dashboard.pengaturan.update');
+        Route::post('/dashboard/pengaturan/keamanan', [DashboardController::class, 'pengaturanKeamanan'])->middleware('throttle:20,1')->name('dashboard.pengaturan.keamanan');
     });
+
+    // Gambar avatar dipakai juga layout guru/admin, jadi butuh akses staf.
+    Route::get('/akun/foto', [DashboardController::class, 'foto'])->name('user.foto');
 
     Route::prefix('ruang')->name('room.')->group(function () {
         Route::get('/', [RoomController::class, 'index'])->name('index');

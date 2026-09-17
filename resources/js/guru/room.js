@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let selected = null;
     let halaman = 1;
     let presented = false;
+    let loadMaterisSeq = 0;
 
     let ytCtl = null;
     let ytVideoId = null;
@@ -207,6 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateCtrls();
             return;
         }
+        const seq = ++loadMaterisSeq;
         nav.innerHTML = '<p class="room-empty-peserta">Memuat materi…</p>';
         try {
             const url = ctx.materiListUrl.replace('KELAS', kelasId);
@@ -215,6 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             const data = await res.json();
             if (!res.ok || !data.ok) throw new Error(data.message || 'Gagal memuat materi.');
+            if (seq !== loadMaterisSeq) return;
             materis = data.materi || [];
             if (!keepSelection) {
                 selected = null;
@@ -224,6 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
             renderNav();
             updateCtrls();
         } catch (_) {
+            if (seq !== loadMaterisSeq) return;
             materis = [];
             nav.innerHTML = '<p class="room-empty-peserta">Gagal memuat materi untuk kelas ini.</p>';
             updateCtrls();

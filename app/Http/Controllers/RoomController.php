@@ -182,8 +182,8 @@ class RoomController extends Controller
             $materi,
             $state->halaman,
             $user->name,
-            (bool) $data['play'] ?? $state->play,
-            (float) $data['waktu'] ?? $state->waktu
+            $state->play,
+            $state->waktu
         ));
 
         return response()->json(['ok' => true, 'play' => $state->play, 'waktu' => $state->waktu]);
