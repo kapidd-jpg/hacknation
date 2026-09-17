@@ -35,8 +35,6 @@ const playerEmpty = (ico, strong, sub) =>
 export function renderMateri({ playerEl, infoEl, kelas, materi, halaman, pengirim, preserve }) {
     if (!playerEl || !infoEl) return;
 
-    const playerKept = preserve && playerEl.querySelector('iframe');
-
     if (!materi) {
         playerEl.innerHTML = playerEmpty('🎓', 'Menunggu tutor memulai materi', 'Belum ada materi yang dibawakan di room ini.');
         infoEl.innerHTML =
@@ -48,12 +46,17 @@ export function renderMateri({ playerEl, infoEl, kelas, materi, halaman, pengiri
 
     const tipe = materi.tipe || 'video';
     const namaKelas = typeof kelas === 'string' ? kelas : (kelas && kelas.name) ? kelas.name : '';
+    const videoOk = tipe !== 'teks' && !!materi.video_url && !!youtubeIdOf(materi.video_url);
 
-    if (tipe !== 'teks' && materi.video_url && !playerKept) {
-        playerEl.innerHTML = youtubeIdOf(materi.video_url)
-            ? '<div class="room-player-yt" id="pkYtHost"></div>'
-            : playerEmpty('🎬', 'Video tidak dapat ditayangkan', 'URL video harus YouTube (youtube.com/watch?v=... atau youtu.be/...).');
-    } else if (tipe !== 'teks' && !playerKept) {
+    // `preserve` = ada pemutar YT aktif → biarkan kontainer utuh (video diganti via ytCtl.load
+    // di pemanggil). Tanpa ini, destroy/recreate bolak-balik memicu iframe hitam pada YT APK.
+    if (preserve && videoOk) {
+        // no-op: kontainer .room-player-yt masih utuh dari ganti video sebelumnya
+    } else if (videoOk) {
+        playerEl.innerHTML = '<div class="room-player-yt" id="pkYtHost"></div>';
+    } else if (tipe !== 'teks' && materi.video_url) {
+        playerEl.innerHTML = playerEmpty('🎬', 'Video tidak dapat ditayangkan', 'URL video harus YouTube (youtube.com/watch?v=... atau youtu.be/...).');
+    } else if (tipe !== 'teks') {
         playerEl.innerHTML = playerEmpty('🎬', 'Video sedang disiapkan tutor', 'Tutor akan mulai menayangkan sebentar lagi.');
     } else {
         playerEl.innerHTML = playerEmpty('📄', 'Ringkasan Teks', 'Ringkasan modul ini tampil di bawah.');

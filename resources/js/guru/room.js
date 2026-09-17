@@ -54,10 +54,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const syncYt = (videoId) => {
         if (videoId === ytVideoId && ytCtl) return;
-        if (ytCtl) { ytCtl.destroy(); ytCtl = null; }
         clearYtHb();
         ytVideoId = videoId || null;
-        if (!videoId) return;
+        if (!videoId) {
+            if (ytCtl) { ytCtl.destroy(); ytCtl = null; }
+            return;
+        }
+        if (ytCtl) {
+            // Reuse instance pemutar: ganti video via loadVideoById (tanpa iframe hitam).
+            ytCtl.load(videoId);
+            return;
+        }
 
         const host = document.getElementById('pkYtHost');
         if (!host) return;
@@ -114,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const renderPreview = () => {
         const incomingId = selected && selected.tipe !== 'teks' && selected.video_url ? youtubeIdOf(selected.video_url) : null;
-        const preserve = !!(incomingId && incomingId === ytVideoId && ytCtl);
+        const preserve = !!(incomingId && ytCtl);
         if (playerEl && infoEl) {
             renderMateri({
                 playerEl,

@@ -35,6 +35,9 @@ function ensureApi() {
 export function mountYtPlayer(host, videoId, onEvent, opts = {}) {
     if (!host) return null;
 
+    let pendingId = null;
+    const initialId = videoId;
+
     const ctl = {
         id: videoId,
         ready: false,
@@ -44,10 +47,24 @@ export function mountYtPlayer(host, videoId, onEvent, opts = {}) {
         play: () => { if (ctl.player && ctl.ready) { try { ctl.player.playVideo(); } catch (_) {} } },
         pause: () => { if (ctl.player && ctl.ready) { try { ctl.player.pauseVideo(); } catch (_) {} } },
         seek: (t) => { if (ctl.player && ctl.ready) { try { ctl.player.seekTo(t, true); } catch (_) {} } },
+        // Ganti video TANPA destroy/recreate pada instance yang sama. Menghindari
+        // iframe hitam yang muncul bila player di-destroy lalu dibuat ulang saat
+        // guru/siswa berganti-ganti modul video. Bila player belum ready, id baru
+        // dimuat saat onReady.
+        load: (newId) => {
+            ctl.id = newId;
+            if (!ctl.player) return;
+            if (ctl.ready) {
+                try { ctl.player.loadVideoById(newId); } catch (_) {}
+            } else {
+                pendingId = newId;
+            }
+        },
         destroy: () => {
             if (ctl.player) { try { ctl.player.destroy(); } catch (_) {} }
             ctl.player = null;
             ctl.ready = false;
+            pendingId = null;
         },
     };
 
@@ -59,11 +76,15 @@ export function mountYtPlayer(host, videoId, onEvent, opts = {}) {
         host.id = idc;
 
         ctl.player = new window.YT.Player(idc, {
-            videoId: videoId,
+            videoId: pendingId || initialId,
             playerVars: Object.assign({ rel: 0, playsinline: 1, modestbranding: 1 }, opts.playerVars || {}),
             events: {
                 onReady: () => {
                     ctl.ready = true;
+                    if (pendingId && pendingId !== initialId) {
+                        try { ctl.player.loadVideoById(pendingId); } catch (_) {}
+                    }
+                    pendingId = null;
                     try { onEvent && onEvent('ready', ctl); } catch (_) {}
                 },
                 onStateChange: (e) => {

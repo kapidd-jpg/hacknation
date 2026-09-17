@@ -28,9 +28,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const syncYt = (videoId) => {
         if (videoId === ytVideoId && ytCtl) return;
-        if (ytCtl) { ytCtl.destroy(); ytCtl = null; }
         ytVideoId = videoId || null;
-        if (!videoId) return;
+        if (!videoId) {
+            if (ytCtl) { ytCtl.destroy(); ytCtl = null; }
+            return;
+        }
+        if (ytCtl) {
+            // Reuse instance pemutar (tanpa iframe hitam saat tutor pindah modul).
+            ytCtl.load(videoId);
+            return;
+        }
 
         const host = document.getElementById('pkYtHost');
         if (!host) return;
@@ -76,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     materi: m,
                     halaman: data.halaman,
                     pengirim: data.pengirim,
+                    preserve: !!(vid && ytCtl),
                 });
             }
             syncYt(vid);
