@@ -111,7 +111,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }).then((r) => r.json()).then(renderFromState).catch(() => {});
 
     const rt = listenRoom(ctx.channelName, renderFromEvent);
-    if (!rt.realtime) {
+    if (rt.realtime) {
+        pollTimer = setInterval(poll, 10000);
+    } else {
         pollTimer = setInterval(poll, 2500);
     }
     poll();
