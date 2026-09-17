@@ -5,77 +5,15 @@
 @section('content')
 
 @php
-    $routeName = request()->route() ? request()->route()->getName() : '';
     $pkLandingStartUrl = Auth::check()
         ? (Auth::user()->isGuru() ? route('guru.dashboard') : route('dashboard'))
         : route('register');
-    $userFoto = Auth::check() ? \App\Support\UserFoto::src(Auth::user()->foto) : '';
-    $userNama = Auth::user()?->name ?? '';
 @endphp
 
-{{-- ============ FIXED TOP HEADER ============ --}}
-<header class="fixed top-0 left-0 right-0 w-full z-50 bg-paper border-b border-ink">
-    <div class="h-16 max-w-7xl mx-auto px-4 md:px-6 lg:px-margin flex items-center justify-center gap-4 xl:gap-8">
-        <div class="flex items-center gap-2">
-            <a href="{{ url('/') }}" class="flex items-center gap-2" title="PintarKuy">
-                <img src="{{ asset('assets/images/logopintar.png') }}" alt="PintarKuy" class="h-8 w-auto object-contain">
-                <span class="lb-headline-sm text-ink tracking-tight uppercase leading-none">PintarKuy</span>
-            </a>
-        </div>
-        <div class="h-5 w-px bg-ink/20 hidden md:block"></div>
-        <nav class="hidden md:flex items-center gap-3 xl:gap-4">
-            @foreach ([
-                ['Beranda', 'home', url('/')],
-                ['Tentang', 'about', route('about')],
-                ['Kelas', 'classes', route('classes')],
-                ['Kontak', 'contact', route('contact')],
-            ] as [$label, $name, $href])
-                <a href="{{ $href }}" class="transition-colors py-1 px-2.5 rounded {{ $routeName === $name ? 'bg-ink text-paper' : 'text-ink-soft hover:text-ink' }}">
-                    <span class="lb-label-md">{{ $label }}</span>
-                </a>
-            @endforeach
-        </nav>
-        <div class="h-5 w-px bg-ink/20 hidden md:block"></div>
-        <div class="flex items-center gap-3 xl:gap-4">
-            @auth
-                <a href="{{ $pkLandingStartUrl }}" class="w-8 h-8 rounded-full bg-ink flex items-center justify-center overflow-hidden" title="Buka Dashboard">
-                    @if (Auth::user()->foto)
-                        <img src="{{ $userFoto }}" alt="" class="w-full h-full object-cover rounded-full">
-                    @else
-                        <span class="lb-code text-[11px] text-gold font-bold">{{ \App\Support\UserFoto::initials($userNama) }}</span>
-                    @endif
-                </a>
-            @else
-                <a href="{{ route('register') }}" class="inline-flex items-center justify-center bg-gold text-ink lb-label-md font-semibold px-4 py-1.5 rounded border border-ink shadow-[2px_2px_0px_0px_#101A2E] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_#101A2E] transition-all">
-                    Daftar
-                </a>
-                <div class="w-8 h-8 rounded-full bg-ink flex items-center justify-center">
-                    <svg class="size-[18px] text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-                </div>
-            @endauth
-        </div>
-    </div>
-</header>
+{{-- ============ SHARED NAVBAR ============ --}}
+@include('komponen.header')
 
-<main class="w-full pt-16 bg-paper min-h-screen">
-
-{{-- ============ Top Document Registry Metadata Bar ============ --}}
-<section class="w-full bg-paper border-b border-ink/15">
-    <div class="max-w-7xl mx-auto px-4 md:px-margin py-1 flex flex-wrap items-center justify-between gap-y-2 text-ink-soft lb-code text-code-figure">
-        <div class="flex items-center gap-4">
-            <span class="inline-flex items-center gap-1.5 text-ink">
-                <span class="w-2 h-2 rounded-none bg-teal"></span>
-                INSTRUMEN RESMI BIMBEL: PK-2024/SNBT
-            </span>
-            <span class="hidden md:inline text-outline">|</span>
-            <span class="hidden md:inline">KATEGORI: UTBK-SNBT / KEDINASAN / UJIAN MANDIRI</span>
-        </div>
-        <div class="flex items-center gap-6 lb-label uppercase tracking-wider">
-            <span class="text-ink font-semibold">LEMBAR AKTIF: SESI GENAP</span>
-            <span class="bg-whitewarm px-2 py-0.5 border border-ink/20 text-ink">KODE BUKU: REG-A04</span>
-        </div>
-    </div>
-</section>
+<main class="w-full bg-paper min-h-screen">
 
 {{-- ============ Hero Section ============ --}}
 <section class="w-full bg-paper py-10 lg:py-16">
@@ -461,70 +399,11 @@
 </section>
 
 {{-- ============ Administrative Direct Action Stamp Banner ============ --}}
-<section class="w-full bg-ink text-paper py-10">
-    <div class="max-w-7xl mx-auto px-4 md:px-margin">
-        <div class="border border-paper/20 p-8 rounded-sm relative">
-            <div class="absolute top-0 right-0 -mt-3 mr-4 bg-gold text-ink lb-code text-[11px] font-bold px-3 py-0.5 uppercase tracking-wider rounded-sm border border-ink">KONTRAK BELAJAR TERJAMIN</div>
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-                <div class="lg:col-span-8">
-                    <span class="lb-code text-gold uppercase tracking-wider block mb-1">PENDAFTARAN PERIODE INTENSIF</span>
-                    <h2 class="lb-headline-lg text-paper font-bold tracking-tight mb-2">Mulai asesmen kompetensi awal hari ini.</h2>
-                    <p class="lb-body-md text-paper/80 max-w-2xl">
-                        Dapatkan modul diagnostik mandiri, analisis kelemahan materi berbasis butir soal, dan panduan target program studi impian Anda.
-                    </p>
-                </div>
-                <div class="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col items-stretch gap-3">
-                    <a href="{{ route('register') }}" class="inline-flex items-center justify-center px-6 py-3 bg-gold text-ink lb-label-md font-bold rounded-sm border border-ink shadow-[2px_2px_0px_0px_#FFFFFF] hover:translate-x-[1px] hover:translate-y-[1px] transition-all text-center">Daftar Ujian Diagnostik</a>
-                    <a href="{{ route('about') }}" class="inline-flex items-center justify-center px-6 py-3 bg-transparent text-paper lb-label-md font-medium rounded-sm border border-paper/30 hover:bg-whitewarm/5 transition-colors text-center">Unduh Panduan Kurikulum (PDF)</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 </main>
 
-{{-- ============ FOOTER (ledger sheet) ============ --}}
-<footer class="w-full bg-paper border-t border-ink/20 mt-10">
-    <div class="max-w-7xl mx-auto px-4 md:px-margin py-10">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 pb-6 border-b border-ink/10">
-            <div class="space-y-1 md:col-span-2">
-                <div class="flex items-center gap-2">
-                    <img src="{{ asset('assets/images/logopintar.png') }}" alt="PintarKuy" class="h-8 w-auto object-contain">
-                    <span class="lb-headline-sm text-ink">PintarKuy</span>
-                    <span class="lb-code text-ink-soft bg-paper-100 px-1.5 py-0.5 rounded">PK.ID-2024</span>
-                </div>
-                <p class="lb-body-sm text-ink-soft max-w-md">Instrumen persiapan asesmen kompetensi, SNBT/UTBK, dan ujian kedinasan berstandar format lembar jawaban nasional.</p>
-            </div>
-            <div>
-                <div class="lb-label text-ink tracking-wider uppercase mb-2">Direktori</div>
-                <ul class="space-y-1 lb-body-sm text-ink-soft">
-                    <li><a class="hover:text-ink" href="{{ url('/') }}">Beranda Portal</a></li>
-                    <li><a class="hover:text-ink" href="{{ route('classes') }}">Katalog Bimbel</a></li>
-                    <li><a class="hover:text-ink" href="{{ route('about') }}">Struktur Kurikulum</a></li>
-                    <li><a class="hover:text-ink" href="{{ route('contact') }}">Pusat Bantuan</a></li>
-                </ul>
-            </div>
-            <div>
-                <div class="lb-label text-ink tracking-wider uppercase mb-2">Protokol &amp; Regulasi</div>
-                <ul class="space-y-1 lb-code text-ink-soft">
-                    <li>KODE POS: 10110-JKT</li>
-                    <li>VERIFIKASI: B-ACCR/9842</li>
-                    <li>STATUS SERVER: AKTIF (0.12s)</li>
-                    <li>INTEGRITAS RAPOR: VALID</li>
-                </ul>
-            </div>
-        </div>
-        <div class="pt-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-2 lb-label text-ink-soft">
-            <div>© 2024 PintarKuy Indonesia. Lembar Jawaban &amp; Rapor Digital. Hak cipta dilindungi undang-undang.</div>
-            <div class="flex items-center gap-4 lb-code">
-                <span>PROTOKOL RESMI</span>
-                <span class="w-1.5 h-1.5 rounded-full bg-gold"></span>
-                <span>REV.04.28</span>
-            </div>
-        </div>
-    </div>
-</footer>
+{{-- ============ FOOTER ============ --}}
+@include('komponen.footer')
 
 @endsection
 
