@@ -106,7 +106,7 @@ class RoomController extends Controller
             'url' => $livekitUrl,
             'token' => LiveKitService::token($user, $room->livekitName()),
             'room' => $room->livekitName(),
-            'identity' => $user->name,
+            'identity' => 'u-' . $user->id,
         ]);
     }
 
@@ -129,6 +129,10 @@ class RoomController extends Controller
 
         if ($kelas && $kelas->cat !== $room->kategori) {
             return response()->json(['ok' => false, 'message' => 'Kelas tidak se-kategori dengan room.'], 422);
+        }
+
+        if ($materi && $kelas && (int) $materi->kelas_id !== (int) $kelas->id) {
+            return response()->json(['ok' => false, 'message' => 'Materi tidak cocok dengan kelas yang dipilih.'], 422);
         }
 
         DB::transaction(function () use ($room, $kelas, $materi, $data, $user) {

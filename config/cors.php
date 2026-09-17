@@ -11,6 +11,13 @@ return [
     | or "CORS". This determines what cross-origin operations may execute
     | in web browsers. You are free to adjust these settings as needed.
     |
+    | DORMANT (disengaja): seluruh lalu lintas aplikasi ini via origin yang sama
+    | (first-party browser), endpoint publik memakai CSRF token (bukan API token),
+    | jadi middleware CORS tidak punya kerja nyata SELAMA API/broadcast internal
+    | diekaspor ke origin lain. Jangan longgarkan allowed_origins sebelum konsumen
+    | API publik benar-benar dibuka; saat itu pindah juga ke autentikasi token
+    | (Sanctum/Passport) + CSRF non-cookie untuk endpoint third-party.
+    |
     | To learn more: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
     |
     */

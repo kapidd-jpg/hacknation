@@ -28,7 +28,23 @@ class LoginController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended($this->homeFor(Auth::user()));
+        return redirect($this->intendedTarget(Auth::user()));
+    }
+
+    /**
+     * URL tujuan setelah login. `url.intended` dari session hanya dipakai bila
+     * path lokal (diawali '/'); nilai absolut dari luar situs diabaikan agar
+     * session yang di-poison tidak mengarahkan ke situs lain (open redirect).
+     */
+    protected function intendedTarget($user): string
+    {
+        $intended = (string) session()->get('url.intended', '');
+
+        if ($intended !== '' && str_starts_with($intended, '/')) {
+            return $intended;
+        }
+
+        return $this->homeFor($user);
     }
 
     protected function homeFor($user): string

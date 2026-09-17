@@ -37,6 +37,7 @@ class LiveKitService
             'iat' => $now,
             'exp' => $now + 6 * 3600,
             'jti' => base64_encode($room) . '.' . bin2hex(random_bytes(8)),
+            'identity' => 'u-' . $user->id,
             'name' => $user->name,
             'metadata' => (string) $user->id,
             'video' => $video,

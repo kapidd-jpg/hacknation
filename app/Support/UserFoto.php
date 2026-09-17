@@ -112,6 +112,12 @@ final class UserFoto
 
             return $prefix . base64_encode($binary);
         } catch (\Throwable $e) {
+            if (ob_get_level()) {
+                while (ob_get_level()) {
+                    ob_end_clean();
+                }
+            }
+
             return $foto;
         }
     }

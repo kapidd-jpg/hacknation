@@ -40,7 +40,18 @@ class LatsolService
         $statusRows = [];
 
         foreach ($soals as $soal) {
-            $pilihan = isset($jawabanInput[$soal->id]) ? (int) $jawabanInput[$soal->id] : null;
+            $raw = $jawabanInput[$soal->id] ?? null;
+            $pilihan = null;
+
+            if (is_int($raw)) {
+                $pilihan = $raw;
+            } elseif (is_string($raw) && ctype_digit($raw)) {
+                $pilihan = (int) $raw;
+            }
+
+            if ($pilihan !== null && ($pilihan < 0 || $pilihan > 3)) {
+                $pilihan = null;
+            }
 
             if ($pilihan === null) {
                 $status = 'kosong';
@@ -128,6 +139,8 @@ class LatsolService
 
             return $pengerjaan;
         });
+
+        $this->clearStatistikGlobal();
 
         return [
             'attempt' => $attempt,

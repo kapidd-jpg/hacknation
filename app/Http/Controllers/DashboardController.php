@@ -560,15 +560,7 @@ return view('dashboard.nilai', [
 
         $gate = $service->gateProgres($user, $materi);
 
-        $existing = ProgresModul::query()
-            ->where('user_id', $user->id)
-            ->where('materi_id', $materi->id)
-            ->first();
-
-        if ($existing) {
-            $existing->delete();
-            $completed = false;
-        } elseif (! $gate['lulus']) {
+        if (! $gate['lulus']) {
             return response()->json([
                 'ok' => false,
                 'completed' => false,
@@ -577,11 +569,34 @@ return view('dashboard.nilai', [
                     ? 'Modul belum tuntas. Kerjakan latihan soal materi ini dulu (skor minimal ' . $service->passingThreshold() . ').'
                     : 'Modul belum tuntas. Skor latihan terakhirmu ' . $gate['skor'] . ', minimal ' . $service->passingThreshold() . ' untuk lanjut ke bab berikutnya.',
             ], 422);
-        } else {
-            ProgresModul::query()->create([
-                'user_id' => $user->id,
-                'materi_id' => $materi->id,
-            ]);
+        }
+
+        try {
+            $completed = DB::transaction(function () use ($user, $materi) {
+                $existing = ProgresModul::query()
+                    ->where('user_id', $user->id)
+                    ->where('materi_id', $materi->id)
+                    ->lockForUpdate()
+                    ->first();
+
+                if ($existing) {
+                    $existing->delete();
+
+                    return false;
+                }
+
+                ProgresModul::query()->create([
+                    'user_id' => $user->id,
+                    'materi_id' => $materi->id,
+                ]);
+
+                return true;
+            });
+        } catch (QueryException $e) {
+            if (filled($e->getCode()) && (int) $e->getCode() !== 23000) {
+                throw $e;
+            }
+
             $completed = true;
         }
 
@@ -709,8 +724,14 @@ return view('dashboard.nilai', [
                 if (blank($value) || str_starts_with($value, 'http://') || str_starts_with($value, 'https://')) {
                     return;
                 }
-                if (! preg_match('/^data:image\/(png|jpeg|webp|gif);base64,/', $value)) {
+                if (! preg_match('/^data:image\/(png|jpeg|webp|gif);base64,(.+)$/s', $value, $m)) {
                     $fail('Format foto tidak didukung. Gunakan PNG, JPG, WEBP, atau GIF.');
+
+                    return;
+                }
+                $bytes = base64_decode($m[1], true);
+                if ($bytes === false || $bytes === '') {
+                    $fail('Berkas foto tidak valid (data base64 rusak).');
                 }
             }],
         ]);
@@ -751,11 +772,15 @@ return view('dashboard.nilai', [
                 return response()->json(['ok' => false, 'message' => 'Password lama salah.'], 422);
             }
 
+            if (Hash::check($data['password_baru'], $user->password)) {
+                return response()->json(['ok' => false, 'message' => 'Password baru tidak boleh sama dengan password lama.'], 422);
+            }
+
             $user->password = $data['password_baru'];
         }
 
         if (array_key_exists('two_factor', $data)) {
-            $user->two_factor_enabled = $data['two_factor'];
+            $user->two_factor_enabled = (bool) ($data['two_factor'] ?? false);
         }
 
         if ($user->isDirty()) {

@@ -121,7 +121,15 @@ class SoalController extends Controller
     {
         return $request->validate([
             'kelas_id' => ['required', 'exists:kelas,id'],
-            'materi_id' => ['nullable', 'exists:materi,id'],
+            'materi_id' => ['nullable', 'exists:materi,id', function ($attribute, $value, $fail) use ($request) {
+                if (! $value) {
+                    return;
+                }
+                $kelasId = $request->input('kelas_id');
+                if ($kelasId && Materi::query()->whereKey($value)->where('kelas_id', $kelasId)->doesntExist()) {
+                    $fail('Materi tidak cocok dengan kelas yang dipilih. Pilih ulang kelas/materi.');
+                }
+            }],
             'set_label' => ['required', 'string', 'max:255'],
             'pertanyaan' => ['required', 'string'],
             'opsi_a' => ['required', 'string', 'max:255'],
