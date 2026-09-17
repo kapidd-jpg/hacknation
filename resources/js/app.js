@@ -34,6 +34,7 @@ const applyUserToDom = () => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.dash-reveal').forEach((el) => el.classList.add('is-visible'));
     applyUserToDom();
 });
 
