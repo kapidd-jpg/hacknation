@@ -118,7 +118,7 @@
             @php
                 $faqs = [
                     ['q' => 'Berapa lama waktu respons support?', 'a' => 'Rata-rata kami menjawab di bawah 2 jam kerja pada jam operasional. Pertanyaan teknis UTBK yang masuk via fitur Tanya Tutor umumnya dijawab kurang dari 30 menit.'],
-                    ['q' => 'Bagaimana cara refund jika tidak cocok?', 'a' => 'Kamu bisa mengajukan refund hingga 14 hari sejak pembelian paket bulanan. Dana akan dikembalikan maksimal 2x24 jam ke nominal terawal.'],
+                    ['q' => 'Bagaimana sistem adaptif PintarKuy bekerja?', 'a' => 'Setiap mengerjakan soal, sistem mengukur tingkat pemahamanmu per topik lalu otomatis menyesuaikan tingkat kesulitan dan materi latihan berikutnya. Makin sering belajar, makin akurat rekomendasi target program studi yang kami berikan.'],
                     ['q' => 'Apakah tersedia paket khusus sekolah?', 'a' => 'Ya. Kami punya paket institusi dengan dashboard khusus untuk guru dan admin sekolah. Hubungi tim kerjasama di pintarkuyid@gmail.com.'],
                     ['q' => 'Apakah bisa belajar lewat HP dengan kuota terbatas?', 'a' => 'Bisa. Semua video kami dikompresi untuk hemat kuota, dan tersedia mode putar audio saat koneksi sedang buruk.'],
                 ];
