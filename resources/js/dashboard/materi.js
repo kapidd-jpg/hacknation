@@ -170,10 +170,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const durasi = document.getElementById('materiModalDurasi');
         const konten = document.getElementById('materiModalKonten');
 
+        const getYoutubeId = (url) => {
+            if (!url) return '';
+            const m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/|live\/)|youtu\.be\/)([\w-]{6,})/);
+            return m ? m[1] : '';
+        };
+
         const youtubeEmbed = (url) => {
             if (!url) return '';
-            const m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{6,})/);
-            return m ? 'https://www.youtube.com/embed/' + m[1] : url;
+            const id = getYoutubeId(url);
+            return id ? 'https://www.youtube-nocookie.com/embed/' + id : url;
         };
 
         const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -199,7 +205,21 @@ document.addEventListener('DOMContentLoaded', () => {
             durasi.textContent = 'Durasi: ' + (row.dataset.durasi || '-');
 
             if (tipe !== 'teks' && video) {
-                videoBox.innerHTML = '<iframe src="' + esc(youtubeEmbed(video)) + '" title="Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                const id = getYoutubeId(video);
+                const embedSrc = youtubeEmbed(video);
+                const poster = id ? 'https://img.youtube.com/vi/' + id + '/hqdefault.jpg' : '';
+                videoBox.innerHTML = [
+                    '<iframe src="' + esc(embedSrc) + '" title="Video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
+                    '<div class="materi-video-fallback">',
+                    '<a class="materi-video-thumb" href="#" role="button" aria-label="Putar video"',
+                    poster ? ' style="background-image:url(\'' + esc(poster) + '\')"' : '',
+                    '><span class="materi-video-play"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v13.72a1 1 0 001.5.86l11-6.86a1 1 0 000-1.72l-11-6.86A1 1 0 008 5.14z"/></svg></span></a>',
+                    '<a class="materi-video-open" href="' + esc(video) + '" target="_blank" rel="noopener">Putar di YouTube ↗</a>',
+                    '</div>'
+                ].join('');
+                const fb = videoBox.querySelector('.materi-video-fallback');
+                const thumb = videoBox.querySelector('.materi-video-thumb');
+                if (fb && thumb) thumb.addEventListener('click', (e) => { e.preventDefault(); fb.classList.add('is-hidden'); });
             } else if (tipe !== 'teks') {
                 videoBox.innerHTML = '<div class="materi-modal-video-empty"><span style="font-size:34px;">🎬</span><span>Video sedang disiapkan tutor.</span></div>';
             } else {

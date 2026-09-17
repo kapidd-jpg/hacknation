@@ -109,7 +109,7 @@
                     'paketNama' => $pkUser->pakets->pluck('nama')->all(),
                     'aksesKategori' => $pkUser->aksesKategori(),
                 ] : null;
-                $pkUserFoto = auth()->user()?->foto ? route('user.foto') : null;
+                $pkUserFoto = auth()->user()?->foto ? \App\Support\UserFoto::src(auth()->user()->foto) : null;
             @endphp
             u = @json($pkUserCtx);
             if (u && window.pintarKuyAuth) {

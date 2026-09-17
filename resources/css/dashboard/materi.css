@@ -294,6 +294,25 @@ button.modul-row:disabled { opacity: 0.85; }
 .materi-modal-video video {
     position: absolute; inset: 0; width: 100%; height: 100%; border: none;
 }
+.materi-video-fallback { position: absolute; inset: 0; z-index: 2; }
+.materi-video-fallback.is-hidden { display: none; }
+.materi-video-thumb {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    background-color: #101A2E; background-size: cover; background-position: center;
+}
+.materi-video-play {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: rgba(16, 26, 46, 0.55); border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #fff; display: flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(6px); transition: transform 0.15s ease;
+}
+.materi-video-thumb:hover .materi-video-play { transform: scale(1.08); }
+.materi-video-open {
+    position: absolute; right: 10px; bottom: 10px;
+    font-size: 12px; font-weight: 800; color: #fff; text-decoration: none;
+    background: rgba(16, 26, 46, 0.75); padding: 6px 12px; border-radius: 9999px;
+}
+.materi-video-open:hover { background: rgba(16, 26, 46, 0.95); }
 .materi-modal-video-empty {
     position: absolute; inset: 0;
     display: flex; flex-direction: column; gap: 8px;

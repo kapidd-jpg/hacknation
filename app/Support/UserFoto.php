@@ -10,7 +10,13 @@ final class UserFoto
 
     public static function src(?string $foto): ?string
     {
-        return blank($foto) ? asset(self::DEFAULT_PATH) : route('user.foto');
+        if (blank($foto)) {
+            return asset(self::DEFAULT_PATH);
+        }
+
+        $version = substr(md5($foto), 0, 8);
+
+        return route('user.foto') . '?v=' . $version;
     }
 
     public static function initials(?string $name): string
