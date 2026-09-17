@@ -19,6 +19,7 @@
             @csrf
             <input type="hidden" name="kelas_id" value="{{ $kelas->id }}">
             <input type="hidden" name="set" value="{{ $set }}">
+            <input type="hidden" name="waktu_mulai" id="latsolWaktuMulai" value="{{ now()->toIso8601String() }}">
 
             @foreach ($soals as $i => $soal)
                 <div class="dash-card dash-reveal latsol-soal" data-index="{{ $i }}">

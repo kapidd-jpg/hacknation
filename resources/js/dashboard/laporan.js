@@ -27,14 +27,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const renderMateri = () => {
         if (!materi.length) {
-            materiBox.innerHTML = '<div class="lap-empty">Belum ada rekomendasi. Daftar kelas dulu untuk mendapat saran materi.</div>';
+            materiBox.innerHTML = '<div class="lap-empty">Belum ada data skor per materi. Kerjakan latihan soal untuk melihat kelemahanmu.</div>';
             return;
         }
-        materiBox.innerHTML = materi.map((m) => `
+        materiBox.innerHTML = materi.map((m) => {
+            const val = m.skor !== undefined && m.skor !== null ? m.skor : m.pct;
+            const label = m.skor !== undefined && m.skor !== null ? m.skor + '%' : m.pct + '%';
+            return `
             <div class="lap-materi-row">
-                <div class="lap-materi-head"><b>${m.name}</b><span>${m.pct}%</span></div>
-                <div class="dash-progress"><span style="width:${m.pct}%"></span></div>
-            </div>`).join('');
+                <div class="lap-materi-head"><b>${m.name}</b><span>${label}</span></div>
+                <div class="dash-progress"><span style="width:${val}%"></span></div>
+            </div>`;
+        }).join('');
     };
 
     const renderChart = (range) => {

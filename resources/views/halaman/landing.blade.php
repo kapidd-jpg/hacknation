@@ -73,14 +73,14 @@
                     <div class="absolute -bottom-6 -left-4 z-20 bg-whitewarm p-3.5 rounded-sm border border-ink shadow-[2px_2px_0px_0px_#101A2E] max-w-[240px]">
                         <div class="w-full border-t border-b border-ink py-1.5 my-0.5">
                             <div class="flex items-baseline justify-between gap-3">
-                                <span class="lb-score text-[44px] leading-none text-gold font-bold tabular-nums">86</span>
+                                <span class="lb-score text-[44px] leading-none text-gold font-bold tabular-nums">{{ isset($statistikGlobal['rata_rata']) ? $statistikGlobal['rata_rata'] : '-' }}</span>
                                 <span class="lb-code text-[13px] text-teal font-bold bg-teal/10 px-1.5 py-0.5 border-l-2 border-teal">TERVERIFIKASI</span>
                             </div>
                             <div class="lb-body-sm text-ink font-medium mt-1">Rata-rata nilai siswa</div>
                         </div>
                         <div class="flex items-center justify-between mt-1 text-[10px] lb-code text-ink-soft">
                             <span>SKALA 0-100</span>
-                            <span>N = 3.480 UJIAN</span>
+                            <span>N = {{ number_format($statistikGlobal['total_ujian'] ?? 0, 0, '.', '.') }} UJIAN</span>
                         </div>
                     </div>
                 </div>

@@ -16,19 +16,28 @@ class Pengerjaan extends Model
     protected $fillable = [
         'user_id',
         'kelas_id',
+        'materi_id',
         'set_label',
         'tipe',
         'skor',
         'akurasi',
         'benar',
+        'salah',
+        'kosong',
         'total',
+        'waktu_mulai',
+        'waktu_selesai',
     ];
 
     protected $casts = [
         'skor' => 'integer',
         'akurasi' => 'integer',
         'benar' => 'integer',
+        'salah' => 'integer',
+        'kosong' => 'integer',
         'total' => 'integer',
+        'waktu_mulai' => 'datetime',
+        'waktu_selesai' => 'datetime',
     ];
 
     public function user(): BelongsTo
@@ -39,6 +48,11 @@ class Pengerjaan extends Model
     public function kelas(): BelongsTo
     {
         return $this->belongsTo(Kelas::class);
+    }
+
+    public function materi(): BelongsTo
+    {
+        return $this->belongsTo(Materi::class);
     }
 
     public function jawaban(): HasMany

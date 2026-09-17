@@ -6,8 +6,17 @@ use App\Models\Kelas;
 
 use App\Models\Paket;
 
+use App\Services\LatsolService;
+
 class HalamanController extends Controller
 {
+    public function home(LatsolService $service)
+    {
+        return view('halaman.landing', [
+            'statistikGlobal' => $service->getStatistikGlobal(),
+        ]);
+    }
+
     public function kelas()
     {
         $catPrice = Paket::pricesByKategori();

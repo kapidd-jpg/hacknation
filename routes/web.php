@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // ---------- Publik ----------
-Route::get('/', fn () => view('halaman.landing'))->name('home');
+Route::get('/', [HalamanController::class, 'home'])->name('home');
 
 Route::view('/tentang', 'halaman.tentang')->name('about');
 Route::get('/kelas', [HalamanController::class, 'kelas'])->name('classes');

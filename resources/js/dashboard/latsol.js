@@ -9,6 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const counter = document.getElementById('latsolAnswered');
         const submitBtn = document.getElementById('latsolSubmit');
 
+        // Catat waktu mulai pengerjaan (dipakai backend untuk waktu_mulai attempt).
+        const waktuMulai = document.getElementById('latsolWaktuMulai');
+        if (waktuMulai) waktuMulai.value = new Date().toISOString();
+
         const count = () => {
             const total = form.querySelectorAll('.latsol-soal').length;
             const answered = Array.from(form.querySelectorAll('.latsol-soal')).filter(function (card) {

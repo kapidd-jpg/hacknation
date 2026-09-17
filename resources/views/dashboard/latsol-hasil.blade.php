@@ -5,6 +5,8 @@
 @section('pageContent')
     @php
         $benar = $p->benar;
+        $salah = $p->salah ?? $p->total - $p->benar;
+        $kosong = $p->kosong ?? 0;
         $total = $p->total;
         $akurasi = $p->akurasi;
         $skor = $p->skor;
@@ -33,10 +35,18 @@
             <div class="latsol-hasil-hero-info">
                 <p class="latsol-hasil-hero-title">Skor Kamu: <b style="color:var(--green-text);">{{ $skor }}</b></p>
                 <p class="latsol-hasil-hero-meta">
-                    <span class="dash-pill dash-pill--green">Benar {{ $benar }} dari {{ $total }}</span>
+                    <span class="dash-pill dash-pill--green">Benar {{ $benar }}</span>
+                    <span class="dash-pill" style="background:rgba(255,120,120,.15);color:#ff7a7a;">Salah {{ $salah }}</span>
+                    <span class="dash-pill" style="background:rgba(154,169,196,.15);color:#64748b;">Kosong {{ $kosong }}</span>
                     <span class="dash-pill">Akurasi {{ $akurasi }}%</span>
                 </p>
-                <p class="latsol-hasil-hero-sub">Predikat <b>{{ $gj }}</b> • {{ $gj === 'A' ? 'Luar biasa! Pertahankan.' : ($gj === 'B' ? 'Bagus, tingkatkan lagi supaya dapat A.' : 'Tetap semangat, ulangi latihan ini.') }}</p>
+                <p class="latsol-hasil-hero-sub">
+                    @if (isset($tuntas) && $tuntas)
+                        <b style="color:var(--green-text);">✓ Tuntas</b> • Predikat <b>{{ $gj }}</b> — capai {{ $passing ?? 70 }} untuk lanjut bab berikutnya.
+                    @else
+                        <b style="color:#ff7a7a;">Belum tuntas</b> • Tunggu, kamu butuh skor minimal {{ $passing ?? 70 }} untuk lanjut ke bab berikutnya. Predikat <b>{{ $gj }}</b>.
+                    @endif
+                </p>
             </div>
         </div>
 

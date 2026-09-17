@@ -18,6 +18,7 @@ class Jawaban extends Model
         'soal_id',
         'pilihan',
         'benar',
+        'status',
     ];
 
     protected $casts = [

@@ -66,6 +66,12 @@
             <div>Nilai diambil otomatis dari hasil latihan soal yang kamu kumpulkan (skala 0–100). Predikat A ≥ 85, B ≥ 70, dan C &lt; 70.</div>
         </div>
 
+        <div class="dash-card dash-reveal">
+            <p class="dash-card-title"><span class="dash-dot"></span>Detail per Set Latihan <span class="dash-pill">Nilai terbaru + tren</span></p>
+            <p class="dash-head-sub" style="margin-top:2px;">Nilai set adalah attempt <b>paling baru</b>. Kamu bebas mengulang set yang sama untuk memperbaiki skor — riwayat semua percobaan tampil sebagai tren di bawahnya.</p>
+            <div id="nilaiSets" class="flex flex-col gap-4" style="margin-top:14px;"></div>
+        </div>
+
         @if ($empty)
             <div class="nilai-note dash-reveal">
                 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -76,6 +82,7 @@
 
     <script>
         window.pintarKuyNilai = @json($nilaiData);
+        window.pintarKuySets = @json($setsData ?? []);
     </script>
 @endsection
 

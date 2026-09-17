@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Jawaban;
 use App\Models\Kelas;
 use App\Models\Materi;
 use App\Models\Nilai;
@@ -11,9 +10,11 @@ use App\Models\Pendaftaran;
 use App\Models\Pengerjaan;
 use App\Models\ProgresModul;
 use App\Models\Soal;
+use App\Services\LatsolService;
 use App\Support\UserFoto;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -303,7 +304,7 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function nilai()
+    public function nilai(LatsolService $service)
     {
         $user = Auth::user();
         $rows = Pengerjaan::query()->where('user_id', $user->id)->with('kelas')->orderBy('created_at')->get();
@@ -362,7 +363,60 @@ class DashboardController extends Controller
             ];
         }
 
-        return view('dashboard.nilai', ['nilaiData' => $nilaiData]);
+return view('dashboard.nilai', [
+            'nilaiData' => $nilaiData,
+            'setsData' => $this->setsDataTerkini($user, $service),
+        ]);
+    }
+
+    /**
+     * Agregasi per set latihan (kelas + set_label): nilai terkini + histori
+     * attempt (tren). Nilai utama = attempt PALING BARU, tanpa batas mengulang.
+     */
+    protected function setsDataTerkini($user, LatsolService $service): array
+    {
+        $sets = [];
+
+        foreach ($user->kelasTerdaftar()->orderBy('pendaftaran.created_at', 'desc')->get() as $k) {
+            $labels = Soal::query()
+                ->where('kelas_id', $k->id)
+                ->where('aktif', true)
+                ->distinct()
+                ->orderBy('set_label')
+                ->pluck('set_label');
+
+            foreach ($labels as $label) {
+                $terkini = $service->getNilaiTerkini($user->id, $k->id, $label);
+                $histori = $service->getHistoriAttempt($user->id, $k->id, $label);
+
+                $sets[] = [
+                    'kelas_id' => $k->id,
+                    'subj' => $k->name,
+                    'cat' => $k->cat,
+                    'ico' => substr($k->ico ?: 'LT', 0, 2),
+                    'bg' => $k->bg ?: 'rgba(94,234,212,0.4)',
+                    'color' => $k->color ?: '#0F766E',
+                    'label' => $label,
+                    'total_soal' => $terkini?->total ?? (int) Soal::query()->where('kelas_id', $k->id)->where('set_label', $label)->where('aktif', true)->count(),
+                    'jumlah_attempt' => $histori->count(),
+                    'terkini' => $terkini ? [
+                        'skor' => $terkini->skor,
+                        'akurasi' => $terkini->akurasi,
+                        'benar' => $terkini->benar,
+                        'salah' => $terkini->salah,
+                        'kosong' => $terkini->kosong,
+                        'total' => $terkini->total,
+                        'waktu' => $terkini->created_at->format('d M Y, H:i'),
+                    ] : null,
+                    'histori' => $histori->map(fn ($p) => [
+                        'skor' => $p->skor,
+                        'waktu' => $p->created_at->format('d M, H:i'),
+                    ])->all(),
+                ];
+            }
+        }
+
+        return $sets;
     }
 
     public function latsol()
@@ -404,75 +458,45 @@ class DashboardController extends Controller
         return view('dashboard.latsol-kerja', ['kelas' => $kelas, 'set' => $set, 'soals' => $soals]);
     }
 
-    public function latsolKirim(Request $request)
+    public function latsolKirim(Request $request, LatsolService $service)
     {
         $user = Auth::user();
 
         $data = $request->validate([
             'kelas_id' => ['required', 'integer', 'exists:kelas,id'],
             'set' => ['required', 'string', 'max:255'],
+            'waktu_mulai' => ['nullable', 'string', 'max:60'],
         ]);
 
         if (!$user->kelasTerdaftar()->whereKey($data['kelas_id'])->exists()) {
             return back()->with('status', 'Kelas tidak terdaftar.');
         }
 
-        $soals = Soal::where('kelas_id', $data['kelas_id'])->where('set_label', $data['set'])->where('aktif', true)->orderBy('urutan')->get();
-        if ($soals->isEmpty()) {
+        $waktuMulai = null;
+        if (!blank($data['waktu_mulai'] ?? null)) {
+            try {
+                $waktuMulai = Carbon::parse($data['waktu_mulai']);
+            } catch (\Throwable $e) {
+                $waktuMulai = null;
+            }
+        }
+
+        $hasil = $service->buatAttempt(
+            $user,
+            (int) $data['kelas_id'],
+            $data['set'],
+            (array) $request->input('jawaban', []),
+            $waktuMulai
+        );
+
+        if ($hasil === null) {
             return back()->with('status', 'Paket latihan tidak ditemukan.');
         }
 
-        $jawabanInput = (array) $request->input('jawaban', []);
-        $benar = 0;
-        $total = $soals->count();
-        $jawabanRows = [];
-        foreach ($soals as $soal) {
-            $pilihan = isset($jawabanInput[$soal->id]) ? (int) $jawabanInput[$soal->id] : null;
-            $isBenar = $pilihan !== null && $pilihan === (int) $soal->kunci;
-            if ($isBenar) {
-                $benar++;
-            }
-            $jawabanRows[] = ['soal_id' => $soal->id, 'pilihan' => $pilihan, 'benar' => $isBenar];
-        }
-
-        $akurasi = $total ? (int) round($benar / $total * 100) : 0;
-
-        try {
-            $pengerjaan = DB::transaction(function () use ($user, $data, $jawabanRows, $akurasi, $benar, $total) {
-                $pengerjaan = Pengerjaan::create([
-                    'user_id' => $user->id,
-                    'kelas_id' => $data['kelas_id'],
-                    'set_label' => $data['set'],
-                    'tipe' => 'latsol',
-                    'skor' => $akurasi,
-                    'akurasi' => $akurasi,
-                    'benar' => $benar,
-                    'total' => $total,
-                ]);
-                foreach ($jawabanRows as $jr) {
-                    $jr['user_id'] = $user->id;
-                    $jr['pengerjaan_id'] = $pengerjaan->id;
-                    Jawaban::create($jr);
-                }
-
-                Nilai::create([
-                    'user_id' => $user->id,
-                    'kelas_id' => $data['kelas_id'],
-                    'skor' => $akurasi,
-                    'akurasi' => $akurasi,
-                    'tanggal' => now()->toDateString(),
-                ]);
-
-                return $pengerjaan;
-            });
-        } catch (QueryException $e) {
-            return back()->with('status', 'Terjadi kesalahan saat menyimpan jawaban. Silakan coba lagi.');
-        }
-
-        return redirect()->route('dashboard.latsol.hasil', $pengerjaan->id);
+        return redirect()->route('dashboard.latsol.hasil', $hasil['attempt']->id);
     }
 
-    public function latsolHasil(Pengerjaan $pengerjaan)
+    public function latsolHasil(Pengerjaan $pengerjaan, LatsolService $service)
     {
         $user = Auth::user();
         if ((int) $pengerjaan->user_id !== (int) $user->id) {
@@ -481,10 +505,14 @@ class DashboardController extends Controller
 
         $pengerjaan->load(['kelas', 'jawaban.soal']);
 
-        return view('dashboard.latsol-hasil', ['p' => $pengerjaan]);
+        return view('dashboard.latsol-hasil', [
+            'p' => $pengerjaan,
+            'tuntas' => $pengerjaan->skor >= $service->passingThreshold(),
+            'passing' => $service->passingThreshold(),
+        ]);
     }
 
-    public function progresModul(Request $request)
+    public function progresModul(Request $request, LatsolService $service)
     {
         $user = Auth::user();
         if ($user->isStaff()) {
@@ -500,6 +528,8 @@ class DashboardController extends Controller
             return response()->json(['ok' => false, 'message' => 'Kelas tidak terdaftar.'], 403);
         }
 
+        $gate = $service->gateProgres($user, $materi);
+
         $existing = ProgresModul::query()
             ->where('user_id', $user->id)
             ->where('materi_id', $materi->id)
@@ -508,6 +538,15 @@ class DashboardController extends Controller
         if ($existing) {
             $existing->delete();
             $completed = false;
+        } elseif (! $gate['lulus']) {
+            return response()->json([
+                'ok' => false,
+                'completed' => false,
+                'belum_tuntas' => true,
+                'message' => $gate['skor'] === null
+                    ? 'Modul belum tuntas. Kerjakan latihan soal materi ini dulu (skor minimal ' . $service->passingThreshold() . ').'
+                    : 'Modul belum tuntas. Skor latihan terakhirmu ' . $gate['skor'] . ', minimal ' . $service->passingThreshold() . ' untuk lanjut ke bab berikutnya.',
+            ], 422);
         } else {
             ProgresModul::query()->create([
                 'user_id' => $user->id,
@@ -523,7 +562,7 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function laporan()
+    public function laporan(LatsolService $service)
     {
         $user = Auth::user();
 
@@ -541,16 +580,12 @@ class DashboardController extends Controller
                 'akurasi' => round($group->avg('akurasi')),
             ])->values()->all();
 
-        $materi = [];
-        foreach ($user->kelasTerdaftar()->get() as $k) {
-            $judul = $k->materi()->orderBy('urutan')->skip(1)->first();
-            $materi[] = [
-                'name' => $judul?->judul ?? $k->name,
-                'pct' => $user->progresPct($k),
-            ];
-        }
-        usort($materi, fn ($a, $b) => $a['pct'] <=> $b['pct']);
-        $materi = array_slice($materi, 0, 5);
+        $perMateri = $service->getRataRataPerMateri($user->id);
+        usort($perMateri, fn ($a, $b) => $a['skor'] <=> $b['skor']);
+        $materi = array_map(fn ($m) => [
+            'name' => $m['materi'],
+            'skor' => $m['skor'],
+        ], array_slice($perMateri, 0, 5));
 
         $valAkhir = $months[count($months) - 1]['val'] ?? null;
         $akurasiAkhir = $months[count($months) - 1]['akurasi'] ?? null;
@@ -635,6 +670,11 @@ class DashboardController extends Controller
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'bio' => ['nullable', 'string', 'max:1000'],
+            'email' => ['nullable', 'string', 'email', function ($attribute, $value, $fail) use ($user) {
+                if ($value !== $user->email) {
+                    $fail('Email tidak dapat diubah.');
+                }
+            }],
             'foto' => ['nullable', 'string', 'max:3000000', function ($attribute, $value, $fail) {
                 if (blank($value) || str_starts_with($value, 'http://') || str_starts_with($value, 'https://')) {
                     return;
