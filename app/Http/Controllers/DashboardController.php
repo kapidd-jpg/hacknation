@@ -634,9 +634,6 @@ class DashboardController extends Controller
 
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id, 'not_regex:/[\r\n]/'],
-            'sekolah' => ['nullable', 'string', 'max:255'],
-            'kelas_jurusan' => ['nullable', 'string', 'max:255'],
             'bio' => ['nullable', 'string', 'max:1000'],
             'foto' => ['nullable', 'string', 'max:3000000', function ($attribute, $value, $fail) {
                 if (blank($value) || str_starts_with($value, 'http://') || str_starts_with($value, 'https://')) {
@@ -647,6 +644,10 @@ class DashboardController extends Controller
                 }
             }],
         ]);
+
+        $data['email'] = $user->email;
+        $data['sekolah'] = $user->sekolah;
+        $data['kelas_jurusan'] = $user->kelas_jurusan;
 
         if (! blank($data['foto'] ?? null) && str_starts_with($data['foto'], 'data:')) {
             $data['foto'] = UserFoto::compress($data['foto']);

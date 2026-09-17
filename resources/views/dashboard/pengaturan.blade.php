@@ -37,20 +37,23 @@
                         <label for="sNama">Nama Lengkap</label>
                         <input id="sNama" type="text" value="{{ auth()->user()->name }}">
                     </div>
-                    <div class="setting-field">
+                    <div class="setting-field setting-field--locked">
                         <label for="sEmail">Email</label>
-                        <input id="sEmail" type="email" value="{{ auth()->user()->email }}">
+                        <input id="sEmail" type="email" value="{{ auth()->user()->email }}" disabled>
+                        <span class="setting-hint">Email tidak dapat diubah setelah akun dibuat.</span>
                     </div>
                 </div>
 
                 <div class="dash-grid dash-grid--2" style="grid-template-columns:1fr 1fr;">
-                    <div class="setting-field">
+                    <div class="setting-field setting-field--locked">
                         <label for="sSekolah">Sekolah</label>
-                        <input id="sSekolah" type="text" value="{{ auth()->user()->sekolah }}">
+                        <input id="sSekolah" type="text" value="{{ auth()->user()->sekolah }}" disabled>
+                        <span class="setting-hint">Sekolah tidak dapat diubah setelah akun dibuat.</span>
                     </div>
-                    <div class="setting-field">
+                    <div class="setting-field setting-field--locked">
                         <label for="sKelas">Kelas & Jurusan</label>
-                        <input id="sKelas" type="text" value="{{ auth()->user()->kelas_jurusan }}">
+                        <input id="sKelas" type="text" value="{{ auth()->user()->kelas_jurusan }}" disabled>
+                        <span class="setting-hint">Kelas & jurusan tidak dapat diubah setelah akun dibuat.</span>
                     </div>
                 </div>
 
@@ -85,17 +88,9 @@
 
                 <div class="toggle-row" style="padding-top:6px;border-top:1px solid var(--navy-50);">
                     <div>
-                        <b>Autentikasi Dua Lapis (2FA)</b>
-                        <p>Amankan akun dengan kode OTP setiap masuk dari perangkat baru.</p>
-                    </div>
-                    <button type="button" id="sTwoFa" class="toggle {{ auth()->user()->two_factor_enabled ? 'on' : '' }}" aria-pressed="{{ auth()->user()->two_factor_enabled ? 'true' : 'false' }}"></button>
-                </div>
-                <div class="toggle-row">
-                    <div>
                         <b>Aktivitas Login</b>
-                        <p>Dapatkan notifikasi email saat ada login dari perangkat tak dikenal.</p>
+                        <p>Pantau kapan dan dari perangkat mana akunmu diakses.</p>
                     </div>
-                    <button type="button" class="toggle on" aria-pressed="true"></button>
                 </div>
             </div>
             <div class="dash-head-actions" style="justify-content:flex-end;">
