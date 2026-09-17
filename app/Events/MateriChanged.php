@@ -33,12 +33,18 @@ class MateriChanged implements ShouldBroadcast
 
     public string $pengirim;
 
+    public bool $play;
+
+    public float $waktu;
+
     public function __construct(
         Room $room,
         ?Kelas $kelas,
         ?Materi $materi,
         ?int $halaman = null,
-        string $pengirim = ''
+        string $pengirim = '',
+        bool $play = false,
+        float $waktu = 0
     ) {
         $this->room = $room->slug;
         $this->kelas_id = $kelas?->id;
@@ -49,6 +55,8 @@ class MateriChanged implements ShouldBroadcast
         $this->video_url = $materi?->video_url;
         $this->konten = $materi?->konten;
         $this->pengirim = $pengirim;
+        $this->play = $play;
+        $this->waktu = $waktu;
     }
 
     public function broadcastOn(): PrivateChannel

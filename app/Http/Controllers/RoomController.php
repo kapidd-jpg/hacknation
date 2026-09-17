@@ -6,6 +6,7 @@ use App\Events\MateriChanged;
 use App\Models\Kelas;
 use App\Models\Materi;
 use App\Models\Room;
+use App\Models\RoomPresence;
 use App\Models\RoomState;
 use App\Models\User;
 use App\Support\LiveKitService;
@@ -76,6 +77,8 @@ class RoomController extends Controller
                 'konten' => $state->materi->konten,
             ] : null,
             'halaman' => $state?->halaman,
+            'play' => (bool) $state?->play,
+            'waktu' => (float) ($state?->waktu ?? 0),
             'pengirim' => $state?->pengirim,
             'updated_at' => $state?->updated_at?->toIso8601String(),
         ]);
@@ -136,13 +139,54 @@ class RoomController extends Controller
                     'materi_id' => $materi?->id,
                     'halaman' => $data['halaman'] ?? null,
                     'pengirim' => $user->name,
+                    'play' => false,
+                    'waktu' => 0,
                 ]
             );
         });
 
-        broadcast(new MateriChanged($room, $kelas, $materi, $data['halaman'] ?? null, $user->name));
+        broadcast(new MateriChanged($room, $kelas, $materi, $data['halaman'] ?? null, $user->name, false, 0));
 
         return response()->json(['ok' => true, 'message' => 'Materi disinkronkan ke room.']);
+    }
+
+    public function kontrol(Request $request)
+    {
+        $user = Auth::user();
+
+        $data = $request->validate([
+            'room' => ['required', 'string', 'max:120'],
+            'play' => ['sometimes', 'boolean'],
+            'waktu' => ['sometimes', 'numeric', 'min:0'],
+        ]);
+
+        $room = Room::query()->where('slug', $data['room'])->where('aktif', true)->firstOrFail();
+        $this->authorizeRoom($user, $room);
+
+        $state = RoomState::query()->where('room_id', $room->id)->first();
+        if (! $state || ! $state->materi_id || $state->materi->tipe === 'teks') {
+            return response()->json(['ok' => false, 'message' => 'Belum ada materi video yang dipresentasikan.'], 422);
+        }
+
+        $kelas = $state->kelas;
+        $materi = $state->materi;
+
+        $state->update([
+            'play' => (bool) ($data['play'] ?? $state->play),
+            'waktu' => (float) ($data['waktu'] ?? $state->waktu),
+        ]);
+
+        broadcast(new MateriChanged(
+            $room,
+            $kelas,
+            $materi,
+            $state->halaman,
+            $user->name,
+            (bool) $data['play'] ?? $state->play,
+            (float) $data['waktu'] ?? $state->waktu
+        ));
+
+        return response()->json(['ok' => true, 'play' => $state->play, 'waktu' => $state->waktu]);
     }
 
     public function materiList(Room $room, Kelas $kelas)
@@ -158,6 +202,49 @@ class RoomController extends Controller
             'ok' => true,
             'materi' => $kelas->materi()->orderBy('urutan')->get(['id', 'judul', 'tipe', 'durasi', 'urutan', 'video_url', 'konten']),
         ]);
+    }
+
+    public function presence(Request $request)
+    {
+        $user = Auth::user();
+
+        $data = $request->validate([
+            'room' => ['required', 'string', 'max:120'],
+            'voice' => ['sometimes', 'boolean'],
+        ]);
+
+        $room = Room::query()->where('slug', $data['room'])->where('aktif', true)->firstOrFail();
+        $this->authorizeRoom($user, $room);
+
+        RoomPresence::query()->updateOrCreate(
+            ['room_id' => $room->id, 'user_id' => $user->id],
+            [
+                'nama' => $user->name,
+                'role' => $user->isStaff() ? 'guru' : 'siswa',
+                'voice' => (bool) ($data['voice'] ?? false),
+                'last_seen_at' => now(),
+            ]
+        );
+
+        $cutoff = now()->subSeconds(45);
+        RoomPresence::query()->where('room_id', $room->id)->where('last_seen_at', '<', $cutoff)->delete();
+
+        $rows = RoomPresence::query()
+            ->where('room_id', $room->id)
+            ->where('last_seen_at', '>=', $cutoff)
+            ->orderByDesc('last_seen_at')
+            ->get(['id', 'user_id', 'nama', 'role', 'voice', 'last_seen_at']);
+
+        $list = $rows->map(fn (RoomPresence $p) => [
+            'id' => $p->id,
+            'nama' => $p->nama,
+            'role' => $p->role,
+            'voice' => (bool) $p->voice,
+            'iniAku' => $p->user_id === $user->id,
+            'sejak' => $p->last_seen_at->diffForHumans(),
+        ]);
+
+        return response()->json(['ok' => true, 'count' => $list->count(), 'list' => $list->values()]);
     }
 
     protected function authorizeRoom(User $user, Room $room): void

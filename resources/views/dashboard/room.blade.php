@@ -21,7 +21,8 @@
             </div>
             <div class="dash-head-actions">
                 <span class="room-badge room-badge--live"><span class="r-dot"></span> Live Sync</span>
-                <span class="room-badge room-badge--online"><span class="r-dot"></span> <span id="roomPesertaCount">0</span> online</span>
+                <span class="room-badge room-badge--online"><span class="r-dot"></span> <span id="roomPesertaCount">0</span> voice online</span>
+                <span class="room-badge room-badge--online"><span class="r-dot"></span> <span id="roomPresenceCount">0</span> di room</span>
             </div>
         </div>
 
@@ -40,7 +41,7 @@
                     <div class="room-player" id="roomPlayer">
                         @if ($stMateri && $stMateri->tipe !== 'teks' && $stMateri->video_url)
                             @php $yt = $youtubeId($stMateri->video_url); @endphp
-                            <iframe class="room-player-frame" src="https://www.youtube.com/embed/{{ $yt ?: e($stMateri->video_url) }}" title="Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <iframe class="room-player-frame" src="https://www.youtube.com/embed/{{ $yt ?: e($stMateri->video_url) }}{{ auth()->user()->isStaff() ? '' : '?controls=0&disablekb=1' }}" title="Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         @else
                             <div class="room-player-empty" id="roomPlayerEmpty">
                                 <strong>Menunggu tutor memulai materi</strong>
@@ -94,6 +95,26 @@
                         </div>
                     </div>
 
+                    {{-- ============ PESERTA ROOM (menonton + voice) ============ --}}
+                    <div class="room-panel">
+                        <div class="room-panel-head">
+                            <p class="room-panel-title">
+                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                                Peserta Room
+                            </p>
+                            <span class="room-sinkron-status"><span class="r-dot"></span> Menonton + Voice</span>
+                        </div>
+
+                        <div class="room-panel-body" style="display:flex;flex-direction:column;gap:12px;">
+                            <div class="room-peserta" id="roomPresence">
+                                <p class="room-empty-peserta">Mendeteksi peserta…</p>
+                            </div>
+                            <p class="room-note">
+                                Guru &amp; siswa yang membuka halaman room ini tercatat otomatis. Status <code>Voice</code> berarti sudah join voice room.
+                            </p>
+                        </div>
+                    </div>
+
                     <p class="room-note">
                         Semua peserta bisa bicara &amp; berdiskusi. Matikan mic saat tidak berbicara.
                         Materi di halaman ini <strong>ikut tersinkron</strong> otomatis mengikuti tutor (<code>private-room.{{ $room->slug }}</code>).
@@ -117,6 +138,7 @@
             isStaff: @json(auth()->user()->isStaff()),
             tokenUrl: @json(route('room.token')),
             stateUrl: @json(route('room.state', $room->slug)),
+            presenceUrl: @json(route('room.presence')),
             channelName: 'room.' + @json($room->slug),
         };
     </script>

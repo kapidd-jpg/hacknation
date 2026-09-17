@@ -1,7 +1,9 @@
-// PintarKuy - Dashboard Siswa: Room (sync materi live + voice)
+// PintarKuy - Dashboard Siswa: Room (sync materi live + voice + auto-follow playback video tutor)
 import { listenRoom } from '../room/realtime.js';
 import { createVoiceController } from '../room/voice.js';
 import { renderMateri } from '../room/render.js';
+import { createPresenceController } from '../room/presence.js';
+import { mountYtPlayer, YT_STATE, youtubeIdOf } from '../room/yt.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const ctx = window.pkRoomCtx;
@@ -15,38 +17,91 @@ document.addEventListener('DOMContentLoaded', () => {
         ? { id: e.materi_id, judul: e.judul, tipe: e.tipe, video_url: e.video_url, konten: e.konten }
         : null);
 
-    const renderFromEvent = (e) => {
-        if (playerEl && infoEl) {
-            renderMateri({
-                playerEl,
-                infoEl,
-                kelas: null,
-                materi: eventToMateri(e),
-                halaman: e ? e.halaman : null,
-                pengirim: e ? e.pengirim : null,
-            });
+    let lastKey = null;
+    let ytCtl = null;
+    let ytVideoId = null;
+    let lastPlay = false;
+    let lastWaktu = 0;
+
+    const vidOf = (m) => (m && m.tipe !== 'teks' && m.video_url ? youtubeIdOf(m.video_url) : null);
+
+    const syncYt = (videoId) => {
+        if (videoId === ytVideoId && ytCtl) return;
+        if (ytCtl) { ytCtl.destroy(); ytCtl = null; }
+        ytVideoId = videoId || null;
+        if (!videoId) return;
+
+        const host = document.getElementById('pkYtHost');
+        if (!host) return;
+
+        ytCtl = mountYtPlayer(host, videoId, (type) => {
+            if (type === 'ready') applyPlayback(lastPlay, lastWaktu);
+        }, { playerVars: ctx.isStaff ? {} : { controls: 0, disablekb: 1 } });
+    };
+
+    const applyPlayback = (play, waktu) => {
+        if (!ytCtl || !ytCtl.ready || !ytVideoId) return;
+        const t = Number(waktu) || 0;
+        try {
+            if (Math.abs(ytCtl.time() - t) > 2.5) ytCtl.seek(t);
+            const st = ytCtl.state();
+            if (play && st !== YT_STATE.PLAYING && st !== YT_STATE.BUFFERING) ytCtl.play();
+            else if (!play && st === YT_STATE.PLAYING) ytCtl.pause();
+        } catch (_) {}
+    };
+
+    const applyServer = (data) => {
+        if (!data || !data.ok || !data.materi) return;
+        const m = data.materi;
+        const vid = vidOf(m);
+        const key = String(m.id) + '|' + (m.tipe || '') + '|' + (m.video_url || '');
+
+        if (key !== lastKey) {
+            lastKey = key;
+            if (playerEl && infoEl) {
+                renderMateri({
+                    playerEl,
+                    infoEl,
+                    kelas: data.kelas,
+                    materi: m,
+                    halaman: data.halaman,
+                    pengirim: data.pengirim,
+                });
+            }
+            syncYt(vid);
         }
-        if (syncBadge && e) {
+
+        if (data.play !== undefined) {
+            lastPlay = !!data.play;
+            lastWaktu = Number(data.waktu) || 0;
+            applyPlayback(lastPlay, lastWaktu);
+        }
+
+        if (syncBadge && data.updated_at) {
+            const t = new Date(data.updated_at).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+            syncBadge.innerHTML = '<span class="r-dot"></span> Sinkron \u2022 ' + t;
+        } else if (syncBadge) {
             syncBadge.innerHTML = '<span class="r-dot"></span> Sinkron LIVE';
         }
     };
 
+    const renderFromEvent = (e) => {
+        if (!e) return;
+        applyServer({
+            ok: true,
+            kelas: null,
+            materi: eventToMateri(e),
+            halaman: e.halaman,
+            pengirim: e.pengirim,
+            play: e.play,
+            waktu: e.waktu,
+            updated_at: null,
+        });
+    };
+
     const renderFromState = (data) => {
         if (!data || !data.ok) return;
-        if (playerEl && infoEl) {
-            renderMateri({
-                playerEl,
-                infoEl,
-                kelas: data.kelas,
-                materi: data.materi,
-                halaman: data.halaman,
-                pengirim: data.pengirim,
-            });
-        }
-        if (syncBadge && data.updated_at) {
-            const t = new Date(data.updated_at).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
-            syncBadge.innerHTML = '<span class="r-dot"></span> Sinkron • ' + t;
-        }
+        applyServer(data);
     };
 
     let pollTimer = null;
@@ -57,12 +112,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const rt = listenRoom(ctx.channelName, renderFromEvent);
     if (!rt.realtime) {
-        pollTimer = setInterval(poll, 6000);
-        poll();
+        pollTimer = setInterval(poll, 2500);
     }
-    if (pollTimer) window.addEventListener('pagehide', () => clearInterval(pollTimer));
+    poll();
 
-    createVoiceController({
+    window.addEventListener('pagehide', () => {
+        if (pollTimer) clearInterval(pollTimer);
+    });
+    window.addEventListener('pointerdown', () => applyPlayback(lastPlay, lastWaktu), { once: true });
+
+    const voiceCtl = createVoiceController({
         slug: ctx.slug,
         tokenUrl: ctx.tokenUrl,
         ui: {
@@ -73,5 +132,11 @@ document.addEventListener('DOMContentLoaded', () => {
             countEl: 'roomPesertaCount',
             stateEl: 'roomVoiceState',
         },
+    });
+
+    createPresenceController({
+        url: ctx.presenceUrl,
+        room: ctx.slug,
+        voiceCtl,
     });
 });

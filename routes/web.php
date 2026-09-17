@@ -71,6 +71,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [RoomController::class, 'index'])->name('index');
         Route::get('/{room}/state', [RoomController::class, 'state'])->name('state');
         Route::post('/token', [RoomController::class, 'token'])->middleware('throttle:20,1')->name('token');
+        Route::post('/presence', [RoomController::class, 'presence'])->middleware('throttle:20,1')->name('presence');
+        Route::post('/kontrol', [RoomController::class, 'kontrol'])->middleware(['role:guru,admin', 'throttle:30,1'])->name('kontrol');
     });
 
     Route::post('/ruang/materi', [RoomController::class, 'materi'])

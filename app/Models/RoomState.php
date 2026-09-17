@@ -17,6 +17,13 @@ class RoomState extends Model
         'materi_id',
         'halaman',
         'pengirim',
+        'play',
+        'waktu',
+    ];
+
+    protected $casts = [
+        'play' => 'boolean',
+        'waktu' => 'float',
     ];
 
     public function room()

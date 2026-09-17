@@ -13,6 +13,11 @@ export function youtubeEmbed(url) {
     return m ? 'https://www.youtube.com/embed/' + m[1] : String(url);
 }
 
+export function youtubeIdOf(url) {
+    const m = String(url || '').match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/|live\/)|youtu\.be\/)([\w-]{6,})/);
+    return m ? m[1] : null;
+}
+
 export function esc(s) {
     return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
@@ -27,8 +32,10 @@ export const initialsOf = (name) => {
 const playerEmpty = (ico, strong, sub) =>
     '<div class="room-player-empty"><span style="font-size:30px;">' + ico + '</span><strong>' + esc(strong) + '</strong><span>' + esc(sub) + '</span></div>';
 
-export function renderMateri({ playerEl, infoEl, kelas, materi, halaman, pengirim }) {
+export function renderMateri({ playerEl, infoEl, kelas, materi, halaman, pengirim, preserve }) {
     if (!playerEl || !infoEl) return;
+
+    const playerKept = preserve && playerEl.querySelector('iframe');
 
     if (!materi) {
         playerEl.innerHTML = playerEmpty('🎓', 'Menunggu tutor memulai materi', 'Belum ada materi yang dibawakan di room ini.');
@@ -42,11 +49,12 @@ export function renderMateri({ playerEl, infoEl, kelas, materi, halaman, pengiri
     const tipe = materi.tipe || 'video';
     const namaKelas = typeof kelas === 'string' ? kelas : (kelas && kelas.name) ? kelas.name : '';
 
-    if (tipe !== 'teks' && materi.video_url) {
-        playerEl.innerHTML =
-            '<iframe class="room-player-frame" src="' + esc(youtubeEmbed(materi.video_url)) + '"' +
-            ' title="Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
-    } else if (tipe !== 'teks') {
+    if (tipe !== 'teks' && materi.video_url && !playerKept) {
+        playerEl.innerHTML = youtubeIdOf(materi.video_url)
+            ? '<div class="room-player-yt" id="pkYtHost"></div>'
+            : '<iframe class="room-player-frame" src="' + esc(youtubeEmbed(materi.video_url)) + '"' +
+              ' title="Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+    } else if (tipe !== 'teks' && !playerKept) {
         playerEl.innerHTML = playerEmpty('🎬', 'Video sedang disiapkan tutor', 'Tutor akan mulai menayangkan sebentar lagi.');
     } else {
         playerEl.innerHTML = playerEmpty('📄', 'Ringkasan Teks', 'Ringkasan modul ini tampil di bawah.');

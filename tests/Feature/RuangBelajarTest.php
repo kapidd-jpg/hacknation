@@ -259,4 +259,82 @@ class RuangBelajarTest extends TestCase
             ->assertOk()
             ->assertJson(['ok' => true]);
     }
+
+    public function test_admin_guru_bisa_melihat_presensi_peserta_di_room(): void
+    {
+        $room = $this->createRoom();
+        $admin = $this->createStaff('admin', 'admin-presence@test.id');
+        $this->actingAs($admin);
+
+        $this->postJson(route('room.presence'), ['room' => $room->slug, 'voice' => true])
+            ->assertOk()
+            ->assertJsonPath('count', 1)
+            ->assertJsonPath('list.0.nama', 'Admin Test')
+            ->assertJsonPath('list.0.role', 'guru')
+            ->assertJsonPath('list.0.voice', true)
+            ->assertJsonPath('list.0.iniAku', true);
+
+        $siswa = $this->createSiswa('siswa-presence@test.id');
+        $this->attachAkses($siswa);
+        $this->actingAs($siswa);
+
+        $this->postJson(route('room.presence'), ['room' => $room->slug])
+            ->assertOk()
+            ->assertJsonPath('count', 2)
+            ->assertJsonPath('list.0.role', 'siswa')
+            ->assertJsonPath('list.0.voice', false);
+    }
+
+    public function test_kontrol_play_pause_video_guru_terlihat_siswa(): void
+    {
+        $kelas = $this->createKelas();
+        $materi = $this->createMateri($kelas, ['tipe' => 'video']);
+        $room = $this->createRoom();
+        $guru = $this->createStaff('guru');
+        $guru->kelasDiampu()->attach($kelas->id);
+        $this->actingAs($guru);
+
+        $this->postJson(route('room.materi'), [
+            'room' => $room->slug,
+            'kelas_id' => $kelas->id,
+            'materi_id' => $materi->id,
+            'halaman' => 1,
+        ])->assertOk();
+
+        $this->postJson(route('room.kontrol'), ['room' => $room->slug, 'play' => true, 'waktu' => 15.5])
+            ->assertOk()
+            ->assertJsonPath('play', true)
+            ->assertJsonPath('waktu', 15.5);
+
+        $siswa = $this->createSiswa();
+        $this->attachAkses($siswa);
+        $this->actingAs($siswa);
+
+        $this->get(route('room.state', $room->slug))
+            ->assertOk()
+            ->assertJsonPath('materi.id', $materi->id)
+            ->assertJsonPath('play', true)
+            ->assertJsonPath('waktu', 15.5);
+
+        $this->actingAs($guru)->postJson(route('room.kontrol'), ['room' => $room->slug, 'play' => false, 'waktu' => 20])
+            ->assertOk()
+            ->assertJsonPath('play', false);
+
+        $this->get(route('room.state', $room->slug))
+            ->assertOk()
+            ->assertJsonPath('play', false)
+            ->assertJsonPath('waktu', 20);
+    }
+
+    public function test_kontrol_tanpa_materi_video_ditolak(): void
+    {
+        $kelas = $this->createKelas();
+        $room = $this->createRoom();
+        $guru = $this->createStaff('guru');
+        $guru->kelasDiampu()->attach($kelas->id);
+        $this->actingAs($guru);
+
+        $this->postJson(route('room.kontrol'), ['room' => $room->slug, 'play' => true, 'waktu' => 5])
+            ->assertStatus(422);
+    }
 }

@@ -2,6 +2,8 @@
 import { listenRoom } from '../room/realtime.js';
 import { createVoiceController } from '../room/voice.js';
 import { renderMateri, tipeLabel, esc } from '../room/render.js';
+import { createPresenceController } from '../room/presence.js';
+import { mountYtPlayer, YT_STATE, youtubeIdOf } from '../room/yt.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const ctx = window.pkRoomCtx;
@@ -26,6 +28,50 @@ document.addEventListener('DOMContentLoaded', () => {
     let selected = null;
     let halaman = 1;
     let presented = false;
+
+    let ytCtl = null;
+    let ytVideoId = null;
+    let ytHb = null;
+
+    const sendKontrol = (play, waktu) => {
+        if (!ctx.kontrolUrl) return;
+        fetch(ctx.kontrolUrl, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrf(),
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+            body: JSON.stringify({ room: ctx.slug, play: !!play, waktu: Number(waktu) || 0 }),
+        }).catch(() => {});
+    };
+
+    const clearYtHb = () => {
+        if (ytHb) { clearInterval(ytHb); ytHb = null; }
+    };
+
+    const syncYt = (videoId) => {
+        if (videoId === ytVideoId && ytCtl) return;
+        if (ytCtl) { ytCtl.destroy(); ytCtl = null; }
+        clearYtHb();
+        ytVideoId = videoId || null;
+        if (!videoId) return;
+
+        const host = document.getElementById('pkYtHost');
+        if (!host) return;
+
+        ytCtl = mountYtPlayer(host, videoId, (type, c, state) => {
+            if (type !== 'state') return;
+            if (state === YT_STATE.PLAYING) {
+                sendKontrol(true, c.time());
+                if (!ytHb) ytHb = setInterval(() => sendKontrol(true, c.time()), 5000);
+            } else if (state === YT_STATE.PAUSED || state === YT_STATE.ENDED) {
+                clearYtHb();
+                sendKontrol(false, state === YT_STATE.ENDED ? 0 : c.time());
+            }
+        });
+    };
 
     const guruNama = () => {
         try { return window.pintarKuyAuth.user().name || 'Tutor'; } catch (_) { return 'Tutor'; }
@@ -66,6 +112,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderPreview = () => {
+        const incomingId = selected && selected.tipe !== 'teks' && selected.video_url ? youtubeIdOf(selected.video_url) : null;
+        const preserve = !!(incomingId && incomingId === ytVideoId && ytCtl);
         if (playerEl && infoEl) {
             renderMateri({
                 playerEl,
@@ -74,8 +122,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 materi: selected || null,
                 halaman: selected ? halaman : null,
                 pengirim: guruNama(),
+                preserve,
             });
         }
+        syncYt(incomingId);
         if (halamanValEl) halamanValEl.textContent = String(halaman);
     };
 
@@ -220,7 +270,7 @@ listenRoom(ctx.channelName, (e) => {
         }
     });
 
-    createVoiceController({
+    const voiceCtl = createVoiceController({
         slug: ctx.slug,
         tokenUrl: ctx.tokenUrl,
         ui: {
@@ -231,5 +281,11 @@ listenRoom(ctx.channelName, (e) => {
             countEl: 'roomPesertaCount',
             stateEl: 'roomVoiceState',
         },
+    });
+
+    createPresenceController({
+        url: ctx.presenceUrl,
+        room: ctx.slug,
+        voiceCtl,
     });
 });

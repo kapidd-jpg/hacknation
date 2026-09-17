@@ -10,9 +10,21 @@ return new class extends Migration
     {
         Schema::table('pengerjaan', function (Blueprint $table) {
             $table->unsignedInteger('salah')->default(0)->after('benar');
+        });
+
+        Schema::table('pengerjaan', function (Blueprint $table) {
             $table->unsignedInteger('kosong')->default(0)->after('salah');
+        });
+
+        Schema::table('pengerjaan', function (Blueprint $table) {
             $table->foreignId('materi_id')->nullable()->after('kelas_id')->constrained('materi')->nullOnDelete();
+        });
+
+        Schema::table('pengerjaan', function (Blueprint $table) {
             $table->timestamp('waktu_mulai')->nullable();
+        });
+
+        Schema::table('pengerjaan', function (Blueprint $table) {
             $table->timestamp('waktu_selesai')->nullable();
         });
     }
