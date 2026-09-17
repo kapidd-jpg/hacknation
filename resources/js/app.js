@@ -1,5 +1,7 @@
 // PintarKuy - front-end scripts
 document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.dash-reveal').forEach((el) => el.classList.add('is-visible'));
+
     const user = window.pintarKuyAuth.user();
     if (!user) return;
 

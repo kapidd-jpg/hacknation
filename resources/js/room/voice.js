@@ -132,11 +132,25 @@ export function createVoiceController(ctx) {
             identity = data.identity || null;
             bind();
             await lk.connect(data.url, data.token);
-            await lk.localParticipant.setMicrophoneEnabled(true);
 
-            setState('Terhubung • mic aktif', 'live');
-            els.mic.disabled = false;
+            let micOk = true;
+            try {
+                await lk.localParticipant.setMicrophoneEnabled(true);
+            } catch (_) {
+                micOk = false;
+            }
+
             els.leave.disabled = false;
+            els.mic.disabled = false;
+            if (micOk) {
+                setState('Terhubung • mic aktif', 'live');
+            } else {
+                els.mic.classList.add('is-muted');
+                const svg = els.mic.querySelector('svg');
+                els.mic.innerHTML = (svg ? svg.outerHTML : '') + ' Unmute';
+                setState('Terhubung • mic dimatikan', 'live');
+                if (els.state) els.state.title = 'Mic tidak bisa diakses (izin ditolak / bukan localhost-https) — kamu tetap bisa mendengar dan melihat peserta.';
+            }
             render();
         } catch (err) {
             if (lk) { try { lk.disconnect(); } catch (_) {} }
