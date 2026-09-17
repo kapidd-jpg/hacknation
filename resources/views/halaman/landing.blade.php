@@ -16,7 +16,7 @@
 <main class="w-full bg-paper min-h-screen">
 
 {{-- ============ Hero Section ============ --}}
-<section class="w-full bg-paper py-10 lg:py-16">
+<section class="w-full bg-paper paper-bg py-10 lg:py-16">
     <div class="max-w-7xl mx-auto px-4 md:px-margin">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
 
@@ -49,10 +49,7 @@
 
                 <div class="w-full mt-6 pt-2 border-t border-ink/15 flex items-center justify-between text-ink-soft lb-code">
                     <div class="flex items-center gap-2">
-                        <svg class="size-4 text-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                        <span>STANDAR MUTU RAPOR TERPADU (SMRT-04)</span>
                     </div>
-                    <span class="hidden sm:inline">SERIFIKAT EVALUASI: NASIONAL</span>
                 </div>
             </div>
 
@@ -62,8 +59,7 @@
 
                 <div class="relative z-10 bg-whitewarm p-2 rounded-sm border border-ink shadow-[2px_2px_0px_0px_#101A2E]">
                     <div class="flex items-center justify-between px-2 py-1.5 mb-2 bg-paper border border-ink/15 lb-code text-[11px] text-ink">
-                        <span class="font-bold">DOKUMEN RISET BELAJAR #894-A</span>
-                        <span class="text-ink-soft">LOKASI: PERPUSTAKAAN PUSAT</span>
+                        <span class="font-bold italic translate-x-[2px]">NEWS</span>
                     </div>
 
                     <div class="relative w-full aspect-[4/3] overflow-hidden rounded-sm border border-ink/20 bg-ink">
@@ -99,7 +95,6 @@
     <div class="max-w-7xl mx-auto px-4 md:px-margin">
         <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-ink/20">
             <div class="py-6 px-4 flex flex-col justify-center">
-                <div class="lb-code text-ink-soft uppercase tracking-wider mb-1">KOMPONEN DATA .01</div>
                 <div class="lb-headline-xl text-ink font-bold tabular-nums tracking-tight">1.200+</div>
                 <div class="mt-1 lb-body-md text-ink font-medium flex items-center gap-2">
                     <span class="w-2 h-0.5 bg-gold"></span>
@@ -109,7 +104,6 @@
             </div>
 
             <div class="py-6 px-4 flex flex-col justify-center">
-                <div class="lb-code text-ink-soft uppercase tracking-wider mb-1">KOMPONEN DATA .02</div>
                 <div class="lb-headline-xl text-ink font-bold tabular-nums tracking-tight">150+</div>
                 <div class="mt-1 lb-body-md text-ink font-medium flex items-center gap-2">
                     <span class="w-2 h-0.5 bg-teal"></span>
@@ -119,7 +113,6 @@
             </div>
 
             <div class="py-6 px-4 flex flex-col justify-center">
-                <div class="lb-code text-ink-soft uppercase tracking-wider mb-1">KOMPONEN DATA .03</div>
                 <div class="lb-headline-xl text-ink font-bold tabular-nums tracking-tight">300+</div>
                 <div class="mt-1 lb-body-md text-ink font-medium flex items-center gap-2">
                     <span class="w-2 h-0.5 bg-gold"></span>
@@ -140,7 +133,6 @@
                 <div class="lb-code text-teal font-bold uppercase tracking-wider mb-1">SISTEM BIMBINGAN TERPADU</div>
                 <h2 class="lb-headline-lg text-ink font-bold tracking-tight">Kenapa pilih PintarKuy?</h2>
             </div>
-            <div class="lb-code text-ink-soft">DOKUMEN KONTROL: STANDARISASI METODE BELAJAR</div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -212,106 +204,143 @@
     </div>
 </section>
 
-{{-- ============ Interactive Question Matrix & Diagnostic Sample Sheet ============ --}}
-<section class="w-full bg-whitewarm py-10 border-t border-ink/20">
+{{-- ============ Simulasi IRT Interaktif (Quiz 5 Soal) ============ --}}
+<section id="uji-kemampuan" class="w-full bg-whitewarm py-10 border-t border-ink/20 scroll-mt-20">
     <div class="max-w-7xl mx-auto px-4 md:px-margin">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
-            {{-- Diagnostic Transcript Section --}}
-            <div class="lg:col-span-8 bg-paper p-6 rounded-sm border border-ink/20">
-                <div class="flex flex-wrap items-center justify-between pb-3 mb-4 border-b border-ink">
+            {{-- Quiz interactive card --}}
+            <div class="lg:col-span-8 bg-paper p-6 rounded-sm border border-ink shadow-[2px_2px_0px_0px_#101A2E]">
+                <div class="flex flex-wrap items-center justify-between gap-3 pb-3 mb-4 border-b border-ink">
                     <div class="flex items-center gap-2">
-                        <span class="lb-headline-sm text-ink font-bold">Simulasi Lembar Ujian (LJU-CBT)</span>
-                        <span class="bg-ink text-paper lb-code text-[11px] px-2 py-0.5 rounded-sm">SOAL NO. 24</span>
+                        <span class="lb-headline-sm text-ink font-bold">Simulasi IRT Real-Time</span>
+                        <span class="bg-ink text-paper lb-code text-[11px] px-2 py-0.5 rounded-sm">BOBOT IRT: TINGGI</span>
                     </div>
-                    <div class="lb-code text-ink">
-                        SISA WAKTU: <span class="font-bold text-gold bg-ink px-2 py-0.5 rounded-sm">48:12</span>
+                    <div class="lb-code text-[11px] text-ink-soft">
+                        ESTIMASI: <span class="font-bold text-ink">2 MENIT</span>
                     </div>
                 </div>
 
-                <div class="bg-whitewarm p-5 border border-ink/10 rounded-sm mb-4">
-                    <div class="lb-label text-ink-soft uppercase tracking-wider mb-2">BIDANG STUDI: PENALARAN MATEMATIKA &amp; LOGIKA</div>
-                    <p class="lb-body-md text-ink leading-relaxed mb-4">
-                        Sebuah grafik fungsi kuadrat memiliki titik puncak pada koordinat <span class="lb-code font-bold">(2, -9)</span> serta memotong sumbu X di titik <span class="lb-code font-bold">(5, 0)</span>. Jika fungsi tersebut dinyatakan dalam <span class="lb-code font-bold">f(x) = ax² + bx + c</span>, maka nilai dari <span class="lb-code font-bold">a + b + c</span> bernilai...
-                    </p>
+                @php
+                    $quiz = [
+                        [
+                            'tag' => 'Penalaran Logika',
+                            'text' => 'Jika semua mahasiswa berprestasi mendapatkan beasiswa riset, dan beberapa penerima beasiswa riset lolos magang internasional di Silicon Valley, manakah simpulan yang PASTI BENAR?',
+                            'correct' => 'B',
+                            'options' => ['A' => 'Semua mahasiswa berprestasi pasti magang di Silicon Valley.', 'B' => 'Sebagian penerima beasiswa riset adalah mahasiswa berprestasi.', 'C' => 'Mahasiswa yang tidak berprestasi tidak bisa magang di luar negeri.'],
+                        ],
+                        [
+                            'tag' => 'Penalaran Kuantitatif',
+                            'text' => 'Perhatikan pola bilangan berikut: 2, 6, 12, 20, 30, ... Bilangan selanjutnya adalah ...',
+                            'correct' => 'C',
+                            'options' => ['A' => '36', 'B' => '40', 'C' => '42', 'D' => '44'],
+                        ],
+                        [
+                            'tag' => 'Penalaran Kausal',
+                            'text' => 'Jika hari hujan, Andi selalu membawa payung. Hari ini Andi tidak membawa payung. Manakah simpulan yang PASTI BENAR?',
+                            'correct' => 'B',
+                            'options' => ['A' => 'Hari ini hujan.', 'B' => 'Hari ini tidak hujan.', 'C' => 'Andi lupa membawa payung.'],
+                        ],
+                        [
+                            'tag' => 'Penalaran Silogisme',
+                            'text' => 'Sebagian siswa kelas XII mengikuti bimbingan belajar. Semua siswa yang mengikuti bimbingan belajar lulus ujian. Manakah simpulan yang PASTI BENAR?',
+                            'correct' => 'C',
+                            'options' => ['A' => 'Semua siswa kelas XII lulus ujian.', 'B' => 'Semua siswa yang lulus ujian mengikuti bimbingan belajar.', 'C' => 'Sebagian siswa kelas XII lulus ujian.'],
+                        ],
+                        [
+                            'tag' => 'Analogi',
+                            'text' => 'Akar adalah bagian dari Pohon, sama seperti Fondasi adalah bagian dari ...',
+                            'correct' => 'A',
+                            'options' => ['A' => 'Bangunan', 'B' => 'Ranting', 'C' => 'Kunci'],
+                        ],
+                    ];
+                @endphp
 
-                    <div class="space-y-2 lb-body-md">
-                        @foreach ([
-                            ['A', '-8', false],
-                            ['B', '-5', true],
-                            ['C', '-2', false],
-                            ['D', '3', false],
-                            ['E', '7', false],
-                        ] as [$letter, $value, $selected])
-                            <label class="flex items-center gap-3 p-2.5 border rounded-sm cursor-pointer transition-colors {{ $selected ? 'border-ink bg-ink text-paper' : 'border-ink/20 bg-paper hover:bg-whitewarm' }}">
-                                <span class="w-7 h-7 flex items-center justify-center border lb-code font-bold rounded-sm {{ $selected ? 'border-paper bg-whitewarm text-ink' : 'border-ink bg-whitewarm text-ink' }}">{{ $letter }}</span>
-                                <span class="{{ $selected ? 'font-medium' : 'text-ink' }}">{{ $value }}</span>
-                                @if ($selected)
-                                    <span class="ml-auto lb-code text-[11px] text-gold font-bold tracking-wider">PILIHAN TERSIMPAN</span>
-                                @endif
+                <div id="quizQuestions" class="flex flex-col">
+                    @foreach ($quiz as $i => $q)
+                    <div class="quiz-question {{ $i > 0 ? 'hidden' : '' }}" data-correct="{{ $q['correct'] }}">
+                        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-ink/10 pb-3">
+                            <span class="lb-label text-ink-soft uppercase tracking-wider">Soal {{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }} / {{ str_pad(count($quiz), 2, '0', STR_PAD_LEFT) }}</span>
+                            <span class="bg-gold/15 text-ink border border-gold/40 lb-code text-[10px] font-bold px-2.5 py-0.5 rounded-sm uppercase tracking-wider">{{ $q['tag'] }}</span>
+                        </div>
+                        <p class="lb-body-md text-ink font-medium leading-relaxed py-4">{{ $q['text'] }}</p>
+                        <div class="flex flex-col gap-2.5 pb-2">
+                            @foreach ($q['options'] as $value => $option)
+                            <label class="quiz-option bg-whitewarm border border-ink/20 rounded-sm px-4 py-3 flex items-center justify-between gap-3 cursor-pointer hover:border-gold transition">
+                                <span class="lb-body-md text-ink">{{ $value }}. {{ $option }}</span>
+                                <input type="radio" name="quiz-q{{ $i }}" value="{{ $value }}" class="size-5 accent-ink shrink-0">
                             </label>
-                        @endforeach
+                            @endforeach
+                        </div>
                     </div>
+                    @endforeach
                 </div>
 
-                <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
-                    <div class="flex items-center gap-2">
-                        <button class="px-4 py-2 border border-ink/30 text-ink lb-label-md rounded-sm bg-whitewarm hover:bg-paper" type="button">← Sebelumnya</button>
-                        <button class="px-4 py-2 border border-dashed border-gold text-ink lb-label-md rounded-sm bg-gold/10 hover:bg-gold/20" type="button">Ragu-ragu</button>
-                    </div>
-                    <button class="px-5 py-2 bg-ink text-paper lb-label-md rounded-sm hover:bg-ink/90" type="button">Berikutnya →</button>
-                </div>
-            </div>
-
-            {{-- Question Navigator ("Daftar Soal" matrix) --}}
-            <div class="lg:col-span-4 bg-whitewarm p-5 rounded-sm border border-ink shadow-[2px_2px_0px_0px_#101A2E]">
-                <div class="flex items-center justify-between pb-3 border-b border-ink mb-4">
-                    <span class="lb-headline-sm text-ink font-bold">Daftar Nomor Soal</span>
-                    <span class="lb-code text-[12px] text-ink-soft">30 BUTIR</span>
-                </div>
-
-                <div class="grid grid-cols-6 gap-1.5 mb-6">
-                    @for ($i = 1; $i <= 30; $i++)
-                        @php
-                            $flag = '';
-                            if ($i === 5) {
-                                $flag = 'border border-dashed border-gold bg-gold/10 text-ink';
-                            } elseif ($i === 24) {
-                                $flag = 'bg-whitewarm text-ink font-bold border-2 border-gold';
-                            } elseif ($i >= 25) {
-                                $flag = 'bg-whitewarm text-ink font-medium border border-ink/20';
-                            } else {
-                                $flag = 'bg-ink text-paper font-bold border border-ink';
-                            }
-                        @endphp
-                        <div class="h-9 flex items-center justify-center lb-code rounded-sm {{ $flag }}">{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}</div>
-                    @endfor
-                </div>
-
-                <div class="pt-3 border-t border-ink/15 space-y-2 lb-code text-[11px] text-ink-soft">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2"><span class="w-3 h-3 bg-ink rounded-sm"></span><span>Dijawab</span></div>
-                        <span class="font-bold text-ink">23</span>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2"><span class="w-3 h-3 border-2 border-gold bg-whitewarm rounded-sm"></span><span>Aktif</span></div>
-                        <span class="font-bold text-ink">1</span>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2"><span class="w-3 h-3 border border-dashed border-gold bg-gold/20 rounded-sm"></span><span>Ragu-ragu</span></div>
-                        <span class="font-bold text-ink">1</span>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2"><span class="w-3 h-3 border border-ink/30 bg-whitewarm rounded-sm"></span><span>Belum Terisi</span></div>
-                        <span class="font-bold text-ink">5</span>
-                    </div>
-                </div>
-
-                <div class="mt-5 pt-3 border-t border-ink/20">
-                    <button class="w-full py-2.5 px-4 bg-gold text-ink lb-label-md font-bold rounded-sm border border-ink shadow-[2px_2px_0px_0px_#101A2E] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_#101A2E] transition-all flex items-center justify-center gap-2" type="button">
-                        <svg class="size-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 17v3a1 1 0 001 1h3m9-21h3a1 1 0 011 1v3M7 14l7-7M14 7l3 3-7 7H7v-3z"/></svg>
-                        Selesai &amp; Kumpulkan Jawaban
+                <div class="flex flex-wrap items-center gap-3 pt-4">
+                    <button type="button" id="quizCheck" class="inline-flex items-center gap-2 bg-ink text-paper lb-label-md font-bold px-5 py-2.5 rounded-sm border border-ink shadow-[2px_2px_0px_0px_#E3A23B] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_#E3A23B] transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                        <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                        Periksa Jawaban
                     </button>
+                    <button type="button" id="quizNext" class="hidden inline-flex items-center gap-2 bg-ink text-paper lb-label-md font-bold px-5 py-2.5 rounded-sm border border-ink shadow-[2px_2px_0px_0px_#E3A23B] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_#E3A23B] transition-all">
+                        Soal Berikutnya
+                        <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </button>
+                    <a href="{{ route('register') }}" data-auth-cta class="inline-flex items-center gap-1.5 lb-label-md text-ink font-bold hover:text-teal transition ml-auto">
+                        Daftar Gratis &amp; Uji Penuh dalam 2 Menit
+                        <svg class="size-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </a>
+                </div>
+                <p id="quizFeedback" class="hidden min-h-4 lb-label-md text-ink leading-relaxed pt-3"></p>
+
+                <div id="quizResult" class="hidden mt-5 bg-whitewarm border border-ink rounded-sm p-5 flex flex-col gap-3">
+                    <div class="flex items-center justify-between">
+                        <span class="lb-label text-ink uppercase tracking-wider font-bold">Hasil Akhir</span>
+                        <span class="bg-teal text-paper lb-code text-[10px] font-bold px-2.5 py-0.5 rounded-sm uppercase tracking-wider">5 Soal Selesai</span>
+                    </div>
+                    <div class="flex items-baseline gap-2">
+                        <span id="quizScore" class="text-4xl font-black text-ink">0</span>
+                        <span class="lb-body-md font-semibold text-ink-soft">/ 100 poin</span>
+                    </div>
+                    <p id="quizScoreMessage" class="lb-body-sm text-ink-soft leading-relaxed"></p>
+                    <a href="{{ route('register') }}" data-auth-cta class="text-center lb-label-md font-bold bg-gold text-ink rounded-sm border border-ink shadow-[2px_2px_0px_0px_#101A2E] px-4 py-2.5 hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_#101A2E] transition-all">
+                        Lanjutkan ke Tryout Penuh UTBK-SNBT →
+                    </a>
+                </div>
+            </div>
+
+            {{-- Sidebar info IRT --}}
+            <div class="lg:col-span-4 flex flex-col gap-4">
+                <div class="bg-whitewarm p-5 rounded-sm border border-ink/20">
+                    <div class="flex items-center justify-between pb-3 border-b border-ink mb-4">
+                        <span class="lb-headline-sm text-ink font-bold">Profil Simulasi</span>
+                        <span class="lb-code text-[11px] text-gold font-bold uppercase">Live</span>
+                    </div>
+                    <div class="space-y-3 lb-body-md text-ink-soft">
+                        <div class="flex items-center justify-between">
+                            <span>Jumlah Butir</span>
+                            <span class="font-bold text-ink">5 Soal</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Skor Maksimal</span>
+                            <span class="font-bold text-ink">100 Poin</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Bobot IRT</span>
+                            <span class="font-bold text-gold bg-ink px-2 py-0.5 rounded-sm">TINGGI</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Estimasi Waktu</span>
+                            <span class="font-bold text-ink">± 2 Menit</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-ink text-paper p-5 rounded-sm border border-ink shadow-[2px_2px_0px_0px_#E3A23B]">
+                    <span class="lb-code text-gold uppercase tracking-wider block mb-2">Cara Kerja</span>
+                    <ul class="space-y-2 lb-body-sm text-paper/80">
+                        <li class="flex gap-2"><span class="font-bold text-paper">1.</span> Pilih satu jawaban tiap soal.</li>
+                        <li class="flex gap-2"><span class="font-bold text-paper">2.</span> Tekan <span class="text-gold font-bold">Periksa Jawaban</span> untuk umpan balik instan.</li>
+                        <li class="flex gap-2"><span class="font-bold text-paper">3.</span> Kumpulkan otomatis di soal ke-5 dan lihat skor akhirmu.</li>
+                    </ul>
                 </div>
             </div>
 
@@ -319,86 +348,43 @@
     </div>
 </section>
 
-{{-- ============ Transcript Ledger Preview Table ============ --}}
-<section class="w-full bg-paper py-10 border-t border-ink/15">
+{{-- ============ Testimoni Alumni ============ --}}
+<section class="w-full bg-paper py-12 border-t border-ink/15">
     <div class="max-w-7xl mx-auto px-4 md:px-margin">
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-4 gap-2">
-            <div>
-                <span class="lb-code text-teal font-semibold uppercase">LEMBAR PERINGKAT TERKINI</span>
-                <h2 class="lb-headline-md text-ink font-bold">Rapor Hasil Try Out Terbuka</h2>
-            </div>
-            <div class="lb-code text-ink-soft">STATUS: TERTUTUP - VERIFIKASI DESIMAL 2 ANGKA</div>
+        <div class="flex flex-col items-center text-center gap-2 mb-8">
+            <span class="lb-code text-teal font-semibold uppercase tracking-wider">CERITA MEREKA</span>
+            <h2 class="lb-headline-md text-ink font-bold">Lolos PTN Bersama PintarKuy</h2>
+            <p class="lb-body-md text-ink-soft max-w-xl">Ini sebagian dari cerita mereka. Kamu bisa jadi salah satunya.</p>
         </div>
 
-        <div class="bg-whitewarm border border-ink/20 rounded-sm overflow-hidden">
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-paper border-b-[1.5px] border-ink lb-label-md text-ink font-semibold">
-                            <th class="py-3 px-4 lb-code">NO</th>
-                            <th class="py-3 px-4">IDENTITAS SISWA</th>
-                            <th class="py-3 px-4 lb-code">KODE KELAS</th>
-                            <th class="py-3 px-4">STATUS</th>
-                            <th class="py-3 px-4 text-right lb-code">SKOR TPS</th>
-                            <th class="py-3 px-4 text-right lb-code">SKOR LITERASI</th>
-                            <th class="py-3 px-4 text-right lb-code">AKHIR</th>
-                        </tr>
-                    </thead>
-                    <tbody class="lb-body-md divide-y divide-ink/10">
-                        <tr class="hover:bg-ink/[0.02] transition-colors">
-                            <td class="py-3.5 px-4 lb-code font-bold text-ink">01</td>
-                            <td class="py-3.5 px-4">
-                                <div class="font-medium text-ink">Ahmad Dzaki Fadhillah</div>
-                                <div class="lb-code text-[11px] text-ink-soft">NISN: 0068491201 • Target: FK UI</div>
-                            </td>
-                            <td class="py-3.5 px-4 lb-code">SNBT-EXT-A</td>
-                            <td class="py-3.5 px-4">
-                                <span class="inline-block px-2 py-0.5 text-[11px] lb-label font-semibold bg-whitewarm border border-ink/15 border-l-2 border-l-teal text-ink">Siswa Reguler</span>
-                            </td>
-                            <td class="py-3.5 px-4 text-right lb-code tabular-nums font-medium">785.40</td>
-                            <td class="py-3.5 px-4 text-right lb-code tabular-nums font-medium">812.10</td>
-                            <td class="py-3.5 px-4 text-right lb-code tabular-nums font-bold text-ink bg-paper/60">798.75</td>
-                        </tr>
-                        <tr class="hover:bg-ink/[0.02] transition-colors">
-                            <td class="py-3.5 px-4 lb-code font-bold text-ink">02</td>
-                            <td class="py-3.5 px-4">
-                                <div class="font-medium text-ink">Nathania Sarah Larasati</div>
-                                <div class="lb-code text-[11px] text-ink-soft">NISN: 0059124483 • Target: STEI ITB</div>
-                            </td>
-                            <td class="py-3.5 px-4 lb-code">SNBT-EXT-A</td>
-                            <td class="py-3.5 px-4">
-                                <span class="inline-block px-2 py-0.5 text-[11px] lb-label font-semibold bg-whitewarm border border-ink/15 border-l-2 border-l-teal text-ink">Siswa Reguler</span>
-                            </td>
-                            <td class="py-3.5 px-4 text-right lb-code tabular-nums font-medium">804.20</td>
-                            <td class="py-3.5 px-4 text-right lb-code tabular-nums font-medium">780.00</td>
-                            <td class="py-3.5 px-4 text-right lb-code tabular-nums font-bold text-ink bg-paper/60">792.10</td>
-                        </tr>
-                        <tr class="hover:bg-ink/[0.02] transition-colors">
-                            <td class="py-3.5 px-4 lb-code font-bold text-ink">03</td>
-                            <td class="py-3.5 px-4">
-                                <div class="font-medium text-ink">Rizky Bagus Prakoso</div>
-                                <div class="lb-code text-[11px] text-ink-soft">NISN: 0061209384 • Target: Akpol / STIN</div>
-                            </td>
-                            <td class="py-3.5 px-4 lb-code">KEDINASAN-B</td>
-                            <td class="py-3.5 px-4">
-                                <span class="inline-block px-2 py-0.5 text-[11px] lb-label font-semibold bg-whitewarm border border-ink/15 border-l-2 border-l-gold text-ink">Konsultasi Tutor</span>
-                            </td>
-                            <td class="py-3.5 px-4 text-right lb-code tabular-nums font-medium">762.50</td>
-                            <td class="py-3.5 px-4 text-right lb-code tabular-nums font-medium">795.80</td>
-                            <td class="py-3.5 px-4 text-right lb-code tabular-nums font-bold text-ink bg-paper/60">779.15</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            @foreach ([
+                ['N', 'Nabila Zahra', 'FK UI 2026', 'Skor naik dari 480 ke 705 dalam 6 bulan. Live class-nya paling nge-zoom jelasin konsep, beda banget sama sekadar nonton video.', 'bg-ink', 'text-gold'],
+                ['R', 'Rangga Prasetyo', 'STEI ITB 2026', 'Fitur analitik IRT-nya gila sih. Tiap minggu aku tau persis lemah di mana dan langsung direkomendasiin materi yang harus diulang.', 'bg-teal', 'text-paper'],
+                ['S', 'Salsabila Putri', 'FEB UGM 2026', 'Tryout mingguannya bikin mental juara. Jaringan internet lemot di kampung juga tetap lancar karena video-nya compact. Recommended 100%.', 'bg-whitewarm border border-ink', 'text-ink'],
+            ] as [$initial, $name, $campus, $quote, $avatarBg, $avatarText])
+            <div class="bg-whitewarm border border-ink rounded-sm shadow-[2px_2px_0px_0px_#101A2E] p-6 flex flex-col gap-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex gap-0.5">
+                        @for ($i = 0; $i < 5; $i++)
+                            <svg class="size-4 text-gold" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        @endfor
+                    </div>
+                    <span class="lb-code text-[10px] text-ink-soft uppercase tracking-wider">Alumni 2026</span>
+                </div>
+                <p class="lb-body-md text-ink leading-relaxed flex-1">"{{ $quote }}"</p>
+                <div class="flex items-center gap-3 pt-3 border-t border-ink/10">
+                    <span class="flex items-center justify-center size-10 rounded-full shrink-0 lb-code font-bold {{ $avatarBg }} {{ $avatarText }}">{{ $initial }}</span>
+                    <div class="min-w-0">
+                        <div class="lb-body-md font-bold text-ink truncate">{{ $name }}</div>
+                        <div class="lb-code text-[11px] text-ink-soft">{{ $campus }}</div>
+                    </div>
+                </div>
             </div>
-            <div class="px-4 py-2.5 bg-paper border-t border-ink/15 flex items-center justify-between lb-code text-ink-soft">
-                <span>MENAMPILKAN 3 DARI 1.200 DATA SISWA</span>
-                <a class="text-ink font-bold hover:underline flex items-center gap-1" href="{{ route('classes') }}">BUKA BUKU RAPOR LENGKAP →</a>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
-
-{{-- ============ Administrative Direct Action Stamp Banner ============ --}}
 
 </main>
 
@@ -409,4 +395,8 @@
 
 @push('styles')
     @vite(['resources/css/halaman/landing.css'])
+@endpush
+
+@push('scripts')
+    @vite(['resources/js/halaman/landing.js'])
 @endpush
