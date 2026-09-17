@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const name = currentRow ? currentRow.querySelector('.modul-name').textContent : null;
         if (!currentRow) {
             if (cta) cta.style.display = 'none';
-            if (heroHint) heroHint.textContent = 'Semua modul telah ditandai selesai. Kerjakan latihan soalnya! 🎯';
+            if (heroHint) heroHint.textContent = 'Semua modul telah ditandai selesai. Kerjakan latihan soalnya!';
             return;
         }
         if (cta) {
@@ -221,9 +221,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const thumb = videoBox.querySelector('.materi-video-thumb');
                 if (fb && thumb) thumb.addEventListener('click', (e) => { e.preventDefault(); fb.classList.add('is-hidden'); });
             } else if (tipe !== 'teks') {
-                videoBox.innerHTML = '<div class="materi-modal-video-empty"><span style="font-size:34px;">🎬</span><span>Video sedang disiapkan tutor.</span></div>';
+                videoBox.innerHTML = '<div class="materi-modal-video-empty"><span>Video sedang disiapkan tutor.</span></div>';
             } else {
-                videoBox.innerHTML = '<div class="materi-modal-video-empty"><span style="font-size:34px;">📄</span><span>Ringkasan teks di bawah.</span></div>';
+                videoBox.innerHTML = '<div class="materi-modal-video-empty"><span>Ringkasan teks di bawah.</span></div>';
             }
 
             konten.innerHTML = teks ? esc(teks) : '<em style="color:var(--ink-muted);">Belum ada ringkasan untuk modul ini.</em>';

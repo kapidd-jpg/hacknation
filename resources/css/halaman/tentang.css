@@ -52,19 +52,6 @@
     overflow: hidden;
     box-shadow: 4px 4px 0 0 var(--ink);
 }
-.tentang-stats::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: repeating-linear-gradient(
-        0deg,
-        rgba(253, 253, 249, 0.04) 0,
-        rgba(253, 253, 249, 0.04) 1px,
-        transparent 1px,
-        transparent 27px
-    );
-    pointer-events: none;
-}
 .tentang-stat { position: relative; }
 @media (min-width: 768px) {
     .tentang-stats { grid-template-columns: repeat(4, 1fr); }
@@ -94,7 +81,7 @@
     top: 4px;
     bottom: 4px;
     width: 2px;
-    background: linear-gradient(#E3A23B, var(--paper-100));
+    background: var(--gold);
 }
 .tentang-milestone { position: relative; padding: 0 0 36px 62px; }
 .tentang-milestone:last-child { padding-bottom: 0; }

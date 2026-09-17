@@ -16,8 +16,7 @@
                 @csrf
                 <input type="hidden" name="user_id" value="{{ $guru->id }}">
 
-                <div class="flex items-center gap-3 mb-4">
-                    <span class="flex items-center justify-center size-10 rounded-xl bg-brick-100/40 text-lg">👩‍🏫</span>
+<div class="flex items-center gap-3 mb-4">
                     <div>
                         <p class="text-whitewarm font-bold">{{ $guru->name }}</p>
                         <p class="text-xs font-semibold text-white/50">{{ $guru->email }}</p>

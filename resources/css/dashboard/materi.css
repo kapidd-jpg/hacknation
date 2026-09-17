@@ -17,7 +17,7 @@
 
 /* ---------- Hero course ---------- */
 .materi-hero {
-    background: linear-gradient(120deg, #101A2E 0%, #45474D 70%);
+    background: #101A2E;
     border-radius: 20px;
     padding: 28px 30px;
     display: flex;
@@ -193,7 +193,7 @@
 .materi-info-value { display: block; font-size: 13.5px; font-weight: 700; color: var(--ink); margin-top: 2px; }
 
 .materi-promo {
-    background: linear-gradient(150deg, var(--paper) 0%, #FFFFFF 60%);
+    background: var(--paper);
     border-top: 4px solid var(--gold);
     text-align: center;
 }

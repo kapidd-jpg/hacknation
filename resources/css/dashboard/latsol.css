@@ -58,7 +58,7 @@
 .latsol-score-ring {
     --score: 0%;
     width: 132px; height: 132px; border-radius: 50%; flex-shrink: 0;
-    background: conic-gradient(var(--gold) var(--score), var(--paper-100) 0);
+    background: var(--paper-100);
     display: flex; align-items: center; justify-content: center;
 }
 .latsol-score-ring::before {

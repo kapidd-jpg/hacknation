@@ -66,7 +66,7 @@
                         <img src="{{ asset('assets/images/hero-landing.jpg') }}"
                              alt="Natural window light, realistic Indonesian study desk with notebooks, exam prep books, pens, laptop, candid student study setting, subtle navy and warm gold tone lighting, clean authentic educational aesthetic"
                              class="w-full h-full object-cover mix-blend-luminosity opacity-90 filter contrast-125">
-                        <div class="absolute inset-0 bg-gradient-to-tr from-ink/60 via-transparent to-gold/30 mix-blend-color pointer-events-none"></div>
+                        <div class="absolute inset-0 bg-ink/20 pointer-events-none"></div>
                         <div class="absolute inset-0 bg-ink/15 pointer-events-none"></div>
                     </div>
 

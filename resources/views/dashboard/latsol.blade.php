@@ -45,7 +45,6 @@
             </div>
         @empty
             <div class="dash-card dash-reveal" style="padding:48px;text-align:center;">
-                <p style="font-size:40px;margin-bottom:8px;">📝</p>
                 <p class="materi-title" style="font-size:22px;margin-bottom:6px;">Belum ada paket latihan</p>
                 <p class="dash-head-sub" style="margin-bottom:20px;">Guru belum menambahkan soal untuk mapel yang kamu ikuti. Coba cek lagi nanti ya!</p>
                 <div class="flex justify-center gap-3 flex-wrap">

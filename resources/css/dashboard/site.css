@@ -43,8 +43,8 @@
     --amber: #E3A23B;
     --ink-soft: #45474D;
     --ink-muted: #76777D;
-    --grad-brand: linear-gradient(135deg, #0B1322 0%, #101A2E 100%);
-    --grad-navy: linear-gradient(180deg, #101A2E 0%, #0B1322 150%);
+    --grad-brand: #101A2E;
+    --grad-navy: #101A2E;
     --shadow-card: 0 1px 2px rgba(16, 26, 46, 0.06);
 }
 
@@ -161,7 +161,7 @@
 
 /* ---------- Progress bar ---------- */
 .dash-progress { background: var(--paper-100); height: 8px; border-radius: 2px; overflow: hidden; }
-.dash-progress > span { display: block; height: 100%; border-radius: 0; background: linear-gradient(90deg, var(--brick-600), var(--gold)); transition: width 0.8s ease; }
+.dash-progress > span { display: block; height: 100%; border-radius: 0; background: var(--gold); transition: width 0.8s ease; }
 
 /* ============================================================
    Sidebar — navy gelap (ledger), aksen emas
@@ -181,7 +181,6 @@
     flex-direction: column;
     justify-content: space-between;
     background: var(--ink);
-    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 220px);
     border-right: 1px solid rgba(255, 255, 255, 0.08);
     transition: width 0.28s ease;
 }

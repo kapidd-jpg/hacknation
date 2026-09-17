@@ -41,9 +41,9 @@
         {{-- ============ HEAD ============ --}}
         <div class="dash-head dash-reveal">
             <div>
-                <a href="{{ route('dashboard.kelas') }}" class="materi-back">← Kembali ke Kelas Saya</a>
+                <a href="{{ route('dashboard.kelas') }}" class="materi-back">â† Kembali ke Kelas Saya</a>
                 <h1 class="materi-title">Detail Materi</h1>
-                <p class="dash-head-sub">{{ $course['name'] ?? 'Kelas' }} • Silabus lengkap beserta progres modul yang sedang kamu ikuti.</p>
+                <p class="dash-head-sub">{{ $course['name'] ?? 'Kelas' }} â€¢ Silabus lengkap beserta progres modul yang sedang kamu ikuti.</p>
             </div>
             <div class="dash-head-actions">
                 <a href="{{ route('dashboard.latsol') }}" class="dash-btn dash-btn--ghost">Latihan Soal</a>
@@ -53,7 +53,6 @@
 
         @if ($emptyKelas)
             <div class="dash-card dash-reveal" style="padding:48px;text-align:center;">
-                <p style="font-size:40px;margin-bottom:8px;">📚</p>
                 <p class="materi-title" style="font-size:22px;margin-bottom:6px;">Kamu belum terdaftar di kelas manapun</p>
                 <p class="dash-head-sub" style="margin-bottom:20px;">Ikuti katalog program untuk mulai belajar dan mengerjakan latihan.</p>
                 <a href="{{ route('dashboard.katalog') }}" class="dash-btn dash-btn--primary">Jelajahi Katalog</a>
@@ -68,7 +67,7 @@
                         <span class="dash-pill">{{ $currentCourse['pertemuan'] }}</span>
                     </div>
                     <h2>{{ $currentCourse['judul'] }}</h2>
-                    <p class="materi-hero-sub">Tutor {{ $currentCourse['tutor'] }} (Master Tutor PTN) • Video Modul</p>
+                    <p class="materi-hero-sub">Tutor {{ $currentCourse['tutor'] }} (Master Tutor PTN) â€¢ Video Modul</p>
 
                     <div class="materi-hero-progress">
                         <span class="materi-hero-label">{{ $currentCourse['pct'] }}% Selesai</span>
@@ -83,7 +82,7 @@
                         </button>
                         <span class="materi-hero-hint">Lanjut: {{ $curName }}</span>
                     @else
-                        <span class="materi-hero-hint">Semua modul telah ditandai selesai. Kerjakan latihan soalnya! 🎯</span>
+                        <span class="materi-hero-hint">Semua modul telah ditandai selesai. Kerjakan latihan soalnya!</span>
                     @endif
                 </div>
                 <div class="materi-hero-side">
@@ -142,7 +141,7 @@
                                                 </span>
                                                 <span class="modul-info">
                                                     <span class="modul-name">{{ $m['nama'] }}</span>
-                                                    <span class="modul-dur">{{ $tipeLabel[$m['tipe']] ?? $m['tipe'] }} • {{ $m['durasi'] }}</span>
+                                                    <span class="modul-dur">{{ $tipeLabel[$m['tipe']] ?? $m['tipe'] }} â€¢ {{ $m['durasi'] }}</span>
                                                 </span>
                                                 <span class="materi-status materi-status--{{ $m['status'] }}">{{ $badge }}</span>
                                             </button>
@@ -156,7 +155,7 @@
                     </div>
 
                     <div class="materi-foot-note" id="materiNext">
-                        Latihan soal & tryout mini tersedia di bawah setelah kamu pelajari materinya. 🎯
+                        Latihan soal & tryout mini tersedia di bawah setelah kamu pelajari materinya.
                     </div>
                 </div>
 
@@ -165,20 +164,16 @@
                         <p class="dash-card-title"><span class="dash-dot"></span>Info Kelas</p>
                         <ul class="materi-info">
                             <li>
-                                <span class="materi-info-ico" style="color:var(--sukses);background:rgba(46,107,78,0.15)">👨‍🏫</span>
                                 <div><span class="materi-info-label">Tutor</span><span class="materi-info-value">{{ $currentCourse['tutor'] }}</span></div>
                             </li>
                             <li>
-                                <span class="materi-info-ico">📅</span>
                                 <div><span class="materi-info-label">Kelas Live Mingguan</span><span class="materi-info-value">{{ $currentCourse['jadwal_live'] ?: 'Rekaman tersedia 24/7' }}</span></div>
                             </li>
                             <li>
-                                <span class="materi-info-ico">📜</span>
                                 <div><span class="materi-info-label">Akses Kelas</span><span class="materi-info-value">Selama paket aktif</span></div>
                             </li>
                             <li>
-                                <span class="materi-info-ico">🎓</span>
-                                <div><span class="materi-info-label">Sertifikat</span><span class="materi-info-value">Lulus ≥ 75% modul</span></div>
+                                <div><span class="materi-info-label">Sertifikat</span><span class="materi-info-value">Lulus â‰¥ 75% modul</span></div>
                             </li>
                         </ul>
                     </div>
@@ -191,7 +186,7 @@
                                     <div class="materi-latsol-set">
                                         <div class="materi-latsol-set-info">
                                             <p class="materi-latsol-set-label">{{ $set['label'] }}</p>
-                                            <p class="materi-latsol-set-meta">{{ $set['total'] }} soal • Terbaik: {{ $set['best'] ?? '-' }}</p>
+                                            <p class="materi-latsol-set-meta">{{ $set['total'] }} soal â€¢ Terbaik: {{ $set['best'] ?? '-' }}</p>
                                         </div>
                                         <a href="{{ route('dashboard.latsol.mulai', [$set['kelas_id'], $set['label']]) }}" class="dash-btn dash-btn--primary dash-btn--sm">Mulai</a>
                                     </div>
@@ -221,7 +216,7 @@
                 <div class="materi-modal-durasi" id="materiModalDurasi"></div>
                 <div class="materi-modal-konten" id="materiModalKonten"></div>
                 <div class="materi-modal-actions">
-                    <button type="button" class="dash-btn dash-btn--ghost" id="materiModalDone">Tandai Selesai ✓</button>
+                    <button type="button" class="dash-btn dash-btn--ghost" id="materiModalDone">Tandai Selesai âœ“</button>
                 </div>
             </div>
         </div>
