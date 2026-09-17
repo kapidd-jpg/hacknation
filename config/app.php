@@ -45,6 +45,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Trusted Proxies (optional)
+    |--------------------------------------------------------------------------
+    |
+    | CIDR proxy/load-balancer yang dipercaya, dipakai TrustProxies middleware.
+    | Kosongkan (atau hapus) di deployment Vercel — default middleware '*' 
+    | aman karena Vercel menimpa X-Forwarded-For dengan IP asli. Untuk hosting
+    | non-Vercel, isi mis. "1.2.3.4/32,5.6.7.0/24".
+    |
+    */
+
+    'trusted_proxies' => env('TRUSTED_PROXIES'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Debug Mode
     |--------------------------------------------------------------------------
     |

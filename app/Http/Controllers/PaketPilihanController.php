@@ -31,6 +31,15 @@ class PaketPilihanController extends Controller
         ]);
     }
 
+    /**
+     * // NOTE: dummy payment flow — sengaja TANPA gateway pembayaran nyata
+     * (mock untuk demo/showcase hackathon). Akses paket langsung diberikan
+     * demi pengalaman demo; duplicate-purchase dicegah di bawah.
+     * Bila nanti dibuka untuk publik berbayar, GANTI dengan flow order +
+     * verifikasi webhook gateway nyata (lihat LAPORAN_CODE_REVIEW H-2).
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
     public function bayar(Request $request)
     {
         $user = Auth::user();

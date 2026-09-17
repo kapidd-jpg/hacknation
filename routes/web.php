@@ -61,7 +61,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/pilih-paket', [PaketPilihanController::class, 'index'])->name('paket.index');
         Route::get('/pilih-paket/{key}', [PaketPilihanController::class, 'checkout'])->name('paket.checkout');
-        Route::post('/pilih-paket/bayar', [PaketPilihanController::class, 'bayar'])->middleware('throttle:20,1')->name('paket.bayar');
+        Route::post('/pilih-paket/bayar', [PaketPilihanController::class, 'bayar'])->middleware('throttle:5,1')->name('paket.bayar');
         Route::get('/paket-berhasil', [PaketPilihanController::class, 'berhasil'])->name('paket.berhasil');
 
         Route::get('/ruang/{room}', [RoomController::class, 'show'])->name('room.show');
