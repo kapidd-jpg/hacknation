@@ -18,7 +18,7 @@
             @endif
 
             @if ($errors->any())
-                <div class="rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3">
+                <div class="rounded-xl bg-danger/10 border border-danger/20 text-danger text-sm px-4 py-3">
                     {{ $errors->first() }}
                 </div>
             @endif

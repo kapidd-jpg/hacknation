@@ -9,7 +9,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..900&family=Space+Grotesk:wght@400..700&display=swap" rel="stylesheet">
 
     {{-- Compiled CSS & JS from resources/css/app.css and resources/js/app.js via Vite --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -39,7 +39,7 @@ defaultPhoto() { return '{{ asset('assets/images/default-avatar.jpg') }}'; },
 
     @stack('styles')
 </head>
-<body class="text-ink antialiased">
+<body class="text-ink bg-paper antialiased">
     {{ $slot ?? '' }}
     @yield('content')
 

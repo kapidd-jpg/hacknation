@@ -11,6 +11,7 @@ export default defineConfig({
                 'resources/css/halaman/tentang.css',
                 'resources/css/halaman/kelas.css',
                 'resources/css/halaman/kontak.css',
+                'resources/css/halaman/landing.css',
                 'resources/js/halaman/tentang.js',
                 'resources/js/halaman/landing.js',
                 'resources/js/halaman/kelas.js',

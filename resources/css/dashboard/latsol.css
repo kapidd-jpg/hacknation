@@ -1,10 +1,8 @@
-/* ============================================================
-   PintarKuy - Dashboard: Latihan Soal (list, kerja, hasil)
-   ============================================================ */
+/* PintarKuy - Dashboard: Latihan Soal (list, kerja, hasil) — warm palette */
 
 /* ---- List ---- */
 .latsol-item {
-    background: #fff;
+    background: #FFFFFF;
     border-radius: 18px;
     box-shadow: var(--shadow-card);
     padding: 18px 20px;
@@ -21,37 +19,37 @@
     font-weight: 900; font-size: 14px; flex-shrink: 0;
 }
 .latsol-item-kelas { font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); }
-.latsol-item-label { font-size: 16px; font-weight: 800; color: var(--navy-950); }
+.latsol-item-label { font-size: 16px; font-weight: 800; color: var(--ink); }
 .latsol-item-stats { display: flex; gap: 24px; align-items: center; }
 .latsol-stat { display: flex; flex-direction: column; align-items: center; min-width: 58px; }
-.latsol-stat-val { font-size: 20px; font-weight: 900; color: var(--navy-950); line-height: 1; }
+.latsol-stat-val { font-size: 20px; font-weight: 900; color: var(--ink); line-height: 1; }
 .latsol-stat-key { font-size: 11px; font-weight: 700; color: var(--ink-muted); margin-top: 4px; }
 .latsol-item-action { flex-shrink: 0; }
 
 /* ---- Kerja ---- */
 .latsol-soal { transition: box-shadow .25s ease; }
-.latsol-soal.is-current { box-shadow: 0 0 0 2px var(--green-light, rgba(94,234,212,.8)), var(--shadow-card); }
+.latsol-soal.is-current { box-shadow: 0 0 0 2px var(--gold), var(--shadow-card); }
 .latsol-soal-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .latsol-soal-text { white-space: pre-wrap; }
 .latsol-opsi-list { display: flex; flex-direction: column; gap: 10px; }
 .latsol-opsi {
     display: flex; align-items: center; gap: 12px;
-    border: 1.5px solid var(--navy-100);
+    border: 1.5px solid var(--paper-100);
     border-radius: 12px; padding: 12px 14px; cursor: pointer;
     transition: border-color .15s ease, background .15s ease;
 }
-.latsol-opsi:hover { border-color: var(--green, #0D9488); background: rgba(94, 234, 212, 0.08); }
+.latsol-opsi:hover { border-color: var(--sukses); background: rgba(46, 107, 78, 0.06); }
 .latsol-opsi input { position: absolute; opacity: 0; pointer-events: none; }
 .latsol-opsi-huruf {
     width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
-    background: var(--navy-50); color: var(--navy-800);
+    background: var(--paper); color: var(--brick);
     font-weight: 900; font-size: 13px;
     transition: background .15s ease, color .15s ease;
 }
-.latsol-opsi:has(input:checked) { border-color: var(--green, #0D9488); background: rgba(94, 234, 212, 0.15); }
-.latsol-opsi:has(input:checked) .latsol-opsi-huruf { background: var(--green, #0D9488); color: #fff; }
-.latsol-opsi-teks { font-size: 14px; font-weight: 600; color: var(--navy-900); }
+.latsol-opsi:has(input:checked) { border-color: var(--sukses); background: rgba(46, 107, 78, 0.1); }
+.latsol-opsi:has(input:checked) .latsol-opsi-huruf { background: var(--sukses); color: #FFFFFF; }
+.latsol-opsi-teks { font-size: 14px; font-weight: 600; color: var(--ink); }
 
 /* ---- Hasil ---- */
 .latsol-hasil-hero {
@@ -60,27 +58,27 @@
 .latsol-score-ring {
     --score: 0%;
     width: 132px; height: 132px; border-radius: 50%; flex-shrink: 0;
-    background: conic-gradient(var(--green-light, #5EEAD4) var(--score), var(--navy-100) 0);
+    background: conic-gradient(var(--gold) var(--score), var(--paper-100) 0);
     display: flex; align-items: center; justify-content: center;
 }
 .latsol-score-ring::before {
     content: '';
     position: absolute; width: 108px; height: 108px; border-radius: 50%;
-    background: #fff;
+    background: #FFFFFF;
 }
 .latsol-score-inner { position: relative; display: flex; align-items: baseline; gap: 2px; }
-.latsol-score-val { font-size: 34px; font-weight: 900; color: var(--navy-950); }
+.latsol-score-val { font-size: 34px; font-weight: 900; color: var(--ink); }
 .latsol-score-suffix { font-size: 13px; font-weight: 700; color: var(--ink-muted); }
-.latsol-hasil-hero-title { font-size: 22px; font-weight: 800; color: var(--navy-950); }
+.latsol-hasil-hero-title { font-size: 22px; font-weight: 800; color: var(--ink); }
 .latsol-hasil-hero-meta { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0; }
 .latsol-hasil-hero-sub { font-size: 13.5px; color: var(--ink-soft); font-weight: 600; }
 
 .latsol-pembahasan {
-    border: 1.5px solid var(--navy-100);
+    border: 1.5px solid var(--paper-100);
     border-radius: 14px; padding: 16px;
     border-left-width: 4px;
 }
-.latsol-pembahasan.is-benar { border-left-color: var(--green-light, #5EEAD4); background: rgba(94, 234, 212, 0.06); }
-.latsol-pembahasan.is-salah { border-left-color: #ff7a7a; background: rgba(255, 122, 122, 0.05); }
+.latsol-pembahasan.is-benar { border-left-color: var(--gold); background: rgba(191, 138, 27, 0.05); }
+.latsol-pembahasan.is-salah { border-left-color: var(--danger); background: rgba(192, 50, 42, 0.04); }
 .latsol-pembahasan-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .latsol-pembahasan-no { font-size: 12px; font-weight: 800; color: var(--ink-muted); letter-spacing: 0.04em; text-transform: uppercase; }

@@ -1,63 +1,83 @@
 /* ============================================================
-   PintarKuy - Halaman Tentang
+   PintarKuy - Halaman Tentang (ledger StudyServer)
    ============================================================ */
 
 /* ---------- Misi / Visi / Nilai ---------- */
 .tentang-story-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 22px;
 }
 @media (min-width: 768px) {
     .tentang-story-grid { grid-template-columns: repeat(2, 1fr); }
 }
 .tentang-story-card {
-    background: #fff;
-    border: 1px solid rgba(30, 58, 186, 0.08);
-    border-radius: 20px;
-    padding: 32px;
-    box-shadow: var(--shadow-card);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    background: var(--white-warm);
+    border: 1px solid var(--ink);
+    border-radius: 4px;
+    padding: 28px;
+    box-shadow: 3px 3px 0 0 var(--ink);
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
 }
-.tentang-story-card:hover { transform: translateY(-4px); box-shadow: 0 16px 34px -12px rgba(30, 58, 186, 0.16); }
+.tentang-story-card:hover { transform: translateY(-5px); box-shadow: 0 20px 44px -18px rgba(16, 26, 46, 0.3), 3px 3px 0 0 var(--ink); }
 .tentang-story-icon {
     width: 52px;
     height: 52px;
-    border-radius: 16px;
+    border-radius: 4px;
+    border: 1px solid var(--ink);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 .tentang-story-icon svg { width: 24px; height: 24px; }
-.tentang-story-icon--green { background: rgba(94, 234, 212, 0.35); color: var(--green-text); }
-.tentang-story-icon--navy { background: var(--navy-100); color: var(--navy-800); }
-.tentang-story-icon--amber { background: #fef3c7; color: #92400e; }
-.tentang-story-icon--purple { background: #ede9fe; color: #1E3ABA; }
-.tentang-story-card h3 { font-size: 20px; font-weight: 900; color: var(--navy-900); margin: 18px 0 10px; }
+.tentang-story-icon--green { background: #E4F0EE; color: var(--sukses); }
+.tentang-story-icon--navy { background: var(--brick-50); color: var(--brick-800); }
+.tentang-story-icon--amber { background: var(--gold-100); color: #8A6510; }
+.tentang-story-icon--purple { background: #F0F3FA; color: #17233D; }
+.tentang-story-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; color: var(--ink); margin: 18px 0 10px; }
 .tentang-story-card p { color: var(--ink-soft); font-size: 14px; line-height: 1.7; margin: 0; }
 
 /* ---------- Stats band ---------- */
 .tentang-stats {
-    background: var(--navy-950);
-    border-radius: 28px;
-    padding: 48px 32px;
+    background: var(--ink);
+    border: 1px solid var(--ink);
+    border-radius: 6px;
+    padding: clamp(40px, 6vw, 56px) 32px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 32px;
+    gap: 34px;
     text-align: center;
     margin-top: 64px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 4px 4px 0 0 var(--ink);
 }
+.tentang-stats::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+        0deg,
+        rgba(253, 253, 249, 0.04) 0,
+        rgba(253, 253, 249, 0.04) 1px,
+        transparent 1px,
+        transparent 27px
+    );
+    pointer-events: none;
+}
+.tentang-stat { position: relative; }
 @media (min-width: 768px) {
     .tentang-stats { grid-template-columns: repeat(4, 1fr); }
 }
 .tentang-stat-value {
     display: block;
+    font-family: 'Space Grotesk', sans-serif;
     font-size: clamp(28px, 4.5vw, 40px);
-    font-weight: 900;
-    color: #fff;
+    font-weight: 700;
+    color: #E3A23B;
     font-variant-numeric: tabular-nums;
 }
-.tentang-stat p { color: var(--navy-300); font-size: 13px; font-weight: 600; margin: 6px 0 0; }
+.tentang-stat p { color: rgba(253, 253, 249, 0.6); font-size: 12.5px; font-weight: 700; letter-spacing: 0.03em; margin: 8px 0 0; }
 
 /* ---------- Timeline ---------- */
 .tentang-timeline {
@@ -65,7 +85,7 @@
     list-style: none;
     margin: 0 auto;
     padding: 0;
-    max-width: 720px;
+    max-width: 760px;
 }
 .tentang-timeline::before {
     content: '';
@@ -74,30 +94,31 @@
     top: 4px;
     bottom: 4px;
     width: 2px;
-    background: linear-gradient(var(--green-light), var(--navy-100));
+    background: linear-gradient(#E3A23B, var(--paper-100));
 }
-.tentang-milestone { position: relative; padding: 0 0 34px 58px; }
+.tentang-milestone { position: relative; padding: 0 0 36px 62px; }
 .tentang-milestone:last-child { padding-bottom: 0; }
 .tentang-milestone::before {
     content: '';
     position: absolute;
-    left: 7px;
+    left: 6px;
     top: 2px;
-    width: 24px;
-    height: 24px;
-    border-radius: 9999px;
-    background: #fff;
-    border: 6px solid var(--green);
-    box-shadow: 0 0 0 4px rgba(0, 109, 48, 0.12);
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    background: var(--white-warm);
+    border: 7px solid #E3A23B;
+    box-shadow: 0 0 0 4px rgba(16, 26, 46, 0.1);
 }
 .tentang-milestone-year {
-    font-size: 13px;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    color: var(--green);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: #C8891F;
     text-transform: uppercase;
 }
-.tentang-milestone h3 { font-size: 19px; font-weight: 800; color: var(--navy-900); margin: 6px 0 8px; }
+.tentang-milestone h3 { font-family: 'Space Grotesk', sans-serif; font-size: 19px; font-weight: 700; color: var(--ink); margin: 6px 0 8px; }
 .tentang-milestone p { font-size: 14px; color: var(--ink-soft); line-height: 1.65; margin: 0; }
 
 /* ============================================================
@@ -109,15 +130,16 @@
 .page-hero > *:nth-child(2) { animation-delay: 0.28s; }
 .page-hero > *:nth-child(3) { animation-delay: 0.41s; }
 .page-hero > *:nth-child(4) { animation-delay: 0.54s; }
+@keyframes pkHeroIn {
+    from { opacity: 0; transform: translateY(22px); }
+    to { opacity: 1; transform: none; }
+}
 
 .tentang-story-icon {
     transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.tentang-story-card:hover { transform: translateY(-6px); }
 .tentang-story-card:hover .tentang-story-icon { transform: scale(1.08) rotate(-4deg); }
 
-.tentang-timeline > li:nth-child(2) { transition-delay: 0.08s; }
-.tentang-timeline > li:nth-child(3) { transition-delay: 0.16s; }
 .tentang-milestone { transition: opacity 0.6s ease, transform 0.6s ease; }
 .tentang-milestone:hover { transform: translateX(8px); }
 
@@ -138,6 +160,5 @@
 @media (prefers-reduced-motion: reduce) {
     .page-hero > *,
     .tentang-stat { animation: none; opacity: 1 !important; transform: none !important; }
-    .tentang-story-card:hover,
     .tentang-milestone:hover { transform: none; }
 }

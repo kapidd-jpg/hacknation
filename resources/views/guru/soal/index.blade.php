@@ -53,7 +53,7 @@
                                 </td>
                                 <td>{{ $s->urutan }}</td>
                                 <td>{!! $s->aktif
-                                    ? '<span class="dash-pill" style="background:rgba(94,234,212,0.3);color:var(--brand-green,#0D9488);">Aktif</span>'
+                                    ? '<span class="dash-pill dash-pill--green">Aktif</span>'
                                     : '<span class="dash-pill" style="background:rgba(255,120,120,0.15);color:rgba(255,120,120,1);">Nonaktif</span>' !!}</td>
                                 <td>
                                     <div class="flex items-center justify-end gap-2">

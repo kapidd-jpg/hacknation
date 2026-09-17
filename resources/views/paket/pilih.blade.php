@@ -8,7 +8,7 @@
         <div>
             <h1>Pilih Paket Belajarmu</h1>
             <p class="dash-head-sub">
-                Halo <span class="font-bold text-navy-900">{{ auth()->user()->name }}</span>
+                Halo <span class="font-bold text-ink">{{ auth()->user()->name }}</span>
                 ({{ auth()->user()->kelas_jurusan ?? '-' }} · {{ auth()->user()->sekolah ?? '-' }}).
                 Kamu bisa membeli satu paket atau kombinasi beberapa paket sekaligus.
                 Setelah aktif, daftar kelas di kategorinya gratis tanpa biaya tambahan.
@@ -21,11 +21,22 @@
 
     <div class="dash-card dash-reveal" style="padding:18px 22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
         <div class="flex items-center gap-2.5 text-sm font-semibold">
-            <span class="flex items-center gap-1.5 text-ink-soft"><span class="flex items-center justify-center size-6 rounded-full bg-green text-white text-xs">✓</span> Daftar</span>
-            <span class="w-8 h-px bg-navy-100"></span>
-            <span class="flex items-center gap-1.5 text-navy-950"><span class="flex items-center justify-center size-6 rounded-full bg-navy-800 text-white text-xs">2</span> Pilih Paket</span>
-            <span class="w-8 h-px bg-navy-100"></span>
-            <span class="flex items-center gap-1.5 text-ink-muted"><span class="flex items-center justify-center size-6 rounded-full bg-navy-50 text-navy-400 text-xs">3</span> Pembayaran</span>
+            <span class="flex items-center gap-1.5 text-ink-soft">
+                <span class="flex items-center justify-center size-6 rounded-full bg-sukses text-white text-xs">
+                    <svg class="size-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                </span>
+                Daftar
+            </span>
+            <span class="paket-sep"></span>
+            <span class="flex items-center gap-1.5 text-ink">
+                <span class="flex items-center justify-center size-6 rounded-full bg-brick text-white text-xs">2</span>
+                Pilih Paket
+            </span>
+            <span class="paket-sep"></span>
+            <span class="flex items-center gap-1.5 text-ink-muted">
+                <span class="flex items-center justify-center size-6 rounded-full bg-paper-100 text-ink-muted text-xs">3</span>
+                Pembayaran
+            </span>
         </div>
         <p class="text-xs text-ink-muted ml-auto">Pembayaran simulasi, tidak ada uang yang benar-benar ditransfer.</p>
     </div>

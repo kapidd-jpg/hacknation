@@ -28,7 +28,7 @@
             <p>Tidak ada kelas pada kategori ini untuk saat ini.</p>
         </div>
 
-        <div class="pk-cta pk-reveal" style="margin-top:64px;">
+        <div class="pk-cta" style="margin-top:64px;">
             <h2>Tidak Menemukan Kelas yang Kamu Cari?</h2>
             <p>Kami selalu membuka kelas baru berdasarkan permintaan siswa. Hubungi tim kami dan mintakan kelas yang kamu butuhkan.</p>
             <a href="{{ route('contact') }}" class="pk-btn" style="background:#fff;color:var(--navy-950);box-shadow:0 10px 24px -10px rgba(0,0,0,0.5);">Usulkan Kelas Baru</a>

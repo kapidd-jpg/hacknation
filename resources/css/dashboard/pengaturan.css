@@ -1,6 +1,4 @@
-/* ============================================================
-   PintarKuy - Dashboard: Pengaturan
-   ============================================================ */
+/* PintarKuy - Dashboard: Pengaturan — warm palette */
 
 .setting-tabs { display: flex; flex-wrap: wrap; gap: 10px; }
 .setting-tabs button {
@@ -8,30 +6,30 @@
     font-size: 13px;
     font-weight: 800;
     color: var(--ink-muted);
-    background: #fff;
-    border: 1px solid rgba(30, 58, 186, 0.12);
+    background: #FFFFFF;
+    border: 1px solid rgba(16, 26, 46, 0.1);
     padding: 10px 22px;
     border-radius: 9999px;
     cursor: pointer;
     transition: all 0.2s ease;
 }
-.setting-tabs button:hover { color: var(--navy-950); border-color: var(--navy-400); }
-.setting-tabs button.active { background: var(--navy-800); color: #fff; border-color: var(--navy-800); }
+.setting-tabs button:hover { color: var(--ink); border-color: var(--ink-muted); }
+.setting-tabs button.active { background: var(--brick); color: #FFFFFF; border-color: var(--brick); }
 
 .setting-pane { display: none; flex-direction: column; gap: 26px; }
 .setting-pane.active { display: flex; }
 
 .setting-row { display: flex; flex-direction: column; gap: 18px; }
 .setting-field { display: flex; flex-direction: column; gap: 8px; }
-.setting-field label { font-size: 13px; font-weight: 700; color: var(--navy-900); }
+.setting-field label { font-size: 13px; font-weight: 700; color: var(--ink); }
 .setting-field input,
 .setting-field textarea {
     width: 100%;
     font: inherit;
     font-size: 14px;
-    color: var(--navy-900);
-    background: #f8f9ff;
-    border: 1px solid rgba(30, 58, 186, 0.14);
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid rgba(16, 26, 46, 0.1);
     border-radius: 12px;
     padding: 13px 16px;
     box-sizing: border-box;
@@ -39,7 +37,7 @@
 }
 .setting-field textarea { resize: vertical; min-height: 100px; }
 .setting-field input:focus,
-.setting-field textarea:focus { outline: none; border-color: var(--navy-800); box-shadow: 0 0 0 3px rgba(30, 58, 186, 0.1); background: #fff; }
+.setting-field textarea:focus { outline: none; border-color: var(--brick); box-shadow: 0 0 0 3px rgba(16, 26, 46, 0.1); background: #FFFFFF; }
 .setting-hint { font-size: 11.5px; color: var(--ink-muted); }
 .setting-avatar { display: flex; align-items: center; gap: 16px; }
 .setting-avatar-photo { position: relative; width: 64px; height: 64px; flex-shrink: 0; }
@@ -47,20 +45,20 @@
 .setting-avatar-photo span {
     position: absolute; inset: 0; width: 100%; height: 100%;
     display: flex; align-items: center; justify-content: center;
-    border-radius: 9999px; background: var(--navy-800); color: #fff;
+    border-radius: 9999px; background: var(--brick); color: #FFFFFF;
     font-size: 22px; font-weight: 800;
 }
 .setting-avatar-photo .hidden { display: none; }
 
 .toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-.toggle-row b { font-size: 13.5px; color: var(--navy-900); display: block; }
+.toggle-row b { font-size: 13.5px; color: var(--ink); display: block; }
 .toggle-row p { font-size: 12.5px; color: var(--ink-soft); margin: 3px 0 0; }
 .toggle {
     position: relative;
     width: 48px;
     height: 28px;
     border-radius: 9999px;
-    background: var(--navy-100);
+    background: var(--paper-100);
     border: none;
     cursor: pointer;
     flex-shrink: 0;
@@ -74,11 +72,11 @@
     width: 22px;
     height: 22px;
     border-radius: 9999px;
-    background: #fff;
+    background: #FFFFFF;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     transition: transform 0.25s ease;
 }
-.toggle.on { background: var(--green); }
+.toggle.on { background: var(--sukses); }
 .toggle.on::after { transform: translateX(20px); }
 
 .setting-toast {
@@ -86,13 +84,13 @@
     bottom: 24px;
     left: 50%;
     transform: translate(-50%, 24px);
-    background: var(--navy-900);
-    color: #fff;
+    background: var(--ink);
+    color: #FFFFFF;
     font-size: 13.5px;
     font-weight: 700;
     padding: 13px 22px;
     border-radius: 12px;
-    box-shadow: 0 12px 30px -8px rgba(15, 23, 42, 0.5);
+    box-shadow: 0 12px 30px -8px rgba(16, 26, 46, 0.4);
     display: flex;
     align-items: center;
     gap: 10px;
@@ -102,11 +100,11 @@
     z-index: 60;
 }
 .setting-toast.show { opacity: 1; transform: translate(-50%, 0); }
-.setting-toast svg { width: 16px; height: 16px; color: var(--green-light); }
+.setting-toast svg { width: 16px; height: 16px; color: var(--gold); }
 
 .keluar-box {
-    background: #fff;
-    border: 1px solid rgba(220, 38, 38, 0.25);
+    background: #FFFFFF;
+    border: 1px solid rgba(192, 50, 42, 0.25);
     border-radius: 16px;
     padding: 22px 24px;
     display: flex;
@@ -115,7 +113,7 @@
     justify-content: space-between;
     gap: 14px;
 }
-.keluar-box b { font-size: 14px; color: #b91c1c; display: block; }
+.keluar-box b { font-size: 14px; color: var(--danger); display: block; }
 .keluar-box p { font-size: 12.5px; color: var(--ink-soft); margin: 4px 0 0; }
-.dash-btn--danger { background: #dc2626; color: #fff; }
-.dash-btn--danger:hover { background: #b91c1c; }
+.dash-btn--danger { background: var(--danger); color: #FFFFFF; }
+.dash-btn--danger:hover { background: #A62A21; }

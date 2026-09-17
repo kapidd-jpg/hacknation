@@ -1,9 +1,7 @@
-/* ============================================================
-   PintarKuy - Dashboard: Kelas Saya
-   ============================================================ */
+/* PintarKuy - Dashboard: Kelas Saya — warm palette */
 
 .kelas-item {
-    background: #fff;
+    background: #FFFFFF;
     border-radius: 20px;
     box-shadow: var(--shadow-card);
     padding: 24px;
@@ -12,7 +10,7 @@
     gap: 18px;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.kelas-item:hover { transform: translateY(-3px); box-shadow: 0 16px 34px -12px rgba(30, 58, 186, 0.16); }
+.kelas-item:hover { transform: translateY(-3px); box-shadow: 0 16px 34px -12px rgba(16, 26, 46, 0.12); }
 .kelas-item-top { display: flex; align-items: flex-start; gap: 14px; }
 .kelas-icon {
     width: 52px;
@@ -25,15 +23,15 @@
     font-size: 16px;
     flex-shrink: 0;
 }
-.kelas-item h3 { font-size: 18px; font-weight: 800; color: var(--navy-900); margin: 0 0 4px; }
+.kelas-item h3 { font-size: 18px; font-weight: 800; color: var(--ink); margin: 0 0 4px; }
 .kelas-item .kelas-meta { font-size: 12px; font-weight: 600; color: var(--ink-soft); }
 .kelas-tags { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
 .kelas-desc { font-size: 13.5px; color: var(--ink-soft); line-height: 1.65; margin: 0; }
 .kelas-progress-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.kelas-progress-head span:first-child { font-size: 13px; font-weight: 800; color: var(--green); }
+.kelas-progress-head span:first-child { font-size: 13px; font-weight: 800; color: var(--sukses); }
 .kelas-progress-head span:last-child { font-size: 12px; font-weight: 700; color: var(--ink-muted); }
 .kelas-note {
-    background: var(--navy-50);
+    background: var(--paper);
     border-radius: 12px;
     padding: 12px 14px;
     display: flex;
@@ -41,15 +39,15 @@
     gap: 10px;
     font-size: 12px;
     font-weight: 700;
-    color: var(--navy-900);
+    color: var(--ink);
 }
-.kelas-note svg { width: 15px; height: 15px; color: var(--navy-600); flex-shrink: 0; }
+.kelas-note svg { width: 15px; height: 15px; color: var(--ink-muted); flex-shrink: 0; }
 .kelas-item-foot { display: flex; gap: 10px; margin-top: auto; }
 .kelas-item-foot .dash-btn { flex: 1; padding: 11px 16px; }
 
 .kelas-empty-step {
-    background: var(--navy-50);
-    border: 1px dashed rgba(30, 58, 186, 0.2);
+    background: var(--paper);
+    border: 1px dashed rgba(16, 26, 46, 0.16);
     border-radius: 20px;
     padding: 36px;
     text-align: center;
@@ -64,14 +62,14 @@
     bottom: 24px;
     z-index: 70;
     max-width: 360px;
-    background: var(--navy-950);
-    color: #fff;
+    background: var(--ink);
+    color: #FFFFFF;
     border-radius: 16px;
     padding: 14px 16px;
     display: flex;
     align-items: center;
     gap: 12px;
-    box-shadow: 0 20px 44px -14px rgba(15, 23, 42, 0.7);
+    box-shadow: 0 20px 44px -14px rgba(16, 26, 46, 0.6);
     opacity: 0;
     transform: translateY(14px);
     transition: opacity 0.4s ease, transform 0.4s ease;
@@ -89,17 +87,17 @@
     flex-shrink: 0;
 }
 .kelas-toast-title { font-size: 13px; font-weight: 800; margin: 0; }
-.kelas-toast-sub { font-size: 11.5px; color: var(--navy-300); margin: 2px 0 0; }
+.kelas-toast-sub { font-size: 11.5px; color: #AEAA9E; margin: 2px 0 0; }
 .kelas-toast-link {
     margin-left: auto;
     flex-shrink: 0;
     font-size: 11px;
     font-weight: 800;
-    color: var(--green-light);
+    color: var(--gold);
     text-decoration: none;
-    background: rgba(94, 234, 212, 0.14);
+    background: rgba(191, 138, 27, 0.14);
     border-radius: 9999px;
     padding: 7px 12px;
     transition: background 0.2s ease;
 }
-.kelas-toast-link:hover { background: rgba(94, 234, 212, 0.26); }
+.kelas-toast-link:hover { background: rgba(191, 138, 27, 0.26); }

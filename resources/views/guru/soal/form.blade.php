@@ -18,7 +18,7 @@
             @endif
 
             @if ($errors->any())
-                <div class="rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3">
+                <div class="rounded-xl bg-danger/10 border border-danger/20 text-danger text-sm px-4 py-3">
                     {{ $errors->first() }}
                 </div>
             @endif
@@ -67,7 +67,7 @@
                     <div class="flex items-center gap-3 mt-2">
                         <span class="dash-pill shrink-0" style="min-width:34px;justify-content:center;">{{ $huruf }}</span>
                         <input type="text" name="opsi_{{ strtolower($huruf) }}" value="{{ old('opsi_' . strtolower($huruf), $opsi[$huruf] ?? '') }}" placeholder="Pilihan {{ $huruf }}" class="w-full">
-                        <label class="flex items-center gap-2 text-xs font-semibold text-navy-200 shrink-0">
+                        <label class="flex items-center gap-2 text-xs font-semibold text-white/60 shrink-0">
                             <input type="radio" name="kunci" value="{{ $i }}" @checked((string) old('kunci', $soal?->kunci ?? 0) === (string) $i)> Kunci
                         </label>
                     </div>

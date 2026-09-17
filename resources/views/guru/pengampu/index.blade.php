@@ -17,24 +17,24 @@
                 <input type="hidden" name="user_id" value="{{ $guru->id }}">
 
                 <div class="flex items-center gap-3 mb-4">
-                    <span class="flex items-center justify-center size-10 rounded-xl bg-brand-green/20 text-lg">👩‍🏫</span>
+                    <span class="flex items-center justify-center size-10 rounded-xl bg-brick-100/40 text-lg">👩‍🏫</span>
                     <div>
-                        <p class="text-white font-bold">{{ $guru->name }}</p>
-                        <p class="text-xs font-semibold text-navy-300">{{ $guru->email }}</p>
+                        <p class="text-whitewarm font-bold">{{ $guru->name }}</p>
+                        <p class="text-xs font-semibold text-white/50">{{ $guru->email }}</p>
                     </div>
                 </div>
 
                 <div class="grid gap-2" style="grid-template-columns:repeat(auto-fill,minmax(190px,1fr));">
                     @forelse ($kelasSemua as $k)
                         <label class="flex items-center gap-3 rounded-xl border px-4 py-3 cursor-pointer transition
-                            @if ($guru->kelasDiampu->contains($k->id)) border-brand-green/50 bg-brand-green/10 @else border-white/10 hover:border-white/20 hover:bg-white/5 @endif">
+                            @if ($guru->kelasDiampu->contains($k->id)) border-brick/50 bg-brick/10 @else border-white/10 hover:border-white/20 hover:bg-white/5 @endif">
                             <input type="checkbox" name="kelas_ids[]" value="{{ $k->id }}" class="size-4"
                                 @checked($guru->kelasDiampu->contains($k->id))>
-                            <span class="text-sm font-semibold text-white">{{ $k->name }}</span>
-                            <span class="text-[11px] font-semibold text-navy-400">{{ $k->cat }}</span>
+                            <span class="text-sm font-semibold text-whitewarm">{{ $k->name }}</span>
+                            <span class="text-[11px] font-semibold text-white/40">{{ $k->cat }}</span>
                         </label>
                     @empty
-                        <p class="text-sm text-navy-300">Belum ada kelas terdaftar.</p>
+                        <p class="text-sm text-white/50">Belum ada kelas terdaftar.</p>
                     @endforelse
                 </div>
 

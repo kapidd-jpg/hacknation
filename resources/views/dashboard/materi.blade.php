@@ -165,7 +165,7 @@
                         <p class="dash-card-title"><span class="dash-dot"></span>Info Kelas</p>
                         <ul class="materi-info">
                             <li>
-                                <span class="materi-info-ico" style="color:var(--green);background:rgba(94,234,212,0.35)">👨‍🏫</span>
+                                <span class="materi-info-ico" style="color:var(--sukses);background:rgba(46,107,78,0.15)">👨‍🏫</span>
                                 <div><span class="materi-info-label">Tutor</span><span class="materi-info-value">{{ $currentCourse['tutor'] }}</span></div>
                             </li>
                             <li>

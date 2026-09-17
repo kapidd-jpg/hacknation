@@ -1,5 +1,5 @@
 /* ============================================================
-   PintarKuy - Halaman Kontak
+   PintarKuy - Halaman Kontak (ledger StudyServer)
    ============================================================ */
 
 .kontak-grid {
@@ -8,78 +8,82 @@
     gap: 36px;
 }
 @media (min-width: 1024px) {
-    .kontak-grid { grid-template-columns: 400px 1fr; align-items: start; }
+    .kontak-grid { grid-template-columns: minmax(360px, 420px) 1fr; align-items: start; }
 }
 
 /* ---------- Info cards ---------- */
-.kontak-info { display: flex; flex-direction: column; gap: 18px; }
+.kontak-info { display: flex; flex-direction: column; gap: 16px; }
 .kontak-card {
-    background: #fff;
-    border-radius: 18px;
-    box-shadow: var(--shadow-card);
+    background: var(--white-warm);
+    border: 1px solid var(--ink);
+    border-radius: 4px;
+    box-shadow: 3px 3px 0 0 var(--ink);
     padding: 22px 24px;
     display: flex;
     gap: 18px;
     align-items: flex-start;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
 }
+.kontak-card:hover { transform: translateY(-3px); box-shadow: 0 16px 36px -18px rgba(16, 26, 46, 0.25), 3px 3px 0 0 var(--ink); }
 .kontak-card-ico {
     width: 46px;
     height: 46px;
-    border-radius: 14px;
-    background: var(--navy-100);
-    color: var(--navy-800);
+    border-radius: 4px;
+    border: 1px solid var(--ink);
+    background: var(--gold-100);
+    color: var(--ink);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
 }
 .kontak-card-ico svg { width: 20px; height: 20px; }
-.kontak-card h3 { font-size: 15px; font-weight: 800; color: var(--navy-900); margin: 0 0 4px; }
+.kontak-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; color: var(--ink); margin: 0 0 4px; }
 .kontak-card p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; margin: 0; }
-.kontak-card a { color: var(--green); font-weight: 700; text-decoration: none; }
+.kontak-card a { color: #C8891F; font-weight: 700; text-decoration: none; }
 .kontak-card a:hover { text-decoration: underline; }
 
 /* ---------- Form panel ---------- */
 .kontak-panel {
-    background: #fff;
-    border-radius: 24px;
-    box-shadow: var(--shadow-card);
-    padding: 34px;
+    background: var(--white-warm);
+    border: 1px solid var(--ink);
+    border-radius: 6px;
+    box-shadow: 4px 4px 0 0 var(--ink);
+    padding: clamp(26px, 4vw, 38px);
 }
-.kontak-panel-head h2 { margin: 0 0 6px; font-size: 24px; font-weight: 900; color: var(--navy-900); }
+.kontak-panel-head h2 { margin: 0 0 6px; font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; color: var(--ink); }
 .kontak-panel-head p { margin: 0 0 26px; color: var(--ink-soft); font-size: 14px; line-height: 1.6; }
 .kontak-form-row { display: grid; grid-template-columns: 1fr; gap: 0 16px; }
 @media (min-width: 640px) { .kontak-form-row--2 { grid-template-columns: 1fr 1fr; } }
 .kontak-field { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
-.kontak-field label { font-size: 13px; font-weight: 700; color: var(--navy-900); }
-.kontak-field label span { color: #dc2626; }
+.kontak-field label { font-size: 13px; font-weight: 700; color: var(--ink); }
+.kontak-field label span { color: #C8891F; }
 .kontak-field input,
 .kontak-field select,
 .kontak-field textarea {
     width: 100%;
     font: inherit;
     font-size: 14px;
-    color: var(--navy-900);
+    color: var(--ink);
     padding: 13px 16px;
-    border-radius: 12px;
-    border: 1px solid rgba(30, 58, 186, 0.14);
-    background: #f8f9ff;
+    border-radius: 2px;
+    border: 1px solid rgba(16, 26, 46, 0.2);
+    background: #FFFFFF;
     box-sizing: border-box;
-    transition: border 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 .kontak-field textarea { resize: vertical; min-height: 130px; }
 .kontak-field input:focus,
 .kontak-field select:focus,
 .kontak-field textarea:focus {
     outline: none;
-    border-color: var(--navy-800);
-    box-shadow: 0 0 0 3px rgba(30, 58, 186, 0.12);
-    background: #fff;
+    border-color: var(--ink);
+    box-shadow: 2px 2px 0 0 var(--ink);
 }
 .kontak-field.has-error input,
 .kontak-field.has-error textarea,
-.kontak-field.has-error select { border-color: #dc2626; }
-.kontak-error { display: none; font-size: 12px; color: #dc2626; font-weight: 600; margin: 0; }
+.kontak-field.has-error select { border-color: #BA1A1A; }
+.kontak-error { display: none; font-size: 12px; color: #BA1A1A; font-weight: 600; margin: 0; }
 .kontak-field.has-error .kontak-error { display: block; }
 
 .kontak-status {
@@ -88,26 +92,27 @@
     gap: 10px;
     margin-top: 20px;
     padding: 14px 18px;
-    border-radius: 12px;
+    border-radius: 4px;
+    border: 1px solid var(--ink);
     font-size: 14px;
     font-weight: 700;
 }
 .kontak-status.is-visible { display: flex; }
 .kontak-status svg { width: 18px; height: 18px; flex-shrink: 0; }
-.kontak-status--ok { background: rgba(0, 109, 48, 0.1); color: var(--green-text); }
-.kontak-status--err { background: rgba(220, 38, 38, 0.1); color: #b91c1c; }
+.kontak-status--ok { background: #E4F0EE; color: var(--sukses); }
+.kontak-status--err { background: #FBF0EE; color: #A42620; }
 
 /* ---------- Mini FAQ ---------- */
 .kontak-faq { margin-top: 8px; }
 .kontak-faq-item {
-    background: #fff;
-    border: 1px solid rgba(30, 58, 186, 0.08);
-    border-radius: 14px;
+    background: var(--white-warm);
+    border: 1px solid rgba(16, 26, 46, 0.16);
+    border-radius: 4px;
     margin-bottom: 12px;
     overflow: hidden;
-    transition: box-shadow 0.2s ease;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
-.kontak-faq-item.open { box-shadow: var(--shadow-card); }
+.kontak-faq-item.open { box-shadow: 3px 3px 0 0 var(--ink); border-color: var(--ink); }
 .kontak-faq-q {
     display: flex;
     justify-content: space-between;
@@ -120,23 +125,25 @@
     font: inherit;
     font-size: 14.5px;
     font-weight: 700;
-    color: var(--navy-900);
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--ink);
     padding: 18px 20px;
     cursor: pointer;
 }
 .kontak-faq-q .kf-ico {
     width: 26px;
     height: 26px;
-    border-radius: 9999px;
-    background: var(--navy-100);
-    color: var(--navy-800);
+    border-radius: 2px;
+    border: 1px solid var(--ink);
+    background: var(--gold-100);
+    color: var(--ink);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    transition: transform 0.25s ease, background 0.25s ease;
+    transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
 }
 .kontak-faq-q .kf-ico svg { width: 14px; height: 14px; }
-.kontak-faq-item.open .kf-ico { transform: rotate(45deg); background: var(--green-light); }
+.kontak-faq-item.open .kf-ico { transform: rotate(45deg); background: var(--ink); color: #F9E6C9; }
 .kontak-faq-a { display: none; padding: 0 20px 18px; font-size: 14px; line-height: 1.65; color: var(--ink-soft); }
 .kontak-faq-item.open .kontak-faq-a { display: block; }

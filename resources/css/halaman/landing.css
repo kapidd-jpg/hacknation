@@ -1,0 +1,111 @@
+/* ============================================================
+   PintarKuy — Landing (mirror Stitch StudyServer, token PintarKuy)
+   Helper type scale: Stitch memakai utilities (font-headline-*,
+   font-code-figure, font-label-*, font-body-*) yang tidak semua
+   tersedia di tailwind config, jadi difotokopi sebagai .lb-* di sini
+   agar ukuran/berat/tracking sama persis dengan referensi.
+   ============================================================ */
+
+/* --- Spacing: padanan token margin Stitch (2rem) --- */
+@media (min-width: 768px) {
+    .px-margin {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+/* --- Code / data figure (Space Grotesk, 13px) --- */
+.lb-code {
+    font-family: 'Space Grotesk', ui-monospace, 'Segoe UI Mono', monospace;
+    font-size: 13px;
+    line-height: 16px;
+    letter-spacing: 0.02em;
+    font-weight: 500;
+}
+
+/* --- Label sm (Inter, 11px, uppercase mikro) --- */
+.lb-label {
+    font-size: 11px;
+    line-height: 14px;
+    letter-spacing: 0.01em;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* --- Label md (Inter, 13px) --- */
+.lb-label-md {
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: 500;
+}
+
+/* --- Headline scale --- */
+.lb-headline-xl {
+    font-size: 32px;
+    line-height: 38px;
+    letter-spacing: -0.02em;
+}
+@media (min-width: 768px) {
+    .lb-headline-xl {
+        font-size: 44px;
+        line-height: 52px;
+        letter-spacing: -0.03em;
+    }
+}
+
+.lb-headline-lg {
+    font-size: 26px;
+    line-height: 32px;
+    letter-spacing: -0.02em;
+}
+@media (min-width: 768px) {
+    .lb-headline-lg {
+        font-size: 32px;
+        line-height: 40px;
+    }
+}
+
+.lb-headline-md {
+    font-size: 24px;
+    line-height: 30px;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+}
+
+.lb-headline-sm {
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+}
+
+/* --- Body scale (Inter) --- */
+.lb-body-lg {
+    font-size: 16px;
+    line-height: 26px;
+}
+
+.lb-body-md {
+    font-size: 14px;
+    line-height: 22px;
+}
+
+.lb-body-sm {
+    font-size: 12px;
+    line-height: 18px;
+}
+
+/* --- Score display (Space Grotesk) --- */
+.lb-score {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: 56px;
+    line-height: 56px;
+    letter-spacing: -0.04em;
+    font-weight: 700;
+}
+
+/* --- Body dasar landing: skala Inter 14px (padanan Stitch) --- */
+body {
+    font-size: 14px;
+    line-height: 22px;
+}

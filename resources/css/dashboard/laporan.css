@@ -1,13 +1,11 @@
-/* ============================================================
-   PintarKuy - Dashboard: Laporan
-   ============================================================ */
+/* PintarKuy - Dashboard: Laporan — warm palette */
 
 .lap-stat { display: flex; flex-direction: column; gap: 8px; }
 .lap-stat-label { font-size: 12px; font-weight: 600; color: var(--ink-soft); }
-.lap-stat-value { font-size: 26px; font-weight: 900; color: var(--navy-900); line-height: 1; }
+.lap-stat-value { font-size: 26px; font-weight: 900; color: var(--ink); line-height: 1; }
 .lap-stat-delta { font-size: 11px; font-weight: 800; align-self: flex-start; padding: 4px 10px; border-radius: 9999px; }
-.lap-delta--up { color: var(--green-text); background: rgba(94, 234, 212, 0.4); }
-.lap-delta--down { color: #b91c1c; background: rgba(220, 38, 38, 0.1); }
+.lap-delta--up { color: var(--sukses); background: rgba(46, 107, 78, 0.12); }
+.lap-delta--down { color: var(--danger); background: rgba(192, 50, 42, 0.1); }
 
 /* ---- Bar chart ---- */
 .lap-chart { position: relative; height: 260px; display: flex; gap: 16px; padding-top: 6px; }
@@ -24,10 +22,10 @@
 .lap-bar-value {
     font-size: 12px;
     font-weight: 900;
-    color: var(--navy-900);
+    color: var(--ink);
     line-height: 1;
 }
-.lap-bar-col.is-current .lap-bar-value { color: var(--green-text); }
+.lap-bar-col.is-current .lap-bar-value { color: var(--sukses); }
 
 .lap-bar-area {
     flex: 1;
@@ -39,34 +37,34 @@
     position: relative;
     background-image: repeating-linear-gradient(
         to top,
-        rgba(30, 58, 186, 0.08) 0 1px,
+        rgba(16, 26, 46, 0.06) 0 1px,
         transparent 1px 25%
     );
-    border-bottom: 1px solid rgba(30, 58, 186, 0.12);
+    border-bottom: 1px solid rgba(16, 26, 46, 0.1);
 }
 .lap-bar {
     width: 100%;
     height: 0;
     border-radius: 10px 10px 3px 3px;
-    background: linear-gradient(180deg, #5EEAD4 0%, #14B8A6 55%, #0D9488 100%);
+    background: linear-gradient(180deg, var(--gold) 0%, #E3A23B 55%, #E3A23B 100%);
     transition: height 0.9s cubic-bezier(0.22, 1, 0.36, 1), filter 0.25s ease;
 }
 .lap-bar-col:nth-child(even) .lap-bar {
-    background: linear-gradient(180deg, #A8B4F2 0%, #3A54D4 45%, #1E3ABA 100%);
+    background: linear-gradient(180deg, var(--brick-100) 0%, var(--brick-600) 45%, var(--brick) 100%);
 }
 .lap-bar-col:hover .lap-bar { filter: saturate(1.25) brightness(1.08); }
 .lap-bar-col.is-current .lap-bar {
-    box-shadow: 0 0 0 2px #fff, 0 6px 18px -6px rgba(30, 58, 186, 0.5);
+    box-shadow: 0 0 0 2px #FFFFFF, 0 6px 18px -6px rgba(16, 26, 46, 0.4);
     filter: saturate(1.1) brightness(1.05);
 }
 
 .lap-bar-label { font-size: 11px; font-weight: 700; color: var(--ink-muted); line-height: 1; }
-.lap-bar-col.is-current .lap-bar-label { color: var(--navy-900); font-weight: 900; }
+.lap-bar-col.is-current .lap-bar-label { color: var(--ink); font-weight: 900; }
 
 .lap-materi { display: flex; flex-direction: column; gap: 14px; }
 .lap-materi-row { display: flex; flex-direction: column; gap: 6px; }
 .lap-materi-head { display: flex; justify-content: space-between; font-size: 12.5px; }
-.lap-materi-head b { color: var(--navy-900); }
+.lap-materi-head b { color: var(--ink); }
 .lap-materi-head span { color: var(--ink-soft); font-weight: 700; }
 
 .lap-empty {

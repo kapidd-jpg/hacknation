@@ -1,150 +1,199 @@
 /* ============================================================
    PintarKuy - shared styles for static pages (Tentang / Kelas / Kontak)
    Loaded by every page via its own @push('styles')
+   Palet "ledger StudyServer": paper / ink(navy) / gold / teal
    ============================================================ */
 
 :root {
-    --navy-950: #0F172A;
-    --navy-900: #16213B;
-    --navy-800: #1E3ABA;
-    --navy-600: #3A54D4;
-    --navy-400: #7083E8;
-    --navy-300: #A8B4F2;
-    --navy-100: #DFE4FB;
-    --navy-50: #EEF1FD;
-    --green: #0D9488;
-    --green-light: #5EEAD4;
-    --green-text: #0F766E;
-    --brand-greenlight: #5EEAD4;
-    --brand-green: #0D9488;
-    --brand-greentext: #0F766E;
-    --amber: #F59E0B;
-    --ink: #0F172A;
-    --ink-soft: #45464f;
-    --ink-muted: #767680;
-    --grad-brand: linear-gradient(135deg, #1E3ABA 0%, #0D9488 140%);
-    --grad-navy: linear-gradient(180deg, #0F172A 0%, #16213B 50%, #1E3ABA 150%);
-    --shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.08);
-    --radius: 18px;
+    --paper: #F6F7F3;
+    --paper-100: #EDEEEA;
+    --white-warm: #FFFFFF;
+    --ink: #101A2E;
+    --ink-soft: #45474D;
+    --ink-muted: #76777D;
+    --brick-800: #0B1322;
+    --brick: #101A2E;
+    --brick-600: #17233D;
+    --brick-100: #E2E8F0;
+    --brick-50: #F0F3FA;
+    --gold: #E3A23B;
+    --gold-100: #F9E6C9;
+    --sukses: #1B5E56;
+
+    /* Alias legacy — dipetakan ke palet navy supaya style inline lama tidak pecah */
+    --navy-950: #0B1322;
+    --navy-900: #101A2E;
+    --navy-800: #17233D;
+    --navy-600: #17233D;
+    --navy-400: #76777D;
+    --navy-300: #AEAA9E;
+    --navy-100: #EDEEEA;
+    --navy-50: #F0F3FA;
+    --green: #1B5E56;
+    --green-light: #A7CAB6;
+    --green-text: #25583F;
+    --brand-greenlight: #A7CAB6;
+    --brand-green: #1B5E56;
+    --brand-greentext: #25583F;
+    --amber: #E3A23B;
+    --grad-brand: linear-gradient(135deg, #101A2E 0%, #17233D 140%);
+    --grad-navy: linear-gradient(180deg, #101A2E 0%, #17233D 60%, #E3A23B 150%);
+    --shadow-card: 0 4px 20px -2px rgba(16, 26, 46, 0.12);
 }
 
 html { scroll-behavior: smooth; }
 
-/* ---------- Page hero (shared banner header) ---------- */
+/* ============================================================
+   Page hero — ledger, konten di tengah
+   ============================================================ */
 .page-hero {
     position: relative;
-    overflow: hidden;
-    padding: 76px 24px 88px;
+    padding: clamp(88px, 10vw, 120px) 24px 72px;
     text-align: center;
-    background: linear-gradient(160deg, #eef1fd 0%, #ffffff 45%, #f2f7fd 100%);
+    background: var(--paper);
 }
-.page-hero::before,
-.page-hero::after {
+.page-hero::before {
     content: '';
     position: absolute;
-    border-radius: 9999px;
-    filter: blur(60px);
+    inset: 0;
+    background-image: repeating-linear-gradient(
+        0deg,
+        rgba(16, 26, 46, 0.045) 0,
+        rgba(16, 26, 46, 0.045) 1px,
+        transparent 1px,
+        transparent 27px
+    );
     pointer-events: none;
 }
-.page-hero::before { width: 380px; height: 380px; left: -120px; top: -130px; background: rgba(94, 234, 212, 0.3); }
-.page-hero::after { width: 420px; height: 420px; right: -130px; bottom: -170px; background: rgba(223, 228, 251, 0.75); }
 .page-hero > * { position: relative; z-index: 1; }
 
 .pk-eyebrow {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--gold-100);
+    border: 1px solid var(--ink);
+    border-radius: 2px;
+    padding: 7px 14px;
+    gap: 8px;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--navy-900);
-    background: var(--navy-100);
-    padding: 7px 14px;
-    border-radius: 9999px;
 }
 .page-hero-title {
-    font-size: clamp(30px, 5vw, 44px);
-    line-height: 1.12;
-    font-weight: 900;
-    color: var(--navy-900);
-    letter-spacing: -0.02em;
-    margin: 18px auto 14px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(32px, 5.2vw, 50px);
+    line-height: 1.05;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.025em;
+    margin: 18px auto 16px;
     max-width: 760px;
 }
+.page-hero-title em {
+    font-style: normal;
+    color: #C8891F;
+}
 .page-hero-sub {
-    max-width: 640px;
-    margin: 0 auto 26px;
+    max-width: 620px;
+    margin: 0 auto 28px;
     color: var(--ink-soft);
     font-size: 15px;
     line-height: 1.75;
 }
 .page-hero-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
 
-/* ---------- Buttons ---------- */
+/* ============================================================
+   Buttons
+   ============================================================ */
 .pk-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
     font: inherit;
-    font-size: 14px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13.5px;
     font-weight: 700;
+    letter-spacing: 0.02em;
     text-decoration: none;
-    padding: 12px 26px;
-    border-radius: 9999px;
-    border: none;
+    padding: 13px 26px;
+    border-radius: 2px;
+    border: 1px solid var(--ink);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
-.pk-btn--dark { background: var(--grad-brand); color: #fff; box-shadow: 0 10px 24px -10px rgba(30, 58, 186, 0.45); }
-.pk-btn--dark:hover { filter: saturate(1.05) brightness(1.07); transform: translateY(-1px); box-shadow: 0 14px 28px -12px rgba(13, 148, 136, 0.5); }
-.pk-btn--ghost { background: #fff; color: var(--navy-950); border: 1px solid rgba(0, 0, 0, 0.1); }
-.pk-btn--ghost:hover { background: var(--navy-50); }
+.pk-btn--dark { background: var(--ink); color: #FDFDF9; box-shadow: 2px 2px 0 0 var(--ink); }
+.pk-btn--dark:hover { background: var(--brick-600); transform: translate(1px, 1px); box-shadow: 1px 1px 0 0 var(--ink); }
+.pk-btn--ghost { background: var(--white-warm); color: var(--ink); border: 1px solid rgba(16, 26, 46, 0.2); }
+.pk-btn--ghost:hover { background: #FFFFFF; border-color: var(--ink); }
+.pk-btn--gold { background: #E3A23B; color: var(--ink); box-shadow: 2px 2px 0 0 var(--ink); }
+.pk-btn--gold:hover { background: #D8942A; transform: translate(1px, 1px); box-shadow: 1px 1px 0 0 var(--ink); }
 
-/* ---------- Generic section ---------- */
-.pk-section { padding: 84px 24px; }
-.pk-section--muted { background: var(--navy-50); }
-.pk-section--white { background: #fff; }
-.pk-container { max-width: 1120px; margin: 0 auto; }
-.pk-section-head { text-align: center; max-width: 640px; margin: 0 auto 48px; }
+/* ============================================================
+   Generic section — konten di tengah
+   ============================================================ */
+.pk-section { padding: clamp(68px, 8vw, 104px) 24px; }
+.pk-section--muted { background: var(--paper-100); }
+.pk-section--white { background: var(--white-warm); }
+.pk-container { max-width: 1152px; margin: 0 auto; }
+.pk-section-head { text-align: center; max-width: 680px; margin: 0 auto clamp(36px, 5vw, 52px); }
 .pk-section-head h2 {
-    font-size: clamp(24px, 3.4vw, 30px);
-    font-weight: 900;
-    color: var(--navy-900);
-    letter-spacing: -0.01em;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(28px, 3.6vw, 40px);
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    line-height: 1.08;
     margin: 14px 0 10px;
+}
+.pk-section-head h2 em {
+    font-style: normal;
+    color: #C8891F;
 }
 .pk-section-head p { color: var(--ink-soft); line-height: 1.7; margin: 0; }
 
-/* ---------- CTA band ---------- */
+/* ============================================================
+   CTA band — navy ledger
+   ============================================================ */
 .pk-cta {
     position: relative;
     overflow: hidden;
-    background: var(--grad-navy);
-    border-radius: 28px;
-    padding: 58px 40px;
+    background: var(--ink);
+    border: 1px solid var(--ink);
+    border-radius: 6px;
+    padding: clamp(40px, 6vw, 60px);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 16px;
     text-align: center;
-    color: #fff;
+    color: #FDFDF9;
+    box-shadow: 4px 4px 0 0 var(--ink);
 }
-.pk-cta::before,
-.pk-cta::after {
+.pk-cta::before {
     content: '';
     position: absolute;
-    border-radius: 9999px;
-    filter: blur(70px);
+    inset: 0;
+    background-image: repeating-linear-gradient(
+        0deg,
+        rgba(253, 253, 249, 0.05) 0,
+        rgba(253, 253, 249, 0.05) 1px,
+        transparent 1px,
+        transparent 27px
+    );
     pointer-events: none;
 }
-.pk-cta::before { width: 300px; height: 300px; right: -100px; bottom: -140px; background: rgba(13, 148, 136, 0.55); }
-.pk-cta::after { width: 260px; height: 260px; left: -100px; top: -150px; background: rgba(245, 158, 11, 0.18); }
 .pk-cta > * { position: relative; z-index: 1; }
-.pk-cta h2 { font-size: clamp(24px, 3.4vw, 32px); font-weight: 900; letter-spacing: -0.01em; margin: 0; }
-.pk-cta p { color: var(--navy-400); line-height: 1.65; max-width: 520px; margin: 0; }
+.pk-cta h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(26px, 3.6vw, 36px); font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+.pk-cta p { color: rgba(253, 253, 249, 0.75); line-height: 1.65; max-width: 520px; margin: 0; }
+.pk-cta .pk-btn--dark { background: #E3A23B; color: var(--ink); box-shadow: 2px 2px 0 0 #FDFDF9; }
+.pk-cta .pk-btn--dark:hover { background: #FFFFFF; color: var(--ink); }
 
-/* ---------- Scroll reveal ---------- */
+/* ============================================================
+   Scroll reveal
+   ============================================================ */
 .pk-reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .pk-reveal.is-visible { opacity: 1; transform: none; }
