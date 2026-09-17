@@ -62,9 +62,15 @@ export function createVoiceController(ctx) {
             const speaking = speakers.has(p.identity);
             const name = p.name || p.identity || 'Peserta';
 
+            const wave = (
+                '<span class="room-peserta-wave' + (speaking ? ' is-speaking' : '') + '" title="' + (speaking ? 'Sedang bicara' : 'Diam') + '">' +
+                '<i></i><i></i><i></i></span>'
+            );
+
             let tags = '';
             if (isYou) tags += '<span class="room-peserta-tag room-peserta-tag--you">Anda</span>';
             if (speaking) tags += '<span class="room-peserta-tag room-peserta-tag--speaking">Bicara</span>';
+            else if (on) tags += '<span class="room-peserta-tag room-peserta-tag--quiet">Diam</span>';
             tags += on
                 ? '<span class="room-peserta-tag room-peserta-tag--mic-on">Mic ON</span>'
                 : '<span class="room-peserta-tag room-peserta-tag--mic-off">Mic OFF</span>';
@@ -74,7 +80,7 @@ export function createVoiceController(ctx) {
                 '<span class="room-peserta-avatar" style="background:' + colorOf(p.identity) + ';">' + esc(initialsOf(name)) + '</span>' +
                 '<div class="room-peserta-info"><p class="room-peserta-name">' + esc(name) + '</p>' +
                 '<p class="room-peserta-meta">' + (isYou ? 'Anda' : 'Peserta') + '</p></div>' +
-                '<div class="room-peserta-status">' + tags + '</div></div>'
+                '<div class="room-peserta-status">' + wave + tags + '</div></div>'
             );
         }).join('');
 
