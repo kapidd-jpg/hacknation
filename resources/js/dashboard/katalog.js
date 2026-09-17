@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let terdaftarIds = Array.isArray(window.pintarKuyTerdaftarIds)
         ? window.pintarKuyTerdaftarIds.map(String)
         : [];
+    let enrolling = false;
     const aksesKategori = Array.isArray(window.pintarKuyAksesKategori)
         ? window.pintarKuyAksesKategori
         : [];
@@ -97,6 +98,8 @@ document.addEventListener('DOMContentLoaded', () => {
         </article>`;
 
     const enroll = (item) => {
+        if (enrolling) return;
+        enrolling = true;
         fetch(daftarUrl, {
             method: 'POST',
             headers: {
@@ -122,7 +125,8 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(() => {
                 closeModal();
                 toast('Terjadi kesalahan. Coba lagi.', false);
-            });
+            })
+            .finally(() => { enrolling = false; });
     };
 
     const openConfirm = (item) => {

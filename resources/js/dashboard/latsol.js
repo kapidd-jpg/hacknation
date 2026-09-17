@@ -79,8 +79,17 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         };
 
+        let submitting = false;
+
+        const doSubmit = () => {
+            if (submitting) return;
+            submitting = true;
+            form.submit();
+        };
+
         form.addEventListener('submit', (e) => {
             e.preventDefault();
+            if (submitting) return;
 
             const c = count();
             const missing = c.total - c.answered;
@@ -89,11 +98,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!ok) return;
                 if (missing > 0) {
                     askConfirm('Masih ada ' + missing + ' soal belum dijawab', 'Tetap kumpulkan jawaban sekarang?', true).then((ok2) => {
-                        if (ok2) form.submit();
+                        if (ok2) doSubmit();
                     });
                     return;
                 }
-                form.submit();
+                doSubmit();
             });
         });
 

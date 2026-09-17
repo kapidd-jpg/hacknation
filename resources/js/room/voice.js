@@ -105,13 +105,13 @@ export function createVoiceController(ctx) {
                 if (els.count) els.count.textContent = '0';
                 setState('Terputus', 'err');
                 els.join.disabled = false;
-                els.mic.disabled = true;
-                els.leave.disabled = true;
-                els.mic.classList.remove('is-muted');
                 if (els.mic) {
+                    els.mic.disabled = true;
+                    els.mic.classList.remove('is-muted');
                     const svg = els.mic.querySelector('svg');
                     els.mic.innerHTML = (svg ? svg.outerHTML : '') + ' Mute';
                 }
+                if (els.leave) els.leave.disabled = true;
             }
         });
     };
@@ -171,18 +171,22 @@ export function createVoiceController(ctx) {
     };
 
     const toggleMute = async () => {
-        if (!lk) return;
-        const willMute = !(els.mic && els.mic.classList.contains('is-muted'));
-        if (els.mic) {
+        if (!lk || !els.mic) return;
+        const willMute = !els.mic.classList.contains('is-muted');
+        els.mic.disabled = true;
+        try {
+            await lk.localParticipant.setMicrophoneEnabled(!willMute);
             els.mic.classList.toggle('is-muted', willMute);
             const svg = els.mic.querySelector('svg');
             els.mic.innerHTML = (svg ? svg.outerHTML : '') + (willMute ? ' Unmute' : ' Mute');
-            els.mic.disabled = true;
+            setState(willMute ? 'Terhubung • mic diam' : 'Terhubung • mic aktif', 'live');
+            render();
+        } catch (_) {
+            // Mic ditolak / gagal: biarkan UI mencerminkan state aktual.
+            render();
+        } finally {
+            els.mic.disabled = false;
         }
-        try { await lk.localParticipant.setMicrophoneEnabled(!willMute); } catch (_) {}
-        if (els.mic) els.mic.disabled = false;
-        setState(willMute ? 'Terhubung • mic diam' : 'Terhubung • mic aktif', 'live');
-        render();
     };
 
     const leave = async () => {
@@ -191,12 +195,14 @@ export function createVoiceController(ctx) {
         lk = null;
         identity = null;
         speakers = new Set();
-        els.mic.classList.remove('is-muted');
-        els.mic.disabled = true;
-        els.leave.disabled = true;
+        if (els.mic) {
+            els.mic.classList.remove('is-muted');
+            els.mic.disabled = true;
+            const svg = els.mic.querySelector('svg');
+            els.mic.innerHTML = (svg ? svg.outerHTML : '') + ' Mute';
+        }
+        if (els.leave) els.leave.disabled = true;
         els.join.disabled = false;
-        const svg = els.mic.querySelector('svg');
-        els.mic.innerHTML = (svg ? svg.outerHTML : '') + ' Mute';
         render();
         setState('Belum terhubung');
     };

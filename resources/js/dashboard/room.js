@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let ytVideoId = null;
     let lastPlay = false;
     let lastWaktu = 0;
+    let lastUpdatedAt = null;
 
     const vidOf = (m) => (m && m.tipe !== 'teks' && m.video_url ? youtubeIdOf(m.video_url) : null);
 
@@ -52,6 +53,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const applyServer = (data) => {
         if (!data || !data.ok || !data.materi) return;
+
+        // Penjaga monotonisitas: abaikan snapshot poll yang lebih lama dari
+        // update terakhir (event realtime). Event kirim updated_at null → langsung terpakai.
+        if (data.updated_at) {
+            const ts = new Date(data.updated_at).getTime();
+            if (lastUpdatedAt !== null && Number.isFinite(ts) && ts < lastUpdatedAt) return;
+            lastUpdatedAt = ts;
+        }
+
         const m = data.materi;
         const vid = vidOf(m);
         const key = String(m.id) + '|' + (m.tipe || '') + '|' + (m.video_url || '');
@@ -111,16 +121,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }).then((r) => r.json()).then(renderFromState).catch(() => {});
 
     const rt = listenRoom(ctx.channelName, renderFromEvent);
-    if (rt.realtime) {
-        pollTimer = setInterval(poll, 10000);
-    } else {
-        pollTimer = setInterval(poll, 2500);
-    }
-    poll();
+    const startPolling = () => {
+        if (pollTimer) return;
+        poll();
+        pollTimer = setInterval(poll, rt.realtime ? 10000 : 2500);
+    };
+    startPolling();
 
-    window.addEventListener('pagehide', () => {
-        if (pollTimer) clearInterval(pollTimer);
+    const stopRoom = () => {
+        if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+        if (rt.stop) { try { rt.stop(); } catch (_) {} }
+    };
+
+    window.addEventListener('pagehide', stopRoom);
+
+    // Jangan polling saat tab tersembunyi (hemat baterai), lanjutkan lagi saat terlihat.
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+        } else {
+            startPolling();
+        }
     });
+
     window.addEventListener('pointerdown', () => applyPlayback(lastPlay, lastWaktu), { once: true });
 
     const voiceCtl = createVoiceController({

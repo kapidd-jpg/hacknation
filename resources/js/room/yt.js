@@ -22,7 +22,11 @@ function ensureApi() {
             resolve();
         };
 
-        setTimeout(resolve, 10000);
+        setTimeout(() => {
+            // SDK belum siap — reset promise supaya pemanggilan berikutnya retry.
+            apiPromise = null;
+            resolve();
+        }, 10000);
     });
 
     return apiPromise;

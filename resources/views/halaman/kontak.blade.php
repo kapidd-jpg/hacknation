@@ -33,6 +33,10 @@
                     </span>
                     <div>
                         <h3>{{ $info['title'] }}</h3>
+                        {{-- AMAN & DISENGAJA: {!! !!} menampilkan markup ringan tel/wa <a> & <br>.
+                             Nilai `body` di sini dari literal $infos di bawah (KONSTANTA HARDCODED),
+                             BUKAN dari DB maupun input user, jadi aman untuk raw output.
+                             Jika nanti body diisi dari DB/user data, ganti ke {{ }} + escape. --}}
                         <p>{!! $info['body'] !!}
                             @isset($info['link'])
                                 <br><a href="{{ $info['link'] }}">{{ $info['linkText'] }}</a>
@@ -51,6 +55,12 @@
                 </div>
 
                 <form id="kontakForm" novalidate>
+                    <noscript>
+                        <p class="kontak-noscript" style="padding:14px;border:1px dashed #B45309;border-radius:8px;background:#FFF7ED;color:#B45309;font-size:13px;">
+                            Formulir ini butuh JavaScript. Hubungi kami via WhatsApp <a href="https://wa.me/6281225124408" target="_blank" rel="noopener">+62 812-2512-4408</a> atau email
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pintarkuyid@gmail.com">pintarkuyid@gmail.com</a>.
+                        </p>
+                    </noscript>
                     <div class="kontak-form-row kontak-form-row--2">
                         <div class="kontak-field">
                             <label for="fNama">Nama <span>*</span></label>

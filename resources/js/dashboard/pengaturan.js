@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         headers: {
                             'Content-Type': 'application/json',
                             'Accept': 'application/json',
-                            'X-CSRF-TOKEN': window.pintarKuyCsrf || '',
+'X-CSRF-TOKEN': window.pintarKuyCsrf || (document.querySelector('meta[name="csrf-token"]') || {}).getAttribute?.('content') || '',
                         },
                         body: JSON.stringify(payload),
                     })
