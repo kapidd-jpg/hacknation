@@ -198,6 +198,10 @@ class RoomController extends Controller
             return response()->json(['ok' => false, 'message' => 'Kelas tidak se-kategori dengan room.'], 422);
         }
 
+        if (! $user->isAdmin() && ! $user->kelasDiampu()->whereKey($kelas->id)->exists()) {
+            return response()->json(['ok' => false, 'message' => 'Anda hanya bisa mengelola mapel yang diampu.'], 403);
+        }
+
         return response()->json([
             'ok' => true,
             'materi' => $kelas->materi()->orderBy('urutan')->get(['id', 'judul', 'tipe', 'durasi', 'urutan', 'video_url', 'konten']),

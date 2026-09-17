@@ -13,6 +13,10 @@ class SiswaController extends Controller
     {
         $query = User::query()->where('role', 'siswa')->with(['kelasTerdaftar', 'pakets']);
 
+        if (!Auth::user()->isAdmin()) {
+            $query->whereHas('kelasTerdaftar', fn ($q) => $q->whereIn('kelas.id', Auth::user()->kelasDiampu()->pluck('kelas.id')));
+        }
+
         if ($request->filled('cari')) {
             $q = addcslashes($request->string('cari')->trim()->toString(), '\\%_');
             $query->where(function ($w) use ($q) {

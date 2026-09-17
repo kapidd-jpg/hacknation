@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Guru;
 use App\Http\Controllers\Controller;
 use App\Models\Kelas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KelasController extends Controller
 {
@@ -30,11 +31,14 @@ class KelasController extends Controller
 
     public function edit(Kelas $kelas)
     {
+        $this->authorizeKelas($kelas);
+
         return view('guru.kelas.form', ['kelas' => $kelas]);
     }
 
     public function update(Request $request, Kelas $kelas)
     {
+        $this->authorizeKelas($kelas);
         $data = $this->validated($request, $kelas->id);
         $kelas->update($data);
 
@@ -43,13 +47,25 @@ class KelasController extends Controller
 
     public function destroy(Kelas $kelas)
     {
-        if ($kelas->pendaftaran()->exists() || $kelas->materi()->exists()) {
-            return redirect()->route('guru.kelas.index')->with('status', 'Tidak bisa menghapus kelas yang masih memiliki materi atau siswa terdaftar.');
+        $this->authorizeKelas($kelas);
+
+        if ($kelas->pendaftaran()->exists() || $kelas->materi()->exists() || $kelas->soal()->exists() || $kelas->pengerjaan()->exists()) {
+            return redirect()->route('guru.kelas.index')->with('status', 'Tidak bisa menghapus kelas yang masih memiliki materi, soal, atau riwayat pengerjaan siswa.');
         }
 
         $kelas->delete();
 
         return redirect()->route('guru.kelas.index')->with('status', 'Kelas berhasil dihapus.');
+    }
+
+    protected function authorizeKelas(Kelas $kelas): void
+    {
+        abort_unless(
+            Auth::user()->isAdmin()
+            || Auth::user()->kelasDiampu()->whereKey($kelas->id)->exists(),
+            403,
+            'Anda hanya bisa mengelola mapel yang diampu.'
+        );
     }
 
     protected function validated(Request $request, ?int $ignoreId = null): array
