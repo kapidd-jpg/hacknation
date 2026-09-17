@@ -9,9 +9,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const counter = document.getElementById('latsolAnswered');
         const submitBtn = document.getElementById('latsolSubmit');
 
-        // Catat waktu mulai pengerjaan (dipakai backend untuk waktu_mulai attempt).
+// Catat waktu mulai pengerjaan (dipakai backend untuk waktu_mulai attempt).
         const waktuMulai = document.getElementById('latsolWaktuMulai');
         if (waktuMulai) waktuMulai.value = new Date().toISOString();
+
+        const overlay = document.getElementById('latsolSubmitOverlay');
+        const title = document.getElementById('latsolConfirmTitle');
+        const desc = document.getElementById('latsolConfirmDesc');
+        const ico = document.getElementById('latsolConfirmIco');
+        const okBtn = overlay ? overlay.querySelector('[data-latsol-confirm-ok]') : null;
+        const cancelBtn = overlay ? overlay.querySelector('[data-latsol-confirm-cancel]') : null;
 
         const count = () => {
             const total = form.querySelectorAll('.latsol-soal').length;
@@ -29,18 +36,65 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
+        const closeConfirm = () => {
+            if (overlay) overlay.classList.remove('is-open');
+        };
+
+        const askConfirm = (t, d, warn) => {
+            return new Promise((resolve) => {
+                if (!overlay || !okBtn || !cancelBtn) {
+                    resolve(true);
+                    return;
+                }
+                title.textContent = t;
+                desc.textContent = d;
+                if (ico) ico.classList.toggle('dash-confirm-icon--warn', !!warn);
+                overlay.classList.add('is-open');
+
+                const onEsc = (e) => {
+                    if (e.key === 'Escape') {
+                        document.removeEventListener('keydown', onEsc);
+                        closeConfirm();
+                        resolve(false);
+                    }
+                };
+                document.addEventListener('keydown', onEsc);
+                overlay.onclick = (e) => {
+                    if (e.target === overlay) {
+                        document.removeEventListener('keydown', onEsc);
+                        closeConfirm();
+                        resolve(false);
+                    }
+                };
+                okBtn.onclick = () => {
+                    document.removeEventListener('keydown', onEsc);
+                    closeConfirm();
+                    resolve(true);
+                };
+                cancelBtn.onclick = () => {
+                    document.removeEventListener('keydown', onEsc);
+                    closeConfirm();
+                    resolve(false);
+                };
+            });
+        };
+
         form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
             const c = count();
             const missing = c.total - c.answered;
-            if (!confirm('Kumpulkan jawaban sekarang? Nilai langsung masuk ke rekap.')) {
-                e.preventDefault();
-                return;
-            }
-            if (missing > 0) {
-                if (!confirm('Masih ada ' + missing + ' soal belum dijawab. Tetap kumpulkan?')) {
-                    e.preventDefault();
+
+            askConfirm('Kumpulkan jawaban sekarang?', 'Nilai langsung masuk ke rekap.', false).then((ok) => {
+                if (!ok) return;
+                if (missing > 0) {
+                    askConfirm('Masih ada ' + missing + ' soal belum dijawab', 'Tetap kumpulkan jawaban sekarang?', true).then((ok2) => {
+                        if (ok2) form.submit();
+                    });
+                    return;
                 }
-            }
+                form.submit();
+            });
         });
 
         count();

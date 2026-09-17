@@ -37,7 +37,7 @@
                 </span>
                 <span class="text-ink-muted text-[11px] font-bold">ID: {{ auth()->user()->id }}</span>
             </div>
-            <h1 class="text-ink text-2xl font-extrabold flex items-center gap-2">Selamat datang kembali, {{ auth()->user()->name }}! 👋</h1>
+            <h1 class="text-ink text-2xl font-extrabold flex items-center gap-2">Selamat datang kembali, {{ auth()->user()->name }}!</h1>
             <p class="text-ink-soft text-sm">
                 Lanjutkan progres belajarmu hari ini. Kamu memiliki <span class="text-ink">{{ $totalModul - $doneModul }} modul</span> yang bisa diselesaikan dan
                 <span class="text-danger">{{ $latihanCount }}</span> latihan soal yang sudah dikerjakan.
@@ -101,7 +101,7 @@
 
                 <div class="bg-paper rounded-xl p-4 flex gap-5 items-center">
                     <div class="relative w-36 h-28 rounded-lg bg-ink overflow-hidden shrink-0">
-                        <div class="absolute inset-0 bg-gradient-to-t from-ink/80 to-transparent"></div>
+                        <div class="absolute inset-0 bg-ink/60"></div>
                         <span class="absolute left-2 bottom-2 bg-whitewarm/90 text-ink text-[11px] font-bold px-2 py-0.5 rounded">MATERI</span>
                     </div>
                     <div class="flex-1 min-w-0">
@@ -165,7 +165,7 @@
             </div>
 
             <div class="flex items-center justify-center pt-4">
-                <span class="bg-brick-100/60 text-brick-800 text-xs font-bold px-4 py-1.5 rounded-full">Status: {{ $pctProgres >= 50 ? 'On Track' : 'Mulai Belajar' }} 🎯</span>
+                <span class="bg-brick-100/60 text-brick-800 text-xs font-bold px-4 py-1.5 rounded-full">Status: {{ $pctProgres >= 50 ? 'On Track' : 'Mulai Belajar' }}</span>
             </div>
         </div>
     </div>

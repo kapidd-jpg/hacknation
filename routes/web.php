@@ -14,6 +14,7 @@ use App\Http\Controllers\Guru\PengampuController as GuruPengampuController;
 use App\Http\Controllers\Guru\SiswaController as GuruSiswaController;
 use App\Http\Controllers\Guru\SoalController as GuruSoalController;
 use App\Http\Controllers\PaketPilihanController;
+use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -62,7 +63,19 @@ Route::middleware('auth')->group(function () {
         Route::get('/pilih-paket/{key}', [PaketPilihanController::class, 'checkout'])->name('paket.checkout');
         Route::post('/pilih-paket/bayar', [PaketPilihanController::class, 'bayar'])->middleware('throttle:20,1')->name('paket.bayar');
         Route::get('/paket-berhasil', [PaketPilihanController::class, 'berhasil'])->name('paket.berhasil');
+
+        Route::get('/ruang/{room}', [RoomController::class, 'show'])->name('room.show');
     });
+
+    Route::prefix('ruang')->name('room.')->group(function () {
+        Route::get('/', [RoomController::class, 'index'])->name('index');
+        Route::get('/{room}/state', [RoomController::class, 'state'])->name('state');
+        Route::post('/token', [RoomController::class, 'token'])->middleware('throttle:20,1')->name('token');
+    });
+
+    Route::post('/ruang/materi', [RoomController::class, 'materi'])
+        ->middleware(['role:guru,admin', 'throttle:20,1'])
+        ->name('room.materi');
 
     Route::post('/dashboard/katalog/daftar', [DashboardController::class, 'katalogDaftar'])->middleware('throttle:20,1')->name('dashboard.katalog.daftar');
     Route::post('/dashboard/progres-modul', [DashboardController::class, 'progresModul'])->middleware('throttle:20,1')->name('dashboard.progres.modul');
@@ -112,4 +125,9 @@ Route::middleware(['auth', 'role:guru,admin'])->prefix('dashboard-guru')->name('
     });
 
     Route::get('/siswa', [GuruSiswaController::class, 'index'])->name('siswa');
+
+    // Room (LiveKit + sync materi)
+    Route::get('/ruang', [RoomController::class, 'index'])->name('room.index');
+    Route::get('/ruang/{room}', [RoomController::class, 'show'])->name('room.show');
+    Route::get('/ruang/{room}/kelas/{kelas}/materi', [RoomController::class, 'materiList'])->name('room.materi.list');
 });

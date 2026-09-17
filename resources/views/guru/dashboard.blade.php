@@ -6,7 +6,7 @@
     <div class="flex flex-col gap-6">
         <div class="dash-head dash-reveal">
             <div>
-                <h1>Halo, {{ explode(' ', Auth::user()->name)[0] }} 👋</h1>
+                <h1>Halo, {{ explode(' ', Auth::user()->name)[0] }}!</h1>
                 <p class="dash-head-sub">Kelola kelas, materi, paket, dan pantau siswa PintarKuy dari sini.</p>
             </div>
             <div class="dash-head-actions">
@@ -16,23 +16,18 @@
 
         <div class="guru-stats dash-reveal">
             <div class="guru-stat">
-                <span class="guru-stat-ico">📚</span>
                 <div><p class="guru-stat-num">{{ $jumlahKelas }}</p><p class="guru-stat-label">Kelas</p></div>
             </div>
             <div class="guru-stat">
-                <span class="guru-stat-ico">🎬</span>
                 <div><p class="guru-stat-num">{{ $jumlahMateri }}</p><p class="guru-stat-label">Modul Materi</p></div>
             </div>
             <div class="guru-stat">
-                <span class="guru-stat-ico">💳</span>
                 <div><p class="guru-stat-num">{{ $jumlahPaket }}</p><p class="guru-stat-label">Paket</p></div>
             </div>
             <div class="guru-stat">
-                <span class="guru-stat-ico">🎓</span>
                 <div><p class="guru-stat-num">{{ $jumlahSiswa }}</p><p class="guru-stat-label">Siswa</p></div>
             </div>
             <div class="guru-stat guru-stat--accent">
-                <span class="guru-stat-ico">✅</span>
                 <div><p class="guru-stat-num">{{ $jumlahPendaftaran }}</p><p class="guru-stat-label">Pendaftaran Kelas</p></div>
             </div>
         </div>

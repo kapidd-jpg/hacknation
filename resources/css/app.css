@@ -75,14 +75,7 @@ h3 {
    Latar lembar dokumen — garis halus navy di atas kertas
    ============================================================ */
 .paper-bg {
-    background-image:
-        repeating-linear-gradient(
-            0deg,
-            rgba(16, 26, 46, 0.045) 0,
-            rgba(16, 26, 46, 0.045) 1px,
-            transparent 1px,
-            transparent 27px
-        );
+    background-image: none;
 }
 
 /* Garis pengatur atas-bawah tipis untuk blok pembatas */

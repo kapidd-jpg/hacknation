@@ -15,7 +15,7 @@
             </div>
         </div>
 
-        <form method="POST" action="{{ route('dashboard.latsol.kirim') }}" id="latsolForm" class="flex flex-col gap-5">
+        <form method="POST" action="{{ route('dashboard.latsol.kirim') }}" id="latsolForm" novalidate class="flex flex-col gap-5">
             @csrf
             <input type="hidden" name="kelas_id" value="{{ $kelas->id }}">
             <input type="hidden" name="set" value="{{ $set }}">
@@ -48,6 +48,22 @@
                 <button type="submit" class="dash-btn dash-btn--primary" id="latsolSubmit">Kumpulkan Jawaban</button>
             </div>
         </form>
+    </div>
+
+    <div class="dash-confirm-overlay" id="latsolSubmitOverlay" role="dialog" aria-modal="true" aria-labelledby="latsolConfirmTitle">
+        <div class="dash-confirm-modal">
+            <span class="dash-confirm-icon" id="latsolConfirmIco">
+                <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+            </span>
+            <h3 class="dash-confirm-title" id="latsolConfirmTitle">Kumpulkan jawaban sekarang?</h3>
+            <p class="dash-confirm-desc" id="latsolConfirmDesc">Nilai langsung masuk ke rekap.</p>
+            <div class="dash-confirm-actions">
+                <button type="button" class="dash-confirm-btn dash-confirm-cancel" data-latsol-confirm-cancel>Batal</button>
+                <button type="button" class="dash-confirm-btn dash-confirm-confirm" data-latsol-confirm-ok>Kumpulkan</button>
+            </div>
+        </div>
     </div>
 @endsection
 

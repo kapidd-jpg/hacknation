@@ -1,6 +1,6 @@
 // PintarKuy - front-end scripts
-document.addEventListener('DOMContentLoaded', () => {
-    const user = window.pintarKuyAuth.user();
+const applyUserToDom = () => {
+    const user = window.pintarKuyAuth ? window.pintarKuyAuth.user() : null;
     if (!user) return;
 
     const initialsOf = (name) => {
@@ -31,4 +31,17 @@ document.addEventListener('DOMContentLoaded', () => {
             el.textContent = initialsOf(user.name);
         }
     });
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.dash-reveal').forEach((el) => el.classList.add('is-visible'));
+    applyUserToDom();
+});
+
+// halaman di-restore browser (Back/Forward Cache): terapkan ulang data terbaru
+// supaya chip nama/foto topbar & header tidak menampilkan versi lama.
+window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+        applyUserToDom();
+    }
 });

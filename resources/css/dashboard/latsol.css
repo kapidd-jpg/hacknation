@@ -55,23 +55,35 @@
 .latsol-hasil-hero {
     display: flex; align-items: center; gap: 28px; flex-wrap: wrap;
 }
-.latsol-score-ring {
-    --score: 0%;
-    width: 132px; height: 132px; border-radius: 50%; flex-shrink: 0;
-    background: conic-gradient(var(--gold) var(--score), var(--paper-100) 0);
-    display: flex; align-items: center; justify-content: center;
+.latsol-ring-box { position: relative; width: 148px; height: 148px; flex-shrink: 0; }
+.latsol-ring { width: 148px; height: 148px; display: block; }
+.latsol-ring-track { stroke: var(--paper-100); }
+.latsol-ring-bar.is-a { stroke: var(--gold); }
+.latsol-ring-bar.is-b { stroke: var(--sukses); }
+.latsol-ring-bar.is-c { stroke: var(--danger); }
+.latsol-ring-center {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
 }
-.latsol-score-ring::before {
-    content: '';
-    position: absolute; width: 108px; height: 108px; border-radius: 50%;
-    background: #FFFFFF;
-}
-.latsol-score-inner { position: relative; display: flex; align-items: baseline; gap: 2px; }
-.latsol-score-val { font-size: 34px; font-weight: 900; color: var(--ink); }
-.latsol-score-suffix { font-size: 13px; font-weight: 700; color: var(--ink-muted); }
+.latsol-ring-val { font-size: 34px; font-weight: 900; color: var(--ink); line-height: 1; }
+.latsol-ring-lbl { font-size: 10px; font-weight: 800; color: var(--ink-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px; }
 .latsol-hasil-hero-title { font-size: 22px; font-weight: 800; color: var(--ink); }
 .latsol-hasil-hero-meta { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0; }
 .latsol-hasil-hero-sub { font-size: 13.5px; color: var(--ink-soft); font-weight: 600; }
+
+.latsol-stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; }
+.latsol-stat-box {
+    background: #FFFFFF;
+    border: 1.5px solid var(--paper-100);
+    border-left: 4px solid var(--paper-100);
+    border-radius: 16px; padding: 16px 18px;
+}
+.latsol-stat-box--green { border-left-color: var(--sukses); }
+.latsol-stat-box--red { border-left-color: var(--danger); }
+.latsol-stat-box--muted { border-left-color: var(--ink-muted); }
+.latsol-stat-box--gold { border-left-color: var(--gold); }
+.latsol-stat-box-val { font-size: 24px; font-weight: 900; color: var(--ink); line-height: 1; }
+.latsol-stat-box-key { font-size: 12px; font-weight: 700; color: var(--ink-muted); margin-top: 5px; }
 
 .latsol-pembahasan {
     border: 1.5px solid var(--paper-100);
@@ -80,5 +92,6 @@
 }
 .latsol-pembahasan.is-benar { border-left-color: var(--gold); background: rgba(191, 138, 27, 0.05); }
 .latsol-pembahasan.is-salah { border-left-color: var(--danger); background: rgba(192, 50, 42, 0.04); }
+.latsol-pembahasan.is-kosong { border-left-color: var(--ink-muted); background: transparent; }
 .latsol-pembahasan-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .latsol-pembahasan-no { font-size: 12px; font-weight: 800; color: var(--ink-muted); letter-spacing: 0.04em; text-transform: uppercase; }

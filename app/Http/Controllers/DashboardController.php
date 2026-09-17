@@ -41,7 +41,10 @@ class DashboardController extends Controller
             return redirect()->route('paket.index');
         }
 
-        $kelasDaftar = $user->kelasTerdaftar()->orderBy('pendaftaran.created_at', 'desc')->get();
+        $kelasDaftar = $user->kelasTerdaftar()
+            ->orderBy('pendaftaran.created_at', 'desc')
+            ->with('materi')
+            ->get();
         $kelasCount = $kelasDaftar->count();
 
         $nilai = Nilai::query()->where('user_id', $user->id)->get();
@@ -50,10 +53,14 @@ class DashboardController extends Controller
 
         $completedIds = $user->completedModulIds();
         $classes = [];
+        $totalModul = 0;
+        $doneModul = 0;
         foreach ($kelasDaftar as $k) {
-            $materi = $k->materi()->count();
-            $done = $completedIds->intersect($k->materi()->pluck('id'))->count();
-            $total = max($materi, 1);
+            $materiAll = $k->materi;
+            $materiIds = $materiAll->pluck('id');
+            $materiTotal = $materiAll->count();
+            $done = $completedIds->intersect($materiIds)->count();
+            $total = max($materiTotal, 1);
             $classes[] = [
                 'name' => $k->name,
                 'tag' => $k->cat,
@@ -64,13 +71,8 @@ class DashboardController extends Controller
                 'bg' => $k->bg ?: 'rgba(94,234,212,0.4)',
                 'color' => $k->color ?: '#0F766E',
             ];
-        }
-
-        $totalModul = 0;
-        $doneModul = 0;
-        foreach ($kelasDaftar as $k) {
-            $totalModul += $k->materi()->count();
-            $doneModul += $completedIds->intersect($k->materi()->pluck('id'))->count();
+            $totalModul += $materiTotal;
+            $doneModul += $done;
         }
         $pctProgres = $totalModul ? (int) round($doneModul / $totalModul * 100) : 0;
 
@@ -220,6 +222,20 @@ class DashboardController extends Controller
         $allSets = [];
         $kelasSlugs = [];
         $completedIds = Auth::user()->completedModulIds();
+
+        $userId = Auth::id();
+        $kelasIds = Auth::user()->kelasTerdaftar()->pluck('kelas.id');
+        $soalAgg = Soal::query()->whereIn('kelas_id', $kelasIds)->where('aktif', true)
+            ->selectRaw('kelas_id, set_label, count(*) as total')
+            ->groupBy('kelas_id', 'set_label')
+            ->orderBy('set_label')
+            ->get();
+        $bestMap = Pengerjaan::query()->where('user_id', $userId)->whereIn('kelas_id', $kelasIds)
+            ->selectRaw('kelas_id, set_label, max(skor) as best')
+            ->groupBy('kelas_id', 'set_label')
+            ->get();
+        $bestByKey = $bestMap->mapWithKeys(fn ($b) => [$b->kelas_id . '|' . $b->set_label => $b->best]);
+
         foreach (Auth::user()->kelasTerdaftar()->orderBy('pendaftaran.created_at', 'desc')->get() as $k) {
             $materi = $k->materi()->orderBy('urutan')->get();
             $modulTotal = max($materi->count(), 1);
@@ -279,12 +295,12 @@ class DashboardController extends Controller
             $allBabs[$k->slug] = $babs;
 
             $sets = [];
-            foreach (Soal::where('kelas_id', $k->id)->where('aktif', true)->distinct()->orderBy('set_label')->pluck('set_label') as $label) {
+            foreach ($soalAgg->where('kelas_id', $k->id) as $row) {
                 $sets[] = [
                     'kelas_id' => $k->id,
-                    'label' => $label,
-                    'total' => Soal::where('kelas_id', $k->id)->where('set_label', $label)->where('aktif', true)->count(),
-                    'best' => Pengerjaan::where('user_id', Auth::id())->where('kelas_id', $k->id)->where('set_label', $label)->max('skor'),
+                    'label' => $row->set_label,
+                    'total' => (int) $row->total,
+                    'best' => $bestByKey[$k->id . '|' . $row->set_label] ?? null,
                 ];
             }
             $allSets[$k->slug] = $sets;
@@ -505,10 +521,24 @@ return view('dashboard.nilai', [
 
         $pengerjaan->load(['kelas', 'jawaban.soal']);
 
+        $percobaan = Pengerjaan::where('user_id', $user->id)
+            ->where('kelas_id', $pengerjaan->kelas_id)
+            ->where('set_label', $pengerjaan->set_label)
+            ->where('tipe', 'latsol')
+            ->where('id', '<=', $pengerjaan->id)
+            ->count();
+        $terbaik = Pengerjaan::where('user_id', $user->id)
+            ->where('kelas_id', $pengerjaan->kelas_id)
+            ->where('set_label', $pengerjaan->set_label)
+            ->where('tipe', 'latsol')
+            ->max('akurasi');
+
         return view('dashboard.latsol-hasil', [
             'p' => $pengerjaan,
             'tuntas' => $pengerjaan->skor >= $service->passingThreshold(),
             'passing' => $service->passingThreshold(),
+            'percobaan' => $percobaan,
+            'terbaik' => $terbaik,
         ]);
     }
 
