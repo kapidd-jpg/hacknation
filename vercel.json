@@ -6,9 +6,24 @@
   "functions": {
     "api/index.php": {
       "runtime": "vercel-php@0.7.4",
-      "maxDuration": 60
+      "maxDuration": 60,
+      "region": ["sin1"]
     }
   },
+  "headers": [
+    {
+      "source": "/build/assets/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
+    },
+    {
+      "source": "/favicon.ico",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
+    }
+  ],
   "routes": [
     { "src": "^/$", "dest": "/api/index.php" },
     { "src": "^/index\\.php$", "dest": "/api/index.php" },

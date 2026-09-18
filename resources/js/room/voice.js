@@ -98,6 +98,25 @@ export function createVoiceController(ctx) {
 
     const roomMicActive = () => !!(lk && els.mic && !els.mic.disabled && !els.mic.classList.contains('is-muted'));
 
+    const attachRemote = (track) => {
+        if (!track || !track.attach || track.kind !== 'audio') return;
+        try {
+            const el = track.attach();
+            el.autoplay = false;
+            el.muted = false;
+            el.volume = 1.0;
+            el.play().catch(() => {});
+        } catch (_) {}
+    };
+
+    const playAllRemote = () => {
+        lk?.remoteParticipants.forEach((p) => {
+            p.audioTrackPublications.forEach((pub) => {
+                if (pub.track) attachRemote(pub.track);
+            });
+        });
+    };
+
     const makeAnalyser = (nativeTrack) => {
         const Ctx = window.AudioContext || window.webkitAudioContext;
         const ctx = new Ctx();
@@ -222,6 +241,7 @@ export function createVoiceController(ctx) {
                 p.audioTrackPublications.forEach((pub) => {
                     const native = pub.track?.mediaStreamTrack;
                     if (!native) return;
+                    attachRemote(pub.track);
                     let an = analysers.get(pub.trackSid);
                     if (!an) {
                         an = makeAnalyser(native);
@@ -258,7 +278,11 @@ export function createVoiceController(ctx) {
                 if (!anySources) {
                     label('Tidak ada mic peserta lain yang aktif selama tes. Ajak peserta lain join & nyalakan mic dulu.', 'err');
                 } else if (names.length === 0) {
-                    label('Mic peserta lain masuk tapi suara belum terdengar (level ' + peak.toFixed(3) + '). Coba minta peserta lain bicara lebih keras.', 'err');
+                    if (peak <= 0.004) {
+                        label('TIDAK ADA sinyal audio yang masuk — bukan soal volume. Pastikan mic peserta lain dalam keadaan ON (di daftar peserta tampil tag "Mic OFF" berarti mic mereka mati), lalu minta mereka klik tombol mic agar ON dan bicara. Periksa juga izin mikrofon peserta lain tidak diblokir.', 'err');
+                    } else {
+                        label('Suara peserta lain masuk tapi sangat pelan (level ' + peak.toFixed(3) + '). Minta peserta lain bicara lebih keras / naikkan volume mic input mereka.', 'err');
+                    }
                 } else {
                     label('OK - kamu mendengar suara dari: ' + names.join(', ') + ' (level ' + peak.toFixed(3) + '). Voice dua arah bekerja.', 'ok');
                 }
@@ -272,7 +296,10 @@ export function createVoiceController(ctx) {
     const bind = () => {
         lk.on(RoomEvent.ParticipantConnected, render);
         lk.on(RoomEvent.ParticipantDisconnected, render);
-        lk.on(RoomEvent.TrackSubscribed, render);
+        lk.on(RoomEvent.TrackSubscribed, (track) => {
+            attachRemote(track);
+            render();
+        });
         lk.on(RoomEvent.TrackUnsubscribed, render);
         lk.on(RoomEvent.TrackMutedChanged, render);
         lk.on(RoomEvent.LocalTrackPublished, render);
@@ -320,6 +347,9 @@ export function createVoiceController(ctx) {
             identity = data.identity || null;
             bind();
             await lk.connect(data.url, data.token);
+            playAllRemote();
+            window.addEventListener('pointerdown', playAllRemote);
+            window.addEventListener('keydown', playAllRemote);
 
             let micOk = true;
             try {

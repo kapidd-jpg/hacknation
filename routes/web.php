@@ -26,9 +26,9 @@ use Illuminate\Support\Facades\Route;
 // ---------- Publik ----------
 Route::get('/', [HalamanController::class, 'home'])->name('home');
 
-Route::view('/tentang', 'halaman.tentang')->name('about');
+Route::get('/tentang', [HalamanController::class, 'tentang'])->name('about');
 Route::get('/kelas', [HalamanController::class, 'kelas'])->name('classes');
-Route::view('/kontak', 'halaman.kontak')->name('contact');
+Route::get('/kontak', [HalamanController::class, 'kontak'])->name('contact');
 
 // ---------- Auth ----------
 Route::middleware('guest')->group(function () {

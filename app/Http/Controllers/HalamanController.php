@@ -8,13 +8,25 @@ use App\Models\Paket;
 
 use App\Services\LatsolService;
 
+use Illuminate\Http\Response;
+
 class HalamanController extends Controller
 {
     public function home(LatsolService $service)
     {
-        return view('halaman.landing', [
+        return $this->cachedView('halaman.landing', [
             'statistikGlobal' => $service->getStatistikGlobal(),
-        ]);
+        ], 120);
+    }
+
+    public function tentang()
+    {
+        return $this->cachedView('halaman.tentang', [], 300);
+    }
+
+    public function kontak()
+    {
+        return $this->cachedView('halaman.kontak', [], 300);
     }
 
     public function kelas()
@@ -50,9 +62,20 @@ class HalamanController extends Controller
             ->pluck('cat')
             ->all();
 
-        return view('halaman.kelas', [
+        return $this->cachedView('halaman.kelas', [
             'kelas' => $kelas,
             'kategori' => $kategori,
-        ]);
+        ], 120);
+    }
+
+    private function cachedView(string $view, array $data, int $seconds): Response
+    {
+        $response = response()->view($view, $data);
+
+        if (! auth()->check()) {
+            $response->header('Cache-Control', 'public, s-maxage=' . $seconds . ', stale-while-revalidate=' . ($seconds * 5));
+        }
+
+        return $response;
     }
 }
