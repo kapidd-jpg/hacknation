@@ -83,7 +83,7 @@
 
 /* ---------- Page head ---------- */
 .dash-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; }
-.dash-head h1 { font-family: 'Space Grotesk', 'Inter', sans-serif; font-size: 30px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin: 0; }
+.dash-head h1 { font-family: 'Manrope', 'Inter', sans-serif; font-size: 30px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin: 0; }
 .dash-head-sub { color: var(--ink-soft); font-size: 13.5px; line-height: 1.6; margin: 6px 0 0; max-width: 62ch; }
 .dash-head-actions { display: flex; flex-wrap: wrap; gap: 10px; }
 
@@ -514,7 +514,7 @@
 }
 .dash-logout-title,
 .dash-confirm-title {
-    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-family: 'Manrope', 'Inter', sans-serif;
     font-size: 21px;
     font-weight: 700;
     color: var(--ink);

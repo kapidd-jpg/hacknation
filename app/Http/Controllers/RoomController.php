@@ -241,6 +241,7 @@ class RoomController extends Controller
             ->where('room_id', $room->id)
             ->where('last_seen_at', '>=', $cutoff)
             ->orderByDesc('last_seen_at')
+            ->orderByDesc('id')
             ->get(['id', 'user_id', 'nama', 'role', 'voice', 'last_seen_at']);
 
         $list = $rows->map(fn (RoomPresence $p) => [

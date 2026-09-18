@@ -34,7 +34,7 @@
 .tentang-story-icon--navy { background: var(--brick-50); color: var(--brick-800); }
 .tentang-story-icon--amber { background: var(--gold-100); color: #8A6510; }
 .tentang-story-icon--purple { background: #F0F3FA; color: #17233D; }
-.tentang-story-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; color: var(--ink); margin: 18px 0 10px; }
+.tentang-story-card h3 { font-family: 'Manrope', sans-serif; font-size: 20px; font-weight: 700; color: var(--ink); margin: 18px 0 10px; }
 .tentang-story-card p { color: var(--ink-soft); font-size: 14px; line-height: 1.7; margin: 0; }
 
 /* ---------- Stats band ---------- */
@@ -58,7 +58,7 @@
 }
 .tentang-stat-value {
     display: block;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Manrope', sans-serif;
     font-size: clamp(28px, 4.5vw, 40px);
     font-weight: 700;
     color: #E3A23B;
@@ -98,14 +98,14 @@
     box-shadow: 0 0 0 4px rgba(16, 26, 46, 0.1);
 }
 .tentang-milestone-year {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Manrope', sans-serif;
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.12em;
     color: #C8891F;
     text-transform: uppercase;
 }
-.tentang-milestone h3 { font-family: 'Space Grotesk', sans-serif; font-size: 19px; font-weight: 700; color: var(--ink); margin: 6px 0 8px; }
+.tentang-milestone h3 { font-family: 'Manrope', sans-serif; font-size: 19px; font-weight: 700; color: var(--ink); margin: 6px 0 8px; }
 .tentang-milestone p { font-size: 14px; color: var(--ink-soft); line-height: 1.65; margin: 0; }
 
 /* ============================================================

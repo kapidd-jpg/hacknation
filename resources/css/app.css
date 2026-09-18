@@ -64,7 +64,7 @@ h3 {
 
 /* Penanda label khas ledger — huruf kapital, renggang kecil */
 .ledger-label {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Manrope', sans-serif;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.1em;
@@ -318,7 +318,7 @@ h3 {
     width: auto;
 }
 .site-brand-name {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Manrope', sans-serif;
     font-size: 19px;
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -343,7 +343,7 @@ h3 {
 .site-nav-link {
     position: relative;
     padding: 8px 14px;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Manrope', sans-serif;
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.06em;
@@ -393,7 +393,7 @@ h3 {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Manrope', sans-serif;
     font-size: 13px;
     font-weight: 700;
     line-height: 1;
@@ -525,7 +525,7 @@ body.nav-open .site-nav-menu {
     align-items: center;
     padding: 13px 16px;
     border-radius: 2px;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Manrope', sans-serif;
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.04em;
@@ -552,7 +552,7 @@ body.nav-open .site-nav-menu {
     background: #E3A23B;
     color: #101A2E;
     border: 1px solid #101A2E;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Manrope', sans-serif;
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.04em;
@@ -635,7 +635,7 @@ body.nav-open .site-nav-overlay {
     top: -14px;
     left: 50%;
     transform: translateX(-50%);
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Manrope', sans-serif;
     font-size: 10px;
     font-weight: 700;
     text-transform: uppercase;
@@ -656,7 +656,7 @@ body.nav-open .site-nav-overlay {
     position: absolute;
     top: 18px;
     right: 18px;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Manrope', sans-serif;
     font-size: 10px;
     font-weight: 700;
     text-transform: uppercase;
@@ -680,7 +680,7 @@ body.nav-open .site-nav-overlay {
     gap: 12px;
 }
 .kartu-paket-name {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Manrope', sans-serif;
     font-size: 21px;
     font-weight: 700;
     letter-spacing: -0.01em;
@@ -725,7 +725,7 @@ body.nav-open .site-nav-overlay {
     flex-wrap: wrap;
 }
 .kartu-paket-price {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Manrope', sans-serif;
     font-size: 38px;
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -759,7 +759,7 @@ body.nav-open .site-nav-overlay {
     gap: 6px;
 }
 .kartu-paket-chip {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Manrope', sans-serif;
     font-size: 10px;
     font-weight: 700;
     text-transform: uppercase;
@@ -811,7 +811,7 @@ body.nav-open .site-nav-overlay {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Manrope', sans-serif;
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.02em;
@@ -879,7 +879,7 @@ body.nav-open .site-nav-overlay {
     width: auto;
 }
 .sf-brand-name {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Manrope', sans-serif;
     font-size: 20px;
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -892,7 +892,7 @@ body.nav-open .site-nav-overlay {
     max-width: 34ch;
 }
 .sf-heading {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Manrope', sans-serif;
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;

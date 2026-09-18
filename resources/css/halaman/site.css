@@ -54,7 +54,7 @@ html { scroll-behavior: smooth; }
 .page-hero > * { position: relative; z-index: 1; }
 
 .pk-eyebrow {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Manrope', sans-serif;
     font-size: 10.5px;
     font-weight: 700;
     letter-spacing: 0.12em;
@@ -69,7 +69,7 @@ html { scroll-behavior: smooth; }
     align-items: center;
 }
 .page-hero-title {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Manrope', sans-serif;
     font-size: clamp(32px, 5.2vw, 50px);
     line-height: 1.05;
     font-weight: 700;
@@ -100,7 +100,7 @@ html { scroll-behavior: smooth; }
     justify-content: center;
     gap: 8px;
     font: inherit;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Manrope', sans-serif;
     font-size: 13.5px;
     font-weight: 700;
     letter-spacing: 0.02em;
@@ -127,7 +127,7 @@ html { scroll-behavior: smooth; }
 .pk-container { max-width: 1152px; margin: 0 auto; }
 .pk-section-head { text-align: center; max-width: 680px; margin: 0 auto clamp(36px, 5vw, 52px); }
 .pk-section-head h2 {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Manrope', sans-serif;
     font-size: clamp(28px, 3.6vw, 40px);
     font-weight: 700;
     color: var(--ink);
@@ -160,7 +160,7 @@ html { scroll-behavior: smooth; }
     box-shadow: 4px 4px 0 0 var(--ink);
 }
 .pk-cta > * { position: relative; z-index: 1; }
-.pk-cta h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(26px, 3.6vw, 36px); font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+.pk-cta h2 { font-family: 'Manrope', sans-serif; font-size: clamp(26px, 3.6vw, 36px); font-weight: 700; letter-spacing: -0.02em; margin: 0; }
 .pk-cta p { color: rgba(253, 253, 249, 0.75); line-height: 1.65; max-width: 520px; margin: 0; }
 .pk-cta .pk-btn--dark { background: #E3A23B; color: var(--ink); box-shadow: 2px 2px 0 0 #FDFDF9; }
 .pk-cta .pk-btn--dark:hover { background: #FFFFFF; color: var(--ink); }
