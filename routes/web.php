@@ -24,11 +24,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 // ---------- Publik ----------
-Route::get('/', [HalamanController::class, 'home'])->name('home');
-
-Route::get('/tentang', [HalamanController::class, 'tentang'])->name('about');
-Route::get('/kelas', [HalamanController::class, 'kelas'])->name('classes');
-Route::get('/kontak', [HalamanController::class, 'kontak'])->name('contact');
+Route::middleware('no-guest-cookie')->group(function () {
+    Route::get('/', [HalamanController::class, 'home'])->name('home');
+    Route::get('/tentang', [HalamanController::class, 'tentang'])->name('about');
+    Route::get('/kelas', [HalamanController::class, 'kelas'])->name('classes');
+    Route::get('/kontak', [HalamanController::class, 'kontak'])->name('contact');
+});
 
 // ---------- Auth ----------
 Route::middleware('guest')->group(function () {

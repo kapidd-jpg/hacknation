@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'precognitive' => \Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests::class,
         'redirect.staff' => \App\Http\Middleware\RedirectIfStaff::class,
+        'no-guest-cookie' => \App\Http\Middleware\RemoveSessionCookieForGuests::class,
         'role' => \App\Http\Middleware\EnsureRole::class,
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,

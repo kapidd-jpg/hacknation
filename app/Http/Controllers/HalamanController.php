@@ -73,7 +73,7 @@ class HalamanController extends Controller
         $response = response()->view($view, $data);
 
         if (! auth()->check()) {
-            $response->header('Cache-Control', 'public, s-maxage=' . $seconds . ', stale-while-revalidate=' . ($seconds * 5));
+            $response->header('Cache-Control', 'public, max-age=' . $seconds . ', s-maxage=' . $seconds . ', stale-while-revalidate=' . ($seconds * 5));
         }
 
         return $response;
