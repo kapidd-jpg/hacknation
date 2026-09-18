@@ -146,6 +146,7 @@
     display: flex;
     align-items: center;
     gap: 9px;
+    flex-wrap: wrap;
     margin: 0;
 }
 
@@ -227,6 +228,7 @@
     color: var(--ink);
     margin: 0;
     white-space: pre-wrap;
+    overflow-wrap: anywhere;
 }
 
 .room-konten-empty {
@@ -433,8 +435,8 @@
 .room-materi-nav-item.is-active .room-materi-nav-num { background: var(--gold); color: var(--ink); }
 
 .room-materi-nav-info { min-width: 0; flex: 1; }
-.room-materi-nav-name { font-size: 13.5px; font-weight: 700; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.room-materi-nav-meta { font-family: 'Space Grotesk', sans-serif; font-size: 11px; color: var(--ink-muted); margin-top: 1px; }
+.room-materi-nav-name { display: block; max-width: 100%; font-size: 13.5px; font-weight: 700; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.room-materi-nav-meta { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 11px; color: var(--ink-muted); margin-top: 1px; }
 .room-materi-nav-item.is-active .room-materi-nav-meta { color: rgba(255, 253, 245, 0.65); }
 
 .room-halaman-tools { display: flex; align-items: center; gap: 8px; }
