@@ -17,14 +17,18 @@ final class UserNotif
         ?string $body = null,
         string $type = 'info',
         array $data = []
-    ): UserNotification {
-        return UserNotification::query()->create([
-            'user_id' => $user->id,
-            'title' => $title,
-            'body' => $body,
-            'type' => $type,
-            'data' => $data,
-        ]);
+    ): ?UserNotification {
+        try {
+            return UserNotification::query()->create([
+                'user_id' => $user->id,
+                'title' => $title,
+                'body' => $body,
+                'type' => $type,
+                'data' => $data,
+            ]);
+        } catch (\Throwable $e) {
+            return null;
+        }
     }
 
     /**
@@ -58,6 +62,11 @@ final class UserNotif
             'updated_at' => $now,
         ], $ids);
 
-        UserNotification::query()->insert($rows);
+        try {
+            UserNotification::query()->insert($rows);
+        } catch (\Throwable $e) {
+            // Notifikasi bersifat best-effort: kegagalan tak boleh mengganggu
+            // aksi utama (bayar paket, kirim latsol, tambah materi).
+        }
     }
 }
