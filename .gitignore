@@ -23,3 +23,6 @@ yarn-error.log
 /.claude
 /agent
 /skills-lock.json
+
+.vercel
+.env*

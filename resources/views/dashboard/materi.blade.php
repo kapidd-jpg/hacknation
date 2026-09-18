@@ -41,9 +41,9 @@
         {{-- ============ HEAD ============ --}}
         <div class="dash-head dash-reveal">
             <div>
-                <a href="{{ route('dashboard.kelas') }}" class="materi-back">â† Kembali ke Kelas Saya</a>
+                <a href="{{ route('dashboard.kelas') }}" class="materi-back">← Kembali ke Kelas Saya</a>
                 <h1 class="materi-title">Detail Materi</h1>
-                <p class="dash-head-sub">{{ $course['name'] ?? 'Kelas' }} â€¢ Silabus lengkap beserta progres modul yang sedang kamu ikuti.</p>
+                <p class="dash-head-sub">{{ $course['name'] ?? 'Kelas' }} • Silabus lengkap beserta progres modul yang sedang kamu ikuti.</p>
             </div>
             <div class="dash-head-actions">
                 <a href="{{ route('dashboard.latsol') }}" class="dash-btn dash-btn--ghost">Latihan Soal</a>
@@ -67,7 +67,7 @@
                         <span class="dash-pill">{{ $currentCourse['pertemuan'] }}</span>
                     </div>
                     <h2>{{ $currentCourse['judul'] }}</h2>
-                    <p class="materi-hero-sub">Tutor {{ $currentCourse['tutor'] }} (Master Tutor PTN) â€¢ Video Modul</p>
+                    <p class="materi-hero-sub">Tutor {{ $currentCourse['tutor'] }} (Master Tutor PTN) • Video Modul</p>
 
                     <div class="materi-hero-progress">
                         <span class="materi-hero-label">{{ $currentCourse['pct'] }}% Selesai</span>
@@ -141,7 +141,7 @@
                                                 </span>
                                                 <span class="modul-info">
                                                     <span class="modul-name">{{ $m['nama'] }}</span>
-                                                    <span class="modul-dur">{{ $tipeLabel[$m['tipe']] ?? $m['tipe'] }} â€¢ {{ $m['durasi'] }}</span>
+                                                    <span class="modul-dur">{{ $tipeLabel[$m['tipe']] ?? $m['tipe'] }} • {{ $m['durasi'] }}</span>
                                                 </span>
                                                 <span class="materi-status materi-status--{{ $m['status'] }}">{{ $badge }}</span>
                                             </button>
@@ -173,7 +173,7 @@
                                 <div><span class="materi-info-label">Akses Kelas</span><span class="materi-info-value">Selama paket aktif</span></div>
                             </li>
                             <li>
-                                <div><span class="materi-info-label">Sertifikat</span><span class="materi-info-value">Lulus â‰¥ 75% modul</span></div>
+                                <div><span class="materi-info-label">Sertifikat</span><span class="materi-info-value">Lulus ≥ 75% modul</span></div>
                             </li>
                         </ul>
                     </div>
@@ -186,7 +186,7 @@
                                     <div class="materi-latsol-set">
                                         <div class="materi-latsol-set-info">
                                             <p class="materi-latsol-set-label">{{ $set['label'] }}</p>
-                                            <p class="materi-latsol-set-meta">{{ $set['total'] }} soal â€¢ Terbaik: {{ $set['best'] ?? '-' }}</p>
+                                            <p class="materi-latsol-set-meta">{{ $set['total'] }} soal • Terbaik: {{ $set['best'] ?? '-' }}</p>
                                         </div>
                                         <a href="{{ route('dashboard.latsol.mulai', [$set['kelas_id'], $set['label']]) }}" class="dash-btn dash-btn--primary dash-btn--sm">Mulai</a>
                                     </div>
@@ -216,7 +216,7 @@
                 <div class="materi-modal-durasi" id="materiModalDurasi"></div>
                 <div class="materi-modal-konten" id="materiModalKonten"></div>
                 <div class="materi-modal-actions">
-                    <button type="button" class="dash-btn dash-btn--ghost" id="materiModalDone">Tandai Selesai âœ“</button>
+                    <button type="button" class="dash-btn dash-btn--ghost" id="materiModalDone">Tandai Selesai ✓</button>
                 </div>
             </div>
         </div>

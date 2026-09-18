@@ -23,8 +23,9 @@ Dibangun dengan **Laravel 10 + MySQL + Tailwind (via Vite)** untuk hackathon
 - **Pilih Paket** - pilih paket berlangganan, checkout simulasi (VA/QRIS/Transfer) →
   paket aktif + akses kategori kelas (anti-duplikat enroll)
 - **Kontak** - form kirim pesan (rate-limited)
-- **Pengaturan profil** - ubah nama, email, foto (upload via file → dataURL), sekolah,
-  kelas/jurusan, bio, ganti password, serta preferensi notifikasi (localStorage).
+- **Pengaturan profil** - ubah nama, email, sekolah, kelas/jurusan, bio, ganti password,
+  serta preferensi notifikasi (localStorage). Foto profil **dihapus** (commit `98002c4`) -
+  avatar kembali ke inisial.
   Catatan: toggle 2FA tersimpan di DB namun belum divalidasi saat login.
 
 ### 👩‍🏫 Role Guru & Admin
@@ -111,7 +112,8 @@ Setelah `migrate:fresh --seed`, akses demo dengan akun pada tabel di atas.
 
 ## 🗄️ Struktur Database
 
-- **users** - `role` (siswa/guru/admin), `foto` (text/dataURL), `sekolah`, `kelas_jurusan`, `bio`, `two_factor_enabled`
+- **users** - `role` (siswa/guru/admin), `sekolah`, `kelas_jurusan`, `bio`, `two_factor_enabled`
+  (kolom `foto` masih ada di skema tapi **tidak dipakai** - fitur foto dihapus, commit `98002c4`)
 - **kelas** - nama, slug (unik), kategori, ikon, deskripsi, jumlah modul, durasi, harga, `aktif`, warna
 - **materi** - `kelas_id` (FK), judul, tutor, pertemuan, durasi, `bab`, `urutan`, tipe
 - **paket** - `key` (unik), nama, tag, harga, `kategori` (JSON), `fitur` (JSON), `aktif`
@@ -146,7 +148,7 @@ Seeder `DemoSeeder` mengisi (±): 3 user demo, 27 kelas katalog, 162 materi (6 p
 | 7 | Kelola Siswa (admin-only) | Lihat profil + kelas; hapus akun siswa (admin) |
 | 8 | Enroll + kuota dari DB | `Paket::where('key')->value('kuota')` - tidak hardcode |
 | 9 | Checkout paket | `POST /pilih-paket/bayar` → `paket.bayar` (pilih VA/QRIS/Transfer, `syncWithoutDetaching`, anti-duplikat) |
-| 10 | Profil siswa (foto) | Validasi `max:3MB` + regex `data:image/(png\|jpeg\|webp\|gif);base64,` atau URL - **SVG diblokir** |
+| 10 | ~~Profil siswa (foto)~~ (**dihapus**) | Fitur foto profil dihapus commit `98002c4` (kembali ke inisial; kolom `foto` legacy tidak diisi) |
 | 11 | `php artisan akun:guru --admin` | Flag `--admin` untuk role admin |
 | 12 | Throttle login | `throttle:5,1` pada POST `/masuk` & `/daftar` |
 | 13 | XSS hardening (katalog JS) | `esc()` helper; interpolasi HTML/JSON menggunakan `@json()` |
@@ -158,6 +160,43 @@ Seeder `DemoSeeder` mengisi (±): 3 user demo, 27 kelas katalog, 162 materi (6 p
 | 19 | Kontak | `POST /kontak` (throttle 5,1, CRLF guard) → tabel `kontak` |
 | 20 | Halaman `/kelas` publik | Dari DB (`HalamanController@kelas`) termasuk harga per kategori |
 | 21 | DemoSeeder diperluas | Kelas/materi/soal/pengampu/pendaftaran idempotent; guru demo diampu fisika & kimia |
+
+## 🚀 Deploy & Operasional (jangan dilupakan!)
+
+### Lokasi live & kepemilikan Vercel
+- **Produksi**: https://hacknation-ftz1.vercel.app/ (Vercel + TiDB MySQL)
+- **Repo**: https://github.com/kapidd-jpg/hacknation.git (branch `main`)
+- ⚠️ **Project `hacknation-ftz1` ada di akun Vercel teman**, BUKAN akun `kapidd-jpg`.
+  - Akun `kapidd-jpg` (team `mabar3`) hanya punya: `hacknation` → hacknation-zeta.vercel.app
+    dan `hacknation-tgf2` → hacknation-tgf2-eight.vercel.app.
+  - Agar bisa deploy ke `hacknation-ftz1` dari akun sendiri: teman harus **invite
+    `kapidd-jpg`** via project Settings → team **Members**, atau redeploy dari dashboard teman.
+
+### Gotcha "build basi" (18 Sep 2026)
+- Build lama yang pernah live TIDAK memuat commit `98002c4` → halaman `/masuk` masih
+  menampilkan "Lupa password? Hubungi admin." sebagai **`<span>`** (tidak bisa diklik) dan
+  masih ada kode foto profil (`defaultPhoto()`).
+- **Tanda build basi**: `window.pintarKuyAuth` di HTML masih punya `defaultPhoto()`.
+- **Fix**: deploy ulang dari commit `98002c4` (sudah ada di `origin/main`). Setelah itu
+  "Lupa password?" jadi `<a href="https://wa.me/6282135523130?text=...">`.
+
+### Env vars produksi (set di dashboard Vercel - nilai TIDAK di-commit)
+- Umum: `APP_KEY`, `APP_ENV=production`, `APP_DEBUG=false`,
+  `APP_URL=https://hacknation-ftz1.vercel.app`
+- **DB TiDB (MySQL)**: `DB_CONNECTION=mysql`,
+  `DB_HOST=gateway01.ap-southeast-1.prod.aws.tidbcloud.com`, `DB_PORT=4000`,
+  `DB_DATABASE=hacknation`, `DB_USERNAME=<user>.root`, `DB_PASSWORD` (isi dari `.env` lokal),
+  `DB_MYSQL_SSL=true` (bundle SSL: `database/certs/ap-southeast-1-bundle.pem`)
+- **Install di serverless**: `SESSION_DRIVER=database`, `SESSION_SECURE_COOKIE=true`
+  (jangan `file`/`false` di produksi), `CACHE_DRIVER=array` (opsional)
+- **LiveKit voice room**: `LIVEKIT_URL`, `LIVEKIT_API_KEY`, `LIVEKIT_API_SECRET`
+
+### Nomor WhatsApp admin (ganti juga di sini kalau berubah)
+Nomor resmi: **6282135523130** dipakai di:
+- `resources/views/auth/login.blade.php` → link "Lupa password? Hubungi admin."
+- `resources/views/komponen/footer.blade.php` → ikon WA
+- `resources/views/halaman/kontak.blade.php` → WA & tel
+- Note: teks *support* di footer masih **+62 895-4240-1128** - sengaja dibiarkan (nomor lama, bukan link klikable).
 
 ---
 
@@ -174,8 +213,7 @@ Pengembangan dibantu oleh asisten AI kode (`opencode`):
 ## 🔒 Privasi (per §8.1)
 
 - Data demo **bukan data pribadi nyata** - semua profil contoh digenerate untuk keperluan demo.
-- Foto profil disimpan sebagai data tersemat (dataURL) di server demo; pada produksi
-  disarankan penyimpanan file + enkripsi & kebijakan privasi terpisah.
+- Fitur foto profil **tidak dipakai** (kembali ke inisial); kolom `foto` legacy tidak diisi.
 - Preferensi UI (toggle notifikasi, dsb.) disimpan di `localStorage` perangkat pengguna.
 
 ---
