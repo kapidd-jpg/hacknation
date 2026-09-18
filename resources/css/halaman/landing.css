@@ -16,7 +16,7 @@
 
 /* --- Code / data figure (Space Grotesk, 13px) --- */
 .lb-code {
-    font-family: 'Space Grotesk', ui-monospace, 'Segoe UI Mono', monospace;
+    font-family: 'Manrope', ui-monospace, 'Segoe UI Mono', monospace;
     font-size: 13px;
     line-height: 16px;
     letter-spacing: 0.02em;
@@ -97,7 +97,7 @@
 
 /* --- Score display (Space Grotesk) --- */
 .lb-score {
-    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-family: 'Manrope', 'Inter', sans-serif;
     font-size: 56px;
     line-height: 56px;
     letter-spacing: -0.04em;

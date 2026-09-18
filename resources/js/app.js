@@ -15,6 +15,14 @@ const applyUserToDom = () => {
     }
 
     document.querySelectorAll('[data-user-photo]').forEach((el) => {
+        const serverSrc = el.getAttribute('src');
+        const hasServerSrc = Boolean(serverSrc && serverSrc.trim());
+
+        // Nilai yang dirender server (DB) adalah sumber kebenaran. Jangan timpa
+        // dengan foto localStorage yang bisa basi ("phantom"). Foto dari localStorage
+        // hanya dipakai untuk elemen yang belum diisi server (mis. section SPA).
+        if (hasServerSrc) return;
+
         if (user.photo) {
             el.classList.remove('hidden');
             el.setAttribute('src', user.photo);

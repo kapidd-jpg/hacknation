@@ -12,6 +12,7 @@ use App\Models\ProgresModul;
 use App\Models\Soal;
 use App\Services\LatsolService;
 use App\Support\UserFoto;
+use App\Support\UserNotif;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -508,6 +509,16 @@ return view('dashboard.nilai', [
         if ($hasil === null) {
             return back()->with('status', 'Paket latihan tidak ditemukan.');
         }
+
+        $attempt = $hasil['attempt'];
+        $skor = (int) ($hasil['breakdown']['skor'] ?? 0);
+        UserNotif::push(
+            $user,
+            'Hasil latihan ' . ($attempt->set_label ?: 'soal') . ' siap dilihat',
+            'Skor kamu: ' . $skor . '. ' . (($hasil['tuntas'] ?? false) ? 'Selamat, kamu tuntas!' : 'Cek pembahasan dan coba lagi.'),
+            'latsol',
+            ['url' => route('dashboard.latsol.hasil', $attempt->id), 'icon' => 'latsol']
+        );
 
         return redirect()->route('dashboard.latsol.hasil', $hasil['attempt']->id);
     }

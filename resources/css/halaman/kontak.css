@@ -38,7 +38,7 @@
     flex-shrink: 0;
 }
 .kontak-card-ico svg { width: 20px; height: 20px; }
-.kontak-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; color: var(--ink); margin: 0 0 4px; }
+.kontak-card h3 { font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 700; color: var(--ink); margin: 0 0 4px; }
 .kontak-card p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; margin: 0; }
 .kontak-card a { color: #C8891F; font-weight: 700; text-decoration: none; }
 .kontak-card a:hover { text-decoration: underline; }
@@ -51,7 +51,7 @@
     box-shadow: 4px 4px 0 0 var(--ink);
     padding: clamp(26px, 4vw, 38px);
 }
-.kontak-panel-head h2 { margin: 0 0 6px; font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; color: var(--ink); }
+.kontak-panel-head h2 { margin: 0 0 6px; font-family: 'Manrope', sans-serif; font-size: 26px; font-weight: 700; color: var(--ink); }
 .kontak-panel-head p { margin: 0 0 26px; color: var(--ink-soft); font-size: 14px; line-height: 1.6; }
 .kontak-form-row { display: grid; grid-template-columns: 1fr; gap: 0 16px; }
 @media (min-width: 640px) { .kontak-form-row--2 { grid-template-columns: 1fr 1fr; } }
@@ -125,7 +125,7 @@
     font: inherit;
     font-size: 14.5px;
     font-weight: 700;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Manrope', sans-serif;
     color: var(--ink);
     padding: 18px 20px;
     cursor: pointer;

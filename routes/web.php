@@ -14,6 +14,7 @@ use App\Http\Controllers\Guru\PengampuController as GuruPengampuController;
 use App\Http\Controllers\Guru\SiswaController as GuruSiswaController;
 use App\Http\Controllers\Guru\SoalController as GuruSoalController;
 use App\Http\Controllers\PaketPilihanController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
 
@@ -73,6 +74,12 @@ Route::middleware('auth')->group(function () {
 
     // Gambar avatar dipakai juga layout guru/admin, jadi butuh akses staf.
     Route::get('/akun/foto', [DashboardController::class, 'foto'])->name('user.foto');
+
+    // ---------- Notifikasi (siswa & guru) ----------
+    Route::get('/notifikasi', [NotificationController::class, 'index'])->name('notifikasi.index');
+    Route::get('/notifikasi/fetch', [NotificationController::class, 'fetch'])->name('notifikasi.fetch');
+    Route::post('/notifikasi/baca-semua', [NotificationController::class, 'readAll'])->name('notifikasi.readall');
+    Route::post('/notifikasi/{notification}/baca', [NotificationController::class, 'read'])->name('notifikasi.read');
 
     Route::prefix('ruang')->name('room.')->group(function () {
         Route::get('/', [RoomController::class, 'index'])->name('index');

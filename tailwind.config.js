@@ -8,9 +8,9 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Inter', 'system-ui', 'sans-serif'],
-                display: ['Space Grotesk', 'Inter', 'sans-serif'],
-                grotesk: ['Space Grotesk', 'Inter', 'sans-serif'],
-                code: ['Space Grotesk', 'ui-monospace', 'monospace'],
+                display: ['Manrope', 'Inter', 'sans-serif'],
+                grotesk: ['Manrope', 'Inter', 'sans-serif'],
+                code: ['Manrope', 'ui-monospace', 'monospace'],
             },
             colors: {
                 /* Lembar & latar — kertas hangat khas StudyServer */

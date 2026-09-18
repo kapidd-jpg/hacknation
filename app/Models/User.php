@@ -113,6 +113,21 @@ class User extends Authenticatable
         return $this->hasMany(Nilai::class);
     }
 
+    public function userNotifications()
+    {
+        return $this->hasMany(UserNotification::class);
+    }
+
+    public function unreadUserNotifications()
+    {
+        return $this->userNotifications()->unread();
+    }
+
+    public function unreadNotificationsCount(): int
+    {
+        return $this->unreadUserNotifications()->count();
+    }
+
     public function progresModul()
     {
         return $this->hasMany(ProgresModul::class);
