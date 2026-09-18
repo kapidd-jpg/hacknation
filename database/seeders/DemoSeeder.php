@@ -15,8 +15,6 @@ use Illuminate\Database\Seeder;
 
 class DemoSeeder extends Seeder
 {
-protected const FOTO_DEFAULT = 'assets/images/default-avatar.jpg';
-
     protected const VIDEO_DUMMY = 'https://youtu.be/uEb4eqHhqO0?si=Me-Khpzpv1JFEI7Y';
 
     public function run(): void
@@ -32,7 +30,6 @@ protected const FOTO_DEFAULT = 'assets/images/default-avatar.jpg';
             $siswa = new User();
             $siswa->email = 'siswa@demo.id';
             $siswa->name = 'Brian Pratama';
-            $siswa->foto = self::FOTO_DEFAULT;
             $siswa->sekolah = 'SMA Negeri 1 Jakarta';
             $siswa->kelas_jurusan = 'Kelas 12 · IPA';
             $siswa->bio = 'Pejuang UTBK 2026. Target: FK UI.';
@@ -46,7 +43,6 @@ protected const FOTO_DEFAULT = 'assets/images/default-avatar.jpg';
             $guru = new User();
             $guru->email = 'guru@demo.id';
             $guru->name = 'Rina Kumala, M.Si.';
-            $guru->foto = self::FOTO_DEFAULT;
             $guru->sekolah = 'Tim Tutor PintarKuy';
             $guru->kelas_jurusan = null;
             $guru->bio = 'Pengajar materi Saintek di PintarKuy sejak 2024.';
@@ -60,7 +56,6 @@ protected const FOTO_DEFAULT = 'assets/images/default-avatar.jpg';
             $admin = new User();
             $admin->email = 'admin@demo.id';
             $admin->name = 'Operator PintarKuy';
-            $admin->foto = self::FOTO_DEFAULT;
             $admin->sekolah = 'Tim Operasional PintarKuy';
             $admin->kelas_jurusan = null;
             $admin->bio = 'Admin: mengelola paket & akun siswa.';

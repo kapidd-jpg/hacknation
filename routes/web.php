@@ -72,9 +72,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/dashboard/pengaturan/keamanan', [DashboardController::class, 'pengaturanKeamanan'])->middleware('throttle:20,1')->name('dashboard.pengaturan.keamanan');
     });
 
-    // Gambar avatar dipakai juga layout guru/admin, jadi butuh akses staf.
-    Route::get('/akun/foto', [DashboardController::class, 'foto'])->name('user.foto');
-
     // ---------- Notifikasi (siswa & guru) ----------
     Route::get('/notifikasi', [NotificationController::class, 'index'])->name('notifikasi.index');
     Route::get('/notifikasi/fetch', [NotificationController::class, 'fetch'])->name('notifikasi.fetch');
@@ -95,7 +92,6 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/dashboard/katalog/daftar', [DashboardController::class, 'katalogDaftar'])->middleware('throttle:20,1')->name('dashboard.katalog.daftar');
     Route::post('/dashboard/progres-modul', [DashboardController::class, 'progresModul'])->middleware('throttle:20,1')->name('dashboard.progres.modul');
-    Route::get('/akun/foto', [DashboardController::class, 'foto'])->name('user.foto');
     Route::post('/dashboard/pengaturan', [DashboardController::class, 'pengaturanUpdate'])->middleware('throttle:20,1')->name('dashboard.pengaturan.update');
     Route::post('/dashboard/pengaturan/keamanan', [DashboardController::class, 'pengaturanKeamanan'])->middleware('throttle:20,1')->name('dashboard.pengaturan.keamanan');
 });

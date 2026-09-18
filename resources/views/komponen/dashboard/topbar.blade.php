@@ -35,10 +35,8 @@
         <span class="dash-topbar-div hidden md:block"></span>
         <div class="flex items-center gap-2.5">
             <div class="relative size-8 shrink-0">
-                <img src="{{ auth()->user()->foto ? \App\Support\UserFoto::src(auth()->user()->foto) : '' }}" alt="Foto profil" data-user-photo
-                     class="dash-user-photo absolute inset-0 size-8 rounded-full object-cover {{ auth()->user()->foto ? '' : 'hidden' }}">
                 <span data-user-initials
-                      class="dash-user-initials absolute inset-0 size-8 rounded-full {{ auth()->user()->foto ? 'hidden' : '' }}">{{ \App\Support\UserFoto::initials(auth()->user()->name) }}</span>
+                      class="dash-user-initials absolute inset-0 size-8 rounded-full">{{ \App\Support\UserFoto::initials(auth()->user()->name) }}</span>
                 <span class="dash-user-dot"></span>
             </div>
             <div class="hidden lg:block">

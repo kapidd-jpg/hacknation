@@ -20,18 +20,6 @@
         {{-- Profil --}}
         <div class="dash-card setting-pane active" id="pane-profil">
             <div class="setting-row">
-                <div class="setting-avatar">
-                    <div class="setting-avatar-photo">
-                        <img id="sFoto" src="{{ auth()->user()->foto ? \App\Support\UserFoto::src(auth()->user()->foto) : '' }}" alt="Foto profil" class="{{ auth()->user()->foto ? '' : 'hidden' }}">
-                        <span id="sFotoInitials" class="{{ auth()->user()->foto ? 'hidden' : '' }}">{{ \App\Support\UserFoto::initials(auth()->user()->name) }}</span>
-                    </div>
-                    <div>
-                        <b style="font-size:15px;color:var(--navy-900);">Foto Profil</b>
-                        <p class="setting-hint" style="margin:4px 0 10px;">JPG atau PNG, maks 2 MB.</p>
-                        <button type="button" id="sFotoBtn" class="dash-btn dash-btn--ghost" style="padding:9px 18px;">Ganti Foto</button>
-                    </div>
-                </div>
-
                 <div class="dash-grid dash-grid--2" style="grid-template-columns:1fr 1fr;">
                     <div class="setting-field">
                         <label for="sNama">Nama Lengkap</label>
@@ -146,7 +134,6 @@
 @push('scripts')
     <script>
         window.pintarKuyPengaturanUrl = @json(route('dashboard.pengaturan.update'));
-        window.pintarKuyFotoUrl = @json(route('user.foto'));
         window.pintarKuyKeamananUrl = @json(route('dashboard.pengaturan.keamanan'));
         window.pintarKuyCsrf = @json(csrf_token());
     </script>

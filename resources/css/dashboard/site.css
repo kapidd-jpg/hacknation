@@ -399,7 +399,6 @@
     box-shadow: 0 0 0 2px var(--paper);
 }
 .dash-topbar-div { width: 1px; height: 24px; background: rgba(16, 26, 46, 0.12); }
-.dash-user-photo { box-shadow: 0 0 0 2px rgba(227, 162, 59, 0.4); }
 .dash-user-initials {
     background: var(--brick-700, #1E2C4A);
     color: #FFFFFF;

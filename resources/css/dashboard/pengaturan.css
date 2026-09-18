@@ -50,16 +50,6 @@
     box-shadow: none;
     background: var(--paper-100);
 }
-.setting-avatar { display: flex; align-items: center; gap: 16px; }
-.setting-avatar-photo { position: relative; width: 64px; height: 64px; flex-shrink: 0; }
-.setting-avatar-photo img { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 9999px; object-fit: cover; }
-.setting-avatar-photo span {
-    position: absolute; inset: 0; width: 100%; height: 100%;
-    display: flex; align-items: center; justify-content: center;
-    border-radius: 9999px; background: var(--brick); color: #FFFFFF;
-    font-size: 22px; font-weight: 800;
-}
-.setting-avatar-photo .hidden { display: none; }
 
 .toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .toggle-row b { font-size: 13.5px; color: var(--ink); display: block; }

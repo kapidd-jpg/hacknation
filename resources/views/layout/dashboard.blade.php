@@ -101,7 +101,6 @@
                 $pkUserCtx = $pkUser ? [
                     'name' => $pkUser->name,
                     'email' => $pkUser->email,
-                    'foto' => $pkUser->foto,
                     'sekolah' => $pkUser->sekolah,
                     'kelas_jurusan' => $pkUser->kelas_jurusan,
                     'bio' => $pkUser->bio,
@@ -110,14 +109,12 @@
                     'paketNama' => $pkUser->pakets->pluck('nama')->all(),
                     'aksesKategori' => $pkUser->aksesKategori(),
                 ] : null;
-                $pkUserFoto = auth()->user()?->foto ? \App\Support\UserFoto::src(auth()->user()->foto) : null;
             @endphp
             u = @json($pkUserCtx);
             if (u && window.pintarKuyAuth) {
                 window.pintarKuyAuth.login({
                     name: u.name,
                     email: u.email,
-                    photo: @json($pkUserFoto),
                     sekolah: u.sekolah,
                     kelas_jurusan: u.kelas_jurusan,
                     bio: u.bio,

@@ -6,7 +6,6 @@
     $dashKatalogUrl = Auth::check()
         ? (Auth::user()->isGuru() ? route('guru.dashboard') : route('dashboard.katalog'))
         : route('register');
-    $userFoto = Auth::check() ? \App\Support\UserFoto::src(Auth::user()->foto) : '';
     $userNama = Auth::user()?->name ?? '';
 @endphp
 <header class="site-header" id="siteHeader">
@@ -32,8 +31,7 @@
                 @auth
                     <a href="{{ $dashHomeUrl }}" class="site-userchip" title="Buka Dashboard">
                         <span class="relative size-7 shrink-0">
-                            <img src="{{ $userFoto }}" data-user-photo alt="" class="absolute inset-0 size-7 rounded-full object-cover {{ Auth::user()->foto ? '' : 'hidden' }}">
-                            <span data-user-initials class="absolute inset-0 size-7 rounded-full {{ Auth::user()->foto ? 'hidden' : '' }}">{{ \App\Support\UserFoto::initials($userNama) }}</span>
+                            <span class="absolute inset-0 size-7 rounded-full bg-navy text-white text-[10px] font-bold flex items-center justify-center">{{ \App\Support\UserFoto::initials($userNama) }}</span>
                         </span>
                         <span class="site-userchip-name">{{ explode(' ', $userNama)[0] }}</span>
                     </a>

@@ -33,14 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // field profil
     const nama = document.getElementById('sNama');
     const bio = document.getElementById('sBio');
-    const fotoEl = document.querySelector('#pane-profil .setting-avatar img');
-    const fotoBtn = document.getElementById('sFotoBtn');
-    const fileInput = document.createElement('input');
-    fileInput.type = 'file';
-    fileInput.accept = 'image/png,image/jpeg,image/webp';
-    fileInput.hidden = true;
-    document.body.appendChild(fileInput);
-    let pickedFoto = '';
 
     // muat data tersimpan
     const user = auth.user() || {};
@@ -71,71 +63,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ganti foto
-    if (fotoBtn) fotoBtn.addEventListener('click', () => fileInput.click());
-    fileInput.addEventListener('change', () => {
-        const f = fileInput.files && fileInput.files[0];
-        if (!f) return;
-        if (f.size > 2 * 1024 * 1024) {
-            showToast('Ukuran foto maksimal 2 MB.');
-            fileInput.value = '';
-            return;
-        }
-        const reader = new FileReader();
-        reader.onload = () => {
-            const img = new Image();
-            img.onload = () => {
-                const MAX = 512;
-                const scale = Math.min(MAX / img.width, MAX / img.height, 1);
-                const canvas = document.createElement('canvas');
-                canvas.width = Math.max(1, Math.round(img.width * scale));
-                canvas.height = Math.max(1, Math.round(img.height * scale));
-                const ctx = canvas.getContext('2d');
-                ctx.fillStyle = '#fff';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                pickedFoto = canvas.toDataURL('image/jpeg', 0.85);
-                if (fotoEl) {
-                    fotoEl.classList.remove('hidden');
-                    fotoEl.setAttribute('src', pickedFoto);
-                }
-                const initialsEl = document.getElementById('sFotoInitials');
-                if (initialsEl) initialsEl.classList.add('hidden');
-                showToast('Foto terpilih. Klik "Simpan Perubahan" untuk menyimpan.');
-            };
-            img.onerror = () => {
-                showToast('File foto tidak valid. Pilih file gambar lain.');
-                fileInput.value = '';
-            };
-            img.src = String(reader.result);
-        };
-        reader.readAsDataURL(f);
-    });
-
-    // sinkron chip nama/foto/inisial (topbar & header) seketika
-    const syncChips = (name, photo) => {
+    // sinkron chip nama/inisial (topbar & header) seketika
+    const syncChips = (name) => {
         document.querySelectorAll('[data-user-name]').forEach((el) => {
             if (el && name) el.textContent = name;
         });
         document.querySelectorAll('.site-userchip-name').forEach((el) => {
             if (el && name) el.textContent = String(name).trim().split(' ')[0] || '';
         });
-        document.querySelectorAll('[data-user-photo]').forEach((el) => {
-            if (!el) return;
-            if (photo) {
-                el.classList.remove('hidden');
-                el.setAttribute('src', photo);
-            } else {
-                el.classList.add('hidden');
-            }
-        });
         document.querySelectorAll('[data-user-initials]').forEach((el) => {
-            if (!el) return;
-            if (photo) el.classList.add('hidden');
-            else {
-                el.classList.remove('hidden');
-                if (name) el.textContent = initialsOf(name);
-            }
+            if (el && name) el.textContent = initialsOf(name);
         });
     };
 
@@ -148,14 +85,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     name: nama ? nama.value.trim() : '',
                     bio: bio ? bio.value.trim() : '',
                 };
-const userBefore = auth.user() || {};
-                const photoValue = pickedFoto || userBefore.photo || '';
-                syncChips(profil.name, photoValue);
+                const userBefore = auth.user() || {};
+                syncChips(profil.name);
 
                 const url = window.pintarKuyPengaturanUrl || '';
                 if (url) {
-                    const payload = { ...profil };
-                    if (pickedFoto) payload.foto = pickedFoto;
                     fetch(url, {
                         method: 'POST',
                         headers: {
@@ -163,31 +97,27 @@ const userBefore = auth.user() || {};
                             'Accept': 'application/json',
                             'X-CSRF-TOKEN': window.pintarKuyCsrf || (document.querySelector('meta[name="csrf-token"]') || {}).getAttribute?.('content') || '',
                         },
-                        body: JSON.stringify(payload),
+                        body: JSON.stringify(profil),
                     })
                         .then((r) => r.json().catch(() => ({})))
                         .then((res) => {
                             if (res && res.ok === true) {
                                 // Simpan ke localStorage HANYA setelah server sukses,
-                                // supaya chip nama/foto tidak menampilkan versi "phantom".
-                                const fotoBase = window.pintarKuyFotoUrl || '';
-                                const newPhoto = pickedFoto
-                                    ? (fotoBase ? fotoBase + (fotoBase.includes('?') ? '&' : '?') + 'v=' + Date.now() : photoValue)
-                                    : (userBefore.photo || '');
-                                auth.login({ ...profil, photo: newPhoto });
-                                syncChips(profil.name, newPhoto);
+                                // supaya chip nama tidak menampilkan versi "phantom".
+                                auth.login(profil);
+                                syncChips(profil.name);
                                 showToast(res.message || 'Profil berhasil disimpan.');
                             } else {
-                                syncChips(userBefore.name, userBefore.photo);
+                                syncChips(userBefore.name);
                                 showToast((res && res.message) || 'Gagal menyimpan profil. Periksa kembali isianmu.');
                             }
                         })
                         .catch(() => {
-                            syncChips(userBefore.name, userBefore.photo);
+                            syncChips(userBefore.name);
                             showToast('Gagal menyimpan profil. Periksa koneksimu.');
                         });
                 } else {
-                    auth.login({ ...profil, photo: photoValue });
+                    auth.login(profil);
                     showToast(btn.dataset.msg || 'Profil berhasil disimpan.');
                 }
                 return;

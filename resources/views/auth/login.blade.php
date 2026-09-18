@@ -40,7 +40,7 @@
                 <div>
                     <div class="flex items-center justify-between">
                         <label for="password" class="lb-label text-ink font-bold">Password</label>
-                        <span class="text-gold-600 text-[11px] font-bold">Lupa password? Hubungi admin.</span>
+                        <a href="https://wa.me/6282135523130?text=Halo%20admin%20PintarKuy%2C%20saya%20lupa%20password%20akun%20saya.%20Mohon%20dibantu%20reset%20password.%20Terima%20kasih." target="_blank" rel="noopener" class="text-gold-600 text-[11px] font-bold hover:text-brick hover:underline underline-offset-2 transition-colors">Lupa password? Hubungi admin.</a>
                     </div>
                     <div class="relative mt-2">
                         <svg class="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-ink-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>

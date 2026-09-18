@@ -22,16 +22,15 @@
         // Helper auth front-end - didefinisikan di sini (eksekusi sinkron) supaya
         // script layout (yang jalan saat parse) sudah bisa memakai window.pintarKuyAuth.
         window.pintarKuyAuth = {
-defaultPhoto() { return '{{ asset('assets/images/default-avatar.jpg') }}'; },
             user() {
                 try { return JSON.parse(localStorage.getItem('pintarKuyUser') || 'null'); } catch (e) { return null; }
             },
             isLoggedIn() { return !!this.user(); },
             login(u) {
                 const prev = this.user() || {};
-                try {
-                    localStorage.setItem('pintarKuyUser', JSON.stringify(Object.assign({ name: '', photo: this.defaultPhoto() }, prev, u || {})));
-                } catch (e) {}
+                const next = Object.assign({ name: '' }, prev, u || {});
+                delete next.photo;
+                try { localStorage.setItem('pintarKuyUser', JSON.stringify(next)); } catch (e) {}
             },
             logout() { try { localStorage.removeItem('pintarKuyUser'); } catch (e) {} },
         };

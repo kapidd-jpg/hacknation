@@ -22,7 +22,7 @@
                     $infos = [
                         ['ico' => 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z', 'title' => 'Alamat Kantor', 'body' => 'Jl. Cipete Raya No. 88, Kebayoran Baru, Jakarta Selatan, DKI Jakarta 12150'],
                         ['ico' => 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z', 'title' => 'Email Support', 'body' => 'pintarkuyid@gmail.com  ·  kerjasama@pintarkuy.id', 'link' => 'https://mail.google.com/mail/?view=cm&fs=1&to=pintarkuyid@gmail.com', 'linkText' => 'pintarkuyid@gmail.com'],
-                        ['ico' => 'M2 3h5l2 5-3 2a14 14 0 007 7l2-3 5 2v5a1 1 0 01-1 1C9 23 1 14 1 4a1 1 0 011-1z', 'title' => 'Telepon / WhatsApp', 'body' => '<a href="tel:+62895424011288">+62 895-4240-11288</a><br><a href="https://wa.me/6281225124408" target="_blank" rel="noopener">+62 812-2512-4408</a>'],
+                        ['ico' => 'M2 3h5l2 5-3 2a14 14 0 007 7l2-3 5 2v5a1 1 0 01-1 1C9 23 1 14 1 4a1 1 0 011-1z', 'title' => 'Telepon / WhatsApp', 'body' => '<a href="tel:+6282135523130">+62 821-3552-3130</a><br><a href="https://wa.me/6282135523130" target="_blank" rel="noopener">+62 821-3552-3130</a>'],
                         ['ico' => 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z', 'title' => 'Jam Operasional', 'body' => 'Senin–Jumat: 08.00–21.00 WIB<br>Sabtu–Minggu: 09.00–17.00 WIB'],
                     ];
                 @endphp
@@ -57,7 +57,7 @@
                 <form id="kontakForm" novalidate>
                     <noscript>
                         <p class="kontak-noscript" style="padding:14px;border:1px dashed #B45309;border-radius:8px;background:#FFF7ED;color:#B45309;font-size:13px;">
-                            Formulir ini butuh JavaScript. Hubungi kami via WhatsApp <a href="https://wa.me/6281225124408" target="_blank" rel="noopener">+62 812-2512-4408</a> atau email
+                            Formulir ini butuh JavaScript. Hubungi kami via WhatsApp <a href="https://wa.me/6282135523130" target="_blank" rel="noopener">+62 821-3552-3130</a> atau email
                             <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pintarkuyid@gmail.com">pintarkuyid@gmail.com</a>.
                         </p>
                     </noscript>

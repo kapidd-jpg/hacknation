@@ -120,7 +120,7 @@
                         <span class="text-ink-soft">{{ count($classes) ? $classes[0]['progressText'] : '-' }}</span>
                     </div>
                     <div class="bg-paper-100 h-2.5 rounded-full overflow-hidden">
-                        <div class="bg-brick h-full rounded-full" style="width:{{ count($classes) ? $classes[0]['pct'] : 0 }}%"></div>
+                        <div class="bg-gold h-full rounded-full" style="width:{{ count($classes) ? $classes[0]['pct'] : 0 }}%"></div>
                     </div>
                 </div>
             </div>
@@ -202,7 +202,7 @@
                                 <span class="text-ink-muted text-[11px] font-bold">{{ $class['progressText'] }}</span>
                             </div>
                             <div class="bg-paper-100 h-1.5 rounded-full overflow-hidden">
-                                <div class="bg-{{ $class['color'] }} h-full rounded-full" style="width:{{ $class['pct'] }}%"></div>
+                                <div class="bg-gold h-full rounded-full" style="width:{{ $class['pct'] }}%"></div>
                             </div>
                         </div>
                     </div>

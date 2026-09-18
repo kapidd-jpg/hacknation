@@ -11,7 +11,6 @@ use App\Models\Pengerjaan;
 use App\Models\ProgresModul;
 use App\Models\Soal;
 use App\Services\LatsolService;
-use App\Support\UserFoto;
 use App\Support\UserNotif;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -662,55 +661,6 @@ return view('dashboard.nilai', [
         ]);
     }
 
-    const FOTO_WHITELIST_HOSTS = ['www.figma.com'];
-
-    public function foto()
-    {
-        $foto = Auth::user()?->foto ?? null;
-
-        if (blank($foto)) {
-            abort(404);
-        }
-
-        if (str_starts_with($foto, 'assets/')) {
-            return redirect(asset($foto));
-        }
-
-        if (str_starts_with($foto, 'http://') || str_starts_with($foto, 'https://')) {
-            $host = strtolower((string) parse_url($foto, PHP_URL_HOST));
-            $dipilih = in_array($host, self::FOTO_WHITELIST_HOSTS, true)
-                || str_ends_with($host, '.figma.com');
-
-            if (! $dipilih) {
-                abort(422, 'Sumber foto tidak diizinkan.');
-            }
-
-            return redirect($foto);
-        }
-
-        if (! preg_match('/^data:image\/(png|jpeg|webp|gif);base64,(.+)$/s', $foto, $m)) {
-            abort(422, 'Format foto tidak valid.');
-        }
-
-        $bytes = base64_decode($m[2], true);
-        if ($bytes === false || $bytes === '') {
-            abort(404);
-        }
-
-        $mimeTypes = [
-            'png' => 'image/png',
-            'jpeg' => 'image/jpeg',
-            'webp' => 'image/webp',
-            'gif' => 'image/gif',
-        ];
-
-        return response($bytes, 200, [
-            'Content-Type' => $mimeTypes[$m[1]] ?? 'image/jpeg',
-            'Cache-Control' => 'private, no-store, must-revalidate',
-            'X-Content-Type-Options' => 'nosniff',
-        ]);
-    }
-
     public function pengaturan()
     {
         return view('dashboard.pengaturan');
@@ -731,29 +681,11 @@ return view('dashboard.nilai', [
                     $fail('Email tidak dapat diubah.');
                 }
             }],
-            'foto' => ['nullable', 'string', 'max:3000000', function ($attribute, $value, $fail) {
-                if (blank($value) || str_starts_with($value, 'http://') || str_starts_with($value, 'https://')) {
-                    return;
-                }
-                if (! preg_match('/^data:image\/(png|jpeg|webp|gif);base64,(.+)$/s', $value, $m)) {
-                    $fail('Format foto tidak didukung. Gunakan PNG, JPG, WEBP, atau GIF.');
-
-                    return;
-                }
-                $bytes = base64_decode($m[1], true);
-                if ($bytes === false || $bytes === '') {
-                    $fail('Berkas foto tidak valid (data base64 rusak).');
-                }
-            }],
         ]);
 
         $data['email'] = $user->email;
         $data['sekolah'] = $user->sekolah;
         $data['kelas_jurusan'] = $user->kelas_jurusan;
-
-        if (! blank($data['foto'] ?? null) && str_starts_with($data['foto'], 'data:')) {
-            $data['foto'] = UserFoto::compress($data['foto']);
-        }
 
         $user->update($data);
 
