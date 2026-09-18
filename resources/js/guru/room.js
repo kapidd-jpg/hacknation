@@ -36,6 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const sendKontrol = (play, waktu) => {
         if (!ctx.kontrolUrl) return;
+        // Preview (sebelum tombol "Presentasi" ditekan) TIDAK boleh menyebar ke
+        // siswa — atau video siswa akan ikut play sebelum guru memulai presentasi.
+        if (!presented) return;
         fetch(ctx.kontrolUrl, {
             method: 'POST',
             headers: {
@@ -183,6 +186,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (ok) {
                 presented = true;
                 setBadge('Sinkron LIVE', true);
+                // Kirim status play saat ini secara eksplisit — kalau guru mau video
+                // mulai/berhenti ikut disinkronkan ke siswa begitu presentasi dimulai.
+                sendKontrol(
+                    !!(ytCtl && ytCtl.state() === YT_STATE.PLAYING),
+                    ytCtl ? ytCtl.time() : 0
+                );
             } else {
                 alert('Gagal menyinkronkan materi ke room.');
             }

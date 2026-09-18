@@ -37,6 +37,7 @@ export function mountYtPlayer(host, videoId, onEvent, opts = {}) {
 
     let pendingId = null;
     const initialId = videoId;
+    const cueMode = !!opts.cueInsteadOfPlay;
 
     const ctl = {
         id: videoId,
@@ -50,12 +51,15 @@ export function mountYtPlayer(host, videoId, onEvent, opts = {}) {
         // Ganti video TANPA destroy/recreate pada instance yang sama. Menghindari
         // iframe hitam yang muncul bila player di-destroy lalu dibuat ulang saat
         // guru/siswa berganti-ganti modul video. Bila player belum ready, id baru
-        // dimuat saat onReady.
+        // dimuat saat onReady. Di mode cue (siswa), ganti video TANPA memutarnya.
         load: (newId) => {
             ctl.id = newId;
             if (!ctl.player) return;
             if (ctl.ready) {
-                try { ctl.player.loadVideoById(newId); } catch (_) {}
+                try {
+                    if (cueMode) ctl.player.cueVideoById(newId);
+                    else ctl.player.loadVideoById(newId);
+                } catch (_) {}
             } else {
                 pendingId = newId;
             }
@@ -75,15 +79,20 @@ export function mountYtPlayer(host, videoId, onEvent, opts = {}) {
         const idc = 'pkyt' + Math.random().toString(36).slice(2, 8);
         host.id = idc;
 
+        const playerVars = Object.assign({ rel: 0, playsinline: 1, modestbranding: 1 }, opts.playerVars || {});
+
         ctl.player = new window.YT.Player(idc, {
-            videoId: pendingId || initialId,
-            playerVars: Object.assign({ rel: 0, playsinline: 1, modestbranding: 1 }, opts.playerVars || {}),
+            // Mode cue: buat tanpa videoId supaya TIDAK auto-play begitu player lahir
+            // (guru belum tentu menekan "Presentasi"; siswa harus menunggu sinyal).
+            videoId: cueMode ? '' : (pendingId || initialId),
+            playerVars,
             events: {
                 onReady: () => {
                     ctl.ready = true;
-                    if (pendingId && pendingId !== initialId) {
-                        try { ctl.player.loadVideoById(pendingId); } catch (_) {}
-                    }
+                    try {
+                        if (cueMode) ctl.player.cueVideoById(pendingId || initialId);
+                        else if (pendingId && pendingId !== initialId) ctl.player.loadVideoById(pendingId);
+                    } catch (_) {}
                     pendingId = null;
                     try { onEvent && onEvent('ready', ctl); } catch (_) {}
                 },

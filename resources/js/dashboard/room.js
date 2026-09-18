@@ -44,7 +44,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         ytCtl = mountYtPlayer(host, videoId, (type) => {
             if (type === 'ready') applyPlayback(lastPlay, lastWaktu);
-        }, { playerVars: ctx.isStaff ? {} : { controls: 0, disablekb: 1 } });
+        }, {
+            // Siswa: cue dulu, JANGAN auto-play. Video baru mulai saat guru benar-benar
+            // menekan "Presentasi" (dikendalikan sinyal play/waktu dari server).
+            cueInsteadOfPlay: true,
+            playerVars: ctx.isStaff ? {} : { controls: 0, disablekb: 1 },
+        });
     };
 
     const applyPlayback = (play, waktu) => {
