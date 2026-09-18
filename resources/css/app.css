@@ -265,7 +265,7 @@ h3 {
     max-width: 1200px;
     margin-inline: auto;
     padding: 0 24px;
-    background: rgba(255, 255, 255, 0.9);
+    background: #FFFFFF;
     -webkit-backdrop-filter: blur(14px);
     backdrop-filter: blur(14px);
     border: 1px solid rgba(16, 26, 46, 0.08);
@@ -274,7 +274,7 @@ h3 {
     transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .site-header.is-scrolled .site-nav-wrap {
-    background: rgba(255, 255, 255, 0.97);
+    background: #FFFFFF;
     border-color: rgba(16, 26, 46, 0.14);
     box-shadow: 0 14px 34px -14px rgba(16, 26, 46, 0.32), 0 2px 8px -4px rgba(16, 26, 46, 0.12);
 }
