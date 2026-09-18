@@ -289,6 +289,19 @@
 
 .room-voice-btn--leave { background: var(--danger); border-color: var(--danger); color: #FFFDF5; }
 
+.room-voice-btn--test { background: transparent; border-style: dashed; color: var(--ink-muted); font-weight: 700; }
+.room-voice-btn--test:hover { background: var(--paper-100); color: var(--ink); }
+.room-voice-btn--listen { background: transparent; border-style: dashed; color: rgba(15, 118, 110, 0.85); font-weight: 700; }
+.room-voice-btn--listen:hover { background: rgba(15, 118, 110, 0.08); color: var(--teal, #0F766E); }
+.room-voice-btn.is-busy { opacity: 0.6; cursor: wait; }
+
+.room-mictest { display: none; margin: 0; font-size: 12px; line-height: 1.55; color: var(--ink-muted); }
+.room-mictest.is-show { display: block; }
+.room-mictest.is-ok { color: var(--sukses); }
+.room-mictest.is-err { color: var(--danger); }
+.room-mictest-bar { display: block; height: 6px; border-radius: 999px; background: rgba(16, 26, 46, 0.08); overflow: hidden; margin-top: 7px; }
+.room-mictest-bar i { display: block; height: 100%; width: 0%; background: var(--sukses); border-radius: 999px; transition: width 90ms linear; }
+
 .room-voice-btn[disabled], .room-voice-btn.is-disabled { opacity: 0.55; cursor: not-allowed; }
 
 /* ---------- Daftar peserta ---------- */

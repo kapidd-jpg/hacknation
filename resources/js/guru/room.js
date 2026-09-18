@@ -291,6 +291,10 @@ listenRoom(ctx.channelName, (e) => {
             participantsEl: 'roomPeserta',
             countEl: 'roomPesertaCount',
             stateEl: 'roomVoiceState',
+            micTestBtn: 'roomMicTestBtn',
+            micTestOut: 'roomMicTestOut',
+            listenBtn: 'roomListenBtn',
+            listenOut: 'roomListenOut',
         },
     });
 

@@ -93,7 +93,17 @@
                             Mute
                         </button>
                         <button type="button" class="room-voice-btn room-voice-btn--leave" id="roomLeaveBtn" disabled>Keluar</button>
+                        <button type="button" class="room-voice-btn room-voice-btn--test" id="roomMicTestBtn" title="Cek mikrofon &amp; izin akses tanpa mengganggu peserta">
+                            <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12a7 7 0 1014 0M12 5v7m0 0l-2.5-2.5M12 12l2.5-2.5"/></svg>
+                            Tes Mic
+                        </button>
+                        <button type="button" class="room-voice-btn room-voice-btn--listen" id="roomListenBtn" disabled title="Dengarkan suara peserta lain untuk cek audio dua arah">
+                            <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10v4h4l5 5V5L7 10H3zm13.5 2a4.5 4.5 0 000-9M15 12a4.5 4.5 0 004.5 4.5M15 6.5a4.5 4.5 0 010 9"/></svg>
+                            Tes Dengarkan
+                        </button>
                     </div>
+                    <p class="room-mictest" id="roomMicTestOut"></p>
+                    <p class="room-mictest" id="roomListenOut"></p>
 
                     <div>
                         <p class="room-panel-title" style="font-size:12.5px;">Peserta Online</p>
