@@ -146,6 +146,7 @@
 @push('scripts')
     <script>
         window.pintarKuyPengaturanUrl = @json(route('dashboard.pengaturan.update'));
+        window.pintarKuyFotoUrl = @json(route('user.foto'));
         window.pintarKuyKeamananUrl = @json(route('dashboard.pengaturan.keamanan'));
         window.pintarKuyCsrf = @json(csrf_token());
     </script>

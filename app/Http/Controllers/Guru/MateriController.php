@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Guru;
 use App\Http\Controllers\Controller;
 use App\Models\Kelas;
 use App\Models\Materi;
+use App\Support\UserNotif;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -39,7 +40,18 @@ class MateriController extends Controller
     {
         $data = $this->validated($request);
         $this->authorizeKelas($data['kelas_id']);
-        Materi::query()->create($data);
+        $materi = Materi::query()->create($data);
+
+        $kelas = $materi->kelas;
+        if ($kelas) {
+            UserNotif::pushToMany(
+                $kelas->siswaTerdaftar,
+                'Materi baru: ' . $materi->judul,
+                'Tersedia di kelas ' . $kelas->name . '. Yuk pelajari sekarang.',
+                'materi',
+                ['url' => route('dashboard.kelas'), 'icon' => 'materi']
+            );
+        }
 
         return redirect()->route('guru.materi.index')->with('status', 'Materi berhasil ditambahkan.');
     }

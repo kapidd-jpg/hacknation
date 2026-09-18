@@ -17,10 +17,21 @@
             <svg class="size-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
             <span>Ganjil 2026/2027</span>
         </span>
-        <button class="dash-topbar-btn relative hidden" title="Notifikasi segera hadir">
-            <svg class="size-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.4-1.4A2 2 0 0118 14.2V11a6 6 0 10-12 0v3.2a2 2 0 01-.6 1.4L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-            <span class="dash-topbar-dot"></span>
-        </button>
+        <div class="dash-notif" id="notifWrap">
+            <button class="dash-topbar-btn relative" id="notifToggle" type="button" aria-expanded="false" aria-controls="notifPanel" title="Notifikasi">
+                <svg class="size-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.4-1.4A2 2 0 0118 14.2V11a6 6 0 10-12 0v3.2a2 2 0 01-.6 1.4L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                <span class="dash-notif-dot" id="notifDot" hidden></span>
+                <span class="dash-notif-badge" id="notifBadge" hidden>0</span>
+            </button>
+            <div class="dash-notif-panel" id="notifPanel" hidden>
+                <div class="dash-notif-head">
+                    <b>Notifikasi</b>
+                    <button type="button" id="notifReadAll" class="dash-notif-readall">Tandai semua dibaca</button>
+                </div>
+                <div class="dash-notif-list" id="notifList"></div>
+                <a class="dash-notif-foot" href="{{ route('notifikasi.index') }}">Lihat semua notifikasi</a>
+            </div>
+        </div>
         <span class="dash-topbar-div hidden md:block"></span>
         <div class="flex items-center gap-2.5">
             <div class="relative size-8 shrink-0">
@@ -38,3 +49,15 @@
         </div>
     </div>
 </header>
+
+@push('scripts')
+    <script>
+        window.pintarKuyNotif = {
+            csrf: @json(csrf_token()),
+            fetchUrl: @json(route('notifikasi.fetch')),
+            readUrl: @json(route('notifikasi.read', ['notification' => '__ID__'])),
+            readAllUrl: @json(route('notifikasi.readall')),
+        };
+    </script>
+    @vite(['resources/js/dashboard/notifications.js'])
+@endpush

@@ -148,10 +148,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     name: nama ? nama.value.trim() : '',
                     bio: bio ? bio.value.trim() : '',
                 };
-                const userBefore = auth.user() || {};
+const userBefore = auth.user() || {};
                 const photoValue = pickedFoto || userBefore.photo || '';
                 syncChips(profil.name, photoValue);
-                auth.login({ ...profil, photo: photoValue });
 
                 const url = window.pintarKuyPengaturanUrl || '';
                 if (url) {
@@ -162,20 +161,33 @@ document.addEventListener('DOMContentLoaded', () => {
                         headers: {
                             'Content-Type': 'application/json',
                             'Accept': 'application/json',
-'X-CSRF-TOKEN': window.pintarKuyCsrf || (document.querySelector('meta[name="csrf-token"]') || {}).getAttribute?.('content') || '',
+                            'X-CSRF-TOKEN': window.pintarKuyCsrf || (document.querySelector('meta[name="csrf-token"]') || {}).getAttribute?.('content') || '',
                         },
                         body: JSON.stringify(payload),
                     })
                         .then((r) => r.json().catch(() => ({})))
                         .then((res) => {
                             if (res && res.ok === true) {
+                                // Simpan ke localStorage HANYA setelah server sukses,
+                                // supaya chip nama/foto tidak menampilkan versi "phantom".
+                                const fotoBase = window.pintarKuyFotoUrl || '';
+                                const newPhoto = pickedFoto
+                                    ? (fotoBase ? fotoBase + (fotoBase.includes('?') ? '&' : '?') + 'v=' + Date.now() : photoValue)
+                                    : (userBefore.photo || '');
+                                auth.login({ ...profil, photo: newPhoto });
+                                syncChips(profil.name, newPhoto);
                                 showToast(res.message || 'Profil berhasil disimpan.');
                             } else {
+                                syncChips(userBefore.name, userBefore.photo);
                                 showToast((res && res.message) || 'Gagal menyimpan profil. Periksa kembali isianmu.');
                             }
                         })
-                        .catch(() => showToast('Gagal menyimpan profil. Periksa koneksimu.'));
+                        .catch(() => {
+                            syncChips(userBefore.name, userBefore.photo);
+                            showToast('Gagal menyimpan profil. Periksa koneksimu.');
+                        });
                 } else {
+                    auth.login({ ...profil, photo: photoValue });
                     showToast(btn.dataset.msg || 'Profil berhasil disimpan.');
                 }
                 return;

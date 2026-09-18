@@ -34,6 +34,7 @@ export default defineConfig({
                 'resources/js/dashboard/laporan.js',
                 'resources/js/dashboard/pengaturan.js',
                 'resources/js/dashboard/latsol.js',
+                'resources/js/dashboard/notifications.js',
                 'resources/js/dashboard/paket.js',
                 'resources/js/guru/soal.js',
                 'resources/js/dashboard/room.js',

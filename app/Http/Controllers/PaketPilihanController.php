@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Paket;
+use App\Support\UserNotif;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -56,6 +57,14 @@ class PaketPilihanController extends Controller
         }
 
         $user->pakets()->syncWithoutDetaching([$paket->id]);
+
+        UserNotif::push(
+            $user,
+            'Paket ' . $paket->nama . ' aktif',
+            'Selamat! Akses paket sudah terbuka. Mulai belajar kapan pun kamu siap.',
+            'paket',
+            ['url' => route('dashboard'), 'icon' => 'paket']
+        );
 
         return redirect()->route('paket.berhasil')->with([
             'paketNama' => $paket->nama,
